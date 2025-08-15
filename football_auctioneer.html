@@ -581,31 +581,47 @@
       renderCurrent();
     }
 
-    function sell() {
-      if (!state.current) {
-        alert('No active player.');
-        return;
-      }
-      if (state.current.bidder === null) {
-        alert('No bids yet. Cannot sell.');
-        return;
-      }
-      const { player, category, bid, bidder } = state.current;
-      state.teams[bidder].budget -= bid;
-      state.sales.push({
-        timeISO: new Date().toISOString(),
-        team: state.teams[bidder].name,
-        teamIndex: bidder,
-        playerId: player.id,
-        playerName: player.name,
-        category,
-        price: bid,
-        position: player.position || '',
-      });
-      state.current = null;
-      cancelTimer();
-      renderAll();
-    }
+	function sell() {
+	  if (!state.current) {
+	    alert('No active player.');
+	    return;
+	  }
+	  if (state.current.bidder === null) {
+	    alert('No bids yet. Cannot sell.');
+	    return;
+	  }
+	  const { player, category, bid, bidder } = state.current;
+	  state.teams[bidder].budget -= bid;
+	  state.sales.push({
+	    timeISO: new Date().toISOString(),
+	    team: state.teams[bidder].name,
+	    teamIndex: bidder,
+	    playerId: player.id,
+	    playerName: player.name,
+	    category,
+	    price: bid,
+	    position: player.position || '',
+	  });
+	
+	  // Clear current player and stop timer
+	  state.current = null;
+	  cancelTimer();
+	
+	  // Save updated data to localStorage for captain dashboards
+	  localStorage.setItem('auctionSales', JSON.stringify(state.sales));
+	  localStorage.setItem('auctionBudgets', JSON.stringify(state.teams.map(t => t.budget)));
+	
+	  // Broadcast updates to other tabs if supported
+	  if (window.BroadcastChannel) {
+	    const channel = new BroadcastChannel('auction_updates');
+	    channel.postMessage({
+	      sales: state.sales,
+	      budgets: state.teams.map(t => t.budget),
+	    });
+	  }
+	
+	  renderAll();
+	}
 
     function undoLastSale() {
       const last = state.sales.pop();
