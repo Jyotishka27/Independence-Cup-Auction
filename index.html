@@ -5,22 +5,39 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Football Auctioneer</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
-    .countdown.blink { animation: blink 1s steps(2, start) infinite; }
-    @keyframes blink { to { visibility: hidden; } }
-    .scroll-smooth { scroll-behavior: smooth; }
-    img[alt="player"] { object-fit: cover; }
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    .countdown.blink {
+      animation: blink 1s steps(2, start) infinite;
+    }
+    @keyframes blink {
+      to {
+        visibility: hidden;
+      }
+    }
+    .scroll-smooth {
+      scroll-behavior: smooth;
+    }
+    img[alt="player"] {
+      object-fit: cover;
+    }
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 scroll-smooth">
-  <!-- == HEADER == -->
+
+  <!-- HEADER -->
   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
-      <div class="text-xl font-bold">⚽ Football Auctioneer</div>
+      <div class="text-xl font-bold">⚽ (Independence Cup 2025 Auction</div>
       <nav class="ml-auto flex items-center gap-2 text-sm">
         <button id="btnSaveState" class="px-3 py-1.5 rounded-xl bg-slate-900 text-white hover:opacity-90">Save</button>
         <label class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 cursor-pointer">Load
@@ -28,19 +45,23 @@
         </label>
         <button id="btnExportCSV" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700">Export CSV</button>
         <button id="btnResetAll" class="px-3 py-1.5 rounded-xl border border-rose-300 text-rose-700 hover:bg-rose-50">Reset</button>
-		<button id="btnAuctionUnsold" class="px-3 py-2 rounded-xl bg-yellow-600 text-white hover:bg-yellow-700">Auction Unsold Players</button>
+        <button id="btnAuctionUnsold" class="px-3 py-2 rounded-xl bg-yellow-600 text-white hover:bg-yellow-700">Auction Unsold Players</button>
       </nav>
     </div>
   </header>
+
+  <!-- MAIN CONTENT -->
   <main class="max-w-7xl mx-auto p-4 grid lg:grid-cols-3 gap-4">
-    <!-- == LEFT: CATEGORY & CURRENT PLAYER == -->
+
+    <!-- LEFT: Categories and Current Player -->
     <section class="lg:col-span-2 space-y-4">
-      <!-- Config / How to edit data -->
+
+      <!-- Instructions -->
       <details class="bg-white rounded-2xl border border-slate-200 p-4" open>
         <summary class="font-semibold cursor-pointer select-none">Information</summary>
         <div class="mt-3 text-sm text-slate-700 space-y-2">
           <p>
-            Update the <code>TEAMS</code> and <code>PLAYERS</code> data inside the <strong>"// = DATA YOU CAN EDIT ="</strong> section below. 
+            Update the <code>TEAMS</code> and <code>PLAYERS</code> data inside the <strong>"// = DATA YOU CAN EDIT ="</strong> section below.
             Put image URLs if you have them. Base price is the minimum starting bid.
           </p>
           <ul class="list-disc pl-6">
@@ -51,42 +72,43 @@
           </ul>
         </div>
       </details>
-	  
+
       <!-- Category Controls -->
       <div class="bg-white rounded-2xl border border-slate-200 p-4">
         <div class="flex items-center justify-between gap-3 flex-wrap">
           <div class="flex items-center gap-2">
             <span class="text-sm text-slate-600">Category:</span>
-            <div class="inline-flex rounded-xl overflow-hidden border border-slate-200">
-              <button data-cat="GK" class="catBtn px-3 py-1.5 text-sm bg-slate-900 text-white">BP: 4</button>
-              <button data-cat="A" class="catBtn px-3 py-1.5 text-sm hover:bg-slate-100">BP: 6</button>
-              <button data-cat="B" class="catBtn px-3 py-1.5 text-sm hover:bg-slate-100">BP: 3 & 5</button>
-			  <button data-cat="UNSOLD" class="catBtn px-3 py-1.5 text-sm hover:bg-slate-100">UnSold</button>
+            <div class="inline-flex rounded-xl overflow-hidden border border-slate-200" role="tablist" aria-label="Player categories">
+              <button data-cat="GK" class="catBtn px-3 py-1.5 text-sm bg-slate-900 text-white" role="tab">BP: 4</button>
+              <button data-cat="A" class="catBtn px-3 py-1.5 text-sm hover:bg-slate-100" role="tab">BP: 6</button>
+              <button data-cat="B" class="catBtn px-3 py-1.5 text-sm hover:bg-slate-100" role="tab">BP: 3 & 5</button>
+              <button data-cat="UNSOLD" class="catBtn px-3 py-1.5 text-sm hover:bg-slate-100" role="tab">UnSold</button>
             </div>
           </div>
           <div class="flex items-center gap-2">
-            <button id="btnNext" class="px-3 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700">Next Player (Random)</button>
-            <button id="btnSkip" class="px-3 py-1.5 rounded-xl border border-slate-300 hover:bg-slate-50">Skip</button>
+            <button id="btnNext" class="px-3 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700" aria-disabled="false">Next Player (Random)</button>
+            <button id="btnSkip" class="px-3 py-1.5 rounded-xl border border-slate-300 hover:bg-slate-50" aria-disabled="false">Skip</button>
             <button id="btnUndo" class="px-3 py-1.5 rounded-xl border border-amber-300 text-amber-700 hover:bg-amber-50">Undo Last Sale</button>
           </div>
         </div>
         <p class="mt-2 text-xs text-slate-500">Random draw is from the currently selected category. Skipped players remain in the pool.</p>
       </div>
+
       <!-- Current Player Card -->
-      <div class="bg-white rounded-2xl border border-slate-200 p-4 grid md:grid-cols-3 gap-4" id="currentPlayerCard" hidden>
+      <div id="currentPlayerCard" class="bg-white rounded-2xl border border-slate-200 p-4 grid md:grid-cols-3 gap-4" hidden>
         <div>
-          <img id="playerImg" alt="player" class="w-full h-56 rounded-xl border border-slate-200 bg-slate-100" src="" onerror="this.src='https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=800&auto=format&fit=crop'"/>
+          <img id="playerImg" alt="player" class="w-full h-56 rounded-xl border border-slate-200 bg-slate-100" src="" />
         </div>
         <div class="md:col-span-2 flex flex-col gap-3">
           <div class="flex items-center justify-between">
             <div>
               <h2 id="playerName" class="text-xl font-bold">—</h2>
-				<p class="text-sm text-slate-600">
-					Category: <span id="playerCat">—</span>
-				</p>
-				<p class="text-sm text-slate-600">
-				  Position: <span id="playerPosition">—</span>
-				</p>
+              <p class="text-sm text-slate-600">
+                Category: <span id="playerCat">—</span>
+              </p>
+              <p class="text-sm text-slate-600">
+                Position: <span id="playerPosition">—</span>
+              </p>
             </div>
             <div class="text-right">
               <div class="text-xs text-slate-500">Base Price</div>
@@ -95,38 +117,40 @@
           </div>
           <div class="grid sm:grid-cols-3 gap-3 items-end">
             <div>
-              <label class="text-xs text-slate-500">Highest Bidder</label>
-              <select id="bidTeam" class="w-full mt-1 rounded-xl border-slate-300">
-              </select>
+              <label for="bidTeamsContainer" class="text-xs text-slate-500 mb-1 block">Place Bid</label>
+              <div id="bidTeamsContainer" class="grid grid-cols-3 gap-2" role="list" aria-label="Place bid buttons"></div>
             </div>
             <div>
-              <label class="text-xs text-slate-500">Bid Increment</label>
-              <input id="bidStep" type="number" class="w-full mt-1 rounded-xl border-slate-300" value="50000" min="1" />
+              <label for="bidStep" class="text-xs text-slate-500">Bid Increment</label>
+              <input id="bidStep" type="number" class="w-full mt-1 rounded-xl border-slate-300" value="50000" min="1" inputmode="numeric" aria-describedby="bidStepHelp" />
+              <div id="bidStepHelp" class="sr-only">Enter the increment for bids</div>
             </div>
             <div>
-              <label class="text-xs text-slate-500">Current Bid</label>
-              <input id="currentBid" type="number" class="w-full mt-1 rounded-xl border-slate-300" readonly />
+              <label for="currentBid" class="text-xs text-slate-500">Current Bid</label>
+              <input id="currentBid" type="number" class="w-full mt-1 rounded-xl border-slate-300" readonly aria-readonly="true" />
             </div>
           </div>
-          <div class="flex items-center gap-2">
-            <button id="btnPlaceBid" class="px-3 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700">Place Bid</button>
-            <button id="btnSell" class="px-3 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700">Sell</button>
-            <div class="ml-auto flex items-center gap-2">
+          <div class="flex items-center gap-2 mt-2">
+            <button id="btnSell" class="px-3 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700" aria-disabled="false">Sell</button>
+            <div class="ml-auto flex items-center gap-2" aria-live="polite" aria-atomic="true">
               <span class="text-sm text-slate-600">Timer:</span>
               <span id="countdown" class="px-3 py-1.5 rounded-xl border border-slate-300">—</span>
               <button id="btnCancelTimer" class="px-2 py-1 rounded-lg border border-slate-300 text-xs">Cancel</button>
             </div>
           </div>
-          <div id="warn" class="text-sm text-rose-600"></div>
+          <div id="warn" class="text-sm text-rose-600" role="alert" aria-live="assertive"></div>
         </div>
       </div>
+
       <!-- Remaining in Category -->
       <div class="bg-white rounded-2xl border border-slate-200 p-4">
         <h3 class="font-semibold mb-2">Remaining in Category <span id="remainCat">BP: 4</span> (<span id="remainCount">0</span>)</h3>
         <div id="remainList" class="grid sm:grid-cols-2 md:grid-cols-3 gap-2 text-sm"></div>
       </div>
+
     </section>
-    <!-- == RIGHT: TEAMS & RESULTS == -->
+
+    <!-- RIGHT: Teams & Results -->
     <aside class="space-y-4">
       <div class="bg-white rounded-2xl border border-slate-200 p-4">
         <div class="flex items-center justify-between mb-2">
@@ -138,487 +162,614 @@
       <div class="bg-white rounded-2xl border border-slate-200 p-4">
         <div class="flex items-center justify-between">
           <h3 class="font-semibold">Results (Live)</h3>
-          <button id="btnToggleResults" class="text-sm underline">Toggle</button>
+          <button id="btnToggleResults" class="text-sm underline" aria-pressed="true">Toggle</button>
         </div>
         <div id="results" class="mt-3 space-y-3"></div>
       </div>
     </aside>
-  </main>
-  <!-- == SCRIPT == -->
-  <script>
-  // =========
-  // = DATA YOU CAN EDIT =====
-  // =========
-  const TEAMS = [
-    { name: 'Ayon Roy', budget: 4000000 },
-    { name: 'Subhojit Dutta', budget: 4000000 },
-    { name: 'Ritam Chowdhury', budget: 4000000 },
-    { name: 'Shubhanjan Basu', budget: 4000000 },
-    { name: 'Srinjoy Kundu', budget: 4000000 },
-    { name: 'Subhamoy Das', budget: 4000000 },
-  ];
-  const PLAYERS = {
-  
-    // GK list
-    GK: [
-      { id: 'gk1', name: 'Aditya Chakraborty', basePrice: 400000, img: '', position: 'Goalkeeper' },
-      { id: 'gk2', name: 'Arko Dutta',  basePrice: 400000, img: '', position: 'Goalkeeper' },
-      { id: 'gk3', name: 'Arnab Talukdar',  basePrice: 400000, img: '', position: 'Goalkeeper' },
-      { id: 'gk4', name: 'Dhruv',  basePrice: 400000, img: '', position: 'Goalkeeper' },
-      { id: 'gk5', name: 'Rupayan Chakraborty',  basePrice: 400000, img: '', position: 'Goalkeeper' },
-      { id: 'gk6', name: 'Soumadeep Dutta',  basePrice: 400000, img: '', position: 'Goalkeeper' },
-    ],
-	
-    // Group A
-    A: [
-      { id: 'a1', name: 'Soumik Mukherjee', basePrice: 600000, img: '', position: 'Defence' },
-      { id: 'a2', name: 'Suvam Chakraborty',  basePrice: 600000, img: '', position: 'Defence' },
-      { id: 'a3', name: 'Jeffin Mathew',  basePrice: 600000, img: '', position: 'Midfield' },
-      { id: 'a4', name: 'Risove Show',  basePrice: 600000, img: '', position: 'Midfield' },
-      { id: 'a5', name: 'Vasu Gupta',  basePrice: 600000, img: '', position: 'Striker' },
-    ],
-	
-    // Group B
-    B: [
-	  { id: 'r1', name: 'Rahul Sarkar', position: 'Defence', basePrice: 500000, img: '' },
-	  { id: 'a1', name: 'Akash Mukherjee', position: 'Midfield', basePrice: 500000, img: '' },
-	  { id: 'b1', name: 'Biswajit Karmakar', position: 'Midfield', basePrice: 500000, img: '' },
-	  { id: 'k1', name: 'Krishnendu Mondal', position: 'Midfield', basePrice: 500000, img: '' },
-	  { id: 'ar1', name: 'Aritra Adhikari', position: 'Striker', basePrice: 500000, img: '' },
-	  { id: 's1', name: 'Sourav Acharya', position: 'Striker', basePrice: 500000, img: '' },
-	  { id: 'su1', name: 'Supratim Sengupta', position: 'Striker', basePrice: 500000, img: '' },
-	  { id: 'pr1', name: 'Proloy Malik', position: 'Defence', basePrice: 500000, img: '' },
-	  { id: 'pu1', name: 'Pulak Dowari', position: 'Defence', basePrice: 500000, img: '' },
-	  { id: 'sa1', name: 'Sanchay Bose', position: 'Defence', basePrice: 500000, img: '' },
-	  { id: 'si1', name: 'Siddhant Ameria', position: 'Midfield', basePrice: 500000, img: '' },
-	  { id: 'so1', name: 'Sourav Das', position: 'Midfield', basePrice: 500000, img: '' },
-	  { id: 'k2', name: 'Kaustav Guha Mazumdar', position: 'Striker', basePrice: 500000, img: '' },
-	  { id: 'sh1', name: 'Shivaditya Gunin', position: 'Striker', basePrice: 500000, img: '' },
-	  { id: 'am1', name: 'Aman Pandey', position: 'Defence', basePrice: 500000, img: '' },
-	  { id: 'ay1', name: 'Ayan Das', position: 'Defence', basePrice: 300000, img: '' },
-	  { id: 'k3', name: 'Kingshuk Banerjee', position: 'Midfield', basePrice: 300000, img: '' },
-	  { id: 'ar2', name: 'Arghadeep Das', position: 'Defence', basePrice: 300000, img: '' },
-	  { id: 'di1', name: 'Dibwayan Trivedi', position: 'Defence', basePrice: 300000, img: '' },
-	  { id: 'di2', name: 'Dipanjan Mazumder', position: 'Defence', basePrice: 300000, img: '' },
-	  { id: 'sa2', name: 'Satyaki Sarkar', position: 'Defence', basePrice: 300000, img: '' },
-	  { id: 'ya1', name: 'Yash Agarwal', position: 'Defence', basePrice: 300000, img: '' },
-	  { id: 'su2', name: 'Subhayan Banerjee', position: 'Defence', basePrice: 300000, img: '' },
-	  { id: 'an1', name: 'Ankit Aich', position: 'Defence', basePrice: 300000, img: '' },
-	  { id: 'sa3', name: 'Sagnik Chakraborty', position: 'Midfield', basePrice: 300000, img: '' },
-	  { id: 'sh2', name: 'Shardendu Lahiri', position: 'Midfield', basePrice: 300000, img: '' },
-	]
-  };
-  // =========
-  // == APP LOGIC ====
-  // =========
-	const state = {
-	  category: 'GK',
-	  pools: { GK: [], A: [], B: [], UNSOLD: [] },  // Add UNSOLD category
-	  skipped: { GK: [], A: [], B: [] },
-	  current: null,
-	  teams: [],
-	  sales: [],
-	  timer: { handle: null, left: 0, running: false }
-	};
-  // --- Utilities ---
-  const fmt = (n)=> new Intl.NumberFormat('en-IN').format(n);
-  const el = (id)=> document.getElementById(id);
-	function cloneData() {
-	  state.teams = TEAMS.map(t => ({ ...t }));
-	  state.pools.GK = PLAYERS.GK.map(p => ({ ...p }));
-	  state.pools.A = PLAYERS.A.map(p => ({ ...p }));
-	  state.pools.B = PLAYERS.B.map(p => ({ ...p }));
-	  // Initialize UNSOLD pool empty
-	  state.pools.UNSOLD = [];
-	  state.skipped = { GK: [], A: [], B: [], UNSOLD: [] };
-	  state.category = 'GK';
-	  state.current = null;
-	  state.sales = [];
-	  cancelTimer();
-	  renderAll();
-	}
-  // --- Rendering ---
-  function renderAll(){
-    renderTeams();
-    renderResults();
-    renderRemain();
-    renderCurrent();
-    highlightCat();
-  }
-  function highlightCat(){
-    document.querySelectorAll('.catBtn').forEach(b=>{
-      if(b.dataset.cat === state.category){
-        b.classList.add('bg-slate-900','text-white');
-      } else {
-        b.classList.remove('bg-slate-900','text-white');
-      }
-    });
-    // Use proper category labels
-    
-	function highlightCat(){
-	  document.querySelectorAll('.catBtn').forEach(b=>{
-		if(b.dataset.cat === state.category){
-		  b.classList.add('bg-slate-900','text-white');
-		} else {
-		  b.classList.remove('bg-slate-900','text-white');
-		}
-	  });
-	  
-	  const cat = state.category;
-	  if (cat === 'A') {
-		el('remainCat').textContent = 'BP: 6';
-	  } else if (cat === 'B') {
-		el('remainCat').textContent = 'BP: 3 & 5';
-	  } else if (cat === 'UNSOLD') {
-		el('remainCat').textContent = 'UnSold';
-	  } else {
-		el('remainCat').textContent = 'BP: 4';
-	  }
-	}
 
-	
-  }
-  function renderTeams(){
-    const box = el('teamsTable');
-    box.innerHTML = '';
-    state.teams.forEach((t, i)=>{
-      const row = document.createElement('div');
-      row.className = 'py-2 flex items-center justify-between gap-3';
-      row.innerHTML = `
-        <div class="font-medium">${t.name}</div>
-        <div class="text-right">
-          <div class="text-xs text-slate-500">Remaining</div>
-          <div class="font-semibold"><button data-edit-team="${i}" class="editable underline-offset-2 hover:underline">₹ <span>${fmt(t.budget)}</span></button></div>
-        </div>`;
-      box.appendChild(row);
-    });
-    // Inline edit budgets
-    box.querySelectorAll('[data-edit-team]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const idx = +btn.dataset.editTeam;
-        const current = state.teams[idx].budget;
-        const val = prompt(`Edit remaining budget for ${state.teams[idx].name}`, current);
-        if(val===null) return;
-        const num = Number(val);
-        if(Number.isFinite(num)){
-          state.teams[idx].budget = Math.max(0, Math.floor(num));
-          renderTeams();
+  </main>
+
+  <!-- SCRIPT -->
+  <script>
+  (() => {
+    'use strict';
+
+    // -- Cached DOM elements --
+    const dom = {
+      teamsTable: document.getElementById('teamsTable'),
+      results: document.getElementById('results'),
+      remainCat: document.getElementById('remainCat'),
+      remainCount: document.getElementById('remainCount'),
+      remainList: document.getElementById('remainList'),
+      currentPlayerCard: document.getElementById('currentPlayerCard'),
+      playerImg: document.getElementById('playerImg'),
+      playerName: document.getElementById('playerName'),
+      playerCat: document.getElementById('playerCat'),
+      playerPosition: document.getElementById('playerPosition'),
+      playerBase: document.getElementById('playerBase'),
+      currentBid: document.getElementById('currentBid'),
+      countdown: document.getElementById('countdown'),
+      warn: document.getElementById('warn'),
+      bidTeamsContainer: document.getElementById('bidTeamsContainer'),
+      btnNext: document.getElementById('btnNext'),
+      btnSkip: document.getElementById('btnSkip'),
+      btnSell: document.getElementById('btnSell'),
+      btnCancelTimer: document.getElementById('btnCancelTimer'),
+      btnSaveState: document.getElementById('btnSaveState'),
+      btnExportCSV: document.getElementById('btnExportCSV'),
+      btnResetAll: document.getElementById('btnResetAll'),
+      btnUndo: document.getElementById('btnUndo'),
+      btnToggleResults: document.getElementById('btnToggleResults'),
+      fileLoadState: document.getElementById('fileLoadState'),
+      btnAuctionUnsold: document.getElementById('btnAuctionUnsold'),
+      catButtons: document.querySelectorAll('.catBtn'),
+      bidStepInput: document.getElementById('bidStep'),
+    };
+
+    // -- Constants --
+    const CATEGORY_LABELS = {
+      A: 'BP: 6',
+      B: 'BP: 3 & 5',
+      UNSOLD: 'UnSold',
+      GK: 'BP: 4',
+    };
+
+    // -- Data you can edit --
+    const TEAMS = [
+      { name: 'Ayon Roy', budget: 4000000 },
+      { name: 'Subhojit Dutta', budget: 4000000 },
+      { name: 'Ritam Chowdhury', budget: 4000000 },
+      { name: 'Shubhanjan Basu', budget: 4000000 },
+      { name: 'Srinjoy Kundu', budget: 4000000 },
+      { name: 'Subhamoy Das', budget: 4000000 },
+    ];
+
+    const PLAYERS = {
+      GK: [
+        { id: 'gk1', name: 'Aditya Chakraborty', basePrice: 400000, img: 'Aditya.jpg', position: 'Goalkeeper' },
+        { id: 'gk2', name: 'Arko Dutta', basePrice: 400000, img: 'Arko.jpg', position: 'Goalkeeper' },
+        { id: 'gk3', name: 'Arnab Talukdar', basePrice: 400000, img: 'Arnab.jpg', position: 'Goalkeeper' },
+        { id: 'gk4', name: 'Dhruv', basePrice: 400000, img: 'Dhruv.jpg', position: 'Goalkeeper' },
+        { id: 'gk5', name: 'Rupayan Chakraborty', basePrice: 400000, img: 'Rupayan.jpg', position: 'Goalkeeper' },
+        { id: 'gk6', name: 'Soumadeep Dutta', basePrice: 400000, img: 'Soumadeep.jpg', position: 'Goalkeeper' },
+      ],
+      A: [
+        { id: 'a1', name: 'Soumik Mukherjee', basePrice: 600000, img: 'D:\Doc\Auction\Players\Players\Aditya', position: 'Defence' },
+        { id: 'a2', name: 'Suvam Chakraborty', basePrice: 600000, img: 'D:\Doc\Auction\Players\Players\Aditya', position: 'Defence' },
+        { id: 'a3', name: 'Jeffin Mathew', basePrice: 600000, img: 'D:\Doc\Auction\Players\Players\Aditya', position: 'Midfield' },
+        { id: 'a4', name: 'Risove Show', basePrice: 600000, img: 'D:\Doc\Auction\Players\Players\Aditya', position: 'Midfield' },
+        { id: 'a5', name: 'Vasu Gupta', basePrice: 600000, img: 'D:\Doc\Auction\Players\Players\Aditya', position: 'Striker' },
+      ],
+      B: [
+        { id: 'r1', name: 'Rahul Sarkar', position: 'Defence', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Rahul' },
+        { id: 'a1', name: 'Akash Mukherjee', position: 'Midfield', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'b1', name: 'Biswajit Karmakar', position: 'Midfield', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'k1', name: 'Krishnendu Mondal', position: 'Midfield', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'ar1', name: 'Aritra Adhikari', position: 'Striker', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 's1', name: 'Sourav Acharya', position: 'Striker', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'su1', name: 'Supratim Sengupta', position: 'Striker', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'pr1', name: 'Proloy Malik', position: 'Defence', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'pu1', name: 'Pulak Dowari', position: 'Defence', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'sa1', name: 'Sanchay Bose', position: 'Defence', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'si1', name: 'Siddhant Ameria', position: 'Midfield', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'so1', name: 'Sourav Das', position: 'Midfield', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'k2', name: 'Kaustav Guha Mazumdar', position: 'Striker', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'sh1', name: 'Shivaditya Gunin', position: 'Striker', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'am1', name: 'Aman Pandey', position: 'Defence', basePrice: 500000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'ay1', name: 'Ayan Das', position: 'Defence', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'k3', name: 'Kingshuk Banerjee', position: 'Midfield', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'ar2', name: 'Arghadeep Das', position: 'Defence', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'di1', name: 'Dibwayan Trivedi', position: 'Defence', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'di2', name: 'Dipanjan Mazumder', position: 'Defence', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'sa2', name: 'Satyaki Sarkar', position: 'Defence', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'ya1', name: 'Yash Agarwal', position: 'Defence', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'su2', name: 'Subhayan Banerjee', position: 'Defence', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'an1', name: 'Ankit Aich', position: 'Defence', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'sa3', name: 'Sagnik Chakraborty', position: 'Midfield', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+        { id: 'sh2', name: 'Shardendu Lahiri', position: 'Midfield', basePrice: 300000, img: 'D:\Doc\Auction\Players\Players\Aditya' },
+      ],
+    };
+
+    // -- State --
+    const state = {
+      category: 'GK',
+      pools: { GK: [], A: [], B: [], UNSOLD: [] },
+      skipped: { GK: [], A: [], B: [], UNSOLD: [] },
+      current: null,
+      teams: [],
+      sales: [],
+      timer: {
+        handle: null,
+        left: 0,
+        running: false,
+      },
+    };
+
+    // -- Utility Functions --
+    function fmt(num) {
+      return new Intl.NumberFormat('en-IN').format(num);
+    }
+
+    function catLabel(cat) {
+      return CATEGORY_LABELS[cat] || 'Unknown';
+    }
+
+    // -- Clone initial data to state --
+    function cloneData() {
+      state.teams = TEAMS.map((t) => ({ ...t }));
+      state.pools.GK = PLAYERS.GK.map((p) => ({ ...p }));
+      state.pools.A = PLAYERS.A.map((p) => ({ ...p }));
+      state.pools.B = PLAYERS.B.map((p) => ({ ...p }));
+      state.pools.UNSOLD = [];
+      state.skipped = { GK: [], A: [], B: [], UNSOLD: [] };
+      state.category = 'GK';
+      state.current = null;
+      state.sales = [];
+      cancelTimer();
+      renderAll();
+    }
+
+    // -- Rendering --
+    function renderAll() {
+      renderTeams();
+      renderResults();
+      renderRemain();
+      renderCurrent();
+      highlightCat();
+    }
+
+    function highlightCat() {
+      dom.catButtons.forEach((btn) => {
+        if (btn.dataset.cat === state.category) {
+          btn.classList.add('bg-slate-900', 'text-white');
+          btn.setAttribute('aria-selected', 'true');
+          btn.setAttribute('tabindex', '0');
+        } else {
+          btn.classList.remove('bg-slate-900', 'text-white');
+          btn.setAttribute('aria-selected', 'false');
+          btn.setAttribute('tabindex', '-1');
         }
       });
-    });
-	
-	
-	
-    // Fill bidder dropdown
-    const sel = el('bidTeam');
-    sel.innerHTML = state.teams.map((t,i)=>`<option value="${i}">${t.name}</option>`).join('');
-  }
-  function renderResults(){
-    const byTeam = new Map();
-    state.teams.forEach((t,i)=>byTeam.set(i, { team:t.name, spent:0, players:[] }));
-    state.sales.forEach(s=>{
-      const bucket = byTeam.get(s.teamIndex);
-      bucket.players.push({ name:s.playerName, price:s.price, category:s.category });
-      bucket.spent += s.price;
-    });
-    const wrap = el('results');
-    if(el('btnToggleResults').dataset.hidden==='1') { wrap.innerHTML=''; return; }
-    wrap.innerHTML = '';
-    byTeam.forEach((v, idx)=>{
-      const card = document.createElement('div');
-      card.className = 'rounded-xl border border-slate-200 p-3';
-      const list = v.players.map(p=>`<li class="flex justify-between"><span>${p.name} <span class="text-xs text-slate-500">(${catLabel(p.category)})</span></span><span>₹ ${fmt(p.price)}</span></li>`).join('');
-      card.innerHTML = `
-        <div class="flex items-center justify-between">
-          <div class="font-semibold">${v.team}</div>
-          <div class="text-sm text-slate-600">Spent: <strong>₹ ${fmt(v.spent)}</strong> • Left: <strong>₹ ${fmt(state.teams[idx].budget)}</strong></div>
-        </div>
-        <ul class="mt-2 space-y-1">${list || '<li class="text-slate-500 text-sm">No players yet</li>'}</ul>`;
-      wrap.appendChild(card);
-    });
-  }
-  function renderRemain(){
-	const pool = [
-	  ...(state.pools[state.category] || []), 
-	  ...(state.skipped[state.category] || [])
-	];
-    el('remainCount').textContent = pool.length;
-    const box = el('remainList');
-    box.innerHTML = pool.map(p=>`<div class="rounded-lg border border-slate-200 p-2">${p.name}<div class="text-xs text-slate-500">₹ ${fmt(p.basePrice)}</div></div>`).join('');
-  }
-  function renderCurrent(){
-    const card = el('currentPlayerCard');
-    const warn = el('warn');
-    warn.textContent = '';
-    if(!state.current){ card.hidden = true; return; }
-    card.hidden = false;
-    el('playerImg').src = state.current.player.img || 'https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=800&auto=format&fit=crop';
-    el('playerName').textContent = state.current.player.name;
-    el('playerCat').textContent = catLabel(state.current.category);
-	el('playerPosition').textContent = state.current.player.position || '';
-    el('playerBase').textContent = '₹ ' + fmt(state.current.player.basePrice);
-    el('currentBid').value = state.current.bid;
-    // visual timer
-    const cd = el('countdown');
-    if(state.timer.running){
-      cd.textContent = state.timer.left + 's';
-      cd.classList.toggle('blink', state.timer.left <= 10);
-    } else {
-      cd.textContent = '—';
-      cd.classList.remove('blink');
+      dom.remainCat.textContent = catLabel(state.category);
     }
-  }
-  function catLabel(c){
-    // Return your desired labels
-    return c === 'A' ? 'BP: 6' : c === 'B' ? 'BP: 3 & 5' : 'BP: 4';
-  }
-  // --- Actions ---
-  // ... (rest of the code remains unchanged)
-	function setCategory(cat){
-	  if(state.timer.running){ 
-		if(!confirm('Timer running! Switch category anyway?')) return; 
-		cancelTimer(); 
-	  }
-	  state.category = cat;
-	  renderAll();
-	}
 
-function nextPlayer(){
-  // If a player is currently active, return them to the right pool
-  if(state.current){
-    const { player, category, bidder } = state.current;
-    if(bidder === null){
-      // If no bids, return back to main pool so it's still available
-      state.pools[category].push(player);
-    } else {
-      // If bids exist, return to skipped pool (to allow bidding again later)
-      state.skipped[category].push(player);
-    }
-    state.current = null;
-    cancelTimer();
-  }
+    function renderTeams() {
+      dom.teamsTable.innerHTML = '';
+      state.teams.forEach((team, i) => {
+        const row = document.createElement('div');
+        row.className = 'py-2 flex items-center justify-between gap-3';
+        row.innerHTML = `
+          <div class="font-medium">${team.name}</div>
+          <div class="text-right">
+            <div class="text-xs text-slate-500">Remaining</div>
+            <div class="font-semibold"><button data-edit-team="${i}" class="editable underline-offset-2 hover:underline">₹ <span>${fmt(team.budget)}</span></button></div>
+          </div>
+        `;
+        dom.teamsTable.appendChild(row);
 
-	  const pool = state.pools[state.category];
-	  const skipped = state.skipped[state.category];
-	  const merged = [...pool, ...skipped];
-	  if(merged.length === 0){
-		alert('No players left in this category.');
-		return;
-	  }
-	  // pick random index from merged
-	  const idx = Math.floor(Math.random() * merged.length);
-	  const pick = merged[idx];
-	  // remove from wherever it came
-	  const removeFrom = pool.findIndex(p => p.id === pick.id) >= 0 ? pool : skipped;
-	  const rmIdx = removeFrom.findIndex(p => p.id === pick.id);
-	  removeFrom.splice(rmIdx, 1);
-	  
-	  state.current = { player: pick, category: state.category, bid: pick.basePrice, bidder: null };
-	  cancelTimer();
-	  renderAll();
-	}
-	
-	function skipPlayer(){
-	  if(!state.current) { alert('No active player to skip.'); return; }
-
-	  if(state.current.bidder == null){
-		// Reset base price to 50,000 for unsold player
-		state.current.player.basePrice = 50000;
-		// Add player to UNSOLD pool
-		state.pools.UNSOLD.push(state.current.player);
-	  } else {
-		// Existing logic: move players with bids to skipped pool
-		state.skipped[state.current.category].push(state.current.player);
-	  }
-
-	  state.current = null;
-	  cancelTimer();
-	  renderAll();
-	}
-	function placeBid(){
-	  if(!state.current){ alert('No active player. Click Next Player.'); return; }
-	  const step = Math.max(1, Math.floor(Number(el('bidStep').value)||0));
-	  const teamIdx = Number(el('bidTeam').value);
-	  const team = state.teams[teamIdx];
-
-	  let next;
-	  if(state.current.bidder === null){
-		// First bid = base price (current bid is already basePrice)
-		next = state.current.bid;
-	  } else {
-		// Subsequent bids = previous bid + increment
-		next = Math.floor(state.current.bid + step);
-	  }
-
-	  if(next > team.budget){
-		warn(`Insufficient budget for ${team.name}.`);
-		return;
-	  }
-
-	  state.current.bid = next;
-	  state.current.bidder = teamIdx;
-	  startOrResetTimer();
-	  renderCurrent();
-	}
-  function sell(){
-    if(!state.current){ alert('No active player.'); return; }
-    if(state.current.bidder == null){ alert('No bids yet. Cannot sell.'); return; }
-    const { player, category, bid, bidder } = state.current;
-    // Deduct
-    state.teams[bidder].budget -= bid;
-    // Record sale
-    state.sales.push({ timeISO: new Date().toISOString(), team: state.teams[bidder].name, teamIndex: bidder, playerId: player.id, playerName: player.name, category, price: bid });
-    state.current = null;
-    cancelTimer();
-    renderAll();
-  }
-  function undoLastSale(){
-    const last = state.sales.pop();
-    if(!last){ alert('No sales yet.'); return; }
-    // refund
-    state.teams[last.teamIndex].budget += last.price;
-    // return player to its category pool
-    const orig = findPlayerInMaster(last.playerId, last.category);
-    if(orig){ state.pools[last.category].push({ ...orig }); }
-    renderAll();
-  }
-  function findPlayerInMaster(id, cat){
-    const arr = PLAYERS[cat];
-    return arr.find(p=>p.id===id) || null;
-  }
-  // --- Timer ---
-  function startOrResetTimer(){
-    state.timer.left = 45;
-    if(!state.timer.running){
-      state.timer.running = true;
-      state.timer.handle = setInterval(()=>{
-        state.timer.left -= 1;
-        if(state.timer.left <= 0){
-          autoSellOnTimer();
-        }
-        renderCurrent();
-      }, 1000);
-    }
-    renderCurrent();
-  }
-  function autoSellOnTimer(){
-    cancelTimer();
-    if(!state.current) return;
-    if(state.current.bidder == null){
-      alert('Timer ended but no bids. Player remains unsold.');
-      return;
-    }
-    sell();
-  }
-  function cancelTimer(){
-    if(state.timer.handle){ clearInterval(state.timer.handle); }
-    state.timer = { handle: null, left: 0, running: false };
-    if(state.current) renderCurrent();
-  }
-	function warn(msg){
-		el('warn').textContent = msg;
-		setTimeout(()=>{ if(el('warn').textContent===msg) el('warn').textContent=''; }, 2500);
-	}
-	function exportCSV(){
-	  const rows = [];
-	  
-	  state.teams.forEach((team, idx) => {
-		// Add team header row
-		rows.push([`Team: ${team.name}`, '', '', '', '']);
-		// Add column headers inside team section
-		rows.push(['Time', 'Player', 'Category', 'Position', 'Price']);
-		
-		// Filter sales for this team
-		const teamSales = state.sales.filter(s => s.teamIndex === idx);
-		
-		teamSales.forEach(s => {
-		  rows.push([
-			s.timeISO,
-			s.playerName,
-			catLabel(s.category),
-			s.position || '', // Add position if tracked in sale, else blank
-			String(s.price)
-		  ]);
-		});
-		
-		// Add empty row between teams for readability
-		rows.push([]);
-	  });
-	  
-	  // Convert rows array to CSV string
-	  const csv = rows.map(r => r.map(v => `"${String(v).replaceAll('"', '""')}"`).join(',')).join('\n');
-	  
-	  // Create and trigger CSV download
-	  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-	  const a = document.createElement('a');
-	  a.href = URL.createObjectURL(blob);
-	  a.download = 'auction-results-teamwise.csv';
-	  document.body.appendChild(a);
-	  a.click();
-	  a.remove();
-	}
-
-  function saveState(){
-    const snapshot = JSON.stringify({
-      state,
-      savedAt: new Date().toISOString(),
-      note: 'Football Auctioneer snapshot'
-    });
-    const blob = new Blob([snapshot], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'auction-state.json';
-    document.body.appendChild(a); a.click(); a.remove();
-  }
-  function loadState(file){
-    const r = new FileReader();
-    r.onload = ()=>{
-      try{
-        const data = JSON.parse(r.result);
-        if(!data || !data.state) throw new Error('Invalid file');
-        // shallow restore only necessary parts for safety
-        Object.assign(state, {
-          category: data.state.category,
-          pools: data.state.pools,
-          skipped: data.state.skipped,
-          current: data.state.current,
-          teams: data.state.teams,
-          sales: data.state.sales,
+        row.querySelector('[data-edit-team]').addEventListener('click', () => {
+          const currentBudget = state.teams[i].budget;
+          const input = prompt(`Edit remaining budget for ${team.name}`, currentBudget);
+          if (input === null) return;
+          const newVal = Number(input);
+          if (!isNaN(newVal) && newVal >= 0) {
+            state.teams[i].budget = Math.floor(newVal);
+            renderTeams();
+            renderBidButtons();
+            renderResults();
+          }
         });
+      });
+    }
+
+    function renderResults() {
+      // Group sales by team
+      const byTeam = new Map(state.teams.map((t, i) => [i, { teamName: t.name, players: [], spent: 0 }]));
+      state.sales.forEach((sale) => {
+        const teamData = byTeam.get(sale.teamIndex);
+        if (teamData) {
+          teamData.players.push(sale);
+          teamData.spent += sale.price;
+        }
+      });
+
+      dom.results.innerHTML = '';
+
+      if (dom.btnToggleResults.dataset.hidden === '1') {
+        return; // Hide results
+      }
+
+      byTeam.forEach((teamData, idx) => {
+        const container = document.createElement('div');
+        container.className = 'rounded-xl border border-slate-200 p-3 mb-4';
+
+        const spentFormatted = fmt(teamData.spent);
+        const budgetLeftFormatted = fmt(state.teams[idx].budget);
+
+        const playerListHtml = teamData.players.length === 0
+          ? '<li class="text-slate-500 text-sm">No players yet</li>'
+          : teamData.players.map(p =>
+              `<li class="flex justify-between">
+                <span>${p.playerName} <span class="text-xs text-slate-500">(${catLabel(p.category)})</span></span>
+                <span>₹ ${fmt(p.price)}</span>
+              </li>`).join('');
+
+        container.innerHTML = `
+          <div class="flex items-center justify-between mb-2">
+            <div class="font-semibold">${teamData.teamName}</div>
+            <div class="text-sm text-slate-600">Spent: <strong>₹ ${spentFormatted}</strong> &bull; Left: <strong>₹ ${budgetLeftFormatted}</strong></div>
+          </div>
+          <ul class="space-y-1 list-disc pl-5">${playerListHtml}</ul>
+        `;
+        dom.results.appendChild(container);
+      });
+
+      // Unsold players section
+      const unsoldPlayers = state.pools.UNSOLD;
+      const unsoldSection = document.createElement('div');
+      unsoldSection.className = 'rounded-xl border border-rose-300 p-3 bg-rose-50';
+      unsoldSection.innerHTML = `
+        <h4 class="font-semibold text-rose-700 mb-2">UnSold Players</h4>
+        <ul class="list-disc pl-5 space-y-1">
+          ${unsoldPlayers.length > 0
+            ? unsoldPlayers.map(p => `<li>${p.name} <span class="text-xs text-slate-500">(${p.position || 'N/A'})</span> &mdash; ₹ ${fmt(p.basePrice)}</li>`).join('')
+            : `<li class="text-slate-500 text-sm">No unsold players</li>`}
+        </ul>
+      `;
+      dom.results.appendChild(unsoldSection);
+    }
+
+    function renderRemain() {
+      const pool = [...(state.pools[state.category] || []), ...(state.skipped[state.category] || [])];
+      dom.remainCount.textContent = pool.length;
+      dom.remainList.innerHTML = pool
+        .map(p => `<div class="rounded-lg border border-slate-200 p-2">${p.name}<div class="text-xs text-slate-500">₹ ${fmt(p.basePrice)}</div></div>`)
+        .join('');
+    }
+
+    function renderCurrent() {
+      if (!state.current) {
+        dom.currentPlayerCard.hidden = true;
+        return;
+      }
+      dom.currentPlayerCard.hidden = false;
+      const { player, category, bid } = state.current;
+      dom.playerImg.src = player.img || 'https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=800&auto=format&fit=crop';
+      dom.playerName.textContent = player.name;
+      dom.playerCat.textContent = catLabel(category);
+      dom.playerPosition.textContent = player.position || '';
+      dom.playerBase.textContent = '₹ ' + fmt(player.basePrice);
+      dom.currentBid.value = bid;
+      if (state.timer.running) {
+        dom.countdown.textContent = state.timer.left + 's';
+        dom.countdown.classList.toggle('blink', state.timer.left <= 10);
+      } else {
+        dom.countdown.textContent = '—';
+        dom.countdown.classList.remove('blink');
+      }
+      renderBidButtons();
+      updateButtonStates();
+      clearWarn();
+    }
+
+    // Render bid buttons for all teams, enable/disable based on budget & next bid
+    function renderBidButtons() {
+      const container = dom.bidTeamsContainer;
+      container.innerHTML = '';
+      if (!state.current) return;
+
+      const step = Math.max(1, Number(dom.bidStepInput.value) || 0);
+      const currentBid = state.current.bid;
+      const hasBidder = state.current.bidder !== null;
+      state.teams.forEach((team, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'px-2 py-1 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 text-xs';
+        btn.textContent = team.name;
+        btn.setAttribute('aria-label', `Place bid for ${team.name}`);
+
+        const nextBid = !hasBidder ? currentBid : currentBid + step;
+
+        if (nextBid > team.budget) {
+          btn.disabled = true;
+        }
+        btn.addEventListener('click', () => placeBid(i));
+        container.appendChild(btn);
+      });
+    }
+
+    function updateButtonStates() {
+      const disable = !!state.timer.running;
+      dom.btnNext.disabled = disable;
+      dom.btnSkip.disabled = disable;
+      dom.btnSell.disabled = !state.current || state.current.bidder === null;
+    }
+
+    // === Actions ===
+    function setCategory(cat) {
+      if (state.timer.running && !confirm('Timer running! Switch category anyway?')) return;
+      if (state.timer.running) cancelTimer();
+      state.category = cat;
+      renderAll();
+    }
+
+    function nextPlayer() {
+      if (state.current) {
+        // Return current player to appropriate pool
+        const { player, category, bidder } = state.current;
+        if (bidder === null) {
+          state.pools[category].push(player);
+        } else {
+          state.skipped[category].push(player);
+        }
+        state.current = null;
         cancelTimer();
-        renderAll();
-      }catch(e){ alert('Failed to load: '+e.message); }
-    };
-    r.readAsText(file);
-  }
-  // --- Wire UI ---
-  document.querySelectorAll('.catBtn').forEach(btn=> btn.addEventListener('click', ()=> setCategory(btn.dataset.cat)) );
-  el('btnNext').addEventListener('click', nextPlayer);
-  el('btnSkip').addEventListener('click', skipPlayer);
-  el('btnPlaceBid').addEventListener('click', placeBid);
-  el('btnSell').addEventListener('click', sell);
-  el('btnUndo').addEventListener('click', undoLastSale);
-  el('btnCancelTimer').addEventListener('click', cancelTimer);
-  el('btnExportCSV').addEventListener('click', exportCSV);
-  el('btnSaveState').addEventListener('click', saveState);
-  el('fileLoadState').addEventListener('change', (e)=>{ if(e.target.files[0]) loadState(e.target.files); e.target.value=''; });
-  
-	// Add this event listener here:
-	document.getElementById('btnAuctionUnsold').addEventListener('click', () => {
-	  const unsoldPlayers = state.pools.UNSOLD;
-	  const serialized = encodeURIComponent(JSON.stringify(unsoldPlayers));
-	  // Open new page with unsold players as URL param
-	  window.open(`unsold-auction.html?data=${serialized}`, '_blank');
-	});
-  
-  el('btnResetAll').addEventListener('click', ()=>{ if(confirm('Reset everything to initial data?')) cloneData(); });
-  el('btnToggleResults').addEventListener('click', (e)=>{
-    const cur = e.currentTarget.dataset.hidden==='1' ? '0':'1';
-    e.currentTarget.dataset.hidden = cur;
-    renderResults();
-  });
-  // --- Init ---
-  cloneData();
+      }
+      const pool = state.pools[state.category];
+      const skipped = state.skipped[state.category];
+      const merged = [...pool, ...skipped];
+      if (merged.length === 0) {
+        alert('No players left in this category.');
+        return;
+      }
+      const idx = Math.floor(Math.random() * merged.length);
+      const selected = merged[idx];
+      const fromPool = pool.find(p => p.id === selected.id) ? pool : skipped;
+      const rmIndex = fromPool.findIndex(p => p.id === selected.id);
+      fromPool.splice(rmIndex, 1);
+      state.current = { player: selected, category: state.category, bid: selected.basePrice, bidder: null };
+      cancelTimer();
+      renderAll();
+    }
+
+    function skipPlayer() {
+      if (!state.current) {
+        alert('No active player to skip.');
+        return;
+      }
+      if (state.current.bidder === null) {
+        state.current.player.basePrice = 50000;
+        state.pools.UNSOLD.push(state.current.player);
+      } else {
+        state.skipped[state.current.category].push(state.current.player);
+      }
+      state.current = null;
+      cancelTimer();
+      renderAll();
+    }
+
+    function placeBid(teamIndex) {
+      if (!state.current) {
+        alert('No active player. Click Next Player.');
+        return;
+      }
+      const step = Math.max(1, Number(dom.bidStepInput.value) || 0);
+      const team = state.teams[teamIndex];
+      const nextBid = state.current.bidder === null ? state.current.bid : state.current.bid + step;
+
+      if (nextBid > team.budget) {
+        showWarn(`Insufficient budget for ${team.name}.`);
+        return;
+      }
+
+      state.current.bid = nextBid;
+      state.current.bidder = teamIndex;
+      startOrResetTimer();
+      renderCurrent();
+    }
+
+    function sell() {
+      if (!state.current) {
+        alert('No active player.');
+        return;
+      }
+      if (state.current.bidder === null) {
+        alert('No bids yet. Cannot sell.');
+        return;
+      }
+      const { player, category, bid, bidder } = state.current;
+      state.teams[bidder].budget -= bid;
+      state.sales.push({
+        timeISO: new Date().toISOString(),
+        team: state.teams[bidder].name,
+        teamIndex: bidder,
+        playerId: player.id,
+        playerName: player.name,
+        category,
+        price: bid,
+        position: player.position || '',
+      });
+      state.current = null;
+      cancelTimer();
+      renderAll();
+    }
+
+    function undoLastSale() {
+      const last = state.sales.pop();
+      if (!last) {
+        alert('No sales yet.');
+        return;
+      }
+      state.teams[last.teamIndex].budget += last.price;
+      const orig = findPlayerInMaster(last.playerId, last.category);
+      if (orig) {
+        state.pools[last.category].push({ ...orig });
+      }
+      renderAll();
+    }
+
+    function findPlayerInMaster(id, cat) {
+      return (PLAYERS[cat] || []).find(p => p.id === id) || null;
+    }
+
+    // -- Timer Management --
+
+    function startOrResetTimer() {
+      state.timer.left = 45;
+      if (!state.timer.running) {
+        state.timer.running = true;
+        state.timer.handle = setInterval(() => {
+          state.timer.left -= 1;
+          if (state.timer.left <= 0) {
+            autoSellOnTimer();
+          }
+          renderCurrent();
+        }, 1000);
+      }
+      dom.btnNext.disabled = true;
+      dom.btnSkip.disabled = true;
+      updateButtonStates();
+    }
+
+    function cancelTimer() {
+      if (state.timer.handle) {
+        clearInterval(state.timer.handle);
+      }
+      state.timer = { handle: null, left: 0, running: false };
+      dom.btnNext.disabled = false;
+      dom.btnSkip.disabled = false;
+      updateButtonStates();
+    }
+
+    function autoSellOnTimer() {
+      cancelTimer();
+      if (!state.current) return;
+      if (state.current.bidder === null) {
+        alert('Timer ended but no bids. Player remains unsold.');
+        return;
+      }
+      sell();
+    }
+
+    // -- Utilities --
+
+    let warnTimeout = null;
+    function showWarn(message) {
+      dom.warn.textContent = message;
+      if (warnTimeout) clearTimeout(warnTimeout);
+      warnTimeout = setTimeout(() => {
+        dom.warn.textContent = '';
+        warnTimeout = null;
+      }, 2500);
+    }
+
+    function clearWarn() {
+      if (warnTimeout) {
+        clearTimeout(warnTimeout);
+        dom.warn.textContent = '';
+        warnTimeout = null;
+      }
+    }
+
+    // -- Export & Save / Load --
+
+    function exportCSV() {
+      const rows = [];
+      state.teams.forEach((team, idx) => {
+        rows.push([`Team: ${team.name}`, '', '', '', '']);
+        rows.push(['Time', 'Player', 'Category', 'Position', 'Price']);
+        const teamSales = state.sales.filter(s => s.teamIndex === idx);
+        teamSales.forEach(s => {
+          rows.push([
+            s.timeISO,
+            s.playerName,
+            catLabel(s.category),
+            s.position || '',
+            String(s.price),
+          ]);
+        });
+        rows.push([]);
+      });
+      const csvContent = rows.map(r => r.map(v => `"${v.replace(/"/g, '""')}"`).join(',')).join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'auction-results-teamwise.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function saveState() {
+      const snapshot = {
+        state,
+        savedAt: new Date().toISOString(),
+        note: 'Football Auctioneer snapshot',
+      };
+      const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'auction-state.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function loadState(fileList) {
+      const file = fileList[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          if (!data || !data.state) throw new Error('Invalid auction state file.');
+          Object.assign(state, {
+            category: data.state.category,
+            pools: data.state.pools,
+            skipped: data.state.skipped,
+            current: data.state.current,
+            teams: data.state.teams,
+            sales: data.state.sales,
+            timer: { handle: null, left: 0, running: false },
+          });
+          cancelTimer();
+          renderAll();
+        } catch (err) {
+          alert(`Failed to load state: ${err.message}`);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // -- Event wiring --
+
+    // Category buttons
+    dom.catButtons.forEach(btn => {
+      btn.addEventListener('click', () => setCategory(btn.dataset.cat));
+    });
+
+    dom.btnNext.addEventListener('click', nextPlayer);
+    dom.btnSkip.addEventListener('click', skipPlayer);
+    dom.btnSell.addEventListener('click', sell);
+    dom.btnUndo.addEventListener('click', undoLastSale);
+    dom.btnCancelTimer.addEventListener('click', cancelTimer);
+    dom.btnExportCSV.addEventListener('click', exportCSV);
+    dom.btnSaveState.addEventListener('click', saveState);
+    dom.fileLoadState.addEventListener('change', e => {
+      loadState(e.target.files);
+      e.target.value = '';
+    });
+    dom.btnResetAll.addEventListener('click', () => {
+      if (confirm('Reset everything to initial data?')) cloneData();
+    });
+    dom.btnToggleResults.addEventListener('click', e => {
+      const hide = e.currentTarget.dataset.hidden === '1';
+      e.currentTarget.dataset.hidden = hide ? '0' : '1';
+      dom.btnToggleResults.setAttribute('aria-pressed', String(!hide));
+      renderResults();
+    });
+
+    // Btn Auction Unsold - opens a new page with unsold data serialized
+    dom.btnAuctionUnsold.addEventListener('click', () => {
+      const serialized = encodeURIComponent(JSON.stringify(state.pools.UNSOLD));
+      window.open(`unsold-auction.html?data=${serialized}`, '_blank');
+    });
+
+    // -- Initialize App --
+    cloneData();
+
+  })();
   </script>
 </body>
 </html>
