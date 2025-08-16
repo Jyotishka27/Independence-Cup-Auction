@@ -105,7 +105,7 @@
 
     // Player data with price included
     const SALES = [
-      { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence'},
+      { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', price: 0},
       { teamIndex: 0, playerName: 'Arnab Talukdar', position: 'Goalkeeper', price: 900000 },
       { teamIndex: 0, playerName: 'Sourav Acharya', position: 'Striker', price: 650000 },
       { teamIndex: 0, playerName: 'Proloy Malik', position: 'Defence', price: 1000000 },
@@ -208,7 +208,6 @@
       table.innerHTML = `
         <thead>
           <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
-            <th class="p-2 text-left">Time</th>
             <th class="p-2 text-left">Player</th>
             <th class="p-2 text-left">Position</th>
             <th class="p-2 text-left">Price</th>
@@ -217,7 +216,6 @@
         <tbody>
           ${players.map(p => `
             <tr class="border-b border-slate-200 hover:bg-slate-50">
-              <td class="p-2">${formatTime(p.time)}</td>
               <td class="p-2">${p.playerName}</td>
               <td class="p-2">${p.position}</td>
               <td class="p-2">${formatMoney(p.price)}</td>
@@ -238,4 +236,5 @@
   </script>
 </body>
 </html>
+
 
