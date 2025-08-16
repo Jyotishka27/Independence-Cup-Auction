@@ -67,6 +67,13 @@
     tbody tr:hover {
       background-color: #E0F2FE; /* sky-100 */
     }
+    /* Fixed height for team content to avoid jumping */
+    #teamContent {
+      min-height: 350px;
+      max-height: 350px;
+      overflow-y: auto;
+      transition: height 0.3s ease;
+    }
   </style>
 </head>
 <body>
@@ -78,12 +85,11 @@
       <!-- Tabs -->
       <div id="tabs" class="tabs"></div>
       <!-- Team content -->
-      <div id="teamContent" class="border border-slate-300 rounded-b-xl bg-white p-4 min-h-[250px]">
+      <div id="teamContent" class="border border-slate-300 rounded-b-xl bg-white p-4">
         <!-- Team players list here -->
       </div>
     </section>
   </main>
-
   <script>
     const TEAMS = [
       { name: 'Ayon Roy' },
@@ -93,7 +99,6 @@
       { name: 'Srinjoy Kundu' },
       { name: 'Subhamoy Das' },
     ];
-
     const SALES = [
       { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', price: 0},
       { teamIndex: 0, playerName: 'Arnab Talukdar', position: 'Goalkeeper', price: 900000 },
@@ -207,7 +212,6 @@
       teamContent.appendChild(table);
     }
 
-    // Initialize tabs and content
     TEAMS.forEach((team, i) => {
       const tabBtn = createTabButton(team, i);
       tabsContainer.appendChild(tabBtn);
