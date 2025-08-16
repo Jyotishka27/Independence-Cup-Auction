@@ -89,21 +89,57 @@
         <!-- Team players list here -->
       </div>
     </section>
-
     <!-- Fixtures Section -->
-    <section class="bg-white rounded-2xl shadow p-6 content-scroll">
-      <h2 class="text-xl font-semibold mb-4">Upcoming Fixtures</h2>
+    <section class="bg-white rounded-2xl shadow p-6 content-scroll max-w-7xl mx-auto">
+      <h2 class="text-xl font-semibold mb-4">Tournament Fixtures</h2>
+
+      <!-- Group Stage Fixtures -->
+      <h3 class="text-lg font-semibold mt-4 mb-2">Group Stage Fixtures</h3>
       <table>
         <thead>
           <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
-            <th class="p-2 text-left">Date</th>
-            <th class="p-2 text-left">Time</th>
-            <th class="p-2 text-left">Match</th>
-            <th class="p-2 text-left">Venue</th>
+            <th class="p-2 text-left">Slot</th>
+            <th class="p-2 text-left">Group</th>
+            <th class="p-2 text-left">Fixture</th>
           </tr>
         </thead>
-        <tbody id="fixturesBody">
-          <!-- Populated by JS -->
+        <tbody>
+          <tr><td class="p-2 border-b border-slate-300">1</td><td class="p-2 border-b border-slate-300">Group A</td><td class="p-2 border-b border-slate-300">Ayon Roy vs Subhojit Dutta</td></tr>
+          <tr><td class="p-2 border-b border-slate-300">2</td><td class="p-2 border-b border-slate-300">Group B</td><td class="p-2 border-b border-slate-300">Shubhanjan Basu vs Srinjoy Kundu</td></tr>
+          <tr><td class="p-2 border-b border-slate-300">3</td><td class="p-2 border-b border-slate-300">Group A</td><td class="p-2 border-b border-slate-300">Ritam Chowdhury vs Ayon Roy</td></tr>
+          <tr><td class="p-2 border-b border-slate-300">4</td><td class="p-2 border-b border-slate-300">Group B</td><td class="p-2 border-b border-slate-300">Subhamoy Das vs Shubhanjan Basu</td></tr>
+          <tr><td class="p-2 border-b border-slate-300">5</td><td class="p-2 border-b border-slate-300">Group A</td><td class="p-2 border-b border-slate-300">Subhojit Dutta vs Ritam Chowdhury</td></tr>
+          <tr><td class="p-2 border-b border-slate-300">6</td><td class="p-2 border-b border-slate-300">Group B</td><td class="p-2 border-b border-slate-300">Srinjoy Kundu vs Subhamoy Das</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Knockout Stage Option 1 -->
+      <h3 class="text-lg font-semibold mt-8 mb-2">Knockout Stage Option 1 (Semifinals + Final)</h3>
+      <table>
+        <thead>
+          <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
+            <th class="p-2 text-left">Match</th>
+            <th class="p-2 text-left">Fixture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-2 border-b border-slate-300">Semi-final 1</td><td class="p-2 border-b border-slate-300">Winner Group A vs Runner-up Group B</td></tr>
+          <tr><td class="p-2 border-b border-slate-300">Semi-final 2</td><td class="p-2 border-b border-slate-300">Winner Group B vs Runner-up Group A</td></tr>
+          <tr><td class="p-2 border-b border-slate-300">Final</td><td class="p-2 border-b border-slate-300">Winner SF1 vs Winner SF2</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Knockout Stage Option 2 -->
+      <h3 class="text-lg font-semibold mt-8 mb-2">Knockout Stage Option 2 (Direct Final)</h3>
+      <table>
+        <thead>
+          <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
+            <th class="p-2 text-left">Match</th>
+            <th class="p-2 text-left">Fixture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="p-2 border-b border-slate-300">Final</td><td class="p-2 border-b border-slate-300">Winner Group A vs Winner Group B</td></tr>
         </tbody>
       </table>
     </section>
@@ -117,7 +153,6 @@
       { name: 'Srinjoy Kundu' },
       { name: 'Subhamoy Das' },
     ];
-
     const SALES = [
       { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', price: 0},
       { teamIndex: 0, playerName: 'Arnab Talukdar', position: 'Goalkeeper', price: 900000 },
@@ -164,14 +199,6 @@
       { teamIndex: 5, playerName: 'Kaustav Guha Mazumdar', position: 'Striker', price: 500000 }
     ];
 
-    const FIXTURES = [
-      { date: '24 Aug 2025', time: '09:00 AM', match: 'Ayon Roy vs Subhojit Dutta', venue: 'Turf XL' },
-      { date: '24 Aug 2025', time: '11:00 AM', match: 'Ritam Chowdhury vs Shubhanjan Basu', venue: 'Turf XL' },
-      { date: '24 Aug 2025', time: '01:00 PM', match: 'Srinjoy Kundu vs Subhamoy Das', venue: 'Turf XL' },
-      { date: '24 Aug 2025', time: '03:00 PM', match: 'Semi-finals', venue: 'Turf XL' },
-      { date: '24 Aug 2025', time: '05:00 PM', match: 'Final Match', venue: 'Turf XL' }
-    ];
-
     function formatMoney(amount) {
       return '₹ ' + amount.toLocaleString('en-IN');
     }
@@ -206,12 +233,10 @@
       const captainName = TEAMS[teamIndex].name;
       const players = SALES.filter(s => s.teamIndex === teamIndex);
       teamContent.innerHTML = '';
-
       const captainHeader = document.createElement('h3');
       captainHeader.className = 'text-lg font-semibold mb-4';
       captainHeader.textContent = `Team: ${captainName}`;
       teamContent.appendChild(captainHeader);
-
       if (players.length === 0) {
         const noPlayers = document.createElement('p');
         noPlayers.className = 'text-sm italic text-slate-600';
@@ -219,7 +244,6 @@
         teamContent.appendChild(noPlayers);
         return;
       }
-
       const table = document.createElement('table');
       table.className = 'w-full border-collapse text-sm';
       table.innerHTML = `
@@ -239,25 +263,7 @@
             </tr>
           `).join('')}
         </tbody>`;
-
       teamContent.appendChild(table);
-    }
-
-    function renderFixtures() {
-      const tbody = document.getElementById('fixturesBody');
-      if(!tbody) return;
-      tbody.innerHTML = '';
-      FIXTURES.forEach(fixture => {
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-100';
-        tr.innerHTML = `
-          <td class="p-2">${fixture.date}</td>
-          <td class="p-2">${fixture.time}</td>
-          <td class="p-2">${fixture.match}</td>
-          <td class="p-2">${fixture.venue}</td>
-        `;
-        tbody.appendChild(tr);
-      });
     }
 
     // Initialize tabs and content
@@ -266,21 +272,6 @@
       tabsContainer.appendChild(tabBtn);
     });
     renderTeamPlayers(activeTeamIndex);
-    renderFixtures();
   </script>
-  <section class="bg-white rounded-2xl shadow p-6 content-scroll max-w-7xl mx-auto mt-10">
-    <h2 class="text-xl font-semibold mb-4">Upcoming Fixtures</h2>
-    <table class="min-w-full border border-slate-300 rounded-lg overflow-hidden text-left text-sm">
-      <thead class="bg-slate-100">
-        <tr>
-          <th class="p-2 border-b border-slate-300">Date</th>
-          <th class="p-2 border-b border-slate-300">Time</th>
-          <th class="p-2 border-b border-slate-300">Match</th>
-          <th class="p-2 border-b border-slate-300">Venue</th>
-        </tr>
-      </thead>
-      <tbody id="fixturesBody"></tbody>
-    </table>
-  </section>
 </body>
 </html>
