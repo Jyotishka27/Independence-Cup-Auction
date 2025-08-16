@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Independence Cup 2025 - Teams & Fixtures</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    .content-scroll {
+      max-height: 85vh;
+      overflow-y: auto;
+      padding-right: 1rem;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 p-6">
+  <main class="max-w-7xl mx-auto space-y-8">
+
+    <h1 class="text-3xl font-bold mb-6 text-center">Independence Cup 2025</h1>
+
+    <!-- Teams Status -->
+    <section class="bg-white rounded-2xl shadow p-6 content-scroll">
+      <h2 class="text-xl font-semibold mb-4">Teams & Players</h2>
+      <div id="teamsContainer" class="space-y-6">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- Upcoming Fixtures -->
+    <section class="bg-white rounded-2xl shadow p-6 content-scroll">
+      <h2 class="text-xl font-semibold mb-4">Upcoming Fixtures</h2>
+      <table class="min-w-full border border-slate-300 rounded-lg overflow-hidden text-left text-sm">
+        <thead class="bg-slate-100">
+          <tr>
+            <th class="px-4 py-2 border-b border-slate-300">Date</th>
+            <th class="px-4 py-2 border-b border-slate-300">Time</th>
+            <th class="px-4 py-2 border-b border-slate-300">Match</th>
+            <th class="px-4 py-2 border-b border-slate-300">Venue</th>
+          </tr>
+        </thead>
+        <tbody id="fixturesBody" class="divide-y divide-slate-200">
+          <!-- Populated by script -->
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+<script>
+  // Remaining budgets are kept internally but not displayed
+  const TEAMS = [
+    { name: 'Ayon Roy', budget: 3500000 },
+    { name: 'Subhojit Dutta', budget: 3000000 },
+    { name: 'Ritam Chowdhury', budget: 4000000 },
+    { name: 'Shubhanjan Basu', budget: 2500000 },
+    { name: 'Srinjoy Kundu', budget: 3200000 },
+    { name: 'Subhamoy Das', budget: 2900000 },
+  ];
+
+  const SALES = [
+    { teamIndex: 0, playerName: 'Player 1', price: 500000 },
+    { teamIndex: 0, playerName: 'Player 2', price: 1000000 },
+    { teamIndex: 1, playerName: 'Player 3', price: 1000000 },
+    { teamIndex: 2, playerName: 'Player 4', price: 0 },
+    { teamIndex: 5, playerName: 'Player 5', price: 1000000 },
+  ];
+
+  const FIXTURES = [
+    { date: '24 Aug 2025', time: '09:00 AM', match: 'Ayon Roy vs Subhojit Dutta', venue: 'Turf XL' },
+    { date: '24 Aug 2025', time: '11:00 AM', match: 'Ritam Chowdhury vs Shubhanjan Basu', venue: 'Turf XL' },
+    { date: '24 Aug 2025', time: '01:00 PM', match: 'Srinjoy Kundu vs Subhamoy Das', venue: 'Turf XL' },
+    { date: '24 Aug 2025', time: '03:00 PM', match: 'Semi-finals', venue: 'Turf XL' },
+    { date: '24 Aug 2025', time: '05:00 PM', match: 'Final Match', venue: 'Turf XL' },
+  ];
+
+  function formatMoney(num) {
+    return '₹ ' + num.toLocaleString('en-IN');
+  }
+
+  function createTeamCard(team, players) {
+    const container = document.createElement('section');
+    container.className = "border border-slate-300 rounded-xl p-4 bg-slate-50";
+
+    const teamHeader = document.createElement('h3');
+    teamHeader.className = "text-lg font-semibold mb-2";
+    teamHeader.textContent = team.name;
+    container.appendChild(teamHeader);
+
+    if (players.length === 0) {
+      const noPlayers = document.createElement('p');
+      noPlayers.className = "text-sm italic text-slate-600";
+      noPlayers.textContent = "No players bought yet.";
+      container.appendChild(noPlayers);
+    } else {
+      const ul = document.createElement('ul');
+      ul.className = "list-disc list-inside space-y-1 text-sm";
+      players.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = `${p.playerName} — ${formatMoney(p.price)}`;
+        ul.appendChild(li);
+      });
+      container.appendChild(ul);
+    }
+
+    return container;
+  }
+
+  function renderTeams() {
+    const container = document.getElementById('teamsContainer');
+    container.innerHTML = '';
+    TEAMS.forEach((team, i) => {
+      const players = SALES.filter(s => s.teamIndex === i);
+      const card = createTeamCard(team, players);
+      container.appendChild(card);
+    });
+  }
+
+  function renderFixtures() {
+    const tbody = document.getElementById('fixturesBody');
+    tbody.innerHTML = '';
+    FIXTURES.forEach(fixture => {
+      const tr = document.createElement('tr');
+      tr.className = "hover:bg-slate-100";
+      tr.innerHTML = `
+        <td class="px-4 py-2 border-b border-slate-300">${fixture.date}</td>
+        <td class="px-4 py-2 border-b border-slate-300">${fixture.time}</td>
+        <td class="px-4 py-2 border-b border-slate-300">${fixture.match}</td>
+        <td class="px-4 py-2 border-b border-slate-300">${fixture.venue}</td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Initial rendering
+  renderTeams();
+  renderFixtures();
+</script>
+
+</body>
+</html>
