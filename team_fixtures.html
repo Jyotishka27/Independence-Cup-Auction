@@ -3,275 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Independence Cup 2025 - Teams & Players</title>
+  <title>Independence Cup 2025 - Final Schedule</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: #f8fafc; /* Tailwind slate-50 */
+      color: #334155; /* Tailwind slate-700 */
+      padding: 2rem;
     }
-    .content-scroll {
-      max-height: 50vh;
-      overflow-y: auto;
-      padding-right: 1rem;
+    h1, h2, h3 {
+      font-weight: 700;
     }
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-      border-bottom: 2px solid #CBD5E0; /* slate-300 */
-      margin-bottom: 1.5rem;
-      user-select: none;
-    }
-    .tab-button {
-      padding: 0.5rem 1.25rem;
-      border: 2px solid transparent;
-      border-bottom: 2px solid transparent;
-      font-weight: 600;
-      color: #475569; /* slate-600 */
-      background: transparent;
-      border-radius: 0.5rem 0.5rem 0 0;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .tab-button:hover:not(.active) {
-      color: #0369A1; /* sky-700 */
-      background-color: #E0F2FE; /* sky-100 */
-    }
-    .tab-button:focus-visible {
-      outline: 2px solid #2563EB; /* blue-600 */
-      outline-offset: 2px;
-    }
-    .tab-button.active {
-      border-color: #0369A1; /* sky-700 */
-      border-bottom-color: white;
-      color: #0369A1; /* sky-700 */
-      background-color: white;
-      cursor: default;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    section {
+      background: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      padding: 1.5rem 2rem;
+      max-width: 768px;
+      margin: auto;
+      margin-bottom: 2rem;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
     th, td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid #CBD5E0;
+      padding: 0.75rem 1rem;
+      border: 1px solid #cbd5e1; /* Tailwind slate-300 */
       text-align: left;
     }
     th {
-      background-color: #F1F5F9; /* slate-100 */
-      font-weight: 600;
-      color: #475569;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      background-color: #e2e8f0; /* Tailwind slate-200 */
     }
-    tbody tr:hover {
-      background-color: #E0F2FE; /* sky-100 */
-    }
-    section + section {
-      margin-top: 3rem;
+    ul {
+      margin-left: 1rem;
+      list-style-type: disc;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 p-6">
-  <main class="max-w-7xl mx-auto space-y-10">
-    <h1 class="text-3xl font-bold mb-6 text-center">Independence Cup 2025</h1>
-    <!-- Team Tabs -->
-    <section class="bg-white rounded-2xl shadow p-6">
-      <h2 class="text-xl font-semibold mb-4">Teams & Players</h2>
-      <!-- Tabs -->
-      <div id="tabs" class="tabs">
-        <!-- Buttons inserted dynamically -->
-      </div>
-      <!-- Team content -->
-      <div id="teamContent" class="content-scroll border border-slate-300 rounded-b-xl bg-white p-4 min-h-[250px]">
-        <!-- Team players list here -->
-      </div>
-    </section>
-    <!-- Fixtures Section -->
-    <section class="bg-white rounded-2xl shadow p-6 content-scroll max-w-7xl mx-auto">
-      <h2 class="text-xl font-semibold mb-4">Tournament Fixtures</h2>
+<body>
 
-      <!-- Group Stage Fixtures -->
-      <h3 class="text-lg font-semibold mt-4 mb-2">Group Stage Fixtures</h3>
-      <table>
-        <thead>
-          <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
-            <th class="p-2 text-left">Slot</th>
-            <th class="p-2 text-left">Group</th>
-            <th class="p-2 text-left">Fixture</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="p-2 border-b border-slate-300">1</td><td class="p-2 border-b border-slate-300">Group A</td><td class="p-2 border-b border-slate-300">Ayon Roy vs Subhojit Dutta</td></tr>
-          <tr><td class="p-2 border-b border-slate-300">2</td><td class="p-2 border-b border-slate-300">Group B</td><td class="p-2 border-b border-slate-300">Shubhanjan Basu vs Srinjoy Kundu</td></tr>
-          <tr><td class="p-2 border-b border-slate-300">3</td><td class="p-2 border-b border-slate-300">Group A</td><td class="p-2 border-b border-slate-300">Ritam Chowdhury vs Ayon Roy</td></tr>
-          <tr><td class="p-2 border-b border-slate-300">4</td><td class="p-2 border-b border-slate-300">Group B</td><td class="p-2 border-b border-slate-300">Subhamoy Das vs Shubhanjan Basu</td></tr>
-          <tr><td class="p-2 border-b border-slate-300">5</td><td class="p-2 border-b border-slate-300">Group A</td><td class="p-2 border-b border-slate-300">Subhojit Dutta vs Ritam Chowdhury</td></tr>
-          <tr><td class="p-2 border-b border-slate-300">6</td><td class="p-2 border-b border-slate-300">Group B</td><td class="p-2 border-b border-slate-300">Srinjoy Kundu vs Subhamoy Das</td></tr>
-        </tbody>
-      </table>
+<h1 class="text-4xl text-center mb-8">Independence Cup 2025 - Final Single-Pitch Schedule</h1>
 
-      <!-- Knockout Stage Option 1 -->
-      <h3 class="text-lg font-semibold mt-8 mb-2">Knockout Stage Option 1 (Semifinals + Final)</h3>
-      <table>
-        <thead>
-          <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
-            <th class="p-2 text-left">Match</th>
-            <th class="p-2 text-left">Fixture</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="p-2 border-b border-slate-300">Semi-final 1</td><td class="p-2 border-b border-slate-300">Winner Group A vs Runner-up Group B</td></tr>
-          <tr><td class="p-2 border-b border-slate-300">Semi-final 2</td><td class="p-2 border-b border-slate-300">Winner Group B vs Runner-up Group A</td></tr>
-          <tr><td class="p-2 border-b border-slate-300">Final</td><td class="p-2 border-b border-slate-300">Winner SF1 vs Winner SF2</td></tr>
-        </tbody>
-      </table>
+<section>
+  <h2 class="text-2xl mb-4">Groups</h2>
+  <p><strong>Group A:</strong> Ayon Roy, Subhojit Dutta, Ritam Chowdhury</p>
+  <p><strong>Group B:</strong> Shubhanjan Basu, Srinjoy Kundu, Subhamoy Das</p>
+</section>
 
-      <!-- Knockout Stage Option 2 -->
-      <h3 class="text-lg font-semibold mt-8 mb-2">Knockout Stage Option 2 (Direct Final)</h3>
-      <table>
-        <thead>
-          <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
-            <th class="p-2 text-left">Match</th>
-            <th class="p-2 text-left">Fixture</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="p-2 border-b border-slate-300">Final</td><td class="p-2 border-b border-slate-300">Winner Group A vs Winner Group B</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
-  <script>
-    const TEAMS = [
-      { name: 'Ayon Roy' },
-      { name: 'Subhojit Dutta' },
-      { name: 'Ritam Chowdhury' },
-      { name: 'Shubhanjan Basu' },
-      { name: 'Srinjoy Kundu' },
-      { name: 'Subhamoy Das' },
-    ];
-    const SALES = [
-      { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', price: 0},
-      { teamIndex: 0, playerName: 'Arnab Talukdar', position: 'Goalkeeper', price: 900000 },
-      { teamIndex: 0, playerName: 'Sourav Acharya', position: 'Striker', price: 650000 },
-      { teamIndex: 0, playerName: 'Proloy Malik', position: 'Defence', price: 1000000 },
-      { teamIndex: 0, playerName: 'Siddhant Ameria', position: 'Midfield', price: 550000 },
-      { teamIndex: 0, playerName: 'Kingshuk Banerjee', position: 'Midfield', price: 450000 },
-      { teamIndex: 0, playerName: 'Aritra Adhikari', position: 'Striker', price: 50000 },
-      { teamIndex: 1, playerName: 'Subhojit Dutta', position: 'Midfield', price: 0 },
-      { teamIndex: 1, playerName: 'Soumadeep Dutta', position: 'Goalkeeper', price: 400000 },
-      { teamIndex: 1, playerName: 'Jeffin Mathew', position: 'Midfield', price: 1250000 },
-      { teamIndex: 1, playerName: 'Yash Agarwal', position: 'Defence', price: 450000 },
-      { teamIndex: 1, playerName: 'Shivaditya Gunin', position: 'Striker', price: 600000 },
-      { teamIndex: 1, playerName: 'Arghadeep Das', position: 'Defence', price: 450000 },
-      { teamIndex: 1, playerName: 'Akash Mukherjee', position: 'Midfield', price: 350000 },
-      { teamIndex: 1, playerName: 'Sourav Das', position: 'Midfield', price: 450000 },
-      { teamIndex: 2, playerName: 'Ritam Chowdhury', position: 'Midfield', price: 0 },
-      { teamIndex: 2, playerName: 'Dhruv', position: 'Goalkeeper', price: 400000 },
-      { teamIndex: 2, playerName: 'Risove Show', position: 'Midfield', price: 1750000 },
-      { teamIndex: 2, playerName: 'Biswajit Karmakar', position: 'Midfield', price: 850000 },
-      { teamIndex: 2, playerName: 'Satyaki Sarkar', position: 'Defence', price: 300000 },
-      { teamIndex: 2, playerName: 'Ayan Das', position: 'Defence', price: 300000 },
-      { teamIndex: 2, playerName: 'Dipanjan Mazumder', position: 'Defence', price: 300000 },
-      { teamIndex: 3, playerName: 'Shubhanjan Basu', position: 'Midfield', price: 0 },
-      { teamIndex: 3, playerName: 'Rupayan Chakraborty', position: 'Goalkeeper', price: 700000 },
-      { teamIndex: 3, playerName: 'Soumik Mukherjee', position: 'Defence', price: 1300000 },
-      { teamIndex: 3, playerName: 'Shardendu Lahiri', position: 'Midfield', price: 400000 },
-      { teamIndex: 3, playerName: 'Subhayan Banerjee', position: 'Defence', price: 300000 },
-      { teamIndex: 3, playerName: 'Pulak Dowari', position: 'Defence', price: 1100000 },
-      { teamIndex: 3, playerName: 'Sagnik Chakraborty', position: 'Midfield', price: 150000 },
-      { teamIndex: 4, playerName: 'Srinjoy Kundu', position: 'Midfield', price: 0 },
-      { teamIndex: 4, playerName: 'Arko Dutta', position: 'Goalkeeper', price: 500000 },
-      { teamIndex: 4, playerName: 'Suvam Chakraborty', position: 'Defence', price: 800000 },
-      { teamIndex: 4, playerName: 'Dibwayan Trivedi', position: 'Defence', price: 450000 },
-      { teamIndex: 4, playerName: 'Supratim Sengupta', position: 'Striker', price: 1000000 },
-      { teamIndex: 4, playerName: 'Aman Pandey', position: 'Defence', price: 500000 },
-      { teamIndex: 4, playerName: 'Ankit Aich', position: 'Defence', price: 450000 },
-      { teamIndex: 5, playerName: 'Subhamoy Das', position: 'Midfield', price: 0 },
-      { teamIndex: 5, playerName: 'Aditya Chakraborty', position: 'Goalkeeper', price: 400000 },
-      { teamIndex: 5, playerName: 'Vasu Gupta', position: 'Striker', price: 1100000 },
-      { teamIndex: 5, playerName: 'Krishnendu Mondal', position: 'Midfield', price: 550000 },
-      { teamIndex: 5, playerName: 'Sanchay Bose', position: 'Defence', price: 750000 },
-      { teamIndex: 5, playerName: 'Rahul Sarkar', position: 'Defence', price: 600000 },
-      { teamIndex: 5, playerName: 'Kaustav Guha Mazumdar', position: 'Striker', price: 500000 }
-    ];
+<section>
+  <h2 class="text-2xl mb-4">Group-stage &mdash; Double Round-robin (12 matches)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Group</th>
+        <th>Fixture</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>09:00–09:22</td><td>Group A</td><td>Ayon Roy vs Subhojit Dutta</td></tr>
+      <tr><td>09:22–09:44</td><td>Group B</td><td>Shubhanjan Basu vs Srinjoy Kundu</td></tr>
+      <tr><td>09:44–10:06</td><td>Group A</td><td>Subhojit Dutta vs Ritam Chowdhury</td></tr>
+      <tr><td>10:06–10:28</td><td>Group B</td><td>Srinjoy Kundu vs Subhamoy Das</td></tr>
+      <tr><td>10:28–10:50</td><td>Group A</td><td>Ritam Chowdhury vs Ayon Roy</td></tr>
+      <tr><td>10:50–11:12</td><td>Group B</td><td>Subhamoy Das vs Shubhanjan Basu</td></tr>
+      <tr><td>11:12–11:34</td><td>Group A</td><td>Subhojit Dutta vs Ayon Roy</td></tr>
+      <tr><td>11:34–11:56</td><td>Group B</td><td>Srinjoy Kundu vs Shubhanjan Basu</td></tr>
+      <tr><td>11:56–12:18</td><td>Group A</td><td>Ritam Chowdhury vs Subhojit Dutta</td></tr>
+      <tr><td>12:18–12:40</td><td>Group B</td><td>Subhamoy Das vs Srinjoy Kundu</td></tr>
+      <tr><td>12:40–13:02</td><td>Group A</td><td>Ayon Roy vs Ritam Chowdhury</td></tr>
+      <tr><td>13:02–13:24</td><td>Group B</td><td>Shubhanjan Basu vs Subhamoy Das</td></tr>
+    </tbody>
+  </table>
+</section>
 
-    function formatMoney(amount) {
-      return '₹ ' + amount.toLocaleString('en-IN');
-    }
+<section>
+  <h2 class="text-2xl mb-4">Knockout Stage (with 3rd-place match before Final)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Match</th>
+        <th>Fixture</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>13:24–13:46</td><td>Semi 1</td><td>Winner Group A vs Runner-up Group B</td></tr>
+      <tr><td>13:46–14:08</td><td>Semi 2</td><td>Winner Group B vs Runner-up Group A</td></tr>
+      <tr><td>14:08–14:30</td><td>3rd-place Match</td><td>Loser SF1 vs Loser SF2</td></tr>
+      <tr><td>14:30–14:52</td><td>Final</td><td>Winner SF1 vs Winner SF2</td></tr>
+    </tbody>
+  </table>
+</section>
 
-    const tabsContainer = document.getElementById('tabs');
-    const teamContent = document.getElementById('teamContent');
-    let activeTeamIndex = 0;
+<section>
+  <h2 class="text-2xl mb-4">Tournament Information & Notes</h2>
+  <ul>
+    <li><strong>Tournament finish time:</strong> ~14:52 IST (not counting prize-giving)</li>
+    <li><strong>Total tournament runtime:</strong> 352 minutes (5 hr 52 min) from first whistle to last</li>
+    <li><strong>No back-to-back matches:</strong> Guaranteed by schedule — every team’s matches are separated by at least one other match</li>
+    <li><strong>Match slot composition:</strong> 8’ first half + 3’ halftime + 8’ second half + 3’ buffer = 22’</li>
+    <li><strong>Warm-up / admin:</strong> Recommend 20–30 mins pre-tournament window before 09:00 for captains’ meeting and warm-ups</li>
+    <li><strong>Contingency:</strong> Recommend 15–30 mins break after Semifinals before 3rd-place and Final matches for delays or medical</li>
+    <li><strong>Referee breaks:</strong> Built-in by alternating matches; consider longer 10–15 min break for officials if needed</li>
+    <li><strong>Tiebreakers & Pens:</strong> Points → Goal difference → Goals scored → Head-to-head → Penalties if still needed</li>
+    <li><strong>Prize ceremony:</strong> Add 10–15 mins after Final for awards and presentation</li>
+  </ul>
+</section>
 
-    function createTabButton(team, index) {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = team.name;
-      btn.className = 'tab-button';
-      if (index === 0) btn.classList.add('active');
-      btn.addEventListener('click', () => {
-        if (activeTeamIndex !== index) {
-          activeTeamIndex = index;
-          updateTabs();
-          renderTeamPlayers(index);
-        }
-      });
-      return btn;
-    }
-
-    function updateTabs() {
-      Array.from(tabsContainer.children).forEach((btn, i) => {
-        btn.classList.toggle('active', i === activeTeamIndex);
-      });
-    }
-
-    function renderTeamPlayers(teamIndex) {
-      const captainName = TEAMS[teamIndex].name;
-      const players = SALES.filter(s => s.teamIndex === teamIndex);
-      teamContent.innerHTML = '';
-      const captainHeader = document.createElement('h3');
-      captainHeader.className = 'text-lg font-semibold mb-4';
-      captainHeader.textContent = `Team: ${captainName}`;
-      teamContent.appendChild(captainHeader);
-      if (players.length === 0) {
-        const noPlayers = document.createElement('p');
-        noPlayers.className = 'text-sm italic text-slate-600';
-        noPlayers.textContent = 'No players bought yet.';
-        teamContent.appendChild(noPlayers);
-        return;
-      }
-      const table = document.createElement('table');
-      table.className = 'w-full border-collapse text-sm';
-      table.innerHTML = `
-        <thead>
-          <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
-            <th class="p-2 text-left">Player</th>
-            <th class="p-2 text-left">Position</th>
-            <th class="p-2 text-left">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${players.map(p => `
-            <tr class="border-b border-slate-200 hover:bg-slate-50">
-              <td class="p-2">${p.playerName}</td>
-              <td class="p-2">${p.position}</td>
-              <td class="p-2">${formatMoney(p.price)}</td>
-            </tr>
-          `).join('')}
-        </tbody>`;
-      teamContent.appendChild(table);
-    }
-
-    // Initialize tabs and content
-    TEAMS.forEach((team, i) => {
-      const tabBtn = createTabButton(team, i);
-      tabsContainer.appendChild(tabBtn);
-    });
-    renderTeamPlayers(activeTeamIndex);
-  </script>
 </body>
 </html>
