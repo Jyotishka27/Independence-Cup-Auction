@@ -14,11 +14,39 @@
       overflow-y: auto;
       padding-right: 1rem;
     }
-    .tab-button {
-      @apply px-4 py-2 rounded-t-xl border border-b-0 border-slate-300 bg-slate-100 text-slate-700 cursor-pointer;
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid #CBD5E0; /* slate-300 */
+      margin-bottom: 1.5rem;
+      user-select: none;
     }
-    .tab-button-active {
-      @apply bg-white border-b-white font-semibold text-slate-900;
+    .tab-button {
+      padding: 0.5rem 1.25rem;
+      border: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      font-weight: 600;
+      color: #475569; /* slate-600 */
+      background: transparent;
+      border-radius: 0.5rem 0.5rem 0 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-button:hover:not(.active) {
+      color: #0369A1; /* sky-700 */
+      background-color: #E0F2FE; /* sky-100 */
+    }
+    .tab-button:focus-visible {
+      outline: 2px solid #2563EB; /* blue-600 */
+      outline-offset: 2px;
+    }
+    .tab-button.active {
+      border-color: #0369A1; /* sky-700 */
+      border-bottom-color: white;
+      color: #0369A1; /* sky-700 */
+      background-color: white;
+      cursor: default;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
     }
   </style>
 </head>
@@ -32,7 +60,7 @@
       <h2 class="text-xl font-semibold mb-4">Teams & Players</h2>
 
       <!-- Tabs -->
-      <div id="tabs" class="flex border-b border-slate-300 mb-6">
+      <div id="tabs" class="tabs">
         <!-- Buttons inserted dynamically -->
       </div>
 
@@ -101,7 +129,7 @@
       btn.type = 'button';
       btn.textContent = team.name;
       btn.className = 'tab-button';
-      if (index === 0) btn.classList.add('tab-button-active');
+      if (index === 0) btn.classList.add('active');
       btn.addEventListener('click', () => {
         if (activeTeamIndex !== index) {
           activeTeamIndex = index;
@@ -113,9 +141,8 @@
     }
 
     function updateTabs() {
-      // Reset all buttons
       Array.from(tabsContainer.children).forEach((btn, i) => {
-        btn.classList.toggle('tab-button-active', i === activeTeamIndex);
+        btn.classList.toggle('active', i === activeTeamIndex);
       });
     }
 
@@ -152,7 +179,7 @@
       });
     }
 
-    // Initialize tabs and contents on load
+    // Initialize tabs and content on load
     TEAMS.forEach((team, i) => {
       const tabBtn = createTabButton(team, i);
       tabsContainer.appendChild(tabBtn);
