@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Independence Cup 2025 - Teams & Fixtures</title>
+  <title>Independence Cup 2025 - Teams & Players</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -48,6 +48,27 @@
       cursor: default;
       box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
     }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #CBD5E0;
+      text-align: left;
+    }
+    th {
+      background-color: #F1F5F9; /* slate-100 */
+      font-weight: 600;
+      color: #475569;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    tbody tr:hover {
+      background-color: #E0F2FE; /* sky-100 */
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 p-6">
@@ -65,59 +86,72 @@
       </div>
 
       <!-- Team content -->
-      <div id="teamContent" class="content-scroll border border-slate-300 rounded-b-xl bg-white p-4 min-h-[180px]">
+      <div id="teamContent" class="content-scroll border border-slate-300 rounded-b-xl bg-white p-4 min-h-[250px]">
         <!-- Team players list here -->
       </div>
-    </section>
-
-    <!-- Upcoming Fixtures -->
-    <section class="bg-white rounded-2xl shadow p-6 content-scroll">
-      <h2 class="text-xl font-semibold mb-4">Upcoming Fixtures</h2>
-      <table class="min-w-full border border-slate-300 rounded-lg overflow-hidden text-left text-sm">
-        <thead class="bg-slate-100">
-          <tr>
-            <th class="px-4 py-2 border-b border-slate-300">Date</th>
-            <th class="px-4 py-2 border-b border-slate-300">Time</th>
-            <th class="px-4 py-2 border-b border-slate-300">Match</th>
-            <th class="px-4 py-2 border-b border-slate-300">Venue</th>
-          </tr>
-        </thead>
-        <tbody id="fixturesBody" class="divide-y divide-slate-200">
-          <!-- Populated by script -->
-        </tbody>
-      </table>
     </section>
 
   </main>
 
   <script>
     const TEAMS = [
-      { name: 'Ayon Roy', budget: 3500000 },
-      { name: 'Subhojit Dutta', budget: 3000000 },
-      { name: 'Ritam Chowdhury', budget: 4000000 },
-      { name: 'White Panthers', budget: 2500000 },
-      { name: 'Srinjoy Kundu', budget: 3200000 },
-      { name: 'Amingos FC', budget: 2900000 },
+      { name: 'Ayon Roy' },
+      { name: 'Subhojit Dutta' },
+      { name: 'Ritam Chowdhury' },
+      { name: 'Shubhanjan Basu' },
+      { name: 'Srinjoy Kundu' },
+      { name: 'Subhamoy Das' },
     ];
 
+    // Player data by teams from user provided list
     const SALES = [
-      { teamIndex: 0, playerName: 'Player 1', price: 500000 },
-      { teamIndex: 0, playerName: 'Player 2', price: 1000000 },
-      { teamIndex: 1, playerName: 'Player 3', price: 1000000 },
-      { teamIndex: 2, playerName: 'Player 4', price: 0 },
-      { teamIndex: 5, playerName: 'Player 5', price: 1000000 },
+      { teamIndex: 0, time: '2025-08-15T18:33:43.619Z', playerName: 'Arnab Talukdar', category: 'BP: 4', position: 'Goalkeeper' },
+      { teamIndex: 0, time: '2025-08-15T19:16:55.827Z', playerName: 'Sourav Acharya', category: 'BP: 3 & 5', position: 'Striker' },
+      { teamIndex: 0, time: '2025-08-15T19:21:15.802Z', playerName: 'Proloy Malik', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 0, time: '2025-08-15T19:24:47.228Z', playerName: 'Siddhant Ameria', category: 'BP: 3 & 5', position: 'Midfield' },
+      { teamIndex: 0, time: '2025-08-15T19:26:40.092Z', playerName: 'Kingshuk Banerjee', category: 'BP: 3 & 5', position: 'Midfield' },
+      { teamIndex: 0, time: '2025-08-15T20:15:40.176Z', playerName: 'Aritra Adhikari', category: 'UnSold', position: 'Striker' },
+
+      { teamIndex: 1, time: '2025-08-15T18:36:38.487Z', playerName: 'Soumadeep Dutta', category: 'BP: 4', position: 'Goalkeeper' },
+      { teamIndex: 1, time: '2025-08-15T18:43:01.518Z', playerName: 'Jeffin Mathew', category: 'BP: 6', position: 'Midfield' },
+      { teamIndex: 1, time: '2025-08-15T19:42:05.383Z', playerName: 'Yash Agarwal', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 1, time: '2025-08-15T19:43:44.102Z', playerName: 'Shivaditya Gunin', category: 'BP: 3 & 5', position: 'Striker' },
+      { teamIndex: 1, time: '2025-08-15T19:45:41.773Z', playerName: 'Arghadeep Das', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 1, time: '2025-08-15T20:08:40.971Z', playerName: 'Akash Mukherjee', category: 'UnSold', position: 'Midfield' },
+      { teamIndex: 1, time: '2025-08-15T20:15:28.208Z', playerName: 'Sourav Das', category: 'UnSold', position: 'Midfield' },
+
+      { teamIndex: 2, time: '2025-08-15T18:35:19.218Z', playerName: 'Dhruv', category: 'BP: 4', position: 'Goalkeeper' },
+      { teamIndex: 2, time: '2025-08-15T18:55:41.282Z', playerName: 'Risove Show', category: 'BP: 6', position: 'Midfield' },
+      { teamIndex: 2, time: '2025-08-15T19:33:40.437Z', playerName: 'Biswajit Karmakar', category: 'BP: 3 & 5', position: 'Midfield' },
+      { teamIndex: 2, time: '2025-08-15T19:49:00.932Z', playerName: 'Satyaki Sarkar', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 2, time: '2025-08-15T19:52:11.179Z', playerName: 'Ayan Das', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 2, time: '2025-08-15T20:03:16.462Z', playerName: 'Dipanjan Mazumder', category: 'BP: 3 & 5', position: 'Defence' },
+
+      { teamIndex: 3, time: '2025-08-15T18:29:23.426Z', playerName: 'Rupayan Chakraborty', category: 'BP: 4', position: 'Goalkeeper' },
+      { teamIndex: 3, time: '2025-08-15T18:51:07.305Z', playerName: 'Soumik Mukherjee', category: 'BP: 6', position: 'Defence' },
+      { teamIndex: 3, time: '2025-08-15T19:14:00.924Z', playerName: 'Shardendu Lahiri', category: 'BP: 3 & 5', position: 'Midfield' },
+      { teamIndex: 3, time: '2025-08-15T19:19:34.130Z', playerName: 'Subhayan Banerjee', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 3, time: '2025-08-15T20:00:23.944Z', playerName: 'Pulak Dowari', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 3, time: '2025-08-15T20:12:52.517Z', playerName: 'Sagnik Chakraborty', category: 'UnSold', position: 'Midfield' },
+
+      { teamIndex: 4, time: '2025-08-15T18:36:25.488Z', playerName: 'Arko Dutta', category: 'BP: 4', position: 'Goalkeeper' },
+      { teamIndex: 4, time: '2025-08-15T18:44:58.688Z', playerName: 'Suvam Chakraborty', category: 'BP: 6', position: 'Defence' },
+      { teamIndex: 4, time: '2025-08-15T19:23:32.288Z', playerName: 'Dibwayan Trivedi', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 4, time: '2025-08-15T19:31:32.013Z', playerName: 'Supratim Sengupta', category: 'BP: 3 & 5', position: 'Striker' },
+      { teamIndex: 4, time: '2025-08-15T19:50:23.007Z', playerName: 'Aman Pandey', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 4, time: '2025-08-15T20:01:58.802Z', playerName: 'Ankit Aich', category: 'BP: 3 & 5', position: 'Defence' },
+
+      { teamIndex: 5, time: '2025-08-15T18:30:52.596Z', playerName: 'Aditya Chakraborty', category: 'BP: 4', position: 'Goalkeeper' },
+      { teamIndex: 5, time: '2025-08-15T18:47:44.881Z', playerName: 'Vasu Gupta', category: 'BP: 6', position: 'Striker' },
+      { teamIndex: 5, time: '2025-08-15T19:36:25.335Z', playerName: 'Krishnendu Mondal', category: 'BP: 3 & 5', position: 'Midfield' },
+      { teamIndex: 5, time: '2025-08-15T19:40:19.493Z', playerName: 'Sanchay Bose', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 5, time: '2025-08-15T20:04:20.743Z', playerName: 'Rahul Sarkar', category: 'BP: 3 & 5', position: 'Defence' },
+      { teamIndex: 5, time: '2025-08-15T20:11:02.352Z', playerName: 'Kaustav Guha Mazumdar', category: 'UnSold', position: 'Striker' },
     ];
 
-    const FIXTURES = [
-      { date: '24 Aug 2025', time: '09:00 AM', match: 'Ayon Roy vs Subhojit Dutta', venue: 'Turf XL' },
-      { date: '24 Aug 2025', time: '11:00 AM', match: 'Ritam Chowdhury vs Shubhanjan Basu', venue: 'Turf XL' },
-      { date: '24 Aug 2025', time: '01:00 PM', match: 'Srinjoy Kundu vs Subhamoy Das', venue: 'Turf XL' },
-      { date: '24 Aug 2025', time: '03:00 PM', match: 'Semi-finals', venue: 'Turf XL' },
-      { date: '24 Aug 2025', time: '05:00 PM', match: 'Final Match', venue: 'Turf XL' },
-    ];
-
-    function formatMoney(num) {
-      return '₹ ' + num.toLocaleString('en-IN');
+    function formatTime(iso8601) {
+      const options = { hour: '2-digit', minute: '2-digit', hour12: true };
+      return new Date(iso8601).toLocaleTimeString('en-US', options);
     }
 
     const tabsContainer = document.getElementById('tabs');
@@ -147,47 +181,58 @@
     }
 
     function renderTeamPlayers(teamIndex) {
+      const captainName = TEAMS[teamIndex].name;
+
       const players = SALES.filter(s => s.teamIndex === teamIndex);
       teamContent.innerHTML = '';
+
+      const captainHeader = document.createElement('h3');
+      captainHeader.className = 'text-lg font-semibold mb-4';
+      captainHeader.textContent = `Team: ${captainName}`;
+      teamContent.appendChild(captainHeader);
+
       if (players.length === 0) {
-        teamContent.innerHTML = '<p class="text-sm italic text-slate-600">No players bought yet.</p>';
+        const noPlayers = document.createElement('p');
+        noPlayers.className = 'text-sm italic text-slate-600';
+        noPlayers.textContent = 'No players bought yet.';
+        teamContent.appendChild(noPlayers);
         return;
       }
-      const ul = document.createElement('ul');
-      ul.className = 'list-disc list-inside space-y-1 text-sm';
-      players.forEach(p => {
-        const li = document.createElement('li');
-        li.textContent = `${p.playerName} — ${formatMoney(p.price)}`;
-        ul.appendChild(li);
-      });
-      teamContent.appendChild(ul);
+
+      const table = document.createElement('table');
+      table.className = 'w-full border-collapse text-sm';
+      table.innerHTML = `
+        <thead>
+          <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
+            <th class="p-2 text-left">Time</th>
+            <th class="p-2 text-left">Player</th>
+            <th class="p-2 text-left">Category</th>
+            <th class="p-2 text-left">Position</th>
+            <th class="p-2 text-left">Captain</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${players.map(p => `
+            <tr class="border-b border-slate-200 hover:bg-slate-50">
+              <td class="p-2">${formatTime(p.time)}</td>
+              <td class="p-2">${p.playerName}</td>
+              <td class="p-2">${p.category}</td>
+              <td class="p-2">${p.position}</td>
+              <td class="p-2">${captainName}</td>
+            </tr>
+          `).join('')}
+        </tbody>`;
+
+      teamContent.appendChild(table);
     }
 
-    function renderFixtureRows() {
-      const tbody = document.getElementById('fixturesBody');
-      tbody.innerHTML = '';
-      FIXTURES.forEach(fixture => {
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-100';
-        tr.innerHTML = `
-          <td class="px-4 py-2 border-b border-slate-300">${fixture.date}</td>
-          <td class="px-4 py-2 border-b border-slate-300">${fixture.time}</td>
-          <td class="px-4 py-2 border-b border-slate-300">${fixture.match}</td>
-          <td class="px-4 py-2 border-b border-slate-300">${fixture.venue}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Initialize tabs and content on load
+    // Initialize tabs and content
     TEAMS.forEach((team, i) => {
       const tabBtn = createTabButton(team, i);
       tabsContainer.appendChild(tabBtn);
     });
 
     renderTeamPlayers(activeTeamIndex);
-    renderFixtureRows();
   </script>
 </body>
 </html>
-
