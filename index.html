@@ -18,10 +18,28 @@
       overflow-y: auto;
       padding-right: 1rem; /* to avoid hiding content behind scrollbar */
     }
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    .nav-buttons button {
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      background-color: #2563EB; /* blue-600 */
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .nav-buttons button:hover {
+      background-color: #1D4ED8; /* blue-700 */
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 flex justify-center items-start min-h-screen p-6">
-
   <div class="max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-10">
     <!-- Left/Center info section spanning 2 columns on md and above -->
     <section class="md:col-span-2 bg-white rounded-2xl shadow p-6 content-scroll">
@@ -143,76 +161,12 @@
           <h3 class="font-semibold mb-1">Closing Ceremony</h3>
           <p>Award distribution begins post 5:00 PM.</p>
         </section>
-        <hr class="my-6 border-t border-slate-300" />
-        <h2 class="text-xl font-semibold mb-2">Independence Cup 2025 Auction Rulebook – 6 Teams, 8 Players Each</h2>
-        <ol class="list-decimal list-inside space-y-3 text-sm">
-          <li>
-            <strong>Team Composition</strong><br />
-            6 teams in total.<br />
-            Each team must have 7 players and mandatorily 1 Goalkeeper (GK).<br />
-            Remaining spots can be from any category/position.
-          </li>
-          <li>
-            <strong>Player Categories & Base Price</strong><br />
-            <table class="w-full text-sm border border-slate-300 rounded text-left mb-4">
-              <thead class="bg-slate-100">
-                <tr>
-                  <th class="border border-slate-300 px-2 py-1">Category</th>
-                  <th class="border border-slate-300 px-2 py-1">Description</th>
-                  <th class="border border-slate-300 px-2 py-1">Base Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td class="border border-slate-300 px-2 py-1">A</td><td class="border border-slate-300 px-2 py-1">Top-tier players</td><td class="border border-slate-300 px-2 py-1">₹6 lakh</td></tr>
-                <tr><td class="border border-slate-300 px-2 py-1">B</td><td class="border border-slate-300 px-2 py-1">Strong performers</td><td class="border border-slate-300 px-2 py-1">₹5 lakh</td></tr>
-                <tr><td class="border border-slate-300 px-2 py-1">C</td><td class="border border-slate-300 px-2 py-1">Emerging players</td><td class="border border-slate-300 px-2 py-1">₹3 lakh</td></tr>
-                <tr><td class="border border-slate-300 px-2 py-1">GK</td><td class="border border-slate-300 px-2 py-1">Goalkeepers</td><td class="border border-slate-300 px-2 py-1">₹4 lakh</td></tr>
-              </tbody>
-            </table>
-          </li>
-          <li>
-            <strong>Team Budget</strong><br />
-            Total Budget per team: ₹40 lakh.<br />
-            Teams must manage their budget to complete the squad within the cap.<br />
-            Minimum spend on a player is their category’s base price.
-          </li>
-          <li>
-            <strong>Auction Process</strong><br />
-            Auctioneer will call players from GK category first followed by random order from the pool.<br />
-            Minimum bid = base price of player’s category.<br />
-            Bid increments = ₹0.5 lakh or multiples thereof.<br />
-            Player goes to highest bidder; amount deducted from their budget.
-          </li>
-          <li>
-            <strong>Incomplete Squad Penalty</strong><br />
-            If a team spends their entire budget before completing 8 players:<br />
-            1. Must release their most expensive purchased player back to auction pool.<br />
-            2. Budget restored by purchase amount.<br />
-            3. Released player re-auctioned (except to releasing team).
-          </li>
-          <li>
-            <strong>Unsold Players</strong><br />
-            Unsold players after first auction will be auctioned in a final pool.<br />
-            Captains may bid again with remaining budgets.
-          </li>
-          <li>
-            <strong>Conduct</strong><br />
-            Captains must bid responsibly and respect auctioneer decisions.<br />
-            Arguments or delays can cause skipped turns.<br />
-            Final team lists announced after auction closure.
-          </li>
-          <li>
-            <strong>Final Squad Lock</strong><br />
-            Once auction ends, squads are locked except for injury/emergency replacements.<br />
-            Replacements approved at organizers’ discretion.
-          </li>
-        </ol>
+      </div>
     </section>
-
     <!-- Right: Login Form -->
-    <aside class="bg-white rounded-2xl shadow p-6 h-fit w-full max-w-md">
+    <aside class="bg-white rounded-2xl shadow p-6 h-fit w-full max-w-md flex flex-col items-center">
       <h2 class="text-2xl font-bold mb-6">Admin Login</h2>
-      <form id="loginForm" novalidate>
+      <form id="loginForm" novalidate class="w-full">
         <div class="mb-4">
           <label for="email" class="block font-medium text-slate-700 mb-1">Email</label>
           <input type="email" id="email" name="email" placeholder="jyotishka27@org.com" required
@@ -229,31 +183,27 @@
           Login as Admin
         </button>
       </form>
-      <p class="mt-4 text-center text-sm text-blue-600 hover:underline cursor-pointer">
-        <a href="team_fixtures.html" tabindex="0" aria-label="Go to Team Captain Login Page">Fixture List</a>
-      </p>
+      <div class="nav-buttons w-full mt-6 flex justify-center gap-4">
+        <button onclick="location.href='team_list.html'">Team List</button>
+        <button onclick="location.href='fixtures.html'">Fixture List</button>
+      </div>
     </aside>
   </div>
-
   <script>
     (() => {
       const loginForm = document.getElementById('loginForm');
       const errorMsg = document.getElementById('errorMsg');
       const ADMIN_EMAIL = 'jyotishka27@org.com';
       const ADMIN_PASSWORD = 'Leavemealoner8@';
-
       loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
         errorMsg.textContent = '';
-
         const email = loginForm.email.value.trim();
         const password = loginForm.password.value;
-
         if (!email || !password) {
           errorMsg.textContent = 'Please enter both email and password.';
           return;
         }
-
         if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
           window.location.href = 'football_auctioneer.html';
         } else {
@@ -262,10 +212,5 @@
       });
     })();
   </script>
-
 </body>
 </html>
-
-
-
-
