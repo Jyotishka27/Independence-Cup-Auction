@@ -13,7 +13,6 @@
       margin: 0;
       min-height: 100vh;
     }
-
     /* Header */
     nav {
       background-color: white;
@@ -45,76 +44,152 @@
       text-decoration: none;
       border-bottom: 1px solid #e2e8f0;
     }
-
+    /* Hero header */
+    .hero-header {
+      background: linear-gradient(90deg, #e0f2fe, #bae6fd);
+      padding: 2rem 1rem;
+      border-radius: 1rem 1rem 0 0;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-header h1 {
+      font-size: 2.5rem; /* 40px */
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: #0369A1;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
     /* Tabs */
     .tabs {
       display: flex;
       gap: 0.5rem;
-      border-bottom: 2px solid #CBD5E0;
-      margin-bottom: 1.5rem;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       white-space: nowrap;
+      margin-bottom: 1rem;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
     }
     .tab-button {
-      padding: 0.5rem 1rem;
-      border: 2px solid transparent;
-      border-bottom: 2px solid transparent;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px; /* full pill */
       font-weight: 600;
       color: #475569;
-      background: transparent;
-      border-radius: 0.5rem 0.5rem 0 0;
+      background-color: transparent;
+      border: 2px solid transparent;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      font-size: 0.9rem;
       flex-shrink: 0;
-      font-size: 0.875rem;
-      min-width: 100px;
       text-align: center;
-    }
-    .tab-button.active {
-      border-color: #0369A1;
-      border-bottom-color: white;
-      color: #0369A1;
-      background-color: white;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      user-select: none;
     }
     .tab-button:hover:not(.active) {
+      background-color: #bfdbfe; /* light blue */
       color: #0369A1;
-      background-color: #E0F2FE;
     }
-
+    .tab-button.active {
+      background-color: #0369A1; /* deep blue */
+      color: white;
+      border-color: #0369A1;
+      box-shadow: 0 4px 8px rgb(3 105 161 / 0.4);
+    }
+    /* Card container */
+    section.bg-white.rounded-2xl.shadow.p-6 {
+      box-shadow: 0 12px 24px rgb(0 0 0 / 0.1);
+      border-radius: 1rem;
+      background: white;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
     /* Table */
     table {
       width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
+      border-collapse: separate;
+      border-spacing: 0 8px;
+      font-size: 0.95rem;
+      min-width: 300px;
     }
-    th, td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid #CBD5E0;
+    thead th {
+      background-color: #e0f2fe;
+      font-weight: 700;
+      color: #0c4a6e;
+      padding: 0.75rem 1rem;
       text-align: left;
-      word-break: break-word;
-    }
-    th {
-      background-color: #F1F5F9;
-      font-weight: 600;
-      color: #475569;
+      border-radius: 0.5rem;
       position: sticky;
       top: 0;
       z-index: 10;
     }
-    tbody tr:hover {
-      background-color: #E0F2FE;
-    }
-
-    #teamContent {
-      min-height: 450px;
-      max-height: 600px;
-      overflow-y: auto;
-      border: 1px solid #CBD5E0;
-      border-radius: 0 0 1rem 1rem;
+    tbody tr {
       background-color: white;
-      padding: 1rem;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.06);
+      transition: background-color 0.2s ease;
+      border-radius: 0.5rem;
+    }
+    tbody tr:hover {
+      background-color: #f0f9ff; /* lighter blue */
+    }
+    tbody td {
+      padding: 0.75rem 1rem;
+      vertical-align: middle;
+      border: none;
+      position: relative;
+    }
+    tbody td.price {
+      text-align: right;
+      font-weight: 700;
+      color: #0369A1;
+      white-space: nowrap;
+      min-width: 95px;
+    }
+    tbody td.position {
+      white-space: nowrap;
+    }
+    tbody td.player {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    /* Position icons */
+    .icon {
+      font-size: 1.15rem;
+    }
+    /* Filter box */
+    .filter-box {
+      max-width: 320px;
+      margin-bottom: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    input[type="text"] {
+      width: 100%;
+      border: 2px solid #cbd5e1;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      outline-offset: 2px;
+      transition: border-color 0.2s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #0369A1;
+      box-shadow: 0 0 0 3px rgb(3 105 161 / 0.4);
+    }
+    /* Budget summary */
+    .budget-summary {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: #0369A1;
+      text-align: right;
+      user-select: none;
     }
   </style>
 </head>
@@ -150,19 +225,34 @@
       </div>
     </nav>
   </header>
-
   <!-- Main -->
   <main class="max-w-4xl mx-auto mt-8">
-    <h1 class="text-3xl font-bold mb-6 text-center">Independence Cup 2025 - Team List</h1>
+    <!-- Hero style header -->
+    <div class="hero-header">
+      <h1>⚽ Independence Cup 2025 - Team List</h1>
+    </div>
     <section class="bg-white rounded-2xl shadow p-6">
       <h2 class="text-xl font-semibold mb-4">Team List</h2>
+
+      <!-- Search Filter -->
+      <div class="filter-box">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Filter by player name or position…"
+          aria-label="Filter players"
+          autocomplete="off"
+        />
+      </div>
+
       <!-- Tabs -->
-      <div id="tabs" class="tabs"></div>
+      <div id="tabs" class="tabs" role="tablist" aria-label="Teams"></div>
       <!-- Team content -->
-      <div id="teamContent"></div>
+      <div id="teamContent" tabindex="0" aria-live="polite"></div>
+      <!-- Budget summary -->
+      <div id="budgetSummary" class="budget-summary"></div>
     </section>
   </main>
-
   <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById("mobile-menu-button");
@@ -182,8 +272,9 @@
       { name: 'Strawhat pirates' },
       { name: 'Amingos FC' },
     ];
+
     const SALES = [
-      { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', price: 0},
+      { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', price: 0 },
       { teamIndex: 0, playerName: 'Arnab Talukdar', position: 'Goalkeeper', price: 900000 },
       { teamIndex: 0, playerName: 'Sourav Acharya', position: 'Striker', price: 650000 },
       { teamIndex: 0, playerName: 'Proloy Malik', position: 'Defence', price: 1000000 },
@@ -228,8 +319,20 @@
       { teamIndex: 5, playerName: 'Kaustav Guha Mazumdar', position: 'Striker', price: 500000 }
     ];
 
+    const positionIcons = {
+      Striker: '⚽',
+      Defence: '🛡',
+      Goalkeeper: '🧤',
+      Midfield: '🎯'
+    };
+
     const tabsContainer = document.getElementById("tabs");
     const teamContent = document.getElementById("teamContent");
+    const budgetSummary = document.getElementById("budgetSummary");
+    const searchInput = document.getElementById("searchInput");
+
+    let activeTeamIndex = 0;
+    let filteredPlayers = [];
 
     function renderTabs() {
       tabsContainer.innerHTML = "";
@@ -237,34 +340,49 @@
         const btn = document.createElement("button");
         btn.textContent = team.name;
         btn.className = "tab-button";
+        btn.setAttribute("role", "tab");
+        btn.setAttribute("aria-selected", index === 0 ? "true" : "false");
         btn.addEventListener("click", () => {
-          document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+          document.querySelectorAll(".tab-button").forEach(b => {
+            b.classList.remove("active");
+            b.setAttribute("aria-selected", "false");
+          });
           btn.classList.add("active");
-          renderTeam(index);
+          btn.setAttribute("aria-selected", "true");
+          activeTeamIndex = index;
+          searchInput.value = ""; // reset filter on tab change
+          filteredPlayers = SALES.filter(p => p.teamIndex === activeTeamIndex);
+          renderTeamTable(filteredPlayers);
+          renderBudgetSummary(filteredPlayers);
         });
         tabsContainer.appendChild(btn);
-        if (index === 0) btn.classList.add("active");
+        if (index === 0) {
+          btn.classList.add("active");
+        }
       });
-      renderTeam(0);
+      // Initially set filteredPlayers and render first team
+      filteredPlayers = SALES.filter(p => p.teamIndex === 0);
+      renderTeamTable(filteredPlayers);
+      renderBudgetSummary(filteredPlayers);
     }
 
-    function renderTeam(teamIndex) {
-      const players = SALES.filter(p => p.teamIndex === teamIndex);
+    // Render team table rows with filtering
+    function renderTeamTable(players) {
       teamContent.innerHTML = `
         <table>
           <thead>
             <tr>
-              <th>Player</th>
-              <th>Position</th>
-              <th>Price (₹)</th>
+              <th scope="col">Player</th>
+              <th scope="col">Position</th>
+              <th scope="col" style="text-align:right;">Price (₹)</th>
             </tr>
           </thead>
           <tbody>
-            ${players.map(p => `
+            ${players.length === 0 ? `<tr><td colspan="3" style="text-align:center; padding:1rem; color:#64748b;">No players found.</td></tr>` : players.map(p => `
               <tr>
-                <td>${p.playerName}</td>
-                <td>${p.position}</td>
-                <td>${p.price.toLocaleString()}</td>
+                <td class="player"><span class="icon" aria-hidden="true">${positionIcons[p.position] || ''}</span>${p.playerName}</td>
+                <td class="position">${p.position}</td>
+                <td class="price">${p.price.toLocaleString()}</td>
               </tr>
             `).join("")}
           </tbody>
@@ -272,7 +390,29 @@
       `;
     }
 
+    // Calculate and render total budget spent by the team
+    function renderBudgetSummary(players) {
+      const total = players.reduce((sum, p) => sum + p.price, 0);
+      budgetSummary.textContent = `💰 Total Spend: ₹${total.toLocaleString()}`;
+    }
+
+    // Filter players on search input (by player name or position)
+    searchInput.addEventListener("input", (e) => {
+      const term = e.target.value.trim().toLowerCase();
+      if (term === "") {
+        filteredPlayers = SALES.filter(p => p.teamIndex === activeTeamIndex);
+      } else {
+        filteredPlayers = SALES.filter(p =>
+          p.teamIndex === activeTeamIndex &&
+          (p.playerName.toLowerCase().includes(term) || p.position.toLowerCase().includes(term))
+        );
+      }
+      renderTeamTable(filteredPlayers);
+      renderBudgetSummary(filteredPlayers);
+    });
+
     renderTabs();
+
   </script>
 </body>
 </html>
