@@ -10,100 +10,173 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background: #f8fafc; /* Tailwind slate-50 */
       color: #334155; /* Tailwind slate-700 */
-      padding: 2rem;
+      padding: 1rem 1rem 2rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    @media (min-width: 640px) {
+      body {
+        padding: 2rem;
+        font-size: 1rem;
+      }
     }
     h1, h2, h3 {
       font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    h1 {
+      font-size: 2.25rem; /* 36px */
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 640px) {
+      h1 {
+        font-size: 2.5rem; /* 40px */
+      }
+    }
+    h2 {
+      font-size: 1.5rem; /* 24px */
+      margin-bottom: 1rem;
     }
     section {
       background: white;
       border-radius: 0.75rem;
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-      padding: 1.5rem 2rem;
-      max-width: 768px;
-      margin: auto;
-      margin-bottom: 2rem;
+      padding: 1.25rem 1.5rem;
+      max-width: 46rem; /* 768px */
+      margin: 0 auto 2rem auto;
+      box-sizing: border-box;
+    }
+    @media (max-width: 480px) {
+      section {
+        padding: 1rem 1rem;
+        margin-bottom: 1.5rem;
+      }
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       margin-top: 1rem;
       margin-bottom: 1rem;
+      min-width: 320px; /* minimum for mobile scrolling */
     }
     th, td {
-      padding: 0.75rem 1rem;
+      padding: 0.5rem 0.75rem;
       border: 1px solid #cbd5e1; /* Tailwind slate-300 */
       text-align: left;
+      vertical-align: middle;
+      word-break: break-word;
     }
     th {
       background-color: #e2e8f0; /* Tailwind slate-200 */
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 5;
     }
     ul {
       margin-left: 1rem;
       list-style-type: disc;
       margin-bottom: 1rem;
     }
+    /* Responsive adjustments */
+    /* Make tables horizontally scrollable on small screens */
+    .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    @media (max-width: 640px) {
+      /* Slightly smaller font for smaller devices */
+      body {
+        font-size: 0.95rem;
+        padding: 1rem 0.75rem 1.5rem;
+      }
+      h1 {
+        font-size: 1.875rem; /* 30px */
+        margin-bottom: 1.5rem;
+      }
+      h2 {
+        font-size: 1.25rem; /* 20px */
+        margin-bottom: 0.75rem;
+      }
+      section {
+        padding: 1rem 1rem;
+        margin-bottom: 1.5rem;
+      }
+      table {
+        font-size: 0.85rem;
+      }
+    }
   </style>
 </head>
 <body>
-
-<h1 class="text-4xl text-center mb-8">Independence Cup 2025 - Final Single-Pitch Schedule</h1>
+<h1>Independence Cup 2025 - Final Single-Pitch Schedule</h1>
 
 <section>
-  <h2 class="text-2xl mb-4">Groups</h2>
+  <h2>Groups</h2>
   <p><strong>Group A:</strong> Thunderbolt, Red Bulls Eleven, Messiah FC</p>
   <p><strong>Group B:</strong> White Panthers, Strawhat pirates, Amingos FC</p>
 </section>
 
 <section>
-  <h2 class="text-2xl mb-4">Group-stage &mdash; Double Round-robin (12 matches)</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Time</th>
-        <th>Group</th>
-        <th>Fixture</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>09:00–09:22</td><td>Group A</td><td>Thunderbolt vs Red Bulls Eleven</td></tr>
-      <tr><td>09:22–09:44</td><td>Group B</td><td>White Panthers vs Strawhat pirates</td></tr>
-      <tr><td>09:44–10:06</td><td>Group A</td><td>Red Bulls Eleven vs Messiah FC</td></tr>
-      <tr><td>10:06–10:28</td><td>Group B</td><td>Strawhat pirates vs Amingos FC</td></tr>
-      <tr><td>10:28–10:50</td><td>Group A</td><td>Messiah FC vs Thunderbolt</td></tr>
-      <tr><td>10:50–11:12</td><td>Group B</td><td>Amingos FC vs White Panthers</td></tr>
-      <tr><td>11:12–11:34</td><td>Group A</td><td>Red Bulls Eleven vs Thunderbolt</td></tr>
-      <tr><td>11:34–11:56</td><td>Group B</td><td>Strawhat pirates vs White Panthers</td></tr>
-      <tr><td>11:56–12:18</td><td>Group A</td><td>Messiah FC vs Red Bulls Eleven</td></tr>
-      <tr><td>12:18–12:40</td><td>Group B</td><td>Amingos FC vs Strawhat pirates</td></tr>
-      <tr><td>12:40–13:02</td><td>Group A</td><td>Thunderbolt vs Messiah FC</td></tr>
-      <tr><td>13:02–13:24</td><td>Group B</td><td>White Panthers vs Amingos FC</td></tr>
-    </tbody>
-  </table>
+  <h2>Group-stage &mdash; Double Round-robin (12 matches)</h2>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Group</th>
+          <th>Fixture</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>09:00–09:22</td><td>Group A</td><td>Thunderbolt vs Red Bulls Eleven</td></tr>
+        <tr><td>09:22–09:44</td><td>Group B</td><td>White Panthers vs Strawhat pirates</td></tr>
+        <tr><td>09:44–10:06</td><td>Group A</td><td>Red Bulls Eleven vs Messiah FC</td></tr>
+        <tr><td>10:06–10:28</td><td>Group B</td><td>Strawhat pirates vs Amingos FC</td></tr>
+        <tr><td>10:28–10:50</td><td>Group A</td><td>Messiah FC vs Thunderbolt</td></tr>
+        <tr><td>10:50–11:12</td><td>Group B</td><td>Amingos FC vs White Panthers</td></tr>
+        <tr><td>11:12–11:34</td><td>Group A</td><td>Red Bulls Eleven vs Thunderbolt</td></tr>
+        <tr><td>11:34–11:56</td><td>Group B</td><td>Strawhat pirates vs White Panthers</td></tr>
+        <tr><td>11:56–12:18</td><td>Group A</td><td>Messiah FC vs Red Bulls Eleven</td></tr>
+        <tr><td>12:18–12:40</td><td>Group B</td><td>Amingos FC vs Strawhat pirates</td></tr>
+        <tr><td>12:40–13:02</td><td>Group A</td><td>Thunderbolt vs Messiah FC</td></tr>
+        <tr><td>13:02–13:24</td><td>Group B</td><td>White Panthers vs Amingos FC</td></tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
 <section>
-  <h2 class="text-2xl mb-4">Knockout Stage (with 3rd-place match before Final)</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Time</th>
-        <th>Match</th>
-        <th>Fixture</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>13:24–13:46</td><td>Semi 1</td><td>Winner Group A vs Runner-up Group B</td></tr>
-      <tr><td>13:46–14:08</td><td>Semi 2</td><td>Winner Group B vs Runner-up Group A</td></tr>
-      <tr><td>14:08–14:30</td><td>3rd-place Match</td><td>Loser SF1 vs Loser SF2</td></tr>
-      <tr><td>14:30–14:52</td><td>Final</td><td>Winner SF1 vs Winner SF2</td></tr>
-    </tbody>
-  </table>
+  <h2>Knockout Stage (with 3rd-place match before Final)</h2>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Match</th>
+          <th>Fixture</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>13:24–13:46</td><td>Semi 1</td><td>Winner Group A vs Runner-up Group B</td></tr>
+        <tr><td>13:46–14:08</td><td>Semi 2</td><td>Winner Group B vs Runner-up Group A</td></tr>
+        <tr><td>14:08–14:30</td><td>3rd-place Match</td><td>Loser SF1 vs Loser SF2</td></tr>
+        <tr><td>14:30–14:52</td><td>Final</td><td>Winner SF1 vs Winner SF2</td></tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
 <section>
-  <h2 class="text-2xl mb-4">Tournament Information & Notes</h2>
+  <h2>Tournament Information &amp; Notes</h2>
   <ul>
     <li><strong>Tournament finish time:</strong> ~14:52 IST (not counting prize-giving)</li>
     <li><strong>Total tournament runtime:</strong> 352 minutes (5 hr 52 min) from first whistle to last</li>
@@ -116,7 +189,5 @@
     <li><strong>Prize ceremony:</strong> Add 10–15 mins after Final for awards and presentation</li>
   </ul>
 </section>
-
 </body>
 </html>
-
