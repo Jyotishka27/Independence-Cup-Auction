@@ -103,12 +103,11 @@
       <div id="mobile-menu" class="hidden md:hidden pt-2 pb-4 space-y-1 border-t border-gray-200">
         <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Home</a>
         <a href="teams.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Teams</a>
-        <a href="fixtures.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Fixtures</a>
+        <a href="fixture.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Fixtures</a>
         <a href="admin.html" class="block px-3 py-2 text-base font-medium text-blue-600 font-semibold hover:bg-gray-100 rounded" aria-current="page">Admin</a>
       </div>
     </nav>
   </header>
-  
   <!-- Main layout -->
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0 py-8">
     <!-- Main content (left 2 cols) -->
@@ -145,49 +144,8 @@
         </section>
       </article>
     </main>
-
     <!-- Sidebar (right col) -->
     <div class="flex flex-col items-center space-y-6 w-full max-w-md mx-auto">
-      <!-- Login Form -->
-      <aside class="bg-white rounded-2xl shadow p-6 w-full">
-        <h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2>
-        <form id="loginForm" novalidate class="w-full" autocomplete="off">
-          <div class="mb-4">
-            <label for="email" class="block font-medium text-slate-700 mb-1">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="jyotishka27@org.com"
-              required
-              class="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-              autocapitalize="none"
-              autocorrect="off"
-              spellcheck="false"
-            />
-          </div>
-          <div class="mb-4">
-            <label for="password" class="block font-medium text-slate-700 mb-1">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter password"
-              required
-              class="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-              autocomplete="current-password"
-            />
-          </div>
-          <div id="errorMsg" class="error" role="alert" aria-live="assertive"></div>
-          <button
-            type="submit"
-            class="w-full bg-blue-600 text-white font-semibold py-2 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
-          >
-            Login as Admin
-          </button>
-        </form>
-      </aside>
-
       <!-- Notice Board -->
       <section class="bg-white rounded-2xl shadow p-6 w-full">
         <h2 class="text-xl font-semibold mb-4">📢 Notice Board</h2>
@@ -198,13 +156,11 @@
       </section>
     </div>
   </div>
-
   <!-- Navigation Buttons below all main content -->
   <div class="nav-buttons max-w-7xl mx-auto mt-8 px-4 flex justify-center gap-4">
     <button type="button" onclick="location.href='team_list.html'">Team List</button>
     <button type="button" onclick="location.href='team_fixtures.html'">Fixture List</button>
   </div>
-
   <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-button');
@@ -214,30 +170,6 @@
       mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
       mobileMenu.classList.toggle('hidden');
     });
-
-    (() => {
-      const loginForm = document.getElementById('loginForm');
-      const errorMsg = document.getElementById('errorMsg');
-      const ADMIN_EMAIL = 'jyotishka27@org.com';
-      const ADMIN_PASSWORD = 'Leavemealoner8@';
-
-      loginForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        errorMsg.textContent = '';
-        const email = loginForm.email.value.trim();
-        const password = loginForm.password.value;
-        if (!email || !password) {
-          errorMsg.textContent = 'Please enter both email and password.';
-          return;
-        }
-        if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-          window.location.href = 'football_auctioneer.html';
-        } else {
-          errorMsg.textContent = 'Invalid email or password.';
-        }
-      });
-    })();
   </script>
 </body>
 </html>
-
