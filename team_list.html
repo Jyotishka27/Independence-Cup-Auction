@@ -230,10 +230,10 @@
     <nav aria-label="Primary Navigation">
       <div class="brand">We Are Eleven</div>
       <div class="nav-links" id="desktop-nav-links">
-        <a href="index.html" class="" >Home</a>
+        <a href="index.html">Home</a>
         <a href="team_list.html" class="active" aria-current="page">Teams</a>
-        <a href="team_fixtures.html" class="" >Fixtures</a>
-        <a href="admin.html" class="" >Admin</a>
+        <a href="team_fixtures.html">Fixtures</a>
+        <a href="admin.html">Admin</a>
       </div>
       <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
@@ -242,10 +242,10 @@
         </svg>
       </button>
       <div id="mobile-menu" hidden>
-        <a href="index.html" >Home</a>
+        <a href="index.html">Home</a>
         <a href="team_list.html" class="active" aria-current="page">Teams</a>
-        <a href="team_fixtures.html" >Fixtures</a>
-        <a href="admin.html" >Admin</a>
+        <a href="team_fixtures.html">Fixtures</a>
+        <a href="admin.html">Admin</a>
       </div>
     </nav>
   </header>
@@ -267,7 +267,6 @@
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-
     mobileMenuBtn.addEventListener('click', () => {
       const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
       mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
@@ -336,7 +335,6 @@
     function formatMoney(amount) {
       return '₹ ' + amount.toLocaleString('en-IN');
     }
-
     const tabsContainer = document.getElementById('tabs');
     const teamContent = document.getElementById('teamContent');
     let activeTeamIndex = 0;
@@ -376,7 +374,6 @@
       teamHeader.className = 'text-lg font-semibold mb-4';
       teamHeader.textContent = `Team: ${teamName}`;
       teamContent.appendChild(teamHeader);
-
       if (players.length === 0) {
         const noPlayers = document.createElement('p');
         noPlayers.className = 'text-sm italic text-slate-600';
@@ -384,10 +381,8 @@
         teamContent.appendChild(noPlayers);
         return;
       }
-
       const tableContainer = document.createElement('div');
       tableContainer.className = 'table-container';
-
       const table = document.createElement('table');
       table.className = 'w-full border-collapse text-sm';
       table.setAttribute('aria-label', `Players list for team ${teamName}`);
