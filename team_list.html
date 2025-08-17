@@ -10,7 +10,7 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background: #f8fafc; /* Tailwind slate-50 */
       color: #334155; /* Tailwind slate-700 */
-      padding: 1rem 1rem 2rem; /* reduce side padding for smaller screens */
+      padding: 1rem 1rem 2rem;
       font-size: 1rem;
       min-height: 100vh;
       margin: 0;
@@ -30,11 +30,10 @@
       border-bottom: 2px solid #CBD5E0; /* slate-300 */
       margin-bottom: 1.5rem;
       user-select: none;
-      overflow-x: auto; /* make tabs scrollable horizontally on small screens */
-      -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
       scrollbar-color: #94a3b8 transparent;
-      /* Ensure no wrapping */
       white-space: nowrap;
     }
     .tabs::-webkit-scrollbar {
@@ -57,9 +56,9 @@
       border-radius: 0.5rem 0.5rem 0 0;
       cursor: pointer;
       transition: all 0.2s ease;
-      flex-shrink: 0; /* prevent button from shrinking in flex container */
+      flex-shrink: 0;
       font-size: 0.875rem;
-      min-width: 100px; /* ensure tap targets are big enough on mobile */
+      min-width: 100px;
       text-align: center;
     }
     @media (min-width: 640px) {
@@ -109,7 +108,6 @@
     tbody tr:hover {
       background-color: #E0F2FE; /* sky-100 */
     }
-    /* Increased fixed height for team content to show more players without scroll */
     #teamContent {
       min-height: 450px;
       max-height: 600px;
@@ -119,65 +117,67 @@
       border-radius: 0 0 1rem 1rem;
       background-color: white;
     }
-    /* Responsive table container for mobile */
     .table-container {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
-    /* Header & Navigation styling */
-    header {
+    /* Unified Header styling */
+    nav.max-w-7xl {
       background-color: white;
       box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
       position: sticky;
       top: 0;
       z-index: 30;
-      padding: 0 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
-    nav {
-      max-width: 1120px;
-      margin: 0 auto;
+    @media (min-width: 640px) {
+      nav.max-w-7xl {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+    .header-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 4rem;
     }
-    nav .brand {
+    .brand {
       font-weight: 800;
       font-size: 1.5rem;
       color: #111827; /* gray-900 */
       user-select: none;
     }
-    nav .nav-links {
+    .desktop-nav {
       display: none;
+      gap: 2rem;
+      text-transform: none;
     }
-    nav .nav-links a {
-      margin-left: 2rem;
+    .desktop-nav a {
       font-weight: 600;
       font-size: 0.875rem;
       color: #475569; /* slate-600 */
       text-decoration: none;
       position: relative;
     }
-    nav .nav-links a:hover,
-    nav .nav-links a:focus-visible {
+    .desktop-nav a:hover,
+    .desktop-nav a:focus-visible {
       color: #2563EB; /* blue-600 */
       outline-offset: 2px;
       outline: 2px solid #2563EB;
       border-radius: 0.3rem;
     }
-    nav .nav-links a.active {
+    .desktop-nav a.active {
       color: #2563EB;
       font-weight: 700;
     }
-    /* Mobile menu button */
-    nav .mobile-menu-button {
-      display: block;
+    .mobile-menu-button {
       background: none;
       border: none;
       cursor: pointer;
       color: #475569;
     }
-    /* Mobile menu */
     #mobile-menu {
       display: none;
       background-color: white;
@@ -202,7 +202,7 @@
     }
     #mobile-menu a:hover,
     #mobile-menu a:focus-visible {
-      background-color: #E0F2FE; /* sky-100 */
+      background-color: #E0F2FE;
       color: #2563EB;
       outline-offset: 2px;
       outline: 2px solid #2563EB;
@@ -212,11 +212,11 @@
       font-weight: 700;
     }
     @media (min-width: 768px) {
-      nav .nav-links {
+      .desktop-nav {
         display: flex;
         align-items: center;
       }
-      nav .mobile-menu-button {
+      .mobile-menu-button {
         display: none;
       }
       #mobile-menu {
@@ -226,21 +226,24 @@
   </style>
 </head>
 <body>
+  <!-- Unified Header -->
   <header>
-    <nav aria-label="Primary Navigation">
-      <div class="brand">We Are Eleven</div>
-      <div class="nav-links" id="desktop-nav-links">
-        <a href="index.html">Home</a>
-        <a href="team_list.html" class="active" aria-current="page">Teams</a>
-        <a href="team_fixtures.html">Fixtures</a>
-        <a href="admin.html">Admin</a>
+    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="header-inner">
+        <div class="brand">We Are Eleven</div>
+        <div class="desktop-nav">
+          <a href="index.html">Home</a>
+          <a href="team_list.html" class="active" aria-current="page">Teams</a>
+          <a href="team_fixtures.html">Fixtures</a>
+          <a href="admin.html">Admin</a>
+        </div>
+        <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
       </div>
-      <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
       <div id="mobile-menu" hidden>
         <a href="index.html">Home</a>
         <a href="team_list.html" class="active" aria-current="page">Teams</a>
@@ -252,7 +255,6 @@
 
   <main class="max-w-4xl mx-auto mt-8">
     <h1 class="text-3xl font-bold mb-6 text-center">Independence Cup 2025 - Team List</h1>
-
     <!-- Team Tabs -->
     <section class="bg-white rounded-2xl shadow p-6">
       <h2 class="text-xl font-semibold mb-4">Team List</h2>
@@ -270,14 +272,10 @@
     mobileMenuBtn.addEventListener('click', () => {
       const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
       mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
-      if (expanded) {
-        mobileMenu.hidden = true;
-      } else {
-        mobileMenu.hidden = false;
-      }
+      mobileMenu.hidden = expanded;
     });
 
-    // Teams and sales data
+    // Teams and sales data - unchanged
     const TEAMS = [
       { name: 'Thunderbolt' },
       { name: 'Red Bulls Eleven' },
@@ -331,14 +329,14 @@
       { teamIndex: 5, playerName: 'Rahul Sarkar', position: 'Defence', price: 600000 },
       { teamIndex: 5, playerName: 'Kaustav Guha Mazumdar', position: 'Striker', price: 500000 }
     ];
-
+    
     function formatMoney(amount) {
       return '₹ ' + amount.toLocaleString('en-IN');
     }
     const tabsContainer = document.getElementById('tabs');
     const teamContent = document.getElementById('teamContent');
     let activeTeamIndex = 0;
-
+    
     function createTabButton(team, index) {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -354,18 +352,17 @@
       });
       return btn;
     }
-
+    
     function updateTabs() {
       Array.from(tabsContainer.children).forEach((btn, i) => {
         btn.classList.toggle('active', i === activeTeamIndex);
       });
-      // Scroll tab into view (mobile usability)
       const activeBtn = tabsContainer.children[activeTeamIndex];
       if (activeBtn) {
         activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
       }
     }
-
+    
     function renderTeamPlayers(teamIndex) {
       const teamName = TEAMS[teamIndex].name;
       const players = SALES.filter(s => s.teamIndex === teamIndex);
@@ -406,12 +403,11 @@
       tableContainer.appendChild(table);
       teamContent.appendChild(tableContainer);
     }
-
+    
     TEAMS.forEach((team, i) => {
       const tabBtn = createTabButton(team, i);
       tabsContainer.appendChild(tabBtn);
     });
-
     renderTeamPlayers(activeTeamIndex);
   </script>
 </body>
