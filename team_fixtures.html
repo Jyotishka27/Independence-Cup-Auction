@@ -106,44 +106,84 @@
   <!-- Main Content -->
   <main>
     <div class="card">
-      <section class="bg-blue-50 border border-blue-300 rounded-lg p-6 text-left">
-        <h2 class="text-2xl font-bold mb-4 text-blue-800">📅 Fixtures</h2>
+
+      <section class="fixtures bg-white rounded-lg p-6">
+        <h2 class="text-3xl font-extrabold mb-6 text-center text-blue-800">📅 Tournament Fixtures</h2>
       
         <!-- Group A -->
-        <div class="mb-6">
-          <h3 class="text-xl font-semibold text-blue-700 mb-2">Group A</h3>
-          <ul class="list-disc list-inside space-y-1 text-slate-700">
-            <li>Thunderbolts 🆚 Messiah FC</li>
-            <li>White Panther 🆚 Thunderbolts</li>
-            <li>Messiah FC 🆚 White Panther</li>
-            <li>Messiah FC 🆚 Thunderbolts</li>
-            <li>Thunderbolts 🆚 White Panther</li>
-            <li>White Panther 🆚 Messiah FC</li>
-          </ul>
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-slate-800 mb-4 border-b pb-2">Group A</h3>
+          <div class="space-y-4">
+            <!-- Match -->
+            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
+              <div class="flex items-center gap-2">
+                <img src="Thunderbolts.jpg" alt="Thunderbolts" class="h-8 w-8 object-contain">
+                <span class="font-semibold">Thunderbolts</span>
+              </div>
+              <span class="text-slate-500 font-medium">vs</span>
+              <div class="flex items-center gap-2">
+                <img src="Messiah FC.jpg" alt="Messiah FC" class="h-8 w-8 object-contain">
+                <span class="font-semibold">Messiah FC</span>
+              </div>
+            </div>
+      
+            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
+              <div class="flex items-center gap-2">
+                <img src="White Panther.jpg" alt="White Panther" class="h-8 w-8 object-contain">
+                <span class="font-semibold">White Panther</span>
+              </div>
+              <span class="text-slate-500 font-medium">vs</span>
+              <div class="flex items-center gap-2">
+                <img src="Thunderbolts.jpg" alt="Thunderbolts" class="h-8 w-8 object-contain">
+                <span class="font-semibold">Thunderbolts</span>
+              </div>
+            </div>
+      
+            <!-- Repeat for rest of Group A matches -->
+          </div>
         </div>
       
         <!-- Group B -->
-        <div class="mb-6">
-          <h3 class="text-xl font-semibold text-blue-700 mb-2">Group B</h3>
-          <ul class="list-disc list-inside space-y-1 text-slate-700">
-            <li>Amingos FC 🆚 Strawhat Pirates</li>
-            <li>Red Bulls Eleven 🆚 Amingos FC</li>
-            <li>Strawhat Pirates 🆚 Red Bulls Eleven</li>
-            <li>Strawhat Pirates 🆚 Amingos FC</li>
-            <li>Amingos FC 🆚 Red Bulls Eleven</li>
-            <li>Red Bulls Eleven 🆚 Strawhat Pirates</li>
-          </ul>
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-slate-800 mb-4 border-b pb-2">Group B</h3>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
+              <div class="flex items-center gap-2">
+                <img src="Amingos FC.jpg" alt="Amingos FC" class="h-8 w-8 object-contain">
+                <span class="font-semibold">Amingos FC</span>
+              </div>
+              <span class="text-slate-500 font-medium">vs</span>
+              <div class="flex items-center gap-2">
+                <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-8 w-8 object-contain">
+                <span class="font-semibold">Strawhat Pirates</span>
+              </div>
+            </div>
+      
+            <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
+              <div class="flex items-center gap-2">
+                <img src="images/redbulls.png" alt="Red Bulls Eleven" class="h-8 w-8 object-contain">
+                <span class="font-semibold">Red Bulls Eleven</span>
+              </div>
+              <span class="text-slate-500 font-medium">vs</span>
+              <div class="flex items-center gap-2">
+                <img src="images/amingosfc.png" alt="Amingos FC" class="h-8 w-8 object-contain">
+                <span class="font-semibold">Amingos FC</span>
+              </div>
+            </div>
+      
+            <!-- Repeat for rest of Group B matches -->
+          </div>
         </div>
       
         <!-- Knockout Stage -->
         <div>
-          <h3 class="text-xl font-semibold text-blue-700 mb-2">Knockout Stage</h3>
-          <ul class="list-disc list-inside space-y-1 text-slate-700">
-            <li><strong>SF1:</strong> Winner Group A 🆚 Runner-up Group B</li>
-            <li><strong>SF2:</strong> Winner Group B 🆚 Runner-up Group A</li>
-            <li><strong>Third Place:</strong> Loser SF1 🆚 Loser SF2</li>
-            <li><strong>Final:</strong> Winner SF1 🆚 Winner SF2</li>
-          </ul>
+          <h3 class="text-2xl font-semibold text-slate-800 mb-4 border-b pb-2">Knockout Stage</h3>
+          <div class="space-y-4">
+            <div class="bg-slate-50 p-3 rounded-lg shadow-sm font-medium">SF1: Winner Group A 🆚 Runner-up Group B</div>
+            <div class="bg-slate-50 p-3 rounded-lg shadow-sm font-medium">SF2: Winner Group B 🆚 Runner-up Group A</div>
+            <div class="bg-slate-50 p-3 rounded-lg shadow-sm font-medium">Third Place: Loser SF1 🆚 Loser SF2</div>
+            <div class="bg-yellow-50 p-3 rounded-lg shadow font-bold text-yellow-700">🏆 Final: Winner SF1 🆚 Winner SF2</div>
+          </div>
         </div>
       </section>
 
@@ -162,4 +202,5 @@
   </script>
 </body>
 </html>
+
 
