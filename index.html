@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,30 +8,51 @@
   <style>
     body {
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background-color: #f1f5f9; /* Tailwind slate-100 */
-      color: #1e293b; /* Tailwind slate-800 */
-      min-height: 100vh;
+      background: #f8fafc; /* Unified background */
+      color: #1e293b;
       margin: 0;
-      padding: 0;
-      line-height: 1.5;
+      min-height: 100vh;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    @media (min-width: 768px) {
-      body {
-        padding: 0;
-      }
+
+    /* Header */
+    nav {
+      background-color: white;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-    .error {
-      color: #dc2626; /* red-600 */
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
+    .nav-link {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #475569;
+      text-decoration: none;
     }
+    .nav-link:hover,
+    .mobile-link:hover {
+      color: #2563EB;
+    }
+    .nav-link.active,
+    .mobile-link.active {
+      color: #2563EB;
+      font-weight: 700;
+    }
+    .mobile-link {
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #475569;
+      text-decoration: none;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
     /* Scroll area for main content */
     .content-scroll {
       max-height: 85vh;
       overflow-y: auto;
-      padding-right: 1rem; /* to avoid hiding content behind scrollbar */
+      padding-right: 1rem;
     }
     @media (max-width: 640px) {
       .content-scroll {
@@ -39,7 +60,8 @@
         padding-right: 0.5rem;
       }
     }
-    /* Nav buttons container */
+
+    /* Nav buttons */
     .nav-buttons {
       display: flex;
       gap: 1rem;
@@ -51,7 +73,7 @@
       padding: 0.75rem 1.5rem;
       font-weight: 600;
       border-radius: 0.5rem;
-      background-color: #2563EB; /* blue-600 */
+      background-color: #2563EB;
       color: white;
       border: none;
       cursor: pointer;
@@ -62,150 +84,48 @@
     }
     .nav-buttons button:hover,
     .nav-buttons button:focus-visible {
-      background-color: #1D4ED8; /* blue-700 */
+      background-color: #1D4ED8;
       outline: none;
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
     }
-    /* Focus visible for inputs and buttons */
-    input:focus-visible, button:focus-visible {
-      outline: 2px solid #2563EB;
-      outline-offset: 2px;
-    }
-    /* Unified Header styling */
-    nav.max-w-7xl {
-      background-color: white;
-      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    @media (min-width: 640px) {
-      nav.max-w-7xl {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-      }
-    }
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 4rem;
-    }
-    .brand {
-      font-weight: 800;
-      font-size: 1.5rem;
-      color: #111827; /* gray-900 */
-      user-select: none;
-    }
-    .desktop-nav {
-      display: none;
-      gap: 2rem;
-    }
-    .desktop-nav a {
-      font-weight: 600;
-      font-size: 0.875rem;
-      color: #475569; /* slate-600 */
-      text-decoration: none;
-      position: relative;
-    }
-    .desktop-nav a:hover,
-    .desktop-nav a:focus-visible {
-      color: #2563EB; /* blue-600 */
-      outline-offset: 2px;
-      outline: 2px solid #2563EB;
-      border-radius: 0.3rem;
-    }
-    .desktop-nav a.active {
-      color: #2563EB;
-      font-weight: 700;
-    }
-    .mobile-menu-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #475569;
-    }
-    #mobile-menu {
-      display: none;
-      background-color: white;
-      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-      position: absolute;
-      top: 4rem;
-      left: 0;
-      width: 100%;
-      max-width: 100vw;
-      border-top: 1px solid #CBD5E0;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-      z-index: 25;
-    }
-    #mobile-menu a {
-      display: block;
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #475569;
-      text-decoration: none;
-    }
-    #mobile-menu a:hover,
-    #mobile-menu a:focus-visible {
-      background-color: #E0F2FE;
-      color: #2563EB;
-      outline-offset: 2px;
-      outline: 2px solid #2563EB;
-    }
-    #mobile-menu a.active {
-      color: #2563EB;
-      font-weight: 700;
-    }
-    @media (min-width: 768px) {
-      .desktop-nav {
-        display: flex;
-        align-items: center;
-      }
-      .mobile-menu-button {
-        display: none;
-      }
-      #mobile-menu {
-        display: none !important;
-      }
-    }
   </style>
 </head>
-<body class="bg-slate-100">
-  <!-- Unified Header -->
+<body>
+  <!-- Header -->
   <header>
     <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="header-inner">
-        <div class="brand">We Are Eleven</div>
-        <div class="desktop-nav">
-          <a href="index.html" class="active" aria-current="page">Home</a>
-          <a href="team_list.html">Teams</a>
-          <a href="team_fixtures.html">Fixtures</a>
-          <a href="admin.html">Admin</a>
-          <a href="about_us.html">About Us</a>
+      <div class="header-inner flex justify-between items-center h-16">
+        <div class="brand font-extrabold text-xl text-gray-900">We Are Eleven</div>
+        <!-- Desktop Nav -->
+        <div class="desktop-nav hidden md:flex gap-6">
+          <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+          <a href="team_list.html" class="nav-link">Teams</a>
+          <a href="team_fixtures.html" class="nav-link">Fixtures</a>
+          <a href="admin.html" class="nav-link">Admin</a>
+          <a href="about_us.html" class="nav-link">About Us</a>
         </div>
-        <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
-          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- Mobile button -->
+        <button id="mobile-menu-button" class="mobile-menu-button md:hidden" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
-      <div id="mobile-menu" class="hidden md:hidden">
-        <a href="index.html" class="active" aria-current="page">Home</a>
-        <a href="team_list.html">Teams</a>
-        <a href="team_fixtures.html">Fixtures</a>
-        <a href="admin.html">Admin</a>
-        <a href="about_us.html">About Us</a>
+      <!-- Mobile dropdown -->
+      <div id="mobile-menu" class="hidden flex-col bg-white shadow-md border-t border-slate-200">
+        <a href="index.html" class="mobile-link active" aria-current="page">Home</a>
+        <a href="team_list.html" class="mobile-link">Teams</a>
+        <a href="team_fixtures.html" class="mobile-link">Fixtures</a>
+        <a href="admin.html" class="mobile-link">Admin</a>
+        <a href="about_us.html" class="mobile-link">About Us</a>
       </div>
     </nav>
   </header>
+
   <!-- Main layout -->
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0 py-8">
-    <!-- Main content (left 2 cols) -->
+    <!-- Main content -->
     <main class="md:col-span-2 bg-white rounded-2xl shadow p-6 content-scroll">
       <h1 class="text-3xl font-bold mb-6">Independence Cup 2025</h1>
       <div class="mb-6 space-y-4">
@@ -227,42 +147,36 @@
           </ul>
         </section>
         <section>
-          <h3 class="font-semibold mb-1">Important Notice</h3>
+          <h3 class="font-semibold mb-1">Rules & Regulations</h3>
           <ul class="list-disc list-inside space-y-1">
-            <li>Organizers will not be liable for injuries, property loss, or incidents.</li>
-            <li>Teams must carry their own medical kits and individual water bottles.</li>
+            <li>Matches will be played in league-cum-knockout format.</li>
+            <li>Each half will be 8 minutes with a 3 min halftime break.</li>
+            <li>Fair play, discipline, and respect for referees are mandatory.</li>
           </ul>
-        </section>
-        <section>
-          <h3 class="font-semibold mb-1">Closing Ceremony</h3>
-          <p>Award distribution begins post 5:00 PM.</p>
         </section>
       </article>
     </main>
-    <!-- Sidebar (right col) -->
-    <div class="flex flex-col items-center space-y-6 w-full max-w-md mx-auto">
-      <!-- Notice Board -->
-      <section class="bg-white rounded-2xl shadow p-6 w-full">
-        <h2 class="text-xl font-semibold mb-4">📢 Notice Board</h2>
-        <div id="noticeContent" class="text-sm text-slate-700 space-y-2">
-          <p>No notices published yet.</p>
-        </div>
-      </section>
-    </div>
+
+    <!-- Sidebar -->
+    <aside class="bg-white rounded-2xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">Quick Links</h2>
+      <div class="nav-buttons">
+        <button onclick="location.href='team_list.html'">View Teams</button>
+        <button onclick="location.href='team_fixtures.html'">Fixtures</button>
+        <button onclick="location.href='football_auctioneer.html'">Auctioneer</button>
+        <button onclick="location.href='about_us.html'">About Us</button>
+      </div>
+    </aside>
   </div>
-  <!-- Navigation Buttons below all main content -->
-  <div class="nav-buttons max-w-7xl mx-auto mt-8 px-4 flex justify-center gap-4">
-    <button type="button" onclick="location.href='team_list.html'">Team List</button>
-    <button type="button" onclick="location.href='team_fixtures.html'">Fixture List</button>
-  </div>
+
+  <!-- Mobile menu script -->
   <script>
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuBtn.addEventListener('click', () => {
-      const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-      mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
-      mobileMenu.classList.toggle('hidden');
+    const mobileMenuBtn = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileMenuBtn.addEventListener("click", () => {
+      const expanded = mobileMenuBtn.getAttribute("aria-expanded") === "true";
+      mobileMenuBtn.setAttribute("aria-expanded", !expanded);
+      mobileMenu.classList.toggle("hidden");
     });
   </script>
 </body>
