@@ -12,14 +12,14 @@
       color: #1e293b; /* Tailwind slate-800 */
       min-height: 100vh;
       margin: 0;
-      padding: 1.5rem 1rem;
+      padding: 0;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
     @media (min-width: 768px) {
       body {
-        padding: 2rem 3rem;
+        padding: 0;
       }
     }
     .error {
@@ -73,9 +73,45 @@
     }
   </style>
 </head>
-<body class="flex justify-center items-start min-h-screen">
-  <div class="max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-10 px-3 md:px-0">
-    <!-- Main content: spans 2 columns on md+ -->
+<body class="bg-slate-100">
+  <!-- Header Navigation -->
+  <header class="bg-white shadow sticky top-0 z-30">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary Navigation">
+      <div class="flex justify-between h-16 items-center">
+        <!-- Brand -->
+        <div class="text-2xl font-extrabold text-gray-900 select-none">
+          We Are Eleven
+        </div>
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex space-x-8 text-gray-700 text-sm font-medium">
+          <a href="index.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Home</a>
+          <a href="teams.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Teams</a>
+          <a href="fixtures.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Fixtures</a>
+          <a href="admin.html" class="text-blue-600 font-semibold hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded" aria-current="page">Admin</a>
+        </div>
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button id="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" class="text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Nav Menu -->
+      <div id="mobile-menu" class="hidden md:hidden pt-2 pb-4 space-y-1 border-t border-gray-200">
+        <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Home</a>
+        <a href="teams.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Teams</a>
+        <a href="fixtures.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Fixtures</a>
+        <a href="admin.html" class="block px-3 py-2 text-base font-medium text-blue-600 font-semibold hover:bg-gray-100 rounded" aria-current="page">Admin</a>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Main layout -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0 py-8">
+    <!-- Main content (left 2 cols) -->
     <main class="md:col-span-2 bg-white rounded-2xl shadow p-6 content-scroll">
       <h1 class="text-3xl font-bold mb-6">Independence Cup 2025</h1>
       <div class="mb-6 space-y-4">
@@ -88,7 +124,6 @@
       </div>
       <h2 class="text-xl font-semibold mb-4">🏆 Independence Cup 2025 – Tournament Guidelines 🏆</h2>
       <article class="space-y-6 text-sm text-slate-700 leading-relaxed">
-        <!-- The tournament guideline sections remain same -->
         <section>
           <h3 class="font-semibold mb-1">Event Overview</h3>
           <ul class="list-disc list-inside space-y-1">
@@ -103,7 +138,7 @@
             <li>Teams must carry their own medical kits and individual water bottles.</li>
           </ul>
         </section>
-        <!-- ... (keep all other sections unchanged) ... -->
+        <!-- Add remaining tournament guideline sections as before -->
         <section>
           <h3 class="font-semibold mb-1">Closing Ceremony</h3>
           <p>Award distribution begins post 5:00 PM.</p>
@@ -111,7 +146,7 @@
       </article>
     </main>
 
-    <!-- Right sidebar containers stacked vertically -->
+    <!-- Sidebar (right col) -->
     <div class="flex flex-col items-center space-y-6 w-full max-w-md mx-auto">
       <!-- Login Form -->
       <aside class="bg-white rounded-2xl shadow p-6 w-full">
@@ -165,12 +200,21 @@
   </div>
 
   <!-- Navigation Buttons below all main content -->
-  <div class="nav-buttons max-w-7xl mx-auto mt-8 px-3 flex justify-center gap-4">
+  <div class="nav-buttons max-w-7xl mx-auto mt-8 px-4 flex justify-center gap-4">
     <button type="button" onclick="location.href='team_list.html'">Team List</button>
     <button type="button" onclick="location.href='team_fixtures.html'">Fixture List</button>
   </div>
 
   <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.classList.toggle('hidden');
+    });
+
     (() => {
       const loginForm = document.getElementById('loginForm');
       const errorMsg = document.getElementById('errorMsg');
