@@ -74,10 +74,9 @@
   </style>
 </head>
 <body class="bg-slate-100">
-
-  <!-- Updated Header Navigation -->
+  <!-- Unified Header -->
   <header>
-    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white shadow-md">
       <div class="flex justify-between h-16 items-center">
         <!-- Brand -->
         <div class="text-2xl font-extrabold text-gray-900 select-none">
@@ -108,7 +107,6 @@
       </div>
     </nav>
   </header>
-
   <!-- Main layout -->
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0 py-8">
     <!-- Main content (left 2 cols) -->
@@ -139,14 +137,12 @@
             <li>Teams must carry their own medical kits and individual water bottles.</li>
           </ul>
         </section>
-        <!-- Add remaining tournament guideline sections as before -->
         <section>
           <h3 class="font-semibold mb-1">Closing Ceremony</h3>
           <p>Award distribution begins post 5:00 PM.</p>
         </section>
       </article>
     </main>
-
     <!-- Sidebar (right col) -->
     <div class="flex flex-col items-center space-y-6 w-full max-w-md mx-auto">
       <!-- Notice Board -->
@@ -154,18 +150,15 @@
         <h2 class="text-xl font-semibold mb-4">📢 Notice Board</h2>
         <div id="noticeContent" class="text-sm text-slate-700 space-y-2">
           <p>No notices published yet.</p>
-          <!-- Organizer's published notices can be inserted here dynamically -->
         </div>
       </section>
     </div>
   </div>
-
   <!-- Navigation Buttons below all main content -->
   <div class="nav-buttons max-w-7xl mx-auto mt-8 px-4 flex justify-center gap-4">
     <button type="button" onclick="location.href='team_list.html'">Team List</button>
     <button type="button" onclick="location.href='team_fixtures.html'">Fixture List</button>
   </div>
-
   <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-button');
