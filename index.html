@@ -74,15 +74,16 @@
   </style>
 </head>
 <body class="bg-slate-100">
-  <!-- Header Navigation -->
-  <header class="bg-white shadow sticky top-0 z-30">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Primary Navigation">
+
+  <!-- Updated Header Navigation -->
+  <header>
+    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16 items-center">
         <!-- Brand -->
         <div class="text-2xl font-extrabold text-gray-900 select-none">
           We Are Eleven
         </div>
-        <!-- Desktop Nav -->
+        <!-- Desktop Navigation -->
         <div class="hidden md:flex space-x-8 text-gray-700 text-sm font-medium">
           <a href="index.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Home</a>
           <a href="team_list.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Teams</a>
@@ -92,14 +93,13 @@
         <!-- Mobile menu button -->
         <div class="md:hidden">
           <button id="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" class="text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-              stroke-linecap="round" stroke-linejoin="round">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </div>
       </div>
-      <!-- Mobile Nav Menu -->
+      <!-- Mobile Navigation Menu -->
       <div id="mobile-menu" class="hidden md:hidden pt-2 pb-4 space-y-1 border-t border-gray-200">
         <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Home</a>
         <a href="team_list.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Teams</a>
@@ -108,6 +108,7 @@
       </div>
     </nav>
   </header>
+
   <!-- Main layout -->
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0 py-8">
     <!-- Main content (left 2 cols) -->
@@ -145,6 +146,7 @@
         </section>
       </article>
     </main>
+
     <!-- Sidebar (right col) -->
     <div class="flex flex-col items-center space-y-6 w-full max-w-md mx-auto">
       <!-- Notice Board -->
@@ -157,11 +159,13 @@
       </section>
     </div>
   </div>
+
   <!-- Navigation Buttons below all main content -->
   <div class="nav-buttons max-w-7xl mx-auto mt-8 px-4 flex justify-center gap-4">
     <button type="button" onclick="location.href='team_list.html'">Team List</button>
     <button type="button" onclick="location.href='team_fixtures.html'">Fixture List</button>
   </div>
+
   <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-button');
@@ -174,6 +178,3 @@
   </script>
 </body>
 </html>
-
-
-
