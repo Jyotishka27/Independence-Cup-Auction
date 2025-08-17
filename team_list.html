@@ -244,7 +244,7 @@
           </svg>
         </button>
       </div>
-      <div id="mobile-menu" hidden>
+      <div id="mobile-menu" class="hidden md:hidden">
         <a href="index.html">Home</a>
         <a href="team_list.html" class="active" aria-current="page">Teams</a>
         <a href="team_fixtures.html">Fixtures</a>
@@ -273,7 +273,7 @@
     mobileMenuBtn.addEventListener('click', () => {
       const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
       mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
-      mobileMenu.hidden = expanded;
+      mobileMenu.classList.toggle('hidden');
     });
 
     // Teams and sales data unchanged, omitted for brevity
