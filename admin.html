@@ -164,7 +164,7 @@
           </svg>
         </button>
       </div>
-      <div id="mobile-menu" hidden>
+      <div id="mobile-menu" class="hidden md:hidden">
         <a href="index.html">Home</a>
         <a href="team_list.html">Teams</a>
         <a href="team_fixtures.html">Fixtures</a>
@@ -223,6 +223,7 @@
       mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
       mobileMenu.classList.toggle('hidden');
     });
+
     (() => {
       const loginForm = document.getElementById('loginForm');
       const errorMsg = document.getElementById('errorMsg');
