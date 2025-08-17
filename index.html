@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,21 +8,44 @@
   <style>
     body {
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background-color: #f1f5f9; /* Tailwind slate-100 */
+      color: #1e293b; /* Tailwind slate-800 */
+      min-height: 100vh;
+      margin: 0;
+      padding: 1.5rem 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    @media (min-width: 768px) {
+      body {
+        padding: 2rem 3rem;
+      }
     }
     .error {
       color: #dc2626; /* red-600 */
       margin-top: 0.5rem;
+      font-size: 0.875rem;
     }
+    /* Scroll area for main content */
     .content-scroll {
-      max-height: 85vh; 
+      max-height: 85vh;
       overflow-y: auto;
       padding-right: 1rem; /* to avoid hiding content behind scrollbar */
     }
+    @media (max-width: 640px) {
+      .content-scroll {
+        max-height: 60vh;
+        padding-right: 0.5rem;
+      }
+    }
+    /* Nav buttons container */
     .nav-buttons {
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
       justify-content: center;
+      flex-wrap: wrap;
     }
     .nav-buttons button {
       padding: 0.75rem 1.5rem;
@@ -33,27 +56,38 @@
       border: none;
       cursor: pointer;
       transition: background-color 0.2s ease;
+      min-width: 120px;
+      text-align: center;
+      user-select: none;
     }
-    .nav-buttons button:hover {
+    .nav-buttons button:hover,
+    .nav-buttons button:focus-visible {
       background-color: #1D4ED8; /* blue-700 */
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+    }
+    /* Focus visible for inputs and buttons */
+    input:focus-visible, button:focus-visible {
+      outline: 2px solid #2563EB;
+      outline-offset: 2px;
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 flex justify-center items-start min-h-screen p-6">
-  <div class="max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-10">
-    <!-- Left/Center info section spanning 2 columns on md and above -->
-    <section class="md:col-span-2 bg-white rounded-2xl shadow p-6 content-scroll">
+<body class="flex justify-center items-start min-h-screen">
+  <div class="max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 gap-10 px-3 md:px-0">
+    <!-- Main content: spans 2 columns on md+ -->
+    <main class="md:col-span-2 bg-white rounded-2xl shadow p-6 content-scroll">
       <h1 class="text-3xl font-bold mb-6">Independence Cup 2025</h1>
       <div class="mb-6 space-y-4">
         <p><strong>📅 Event Date</strong><br>24 August 2025</p>
         <p><strong>📍 Venue</strong><br>Turf XL</p>
         <p><strong>⏰ Time</strong><br>9:00 AM – 6:00 PM</p>
-        <p><strong>👥 Organizers</strong><br>Debayan, Gourav & Jyotishka</p>
-        <p><strong>👥 Captains</strong><br>Subhojit, Ritam, Monty, Subhamoy, Shubanjan & Akash Jr</p>
+        <p><strong>👥 Organizers</strong><br>Debayan, Gourav &amp; Jyotishka</p>
+        <p><strong>👥 Captains</strong><br>Subhojit, Ritam, Monty, Subhamoy, Shubanjan &amp; Akash Jr</p>
         <p><strong>⚽ Number of Teams</strong><br>6</p>
       </div>
       <h2 class="text-xl font-semibold mb-4">🏆 Independence Cup 2025 – Tournament Guidelines 🏆</h2>
-      <div class="space-y-4 text-sm text-slate-700 leading-relaxed">
+      <article class="space-y-6 text-sm text-slate-700 leading-relaxed">
         <section>
           <h3 class="font-semibold mb-1">Event Overview</h3>
           <ul class="list-disc list-inside space-y-1">
@@ -69,7 +103,7 @@
           </ul>
         </section>
         <section>
-          <h3 class="font-semibold mb-1">Field & Equipment</h3>
+          <h3 class="font-semibold mb-1">Field &amp; Equipment</h3>
           <ul class="list-disc list-inside space-y-1">
             <li>Field Size: 70 x 110 ft, clearly marked boundaries.</li>
             <li>Ball: Regulation Size 5 football.</li>
@@ -85,7 +119,7 @@
           </ul>
         </section>
         <section>
-          <h3 class="font-semibold mb-1">Attire & Equipment</h3>
+          <h3 class="font-semibold mb-1">Attire &amp; Equipment</h3>
           <ul class="list-disc list-inside space-y-1">
             <li>Teams must wear identical or similar-colored jerseys (pre-assigned, no changes).</li>
             <li>Footwear: Spikes or joggers only.</li>
@@ -113,14 +147,14 @@
           </ul>
         </section>
         <section>
-          <h3 class="font-semibold mb-1">Kick-off & Restarts</h3>
+          <h3 class="font-semibold mb-1">Kick-off &amp; Restarts</h3>
           <ul class="list-disc list-inside space-y-1">
             <li>Coin toss to decide ends and first kick-off.</li>
             <li>After goals, restart from center spot by opposing team.</li>
           </ul>
         </section>
         <section>
-          <h3 class="font-semibold mb-1">Fouls & Misconduct</h3>
+          <h3 class="font-semibold mb-1">Fouls &amp; Misconduct</h3>
           <ul class="list-disc list-inside space-y-1">
             <li>2 yellow cards in one match → Red card for that match.</li>
             <li>2 yellow cards in separate matches → 12-minute ban in next match.</li>
@@ -131,7 +165,7 @@
           </ul>
         </section>
         <section>
-          <h3 class="font-semibold mb-1">Free Kicks, Corners & Throw-ins</h3>
+          <h3 class="font-semibold mb-1">Free Kicks, Corners &amp; Throw-ins</h3>
           <ul class="list-disc list-inside space-y-1">
             <li>Referee decides direct/indirect free kicks.</li>
             <li>Direct: Scoring attempt allowed immediately.</li>
@@ -149,7 +183,7 @@
           </ul>
         </section>
         <section>
-          <h3 class="font-semibold mb-1">Awards & Recognition</h3>
+          <h3 class="font-semibold mb-1">Awards &amp; Recognition</h3>
           <ul class="list-disc list-inside space-y-1">
             <li>🏆 Winner: Trophy + Gold Medals</li>
             <li>🥈 Runner-up: Trophy + Silver Medals</li>
@@ -161,31 +195,50 @@
           <h3 class="font-semibold mb-1">Closing Ceremony</h3>
           <p>Award distribution begins post 5:00 PM.</p>
         </section>
-      </div>
-    </section>
-    <!-- Right: Login Form -->
-    <aside class="bg-white rounded-2xl shadow p-6 h-fit w-full max-w-md flex flex-col items-center">
-      <h2 class="text-2xl font-bold mb-6">Admin Login</h2>
-      <form id="loginForm" novalidate class="w-full">
+      </article>
+    </main>
+    
+    <!-- Right column: Login Form -->
+    <aside class="bg-white rounded-2xl shadow p-6 w-full max-w-md flex flex-col items-center">
+      <h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2>
+      <form id="loginForm" novalidate class="w-full" autocomplete="off">
         <div class="mb-4">
           <label for="email" class="block font-medium text-slate-700 mb-1">Email</label>
-          <input type="email" id="email" name="email" placeholder="jyotishka27@org.com" required
-            class="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="jyotishka27@org.com"
+            required
+            class="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+          />
         </div>
         <div class="mb-4">
           <label for="password" class="block font-medium text-slate-700 mb-1">Password</label>
-          <input type="password" id="password" name="password" placeholder="Enter password" required
-            class="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+            required
+            class="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            autocomplete="current-password"
+          />
         </div>
         <div id="errorMsg" class="error" role="alert" aria-live="assertive"></div>
-        <button type="submit"
-          class="w-full bg-blue-600 text-white font-semibold py-2 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white font-semibold py-2 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        >
           Login as Admin
         </button>
       </form>
-      <div class="nav-buttons w-full mt-6 flex justify-center gap-4">
-        <button onclick="location.href='team_list.html'">Team List</button>
-        <button onclick="location.href='team_fixtures.html'">Fixture List</button>
+      <div class="nav-buttons w-full mt-6">
+        <button type="button" onclick="location.href='team_list.html'">Team List</button>
+        <button type="button" onclick="location.href='team_fixtures.html'">Fixture List</button>
       </div>
     </aside>
   </div>
@@ -195,15 +248,19 @@
       const errorMsg = document.getElementById('errorMsg');
       const ADMIN_EMAIL = 'jyotishka27@org.com';
       const ADMIN_PASSWORD = 'Leavemealoner8@';
+
       loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
         errorMsg.textContent = '';
+
         const email = loginForm.email.value.trim();
         const password = loginForm.password.value;
+
         if (!email || !password) {
           errorMsg.textContent = 'Please enter both email and password.';
           return;
         }
+
         if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
           window.location.href = 'football_auctioneer.html';
         } else {
@@ -214,4 +271,3 @@
   </script>
 </body>
 </html>
-
