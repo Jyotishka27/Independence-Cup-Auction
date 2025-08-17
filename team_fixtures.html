@@ -100,9 +100,9 @@
         </a>
         <!-- Desktop Nav -->
         <div class="desktop-nav hidden md:flex gap-6">
-          <a href="index.html" class="nav-link active">Home</a>
+          <a href="index.html" class="nav-link">Home</a>
           <a href="team_list.html" class="nav-link">Teams</a>
-          <a href="team_fixtures.html" class="nav-link" aria-current="page">Fixtures</a>
+          <a href="team_fixtures.html" class="nav-link active" aria-current="page">Fixtures</a>
           <a href="admin.html" class="nav-link">Admin</a>
           <a href="about_us.html" class="nav-link">About Us</a>
         </div>
@@ -116,15 +116,14 @@
       </div>
       <!-- Mobile dropdown -->
       <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
-        <a href="index.html" class="mobile-link active">Home</a>
+        <a href="index.html" class="mobile-link">Home</a>
         <a href="team_list.html" class="mobile-link">Teams</a>
-        <a href="team_fixtures.html" class="mobile-link" aria-current="page">Fixtures</a>
+        <a href="team_fixtures.html" class="mobile-link active" aria-current="page">Fixtures</a>
         <a href="admin.html" class="mobile-link">Admin</a>
         <a href="about_us.html" class="mobile-link">About Us</a>
       </div>
     </nav>
   </header>
-
   <!-- Main layout -->
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-1 gap-10 px-4 md:px-0 py-8">
     <!-- Main content -->
@@ -152,11 +151,9 @@
           </div>
         </div>
       </section>
-
       <!-- Fixtures interleaved -->
       <section class="fixtures bg-white rounded-lg p-6 shadow">
         <h2 class="text-3xl font-extrabold mb-6 text-center text-blue-800">📅 Tournament Fixtures</h2>
-
         <div class="space-y-4">
           <!-- Match 1 (Group A) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
@@ -171,7 +168,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 1</span>
           </div>
-
           <!-- Match 2 (Group B) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -185,7 +181,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 2</span>
           </div>
-
           <!-- Match 3 (Group A) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -199,7 +194,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 3</span>
           </div>
-
           <!-- Match 4 (Group B) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -213,7 +207,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 4</span>
           </div>
-
           <!-- Match 5 (Group A) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -227,7 +220,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 5</span>
           </div>
-
           <!-- Match 6 (Group B) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -241,7 +233,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 6</span>
           </div>
-
           <!-- Match 7 (Group A Reverse) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -255,7 +246,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 7</span>
           </div>
-
           <!-- Match 8 (Group B Reverse) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -269,7 +259,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 8</span>
           </div>
-
           <!-- Match 9 (Group A Reverse) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -283,7 +272,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 9</span>
           </div>
-
           <!-- Match 10 (Group B Reverse) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -297,7 +285,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 10</span>
           </div>
-
           <!-- Match 11 (Group A Reverse) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -311,7 +298,6 @@
             </div>
             <span class="font-semibold text-slate-700">Match 11</span>
           </div>
-
           <!-- Match 12 (Group B Reverse) -->
           <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
             <div class="flex items-center gap-2">
@@ -326,7 +312,6 @@
             <span class="font-semibold text-slate-700">Match 12</span>
           </div>
         </div>
-
         <!-- Knockout Stage -->
         <div class="mt-10">
           <h3 class="text-2xl font-semibold text-slate-800 mb-4 border-b pb-2">Knockout Stage</h3>
@@ -348,7 +333,6 @@
       </section>
     </main>
   </div>
-
   <!-- Mobile menu script -->
   <script>
     const mobileMenuBtn = document.getElementById("mobile-menu-button");
@@ -361,4 +345,3 @@
   </script>
 </body>
 </html>
-
