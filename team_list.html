@@ -12,6 +12,11 @@
       color: #334155; /* Tailwind slate-700 */
       padding: 1rem 1rem 2rem; /* reduce side padding for smaller screens */
       font-size: 1rem;
+      min-height: 100vh;
+      margin: 0;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     @media (min-width: 640px) {
       body {
@@ -119,66 +124,161 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
-    /* Responsive styles */
-    @media (max-width: 640px) {
-      /* Reduce padding and font sizes */
-      body {
-        padding: 1rem 0.5rem 2rem;
-        font-size: 0.9rem;
+    /* Header & Navigation styling */
+    header {
+      background-color: white;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      padding: 0 1rem;
+    }
+    nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 4rem;
+    }
+    nav .brand {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #111827; /* gray-900 */
+      user-select: none;
+    }
+    nav .nav-links {
+      display: none;
+    }
+    nav .nav-links a {
+      margin-left: 2rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #475569; /* slate-600 */
+      text-decoration: none;
+      position: relative;
+    }
+    nav .nav-links a:hover,
+    nav .nav-links a:focus-visible {
+      color: #2563EB; /* blue-600 */
+      outline-offset: 2px;
+      outline: 2px solid #2563EB;
+      border-radius: 0.3rem;
+    }
+    nav .nav-links a.active {
+      color: #2563EB;
+      font-weight: 700;
+    }
+    /* Mobile menu button */
+    nav .mobile-menu-button {
+      display: block;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #475569;
+    }
+    /* Mobile menu */
+    #mobile-menu {
+      display: none;
+      background-color: white;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+      position: absolute;
+      top: 4rem;
+      left: 0;
+      width: 100%;
+      max-width: 100vw;
+      border-top: 1px solid #CBD5E0;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      z-index: 25;
+    }
+    #mobile-menu a {
+      display: block;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #475569;
+      text-decoration: none;
+    }
+    #mobile-menu a:hover,
+    #mobile-menu a:focus-visible {
+      background-color: #E0F2FE; /* sky-100 */
+      color: #2563EB;
+      outline-offset: 2px;
+      outline: 2px solid #2563EB;
+    }
+    #mobile-menu a.active {
+      color: #2563EB;
+      font-weight: 700;
+    }
+    @media (min-width: 768px) {
+      nav .nav-links {
+        display: flex;
+        align-items: center;
       }
-      #teamContent {
-        min-height: 300px;
-        max-height: 500px;
-        padding: 1rem 0.5rem;
+      nav .mobile-menu-button {
+        display: none;
       }
-      /* Stack table rows as blocks on smallest screens - optional */
-      /*
-      table, thead, tbody, th, td, tr {
-        display: block;
+      #mobile-menu {
+        display: none !important;
       }
-      thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-      }
-      tbody tr {
-        margin-bottom: 1rem;
-        border: 1px solid #CBD5E0;
-        border-radius: 0.5rem;
-        padding: 0.5rem;
-      }
-      tbody td {
-        border: none;
-        padding-left: 50%;
-        position: relative;
-      }
-      tbody td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0.75rem;
-        font-weight: 600;
-        color: #475569;
-        white-space: nowrap;
-      }
-      */
     }
   </style>
 </head>
 <body>
-  <main class="max-w-4xl mx-auto">
+  <header>
+    <nav aria-label="Primary Navigation">
+      <div class="brand">We Are Eleven</div>
+      <div class="nav-links" id="desktop-nav-links">
+        <a href="index.html" class="" >Home</a>
+        <a href="team_list.html" class="active" aria-current="page">Teams</a>
+        <a href="team_fixtures.html" class="" >Fixtures</a>
+        <a href="admin.html" class="" >Admin</a>
+      </div>
+      <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <div id="mobile-menu" hidden>
+        <a href="index.html" >Home</a>
+        <a href="team_list.html" class="active" aria-current="page">Teams</a>
+        <a href="team_fixtures.html" >Fixtures</a>
+        <a href="admin.html" >Admin</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-4xl mx-auto mt-8">
     <h1 class="text-3xl font-bold mb-6 text-center">Independence Cup 2025 - Team List</h1>
+
     <!-- Team Tabs -->
     <section class="bg-white rounded-2xl shadow p-6">
       <h2 class="text-xl font-semibold mb-4">Team List</h2>
       <!-- Tabs -->
       <div id="tabs" class="tabs"></div>
       <!-- Team content -->
-      <div id="teamContent" class="border border-slate-300 rounded-b-xl bg-white p-4">
-        <!-- Team players list here -->
-      </div>
+      <div id="teamContent" class="border border-slate-300 rounded-b-xl bg-white p-4"></div>
     </section>
   </main>
+
   <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
+      if (expanded) {
+        mobileMenu.hidden = true;
+      } else {
+        mobileMenu.hidden = false;
+      }
+    });
+
+    // Teams and sales data
     const TEAMS = [
       { name: 'Thunderbolt' },
       { name: 'Red Bulls Eleven' },
@@ -232,12 +332,15 @@
       { teamIndex: 5, playerName: 'Rahul Sarkar', position: 'Defence', price: 600000 },
       { teamIndex: 5, playerName: 'Kaustav Guha Mazumdar', position: 'Striker', price: 500000 }
     ];
+
     function formatMoney(amount) {
       return '₹ ' + amount.toLocaleString('en-IN');
     }
+
     const tabsContainer = document.getElementById('tabs');
     const teamContent = document.getElementById('teamContent');
     let activeTeamIndex = 0;
+
     function createTabButton(team, index) {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -253,6 +356,7 @@
       });
       return btn;
     }
+
     function updateTabs() {
       Array.from(tabsContainer.children).forEach((btn, i) => {
         btn.classList.toggle('active', i === activeTeamIndex);
@@ -263,14 +367,16 @@
         activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
       }
     }
+
     function renderTeamPlayers(teamIndex) {
-      const captainName = TEAMS[teamIndex].name;
+      const teamName = TEAMS[teamIndex].name;
       const players = SALES.filter(s => s.teamIndex === teamIndex);
       teamContent.innerHTML = '';
-      const captainHeader = document.createElement('h3');
-      captainHeader.className = 'text-lg font-semibold mb-4';
-      captainHeader.textContent = `Team: ${captainName}`;
-      teamContent.appendChild(captainHeader);
+      const teamHeader = document.createElement('h3');
+      teamHeader.className = 'text-lg font-semibold mb-4';
+      teamHeader.textContent = `Team: ${teamName}`;
+      teamContent.appendChild(teamHeader);
+
       if (players.length === 0) {
         const noPlayers = document.createElement('p');
         noPlayers.className = 'text-sm italic text-slate-600';
@@ -278,11 +384,13 @@
         teamContent.appendChild(noPlayers);
         return;
       }
+
       const tableContainer = document.createElement('div');
       tableContainer.className = 'table-container';
+
       const table = document.createElement('table');
       table.className = 'w-full border-collapse text-sm';
-      table.setAttribute('aria-label', `Players list for team ${captainName}`);
+      table.setAttribute('aria-label', `Players list for team ${teamName}`);
       table.innerHTML = `
         <thead>
           <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
@@ -303,10 +411,12 @@
       tableContainer.appendChild(table);
       teamContent.appendChild(tableContainer);
     }
+
     TEAMS.forEach((team, i) => {
       const tabBtn = createTabButton(team, i);
       tabsContainer.appendChild(tabBtn);
     });
+
     renderTeamPlayers(activeTeamIndex);
   </script>
 </body>
