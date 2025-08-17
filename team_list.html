@@ -10,7 +10,14 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background: #f8fafc; /* Tailwind slate-50 */
       color: #334155; /* Tailwind slate-700 */
-      padding: 2rem;
+      padding: 1rem 1rem 2rem; /* reduce side padding for smaller screens */
+      font-size: 1rem;
+    }
+    @media (min-width: 640px) {
+      body {
+        padding: 2rem;
+        font-size: 1rem;
+      }
     }
     .tabs {
       display: flex;
@@ -18,9 +25,25 @@
       border-bottom: 2px solid #CBD5E0; /* slate-300 */
       margin-bottom: 1.5rem;
       user-select: none;
+      overflow-x: auto; /* make tabs scrollable horizontally on small screens */
+      -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+      scrollbar-width: thin;
+      scrollbar-color: #94a3b8 transparent;
+      /* Ensure no wrapping */
+      white-space: nowrap;
+    }
+    .tabs::-webkit-scrollbar {
+      height: 6px;
+    }
+    .tabs::-webkit-scrollbar-thumb {
+      background-color: #94a3b8; /* slate-400 */
+      border-radius: 3px;
+    }
+    .tabs::-webkit-scrollbar-track {
+      background: transparent;
     }
     .tab-button {
-      padding: 0.5rem 1.25rem;
+      padding: 0.5rem 1rem;
       border: 2px solid transparent;
       border-bottom: 2px solid transparent;
       font-weight: 600;
@@ -29,6 +52,17 @@
       border-radius: 0.5rem 0.5rem 0 0;
       cursor: pointer;
       transition: all 0.2s ease;
+      flex-shrink: 0; /* prevent button from shrinking in flex container */
+      font-size: 0.875rem;
+      min-width: 100px; /* ensure tap targets are big enough on mobile */
+      text-align: center;
+    }
+    @media (min-width: 640px) {
+      .tab-button {
+        font-size: 1rem;
+        min-width: auto;
+        padding: 0.5rem 1.25rem;
+      }
     }
     .tab-button:hover:not(.active) {
       color: #0369A1; /* sky-700 */
@@ -49,12 +83,15 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      min-width: 300px;
     }
     th, td {
       padding: 0.5rem 0.75rem;
       border-bottom: 1px solid #CBD5E0;
       text-align: left;
+      vertical-align: middle;
+      word-break: break-word;
     }
     th {
       background-color: #F1F5F9; /* slate-100 */
@@ -69,10 +106,61 @@
     }
     /* Increased fixed height for team content to show more players without scroll */
     #teamContent {
-      min-height: 600px;
+      min-height: 450px;
       max-height: 600px;
       overflow-y: auto;
       transition: height 0.3s ease;
+      border: 1px solid #CBD5E0;
+      border-radius: 0 0 1rem 1rem;
+      background-color: white;
+    }
+    /* Responsive table container for mobile */
+    .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    /* Responsive styles */
+    @media (max-width: 640px) {
+      /* Reduce padding and font sizes */
+      body {
+        padding: 1rem 0.5rem 2rem;
+        font-size: 0.9rem;
+      }
+      #teamContent {
+        min-height: 300px;
+        max-height: 500px;
+        padding: 1rem 0.5rem;
+      }
+      /* Stack table rows as blocks on smallest screens - optional */
+      /*
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      tbody tr {
+        margin-bottom: 1rem;
+        border: 1px solid #CBD5E0;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+      }
+      tbody td {
+        border: none;
+        padding-left: 50%;
+        position: relative;
+      }
+      tbody td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.75rem;
+        font-weight: 600;
+        color: #475569;
+        white-space: nowrap;
+      }
+      */
     }
   </style>
 </head>
@@ -144,15 +232,12 @@
       { teamIndex: 5, playerName: 'Rahul Sarkar', position: 'Defence', price: 600000 },
       { teamIndex: 5, playerName: 'Kaustav Guha Mazumdar', position: 'Striker', price: 500000 }
     ];
-
     function formatMoney(amount) {
       return '₹ ' + amount.toLocaleString('en-IN');
     }
-
     const tabsContainer = document.getElementById('tabs');
     const teamContent = document.getElementById('teamContent');
     let activeTeamIndex = 0;
-
     function createTabButton(team, index) {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -168,13 +253,16 @@
       });
       return btn;
     }
-
     function updateTabs() {
       Array.from(tabsContainer.children).forEach((btn, i) => {
         btn.classList.toggle('active', i === activeTeamIndex);
       });
+      // Scroll tab into view (mobile usability)
+      const activeBtn = tabsContainer.children[activeTeamIndex];
+      if (activeBtn) {
+        activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      }
     }
-
     function renderTeamPlayers(teamIndex) {
       const captainName = TEAMS[teamIndex].name;
       const players = SALES.filter(s => s.teamIndex === teamIndex);
@@ -190,8 +278,11 @@
         teamContent.appendChild(noPlayers);
         return;
       }
+      const tableContainer = document.createElement('div');
+      tableContainer.className = 'table-container';
       const table = document.createElement('table');
       table.className = 'w-full border-collapse text-sm';
+      table.setAttribute('aria-label', `Players list for team ${captainName}`);
       table.innerHTML = `
         <thead>
           <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
@@ -209,9 +300,9 @@
             </tr>
           `).join('')}
         </tbody>`;
-      teamContent.appendChild(table);
+      tableContainer.appendChild(table);
+      teamContent.appendChild(tableContainer);
     }
-
     TEAMS.forEach((team, i) => {
       const tabBtn = createTabButton(team, i);
       tabsContainer.appendChild(tabBtn);
