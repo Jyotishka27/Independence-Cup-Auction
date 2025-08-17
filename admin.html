@@ -41,60 +41,62 @@
       font-size: 0.875rem;
       min-height: 1.25rem;
     }
-    /* Header & Navigation styling */
-    header {
+    /* Unified Header & nav styles */
+    nav.max-w-7xl {
       background-color: white;
       box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
       position: sticky;
       top: 0;
       z-index: 30;
-      padding: 0 1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
-    nav {
-      max-width: 1120px;
-      margin: 0 auto;
+    @media (min-width: 640px) {
+      nav.max-w-7xl {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+    .header-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 4rem;
     }
-    nav .brand {
+    .brand {
       font-weight: 800;
       font-size: 1.5rem;
       color: #111827; /* gray-900 */
       user-select: none;
     }
-    nav .nav-links {
+    .desktop-nav {
       display: none;
+      gap: 2rem;
     }
-    nav .nav-links a {
-      margin-left: 2rem;
+    .desktop-nav a {
       font-weight: 600;
       font-size: 0.875rem;
       color: #475569; /* slate-600 */
       text-decoration: none;
       position: relative;
     }
-    nav .nav-links a:hover,
-    nav .nav-links a:focus-visible {
+    .desktop-nav a:hover,
+    .desktop-nav a:focus-visible {
       color: #2563EB; /* blue-600 */
       outline-offset: 2px;
       outline: 2px solid #2563EB;
       border-radius: 0.3rem;
     }
-    nav .nav-links a.active {
+    .desktop-nav a.active {
       color: #2563EB;
       font-weight: 700;
     }
-    /* Mobile menu button */
-    nav .mobile-menu-button {
-      display: block;
+    .mobile-menu-button {
       background: none;
       border: none;
       cursor: pointer;
       color: #475569;
     }
-    /* Mobile menu */
     #mobile-menu {
       display: none;
       background-color: white;
@@ -119,7 +121,7 @@
     }
     #mobile-menu a:hover,
     #mobile-menu a:focus-visible {
-      background-color: #E0F2FE; /* sky-100 */
+      background-color: #E0F2FE;
       color: #2563EB;
       outline-offset: 2px;
       outline: 2px solid #2563EB;
@@ -129,11 +131,11 @@
       font-weight: 700;
     }
     @media (min-width: 768px) {
-      nav .nav-links {
+      .desktop-nav {
         display: flex;
         align-items: center;
       }
-      nav .mobile-menu-button {
+      .mobile-menu-button {
         display: none;
       }
       #mobile-menu {
@@ -143,38 +145,33 @@
   </style>
 </head>
 <body>
+  <!-- Unified Header -->
   <header>
     <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <!-- Brand -->
-        <div class="text-2xl font-extrabold text-gray-900 select-none">
-          We Are Eleven
+      <div class="header-inner">
+        <div class="brand">We Are Eleven</div>
+        <div class="desktop-nav">
+          <a href="index.html">Home</a>
+          <a href="team_list.html">Teams</a>
+          <a href="team_fixtures.html">Fixtures</a>
+          <a href="admin.html" class="active" aria-current="page">Admin</a>
         </div>
-        <!-- Desktop Navigation -->
-        <div class="hidden md:flex space-x-8 text-gray-700 text-sm font-medium">
-          <a href="index.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Home</a>
-          <a href="team_list.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Teams</a>
-          <a href="team_fixtures.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Fixtures</a>
-          <a href="admin.html" class="text-blue-600 font-semibold hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded" aria-current="page">Admin</a>
-        </div>
-        <!-- Mobile menu button -->
-        <div class="md:hidden">
-          <button id="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" class="text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-        </div>
+        <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
       </div>
-      <!-- Mobile Navigation Menu -->
-      <div id="mobile-menu" class="hidden md:hidden pt-2 pb-4 space-y-1 border-t border-gray-200">
-        <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Home</a>
-        <a href="team_list.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Teams</a>
-        <a href="team_fixtures.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Fixtures</a>
-        <a href="admin.html" class="block px-3 py-2 text-base font-medium text-blue-600 font-semibold hover:bg-gray-100 rounded" aria-current="page">Admin</a>
+      <div id="mobile-menu" hidden>
+        <a href="index.html">Home</a>
+        <a href="team_list.html">Teams</a>
+        <a href="team_fixtures.html">Fixtures</a>
+        <a href="admin.html" class="active" aria-current="page">Admin</a>
       </div>
     </nav>
   </header>
+
   <main>
     <main class="bg-white rounded-2xl shadow-md p-8 max-w-md w-full">
       <h1 class="text-3xl font-bold mb-8 text-center">Admin Login</h1>
@@ -224,13 +221,11 @@
       mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
       mobileMenu.classList.toggle('hidden');
     });
-
     (() => {
       const loginForm = document.getElementById('loginForm');
       const errorMsg = document.getElementById('errorMsg');
       const ADMIN_EMAIL = 'jyotishka27@org.com';
       const ADMIN_PASSWORD = 'Leavemealoner8@';
-
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         errorMsg.textContent = '';
