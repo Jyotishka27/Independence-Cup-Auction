@@ -217,12 +217,12 @@
 
     // Teams and players
     const TEAMS = [
-      { name: 'Thunderbolt' },
-      { name: 'Red Bulls Eleven' },
-      { name: 'Messiah FC' },
-      { name: 'White Panthers' },
-      { name: 'Strawhat Pirates' },
-      { name: 'Amingos FC' },
+      { name: 'Thunderbolt', image: 'images/thunderbolt.png' },
+      { name: 'Red Bulls Eleven', image: 'images/redbulls.png' },
+      { name: 'Messiah FC', image: 'images/messiah.png' },
+      { name: 'White Panthers', image: 'images/whitepanthers.png' },
+      { name: 'Strawhat Pirates', image: 'images/strawhat.png' },
+      { name: 'Amingos FC', image: 'images/amingos.png' },
     ];
     const SALES = [
       { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence' },
@@ -285,8 +285,11 @@
       tabsContainer.innerHTML = "";
       TEAMS.forEach((team, index) => {
         const btn = document.createElement("button");
-        btn.textContent = team.name;
-        btn.className = "tab-button";
+        btn.innerHTML = `
+          <img src="${team.image}" alt="${team.name} Logo" class="h-6 w-6 inline-block mr-2 rounded-full object-cover" />
+          ${team.name}
+        `;
+        btn.className = "tab-button flex items-center gap-2";
         btn.setAttribute("role", "tab");
         btn.setAttribute("aria-selected", index === 0 ? "true" : "false");
         btn.addEventListener("click", () => {
