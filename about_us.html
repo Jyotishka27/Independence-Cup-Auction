@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - We Are Eleven</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: #f8fafc; /* Tailwind slate-50 */
+      color: #334155; /* Tailwind slate-700 */
+      padding: 1rem 1rem 2rem;
+      font-size: 1rem;
+      min-height: 100vh;
+      margin: 0;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    @media (min-width: 640px) {
+      body {
+        padding: 2rem;
+        font-size: 1rem;
+      }
+    }
+    /* Unified Header styling */
+    nav.max-w-7xl {
+      background-color: white;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    @media (min-width: 640px) {
+      nav.max-w-7xl {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 4rem;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #111827; /* gray-900 */
+      user-select: none;
+    }
+    .desktop-nav {
+      display: none;
+      gap: 2rem;
+    }
+    .desktop-nav a {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #475569; /* slate-600 */
+      text-decoration: none;
+      position: relative;
+    }
+    .desktop-nav a:hover,
+    .desktop-nav a:focus-visible {
+      color: #2563EB; /* blue-600 */
+      outline-offset: 2px;
+      outline: 2px solid #2563EB;
+      border-radius: 0.3rem;
+    }
+    .desktop-nav a.active {
+      color: #2563EB;
+      font-weight: 700;
+    }
+    .mobile-menu-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #475569;
+    }
+    #mobile-menu {
+      display: none;
+      background-color: white;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+      position: absolute;
+      top: 4rem;
+      left: 0;
+      width: 100%;
+      max-width: 100vw;
+      border-top: 1px solid #CBD5E0;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      z-index: 25;
+    }
+    #mobile-menu a {
+      display: block;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #475569;
+      text-decoration: none;
+    }
+    #mobile-menu a:hover,
+    #mobile-menu a:focus-visible {
+      background-color: #E0F2FE;
+      color: #2563EB;
+      outline-offset: 2px;
+      outline: 2px solid #2563EB;
+    }
+    #mobile-menu a.active {
+      color: #2563EB;
+      font-weight: 700;
+    }
+    @media (min-width: 768px) {
+      .desktop-nav {
+        display: flex;
+        align-items: center;
+      }
+      .mobile-menu-button {
+        display: none;
+      }
+      #mobile-menu {
+        display: none !important;
+      }
+    }
+
+    main {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 20px rgb(0 0 0 / 0.1);
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #1e293b; /* slate-800 */
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+      color: #334155; /* slate-700 */
+    }
+  </style>
+</head>
+<body>
+  <!-- Unified Header -->
+  <header>
+    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="header-inner">
+        <div class="brand">We Are Eleven</div>
+        <div class="desktop-nav">
+          <a href="index.html">Home</a>
+          <a href="team_list.html">Teams</a>
+          <a href="team_fixtures.html">Fixtures</a>
+          <a href="admin.html">Admin</a>
+          <a href="about_us.html" class="active" aria-current="page">About Us</a>
+        </div>
+        <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+      <div id="mobile-menu" hidden>
+        <a href="index.html">Home</a>
+        <a href="team_list.html">Teams</a>
+        <a href="team_fixtures.html">Fixtures</a>
+        <a href="admin.html">Admin</a>
+        <a href="about_us.html" class="active" aria-current="page">About Us</a>
+      </div>
+    </nav>
+  </header>
+
+  <main role="main" aria-labelledby="pageTitle">
+    <h1 id="pageTitle">About We Are Eleven</h1>
+    <p>Welcome to <strong>We Are Eleven</strong>, a passionate football group that embodies the spirit of unity, teamwork, and excellence on and off the pitch.</p>
+    <p>Founded on the belief that football is more than just a game, our group brings together a diverse team of players, organizers, and supporters who share one mission: to celebrate the beautiful game through competitive spirit, camaraderie, and unwavering dedication.</p>
+    <p>We are more than just eleven players; we are a family united by our love for football, striving to uplift and inspire each other with every kick. Whether it's intense tournaments, friendly matches, or community events, We Are Eleven stands as a symbol of passion, resilience, and sportsmanship.</p>
+    <p>Join us on this incredible journey towards greatness, as we continue to build a legacy of teamwork, respect, and unforgettable moments on the field. Together, we play, we conquer, we are eleven.</p>
+  </main>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.hidden = expanded;
+    });
+  </script>
+</body>
+</html>
