@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,50 +8,60 @@
   <style>
     body {
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: #f8fafc; /* Tailwind slate-50 */
-      color: #334155; /* Tailwind slate-700 */
-      padding: 1rem 1rem 2rem;
-      font-size: 1rem;
-      min-height: 100vh;
+      background: #f8fafc; /* Unified background */
+      color: #1e293b;
       margin: 0;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
     }
-    @media (min-width: 640px) {
-      body {
-        padding: 2rem;
-        font-size: 1rem;
-      }
+
+    /* Header */
+    nav {
+      background-color: white;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
+    .nav-link {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #475569;
+      text-decoration: none;
+    }
+    .nav-link:hover,
+    .mobile-link:hover {
+      color: #2563EB;
+    }
+    .nav-link.active,
+    .mobile-link.active {
+      color: #2563EB;
+      font-weight: 700;
+    }
+    .mobile-link {
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #475569;
+      text-decoration: none;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* Tabs */
     .tabs {
       display: flex;
       gap: 0.5rem;
-      border-bottom: 2px solid #CBD5E0; /* slate-300 */
+      border-bottom: 2px solid #CBD5E0;
       margin-bottom: 1.5rem;
-      user-select: none;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: #94a3b8 transparent;
       white-space: nowrap;
-    }
-    .tabs::-webkit-scrollbar {
-      height: 6px;
-    }
-    .tabs::-webkit-scrollbar-thumb {
-      background-color: #94a3b8; /* slate-400 */
-      border-radius: 3px;
-    }
-    .tabs::-webkit-scrollbar-track {
-      background: transparent;
     }
     .tab-button {
       padding: 0.5rem 1rem;
       border: 2px solid transparent;
       border-bottom: 2px solid transparent;
       font-weight: 600;
-      color: #475569; /* slate-600 */
+      color: #475569;
       background: transparent;
       border-radius: 0.5rem 0.5rem 0 0;
       cursor: pointer;
@@ -61,44 +71,32 @@
       min-width: 100px;
       text-align: center;
     }
-    @media (min-width: 640px) {
-      .tab-button {
-        font-size: 1rem;
-        min-width: auto;
-        padding: 0.5rem 1.25rem;
-      }
-    }
-    .tab-button:hover:not(.active) {
-      color: #0369A1; /* sky-700 */
-      background-color: #E0F2FE; /* sky-100 */
-    }
-    .tab-button:focus-visible {
-      outline: 2px solid #2563EB; /* blue-600 */
-      outline-offset: 2px;
-    }
     .tab-button.active {
-      border-color: #0369A1; /* sky-700 */
+      border-color: #0369A1;
       border-bottom-color: white;
-      color: #0369A1; /* sky-700 */
+      color: #0369A1;
       background-color: white;
-      cursor: default;
       box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
     }
+    .tab-button:hover:not(.active) {
+      color: #0369A1;
+      background-color: #E0F2FE;
+    }
+
+    /* Table */
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
-      min-width: 300px;
+      font-size: 0.9rem;
     }
     th, td {
       padding: 0.5rem 0.75rem;
       border-bottom: 1px solid #CBD5E0;
       text-align: left;
-      vertical-align: middle;
       word-break: break-word;
     }
     th {
-      background-color: #F1F5F9; /* slate-100 */
+      background-color: #F1F5F9;
       font-weight: 600;
       color: #475569;
       position: sticky;
@@ -106,312 +104,141 @@
       z-index: 10;
     }
     tbody tr:hover {
-      background-color: #E0F2FE; /* sky-100 */
+      background-color: #E0F2FE;
     }
+
     #teamContent {
       min-height: 450px;
       max-height: 600px;
       overflow-y: auto;
-      transition: height 0.3s ease;
       border: 1px solid #CBD5E0;
       border-radius: 0 0 1rem 1rem;
       background-color: white;
-    }
-    .table-container {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    /* Unified Header styling */
-    nav.max-w-7xl {
-      background-color: white;
-      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-    @media (min-width: 640px) {
-      nav.max-w-7xl {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-      }
-    }
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 4rem;
-    }
-    .brand {
-      font-weight: 800;
-      font-size: 1.5rem;
-      color: #111827; /* gray-900 */
-      user-select: none;
-    }
-    .desktop-nav {
-      display: none;
-      gap: 2rem;
-    }
-    .desktop-nav a {
-      font-weight: 600;
-      font-size: 0.875rem;
-      color: #475569; /* slate-600 */
-      text-decoration: none;
-      position: relative;
-    }
-    .desktop-nav a:hover,
-    .desktop-nav a:focus-visible {
-      color: #2563EB; /* blue-600 */
-      outline-offset: 2px;
-      outline: 2px solid #2563EB;
-      border-radius: 0.3rem;
-    }
-    .desktop-nav a.active {
-      color: #2563EB;
-      font-weight: 700;
-    }
-    .mobile-menu-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #475569;
-    }
-    #mobile-menu {
-      display: none;
-      background-color: white;
-      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-      position: absolute;
-      top: 4rem;
-      left: 0;
-      width: 100%;
-      max-width: 100vw;
-      border-top: 1px solid #CBD5E0;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-      z-index: 25;
-    }
-    #mobile-menu a {
-      display: block;
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #475569;
-      text-decoration: none;
-    }
-    #mobile-menu a:hover,
-    #mobile-menu a:focus-visible {
-      background-color: #E0F2FE;
-      color: #2563EB;
-      outline-offset: 2px;
-      outline: 2px solid #2563EB;
-    }
-    #mobile-menu a.active {
-      color: #2563EB;
-      font-weight: 700;
-    }
-    @media (min-width: 768px) {
-      .desktop-nav {
-        display: flex;
-        align-items: center;
-      }
-      .mobile-menu-button {
-        display: none;
-      }
-      #mobile-menu {
-        display: none !important;
-      }
+      padding: 1rem;
     }
   </style>
 </head>
 <body>
-  <!-- Unified Header -->
+  <!-- Header -->
   <header>
     <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="header-inner">
-        <div class="brand">We Are Eleven</div>
-        <div class="desktop-nav">
-          <a href="index.html">Home</a>
-          <a href="team_list.html" class="active" aria-current="page">Teams</a>
-          <a href="team_fixtures.html">Fixtures</a>
-          <a href="admin.html">Admin</a>
-          <a href="about_us.html">About Us</a>
+      <div class="header-inner flex justify-between items-center h-16">
+        <div class="brand font-extrabold text-xl text-gray-900">We Are Eleven</div>
+        <!-- Desktop Nav -->
+        <div class="desktop-nav hidden md:flex gap-6">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="team_list.html" class="nav-link active" aria-current="page">Teams</a>
+          <a href="team_fixtures.html" class="nav-link">Fixtures</a>
+          <a href="admin.html" class="nav-link">Admin</a>
+          <a href="about_us.html" class="nav-link">About Us</a>
         </div>
-        <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
-          <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- Mobile button -->
+        <button id="mobile-menu-button" class="mobile-menu-button md:hidden" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
-      <div id="mobile-menu" class="hidden md:hidden">
-        <a href="index.html">Home</a>
-        <a href="team_list.html" class="active" aria-current="page">Teams</a>
-        <a href="team_fixtures.html">Fixtures</a>
-        <a href="admin.html">Admin</a>
-        <a href="about_us.html">About Us</a>
+      <!-- Mobile dropdown -->
+      <div id="mobile-menu" class="hidden flex-col bg-white shadow-md border-t border-slate-200">
+        <a href="index.html" class="mobile-link">Home</a>
+        <a href="team_list.html" class="mobile-link active" aria-current="page">Teams</a>
+        <a href="team_fixtures.html" class="mobile-link">Fixtures</a>
+        <a href="admin.html" class="mobile-link">Admin</a>
+        <a href="about_us.html" class="mobile-link">About Us</a>
       </div>
     </nav>
   </header>
 
+  <!-- Main -->
   <main class="max-w-4xl mx-auto mt-8">
     <h1 class="text-3xl font-bold mb-6 text-center">Independence Cup 2025 - Team List</h1>
-    <!-- Team Tabs -->
     <section class="bg-white rounded-2xl shadow p-6">
       <h2 class="text-xl font-semibold mb-4">Team List</h2>
       <!-- Tabs -->
       <div id="tabs" class="tabs"></div>
       <!-- Team content -->
-      <div id="teamContent" class="border border-slate-300 rounded-b-xl bg-white p-4"></div>
+      <div id="teamContent"></div>
     </section>
   </main>
 
   <script>
     // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuBtn.addEventListener('click', () => {
-      const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-      mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
-      mobileMenu.classList.toggle('hidden');
+    const mobileMenuBtn = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileMenuBtn.addEventListener("click", () => {
+      const expanded = mobileMenuBtn.getAttribute("aria-expanded") === "true";
+      mobileMenuBtn.setAttribute("aria-expanded", !expanded);
+      mobileMenu.classList.toggle("hidden");
     });
 
-    // Teams and sales data
+    // Teams
     const TEAMS = [
       { name: 'Thunderbolt' },
       { name: 'Red Bulls Eleven' },
       { name: 'Messiah FC' },
       { name: 'White Panthers' },
-      { name: 'Strawhat pirates' },
+      { name: 'Strawhat Pirates' },
       { name: 'Amingos FC' },
     ];
+
+    // Sample Players
     const SALES = [
-      { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', price: 0},
+      { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', price: 0 },
       { teamIndex: 0, playerName: 'Arnab Talukdar', position: 'Goalkeeper', price: 900000 },
-      { teamIndex: 0, playerName: 'Sourav Acharya', position: 'Striker', price: 650000 },
-      { teamIndex: 0, playerName: 'Proloy Malik', position: 'Defence', price: 1000000 },
-      { teamIndex: 0, playerName: 'Siddhant Ameria', position: 'Midfield', price: 550000 },
-      { teamIndex: 0, playerName: 'Kingshuk Banerjee', position: 'Midfield', price: 450000 },
-      { teamIndex: 0, playerName: 'Aritra Adhikari', position: 'Striker', price: 50000 },
-      { teamIndex: 1, playerName: 'Subhojit Dutta', position: 'Midfield', price: 0 },
-      { teamIndex: 1, playerName: 'Soumadeep Dutta', position: 'Goalkeeper', price: 400000 },
       { teamIndex: 1, playerName: 'Jeffin Mathew', position: 'Midfield', price: 1250000 },
-      { teamIndex: 1, playerName: 'Yash Agarwal', position: 'Defence', price: 450000 },
-      { teamIndex: 1, playerName: 'Shivaditya Gunin', position: 'Striker', price: 600000 },
-      { teamIndex: 1, playerName: 'Arghadeep Das', position: 'Defence', price: 450000 },
-      { teamIndex: 1, playerName: 'Akash Mukherjee', position: 'Midfield', price: 350000 },
-      { teamIndex: 1, playerName: 'Sourav Das', position: 'Midfield', price: 450000 },
-      { teamIndex: 2, playerName: 'Ritam Chowdhury', position: 'Midfield', price: 0 },
-      { teamIndex: 2, playerName: 'Dhruv', position: 'Goalkeeper', price: 400000 },
       { teamIndex: 2, playerName: 'Risove Show', position: 'Midfield', price: 1750000 },
-      { teamIndex: 2, playerName: 'Biswajit Karmakar', position: 'Midfield', price: 850000 },
-      { teamIndex: 2, playerName: 'Satyaki Sarkar', position: 'Defence', price: 300000 },
-      { teamIndex: 2, playerName: 'Ayan Das', position: 'Defence', price: 300000 },
-      { teamIndex: 2, playerName: 'Dipanjan Mazumder', position: 'Defence', price: 300000 },
-      { teamIndex: 3, playerName: 'Shubhanjan Basu', position: 'Midfield', price: 0 },
-      { teamIndex: 3, playerName: 'Rupayan Chakraborty', position: 'Goalkeeper', price: 700000 },
       { teamIndex: 3, playerName: 'Soumik Mukherjee', position: 'Defence', price: 1300000 },
-      { teamIndex: 3, playerName: 'Shardendu Lahiri', position: 'Midfield', price: 400000 },
-      { teamIndex: 3, playerName: 'Subhayan Banerjee', position: 'Defence', price: 300000 },
-      { teamIndex: 3, playerName: 'Pulak Dowari', position: 'Defence', price: 1100000 },
-      { teamIndex: 3, playerName: 'Sagnik Chakraborty', position: 'Midfield', price: 150000 },
-      { teamIndex: 4, playerName: 'Srinjoy Kundu', position: 'Midfield', price: 0 },
-      { teamIndex: 4, playerName: 'Arko Dutta', position: 'Goalkeeper', price: 500000 },
-      { teamIndex: 4, playerName: 'Suvam Chakraborty', position: 'Defence', price: 800000 },
-      { teamIndex: 4, playerName: 'Dibwayan Trivedi', position: 'Defence', price: 450000 },
-      { teamIndex: 4, playerName: 'Supratim Sengupta', position: 'Striker', price: 1000000 },
-      { teamIndex: 4, playerName: 'Aman Pandey', position: 'Defence', price: 500000 },
-      { teamIndex: 4, playerName: 'Ankit Aich', position: 'Defence', price: 450000 },
-      { teamIndex: 5, playerName: 'Subhamoy Das', position: 'Midfield', price: 0 },
-      { teamIndex: 5, playerName: 'Aditya Chakraborty', position: 'Goalkeeper', price: 400000 },
-      { teamIndex: 5, playerName: 'Vasu Gupta', position: 'Striker', price: 1100000 },
-      { teamIndex: 5, playerName: 'Krishnendu Mondal', position: 'Midfield', price: 550000 },
-      { teamIndex: 5, playerName: 'Sanchay Bose', position: 'Defence', price: 750000 },
-      { teamIndex: 5, playerName: 'Rahul Sarkar', position: 'Defence', price: 600000 },
-      { teamIndex: 5, playerName: 'Kaustav Guha Mazumdar', position: 'Striker', price: 500000 }
+      { teamIndex: 4, playerName: 'Srinjoy Kundu', position: 'Midfield', price: 800000 },
+      { teamIndex: 5, playerName: 'Subhamoy Das', position: 'Striker', price: 950000 },
     ];
 
-    function formatMoney(amount) {
-      return '₹ ' + amount.toLocaleString('en-IN');
-    }
+    const tabsContainer = document.getElementById("tabs");
+    const teamContent = document.getElementById("teamContent");
 
-    const tabsContainer = document.getElementById('tabs');
-    const teamContent = document.getElementById('teamContent');
-    let activeTeamIndex = 0;
-
-    function createTabButton(team, index) {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = team.name;
-      btn.className = 'tab-button';
-      if (index === 0) btn.classList.add('active');
-      btn.addEventListener('click', () => {
-        if (activeTeamIndex !== index) {
-          activeTeamIndex = index;
-          updateTabs();
-          renderTeamPlayers(index);
-        }
+    function renderTabs() {
+      tabsContainer.innerHTML = "";
+      TEAMS.forEach((team, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = team.name;
+        btn.className = "tab-button";
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          renderTeam(index);
+        });
+        tabsContainer.appendChild(btn);
+        if (index === 0) btn.classList.add("active");
       });
-      return btn;
+      renderTeam(0);
     }
 
-    function updateTabs() {
-      Array.from(tabsContainer.children).forEach((btn, i) => {
-        btn.classList.toggle('active', i === activeTeamIndex);
-      });
-      const activeBtn = tabsContainer.children[activeTeamIndex];
-      if (activeBtn) {
-        activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-      }
-    }
-
-    function renderTeamPlayers(teamIndex) {
-      const teamName = TEAMS[teamIndex].name;
-      const players = SALES.filter(s => s.teamIndex === teamIndex);
-      teamContent.innerHTML = '';
-      const teamHeader = document.createElement('h3');
-      teamHeader.className = 'text-lg font-semibold mb-4';
-      teamHeader.textContent = `Team: ${teamName}`;
-      teamContent.appendChild(teamHeader);
-      if (players.length === 0) {
-        const noPlayers = document.createElement('p');
-        noPlayers.className = 'text-sm italic text-slate-600';
-        noPlayers.textContent = 'No players bought yet.';
-        teamContent.appendChild(noPlayers);
-        return;
-      }
-      const tableContainer = document.createElement('div');
-      tableContainer.className = 'table-container';
-      const table = document.createElement('table');
-      table.className = 'w-full border-collapse text-sm';
-      table.setAttribute('aria-label', `Players list for team ${teamName}`);
-      table.innerHTML = `
-        <thead>
-          <tr class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
-            <th class="p-2 text-left">Player</th>
-            <th class="p-2 text-left">Position</th>
-            <th class="p-2 text-left">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${players.map(p => `
-            <tr class="border-b border-slate-200 hover:bg-slate-50">
-              <td class="p-2">${p.playerName}</td>
-              <td class="p-2">${p.position}</td>
-              <td class="p-2">${formatMoney(p.price)}</td>
+    function renderTeam(teamIndex) {
+      const players = SALES.filter(p => p.teamIndex === teamIndex);
+      teamContent.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Position</th>
+              <th>Price (₹)</th>
             </tr>
-          `).join('')}
-        </tbody>`;
-      tableContainer.appendChild(table);
-      teamContent.appendChild(tableContainer);
+          </thead>
+          <tbody>
+            ${players.map(p => `
+              <tr>
+                <td>${p.playerName}</td>
+                <td>${p.position}</td>
+                <td>${p.price.toLocaleString()}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
     }
 
-    TEAMS.forEach((team, i) => {
-      const tabBtn = createTabButton(team, i);
-      tabsContainer.appendChild(tabBtn);
-    });
-
-    renderTeamPlayers(activeTeamIndex);
+    renderTabs();
   </script>
 </body>
 </html>
