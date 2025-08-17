@@ -63,7 +63,6 @@
       </label>
       <button id="btnExportCSV" class="px-3 py-1.5 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700">Export CSV</button>
       <button id="btnResetAll" class="px-3 py-1.5 rounded-xl border border-rose-300 text-rose-700 hover:bg-rose-50">Reset</button>
-      <button id="btnAuctionUnsold" class="px-3 py-2 rounded-xl bg-yellow-600 text-white hover:bg-yellow-700">Auction Unsold Players</button>
       <!-- Added Logout button -->
       <a href="index.html" id="btnLogout" class="px-3 py-1.5 rounded-xl bg-rose-600 text-white hover:bg-rose-700" title="Logout to home">Logout</a>
     </nav>
@@ -726,11 +725,6 @@
     e.currentTarget.dataset.hidden = hide ? '0' : '1';
     dom.btnToggleResults.setAttribute('aria-pressed', String(!hide));
     renderResults();
-  });
-  // Btn Auction Unsold - opens a new page with unsold data serialized
-  dom.btnAuctionUnsold.addEventListener('click', () => {
-    const serialized = encodeURIComponent(JSON.stringify(state.pools.UNSOLD));
-    window.open(`unsold-auction.html?data=${serialized}`, '_blank');
   });
 
   // -- Initialize App --
