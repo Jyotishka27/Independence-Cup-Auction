@@ -144,29 +144,37 @@
 </head>
 <body>
   <header>
-    <nav aria-label="Primary Navigation">
-      <div class="brand">We Are Eleven</div>
-      <div class="nav-links" id="desktop-nav-links">
-        <a href="index.html" >Home</a>
-        <a href="team_list.html" >Teams</a>
-        <a href="team_fixtures.html" >Fixtures</a>
-        <a href="admin.html" class="active" aria-current="page">Admin</a>
+    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <!-- Brand -->
+        <div class="text-2xl font-extrabold text-gray-900 select-none">
+          We Are Eleven
+        </div>
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex space-x-8 text-gray-700 text-sm font-medium">
+          <a href="index.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Home</a>
+          <a href="team_list.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Teams</a>
+          <a href="team_fixtures.html" class="hover:text-gray-900 focus:outline-none focus:text-gray-900 focus:ring-2 focus:ring-blue-600 rounded">Fixtures</a>
+          <a href="admin.html" class="text-blue-600 font-semibold hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded" aria-current="page">Admin</a>
+        </div>
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button id="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" class="text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
       </div>
-      <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-      <div id="mobile-menu" hidden>
-        <a href="index.html">Home</a>
-        <a href="team_list.html">Teams</a>
-        <a href="team_fixtures.html">Fixtures</a>
-        <a href="admin.html" class="active" aria-current="page">Admin</a>
+      <!-- Mobile Navigation Menu -->
+      <div id="mobile-menu" class="hidden md:hidden pt-2 pb-4 space-y-1 border-t border-gray-200">
+        <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Home</a>
+        <a href="team_list.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Teams</a>
+        <a href="team_fixtures.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 rounded">Fixtures</a>
+        <a href="admin.html" class="block px-3 py-2 text-base font-medium text-blue-600 font-semibold hover:bg-gray-100 rounded" aria-current="page">Admin</a>
       </div>
     </nav>
   </header>
-
   <main>
     <main class="bg-white rounded-2xl shadow-md p-8 max-w-md w-full">
       <h1 class="text-3xl font-bold mb-8 text-center">Admin Login</h1>
@@ -207,20 +215,14 @@
       </form>
     </main>
   </main>
-
   <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-
     mobileMenuBtn.addEventListener('click', () => {
       const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
       mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
-      if (expanded) {
-        mobileMenu.hidden = true;
-      } else {
-        mobileMenu.hidden = false;
-      }
+      mobileMenu.classList.toggle('hidden');
     });
 
     (() => {
@@ -234,12 +236,10 @@
         errorMsg.textContent = '';
         const email = loginForm.email.value.trim();
         const password = loginForm.password.value;
-
         if (!email || !password) {
           errorMsg.textContent = 'Please enter both email and password.';
           return;
         }
-
         if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
           window.location.href = 'football_auctioneer.html';
         } else {
