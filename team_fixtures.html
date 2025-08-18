@@ -8,14 +8,13 @@
   <style>
     body {
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: #f8fafc; /* Unified background */
+      background: #f8fafc;
       color: #1e293b;
       margin: 0;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    /* Header */
     nav {
       background-color: white;
       box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
@@ -46,7 +45,6 @@
       text-decoration: none;
       border-bottom: 1px solid #e2e8f0;
     }
-    /* Scroll area for main content */
     .content-scroll {
       max-height: 85vh;
       overflow-y: auto;
@@ -57,33 +55,6 @@
         max-height: 60vh;
         padding-right: 0.5rem;
       }
-    }
-    /* Nav buttons */
-    .nav-buttons {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .nav-buttons button {
-      padding: 0.75rem 1.5rem;
-      font-weight: 600;
-      border-radius: 0.5rem;
-      background-color: #2563EB;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      min-width: 120px;
-      text-align: center;
-      user-select: none;
-    }
-    .nav-buttons button:hover,
-    .nav-buttons button:focus-visible {
-      background-color: #1D4ED8;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
     }
   </style>
 </head>
@@ -98,7 +69,6 @@
                class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2 rounded-full object-contain" />
           We Are Eleven
         </a>
-        <!-- Desktop Nav -->
         <div class="desktop-nav hidden md:flex gap-6">
           <a href="index.html" class="nav-link">Home</a>
           <a href="team_list.html" class="nav-link">Teams</a>
@@ -106,7 +76,6 @@
           <a href="admin.html" class="nav-link">Admin</a>
           <a href="about_us.html" class="nav-link">About Us</a>
         </div>
-        <!-- Mobile button -->
         <button id="mobile-menu-button" class="mobile-menu-button md:hidden" aria-label="Toggle menu" aria-expanded="false">
           <svg class="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2"
             viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -114,7 +83,6 @@
           </svg>
         </button>
       </div>
-      <!-- Mobile dropdown -->
       <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
         <a href="index.html" class="mobile-link">Home</a>
         <a href="team_list.html" class="mobile-link">Teams</a>
@@ -124,216 +92,309 @@
       </div>
     </nav>
   </header>
-  <!-- Main layout -->
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-1 gap-10 px-4 md:px-0 py-8">
-    <!-- Main content -->
     <main class="bg-white rounded-2xl shadow p-6 content-scroll">
-      
-      <!-- Group Teams Display -->
-      <section class="groups bg-slate-50 rounded-lg p-6 shadow mb-10">
-        <h2 class="text-3xl font-extrabold mb-6 text-center text-blue-800">🗂️ Group Teams</h2>
-        <div class="flex justify-around flex-wrap gap-10 text-slate-800">
-          <div>
-            <h3 class="text-2xl font-semibold mb-3 border-b pb-2">Group A</h3>
-            <ul class="list-disc list-inside space-y-1">
-              <li>Thunderbolt</li>
-              <li>Messiah FC</li>
-              <li>White Panthers</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-2xl font-semibold mb-3 border-b pb-2">Group B</h3>
-            <ul class="list-disc list-inside space-y-1">
-              <li>Amingos FC</li>
-              <li>Strawhat Pirates</li>
-              <li>Red Bulls Eleven</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <!-- Fixtures interleaved -->
+		<section class="groups bg-white rounded-lg p-8 shadow-lg mb-12 max-w-4xl mx-auto">
+		  <h2 class="text-3xl font-extrabold mb-8 text-center text-blue-800 tracking-wide uppercase">🗂️ Group Teams</h2>
+		  <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 text-gray-800">
+			
+			<!-- Group A -->
+			<div class="bg-slate-50 rounded-lg p-6 shadow-inner border border-gray-200">
+			  <h3 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-3">Group A</h3>
+			  <ul class="space-y-4 list-none">
+				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
+				  <span class="block h-3 w-3 rounded-full bg-blue-500 flex-shrink-0"></span>
+				  <span class="text-lg font-medium">Thunderbolt</span>
+				</li>
+				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
+				  <span class="block h-3 w-3 rounded-full bg-blue-500 flex-shrink-0"></span>
+				  <span class="text-lg font-medium">Messiah FC</span>
+				</li>
+				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
+				  <span class="block h-3 w-3 rounded-full bg-blue-500 flex-shrink-0"></span>
+				  <span class="text-lg font-medium">White Panthers</span>
+				</li>
+			  </ul>
+			</div>
+
+			<!-- Group B -->
+			<div class="bg-slate-50 rounded-lg p-6 shadow-inner border border-gray-200">
+			  <h3 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-3">Group B</h3>
+			  <ul class="space-y-4 list-none">
+				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
+				  <span class="block h-3 w-3 rounded-full bg-green-500 flex-shrink-0"></span>
+				  <span class="text-lg font-medium">Amingos FC</span>
+				</li>
+				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
+				  <span class="block h-3 w-3 rounded-full bg-green-500 flex-shrink-0"></span>
+				  <span class="text-lg font-medium">Strawhat Pirates</span>
+				</li>
+				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
+				  <span class="block h-3 w-3 rounded-full bg-green-500 flex-shrink-0"></span>
+				  <span class="text-lg font-medium">Red Bulls Eleven</span>
+				</li>
+			  </ul>
+			</div>
+
+		  </div>
+		</section>
+
+      <!-- Fixtures Cards -->
       <section class="fixtures bg-white rounded-lg p-6 shadow">
         <h2 class="text-3xl font-extrabold mb-6 text-center text-blue-800">📅 Tournament Fixtures</h2>
-        <div class="space-y-4">
-          <!-- Match 1 (Group A) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Thunderbolt</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Matchday 1-12 Cards -->
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 1</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Thunderbolt</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Messiah FC.jpg" alt="Messiah FC" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Messiah FC</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Messiah FC.jpg" alt="Messiah FC" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Messiah FC</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 1</span>
           </div>
-          <!-- Match 2 (Group B) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Amingos FC.jpg" alt="Amingos FC" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Amingos FC</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 2</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Amingos FC.jpg" alt="Amingos FC" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Amingos FC</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Strawhat Pirates</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Strawhat Pirates</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 2</span>
           </div>
-          <!-- Match 3 (Group A) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="White Panthers.jpg" alt="White Panthers" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">White Panthers</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 3</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="White Panthers.jpg" alt="White Panthers" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">White Panthers</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Thunderbolt</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Thunderbolt</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 3</span>
           </div>
-          <!-- Match 4 (Group B) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Red Bulls Eleven</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 4</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Red Bulls Eleven</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Amingos FC.jpg" alt="Amingos FC" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Amingos FC</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Amingos FC.jpg" alt="Amingos FC" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Amingos FC</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 4</span>
           </div>
-          <!-- Match 5 (Group A) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Messiah FC.jpg" alt="Messiah FC" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Messiah FC</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 5</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Messiah FC.jpg" alt="Messiah FC" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Messiah FC</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="White Panthers.jpg" alt="White Panthers" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">White Panthers</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="White Panthers.jpg" alt="White Panthers" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">White Panthers</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 5</span>
           </div>
-          <!-- Match 6 (Group B) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Strawhat Pirates</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 6</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Strawhat Pirates</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Red Bulls Eleven</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Red Bulls Eleven</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 6</span>
           </div>
-          <!-- Match 7 (Group A Reverse) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Messiah FC.jpg" alt="Messiah FC" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Messiah FC</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 7</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Messiah FC.jpg" alt="Messiah FC" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Messiah FC</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Thunderbolt</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Thunderbolt</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 7</span>
           </div>
-          <!-- Match 8 (Group B Reverse) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Strawhat Pirates</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 8</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Strawhat Pirates</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Amingos FC.jpg" alt="Amingos FC" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Amingos FC</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Amingos FC.jpg" alt="Amingos FC" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Amingos FC</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 8</span>
           </div>
-          <!-- Match 9 (Group A Reverse) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Thunderbolt</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 9</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Thunderbolt</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="White Panthers.jpg" alt="White Panthers" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">White Panthers</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="White Panthers.jpg" alt="White Panthers" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">White Panthers</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 9</span>
           </div>
-          <!-- Match 10 (Group B Reverse) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Amingos FC.jpg" alt="Amingos FC" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Amingos FC</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 10</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Amingos FC.jpg" alt="Amingos FC" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Amingos FC</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Red Bulls Eleven</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Red Bulls Eleven</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 10</span>
           </div>
-          <!-- Match 11 (Group A Reverse) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="White Panthers.jpg" alt="White Panthers" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">White Panthers</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 11</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="White Panthers.jpg" alt="White Panthers" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">White Panthers</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Messiah FC.jpg" alt="Messiah FC" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Messiah FC</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Messiah FC.jpg" alt="Messiah FC" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Messiah FC</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 11</span>
           </div>
-          <!-- Match 12 (Group B Reverse) -->
-          <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg shadow-sm">
-            <div class="flex items-center gap-2">
-              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Red Bulls Eleven</span>
+
+          <div class="fixture-card bg-slate-50 rounded-xl shadow-lg p-5 flex flex-col items-center">
+            <div class="match-day text-blue-700 font-bold text-lg mb-3">Matchday 12</div>
+            <div class="flex flex-row items-center gap-4">
+              <div class="flex flex-col items-center">
+                <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Red Bulls Eleven</span>
+              </div>
+              <span class="text-xl font-bold text-slate-700">vs</span>
+              <div class="flex flex-col items-center">
+                <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-12 w-12 object-contain rounded-full mb-2" />
+                <span class="font-semibold">Strawhat Pirates</span>
+              </div>
             </div>
-            <span class="text-slate-500 font-medium">vs</span>
-            <div class="flex items-center gap-2">
-              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-8 w-8 object-contain" />
-              <span class="font-semibold">Strawhat Pirates</span>
-            </div>
-            <span class="font-semibold text-slate-700">Match 12</span>
           </div>
         </div>
-        <!-- Knockout Stage -->
-        <div class="mt-10">
-          <h3 class="text-2xl font-semibold text-slate-800 mb-4 border-b pb-2">Knockout Stage</h3>
-          <div class="space-y-4">
-            <div class="bg-slate-50 p-3 rounded-lg shadow-sm font-medium">
-              SF1: Winner Group A 🆚 Runner-up Group B
-            </div>
-            <div class="bg-slate-50 p-3 rounded-lg shadow-sm font-medium">
-              SF2: Winner Group B 🆚 Runner-up Group A
-            </div>
-            <div class="bg-slate-50 p-3 rounded-lg shadow-sm font-medium">
-              Third Place: Loser SF1 🆚 Loser SF2
-            </div>
-            <div class="bg-yellow-50 p-3 rounded-lg shadow font-bold text-yellow-700">
-              🏆 Final: Winner SF1 🆚 Winner SF2
-            </div>
-          </div>
-        </div>
+
+        <!-- Knockout Bracket Structure -->
+		<section class="mt-10">
+		  <h3 class="text-2xl font-semibold text-slate-800 mb-6 text-center">Knockout Stage</h3>
+		  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+			<!-- Semi Final 1 -->
+			<div class="bg-slate-50 rounded-xl shadow p-6 flex flex-col items-center">
+			  <h4 class="font-bold text-lg mb-4">Semi Final 1</h4>
+			  <div class="flex items-center gap-4">
+				<div class="flex flex-col items-center">
+				  <img src="default_batch.png" alt="Batch" class="h-14 w-14 rounded-full mb-2" />
+				  <span>Winner Group A</span>
+				</div>
+				<span class="font-extrabold text-xl">vs</span>
+				<div class="flex flex-col items-center">
+				  <img src="default_batch.png" alt="Batch" class="h-14 w-14 rounded-full mb-2" />
+				  <span>Runner-up Group B</span>
+				</div>
+			  </div>
+			</div>
+			<!-- Semi Final 2 -->
+			<div class="bg-slate-50 rounded-xl shadow p-6 flex flex-col items-center">
+			  <h4 class="font-bold text-lg mb-4">Semi Final 2</h4>
+			  <div class="flex items-center gap-4">
+				<div class="flex flex-col items-center">
+				  <img src="default_batch.png" alt="Batch" class="h-14 w-14 rounded-full mb-2" />
+				  <span>Winner Group B</span>
+				</div>
+				<span class="font-extrabold text-xl">vs</span>
+				<div class="flex flex-col items-center">
+				  <img src="default_batch.png" alt="Batch" class="h-14 w-14 rounded-full mb-2" />
+				  <span>Runner-up Group A</span>
+				</div>
+			  </div>
+			</div>
+			<!-- Third Place Match -->
+			<div class="bg-slate-50 rounded-xl shadow p-6 flex flex-col items-center">
+			  <h4 class="font-bold text-lg mb-4">Third Place Match</h4>
+			  <div class="flex items-center gap-4">
+				<div class="flex flex-col items-center">
+				  <img src="default_batch.png" alt="Batch" class="h-14 w-14 rounded-full mb-2" />
+				  <span>Loser SF1</span>
+				</div>
+				<span class="font-extrabold text-xl">vs</span>
+				<div class="flex flex-col items-center">
+				  <img src="default_batch.png" alt="Batch" class="h-14 w-14 rounded-full mb-2" />
+				  <span>Loser SF2</span>
+				</div>
+			  </div>
+			</div>
+			<!-- Final -->
+			<div class="bg-yellow-50 rounded-xl shadow p-6 flex flex-col items-center">
+			  <h4 class="font-extrabold text-yellow-700 text-lg mb-4">🏆 Final</h4>
+			  <div class="flex items-center gap-4">
+				<div class="flex flex-col items-center">
+				  <img src="default_batch.png" alt="Batch" class="h-16 w-16 rounded-full mb-2" />
+				  <span class="font-bold text-yellow-700">Winner SF1</span>
+				</div>
+				<span class="font-extrabold text-2xl text-yellow-700">vs</span>
+				<div class="flex flex-col items-center">
+				  <img src="default_batch.png" alt="Batch" class="h-16 w-16 rounded-full mb-2" />
+				  <span class="font-bold text-yellow-700">Winner SF2</span>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</section>
       </section>
     </main>
   </div>
-  <!-- Mobile menu script -->
+
   <script>
     const mobileMenuBtn = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
