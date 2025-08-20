@@ -9,6 +9,12 @@
     body {
       font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
+
+    /* ✅ Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -18,11 +24,11 @@
     <div class="container mx-auto flex justify-between items-center p-4">
       <h1 class="text-2xl font-bold text-green-400">We Are Eleven</h1>
       <nav class="space-x-6">
-		  <a href="index.html" class="nav-link active" aria-current="page">Home</a>
-          <a href="team_list.html" class="nav-link">Teams</a>
-          <a href="team_fixtures.html" class="nav-link">Fixtures</a>
-          <a href="admin.html" class="nav-link">Admin</a>
-          <a href="about_us.html" class="nav-link">About Us</a>
+        <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+        <a href="team_list.html" class="nav-link">Teams</a>
+        <a href="team_fixtures.html" class="nav-link">Fixtures</a>
+        <a href="admin.html" class="nav-link">Admin</a>
+        <a href="about_us.html" class="nav-link">About Us</a>
       </nav>
     </div>
   </header>
@@ -30,16 +36,16 @@
   <!-- ✅ Hero Section -->
   <section class="relative bg-cover bg-center h-[90vh]" style="background-image: url('https://images.unsplash.com/photo-1600359756538-527414116d9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
     <div class="absolute inset-0 bg-black/70"></div>
-	<div class="flex flex-col md:flex-row gap-4 justify-center">
-	  <a href="join.html" 
-	     class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition">
-	    🤝 Join Us
-	  </a>
-	  <a href="tournament.html" 
-	     class="border-2 border-green-500 text-green-400 hover:bg-green-500 hover:text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition">
-	    🏆 Tournaments
-	  </a>
-	</div>
+    <div class="relative h-full flex flex-col items-center justify-center gap-6">
+      <a href="join.html" 
+         class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition animate-[float_3s_ease-in-out_infinite]">
+        🤝 Join Us
+      </a>
+      <a href="tournament.html" 
+         class="border-2 border-green-500 text-green-400 hover:bg-green-500 hover:text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition animate-[float_3.5s_ease-in-out_infinite]">
+        🏆 Tournaments
+      </a>
+    </div>
   </section>
 
   <!-- 🚧 Upcoming Fixtures Section (Under Development) -->
