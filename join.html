@@ -75,7 +75,12 @@
     // Import Firebase SDKs
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      updateProfile 
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
     // Your Firebase config
     const firebaseConfig = {
@@ -123,17 +128,30 @@
     registerTab.addEventListener("click", () => activateTab("register"));
     loginTab.addEventListener("click", () => activateTab("login"));
 
-    // Register Handler
+    // ✅ Register Handler
     registerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const name = document.getElementById("registerName").value;
       const email = document.getElementById("registerEmail").value;
       const password = document.getElementById("registerPassword").value;
 
       try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        authMessage.textContent = "✅ Registration successful!";
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+        // 🔹 Save displayName in Firebase
+        await updateProfile(userCredential.user, {
+          displayName: name
+        });
+
+        authMessage.textContent = "✅ Registration successful! Redirecting...";
         authMessage.classList.remove("text-red-400");
         authMessage.classList.add("text-green-400");
+
+        // 🔹 Redirect to profile page
+        setTimeout(() => {
+          window.location.href = "profile.html";
+        }, 1000);
+
       } catch (error) {
         authMessage.textContent = "❌ " + error.message;
         authMessage.classList.remove("text-green-400");
@@ -141,7 +159,7 @@
       }
     });
 
-    // Login Handler
+    // ✅ Login Handler
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("loginEmail").value;
@@ -149,9 +167,16 @@
 
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        authMessage.textContent = "✅ Login successful!";
+
+        authMessage.textContent = "✅ Login successful! Redirecting...";
         authMessage.classList.remove("text-red-400");
         authMessage.classList.add("text-green-400");
+
+        // 🔹 Redirect to profile page
+        setTimeout(() => {
+          window.location.href = "profile.html";
+        }, 1000);
+
       } catch (error) {
         authMessage.textContent = "❌ " + error.message;
         authMessage.classList.remove("text-green-400");
