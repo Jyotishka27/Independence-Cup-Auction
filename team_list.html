@@ -7,73 +7,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: #F3F4F6; /* Slate-light for professional feel */
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: white;
       color: #1E293B;
       margin: 0;
       min-height: 100vh;
     }
-    nav {
-      background-color: #FFF;
-      box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .nav-link {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #334155;
-      text-decoration: none;
-    }
-    .nav-link:hover,
-    .mobile-link:hover {
-      color: #2563EB;
-    }
-    .nav-link.active,
-    .mobile-link.active {
-      color: #2563EB;
-      font-weight: 700;
-    }
-    .mobile-link {
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #334155;
-      text-decoration: none;
-      border-bottom: 1px solid #E5E7EB;
-    }
-    .hero-header {
-      background: linear-gradient(90deg, #F8FAFC 60%, #F1F5F9 100%);
-      padding: 2rem 1rem 1rem 1rem;
-      border-radius: 1rem 1rem 0 0;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      max-width: 630px;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
-    }
-    .hero-header h1 {
-      font-size: 2.25rem;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      color: #1E293B;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    /* Tabs */
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      white-space: nowrap;
-      margin-bottom: 1.25rem;
-      padding-left: 0.25rem;
-      padding-right: 0.25rem;
-    }
+    /* ✅ Tabs */
+    .tabs { display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap; margin-bottom: 1.25rem; }
     .tab-button {
       padding: 0.5rem 1.25rem;
       border-radius: 9999px;
@@ -85,8 +26,6 @@
       transition: all 0.17s ease;
       font-size: 0.97rem;
       flex-shrink: 0;
-      text-align: center;
-      user-select: none;
     }
     .tab-button.active {
       background-color: #E2E8F0;
@@ -98,124 +37,71 @@
       background-color: #F1F5F9;
       color: #1E293B;
     }
-    /* Card container */
-    section.bg-white.rounded-2xl.shadow.p-6 {
-      box-shadow: 0 12px 32px rgb(0 0 0 / 0.09);
-      border-radius: 1rem;
-      background: #FFF;
-      max-width: 630px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0 7px;
-      font-size: 1rem;
-    }
+    /* ✅ Table */
+    table { width: 100%; font-size: 1rem; }
     thead th {
-      background-color: #F3F4F6;
+      background-color: #F9FAFB;
       font-weight: 700;
       color: #334155;
       padding: 0.7rem 1rem;
       text-align: left;
-      border-radius: 0.5rem;
-      font-size: 1.05rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid #E5E7EB;
     }
-    tbody tr {
-      background-color: #FFF;
-      box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
-      transition: background-color 0.18s;
-      border-radius: 0.5rem;
-    }
-    tbody tr:nth-child(even) {
-      background-color: #F9FAFB;
-    }
-    tbody tr:hover {
-      background-color: #F1F5F9;
-    }
-    tbody td {
-      padding: 0.85rem 1rem;
-      vertical-align: middle;
-      border: none;
-      font-weight: 500;
-      font-size: 1rem;
-      color: #334155;
-    }
-    tbody td.player {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-    }
-    tbody td.position {
-      white-space: nowrap;
-    }
-    .icon {
-      font-size:1.1rem;
-      vertical-align: middle;
-      margin-right: 0.25rem;
-    }
+    tbody tr { transition: background-color 0.18s; }
+    tbody tr:hover { background-color: #F1F5F9; }
+    tbody td { padding: 0.85rem 1rem; font-weight: 500; }
   </style>
 </head>
-<body>
-  <!-- Header -->
-  <header>
-    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="header-inner flex justify-between items-center h-16">
-        <a href="index.html" class="brand flex items-center font-extrabold text-xl text-gray-900">
-          <img src="We_are_eleven_logo copy.jpg" 
-               alt="We Are Eleven Logo" 
-               class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2 rounded-full object-contain" />
-          We Are Eleven
-        </a>
-        <div class="desktop-nav hidden md:flex gap-6">
-          <a href="index.html" class="nav-link">Home</a>
-          <a href="team_list.html" class="nav-link active" aria-current="page">Teams</a>
-          <a href="team_fixtures.html" class="nav-link">Fixtures</a>
-          <a href="admin.html" class="nav-link">Admin</a>
-          <a href="about_us.html" class="nav-link">About Us</a>
-        </div>
-        <button id="mobile-menu-button" class="mobile-menu-button md:hidden" aria-label="Toggle menu" aria-expanded="false">
-          <svg class="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
+<body class="text-black">
+
+  <!-- ✅ Header -->
+  <header class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center p-4">
+      <!-- Logo + Text -->
+      <div class="flex items-center gap-3">
+        <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Logo" 
+             class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain" />
+        <h1 class="text-2xl font-bold">
+          <span class="text-gray-900">We Are</span>
+          <span class="text-red-600">Eleven</span>
+        </h1>
       </div>
-      <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
-        <a href="index.html" class="mobile-link">Home</a>
-        <a href="team_list.html" class="mobile-link active" aria-current="page">Teams</a>
-        <a href="team_fixtures.html" class="mobile-link">Fixtures</a>
-        <a href="admin.html" class="mobile-link">Admin</a>
-        <a href="about_us.html" class="mobile-link">About Us</a>
-      </div>
-    </nav>
-  </header>
-  <main class="max-w-4xl mx-auto mt-8">
-    <div class="hero-header">
-      <h1>⚽ Independence Cup 2025 - Team List</h1>
+      <!-- Nav -->
+      <nav class="space-x-6">
+        <a href="index.html" class="nav-link text-gray-700 font-medium">Home</a>
+        <a href="team_list.html" class="nav-link active text-gray-700 font-semibold">Teams</a>
+        <a href="team_fixtures.html" class="nav-link text-gray-700 font-medium">Fixtures</a>
+        <a href="admin.html" class="nav-link text-gray-700 font-medium">Admin</a>
+        <a href="about_us.html" class="nav-link text-gray-700 font-medium">About Us</a>
+      </nav>
     </div>
+  </header>
+
+  <!-- ✅ Hero Section -->
+  <section class="relative h-[40vh] flex flex-col items-center justify-center text-center px-4">
+    <div class="watermark flex flex-col items-center">
+      <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Watermark" class="opacity-5 w-72 mb-4" />
+      <h2 class="text-3xl font-bold mt-6 text-black">
+        Independence Cup 2025 - <span class="text-red-600">Team List</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- ✅ Team List Section -->
+  <main class="max-w-4xl mx-auto mt-6 px-4">
     <section class="bg-white rounded-2xl shadow p-6">
-      <h2 class="text-xl font-semibold mb-4">Team List</h2>
+      <h2 class="text-xl font-semibold mb-4">Teams</h2>
       <div id="tabs" class="tabs" role="tablist" aria-label="Teams"></div>
       <div id="teamContent" tabindex="0" aria-live="polite"></div>
     </section>
   </main>
-  <script>
-    // Mobile menu
-    const mobileMenuBtn = document.getElementById("mobile-menu-button");
-    const mobileMenu = document.getElementById("mobile-menu");
-    mobileMenuBtn.addEventListener("click", () => {
-      const expanded = mobileMenuBtn.getAttribute("aria-expanded") === "true";
-      mobileMenuBtn.setAttribute("aria-expanded", !expanded);
-      mobileMenu.classList.toggle("hidden");
-    });
 
-    // Teams and players
+  <!-- ✅ Footer -->
+  <footer class="bg-gray-950 py-6 text-center text-gray-400 mt-12">
+    <p>© 2025 Football Community. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Teams
     const TEAMS = [
       { name: 'Thunderbolt', image: 'Thunderbolt.jpg' },
       { name: 'Red Bulls Eleven', image: 'Red Bulls Eleven.jpg' },
@@ -228,54 +114,16 @@
       { teamIndex: 0, playerName: 'Ayon Roy', position: 'Defence', captain: true },
       { teamIndex: 0, playerName: 'Arnab Talukdar', position: 'Goalkeeper' },
       { teamIndex: 0, playerName: 'Sourav Acharya', position: 'Striker' },
-      { teamIndex: 0, playerName: 'Proloy Malik', position: 'Defence' },
-      { teamIndex: 0, playerName: 'Siddhant Ameria', position: 'Midfield' },
-      { teamIndex: 0, playerName: 'Kingshuk Banerjee', position: 'Midfield' },
-      { teamIndex: 0, playerName: 'Aritra Adhikari', position: 'Striker' },
       { teamIndex: 1, playerName: 'Subhojit Dutta', position: 'Midfield', captain: true },
       { teamIndex: 1, playerName: 'Soumadeep Dutta', position: 'Goalkeeper' },
-      { teamIndex: 1, playerName: 'Jeffin Mathew', position: 'Midfield' },
-      { teamIndex: 1, playerName: 'Yash Agarwal', position: 'Defence' },
-      { teamIndex: 1, playerName: 'Shivaditya Gunin', position: 'Striker' },
-      { teamIndex: 1, playerName: 'Arghadeep Das', position: 'Defence' },
-      { teamIndex: 1, playerName: 'Akash Mukherjee', position: 'Midfield' },
-      { teamIndex: 1, playerName: 'Sourav Das', position: 'Midfield' },
       { teamIndex: 2, playerName: 'Ritam Chowdhury', position: 'Midfield', captain: true },
       { teamIndex: 2, playerName: 'Dhruv', position: 'Goalkeeper' },
-      { teamIndex: 2, playerName: 'Risove Show', position: 'Midfield' },
-      { teamIndex: 2, playerName: 'Biswajit Karmakar', position: 'Midfield' },
-      { teamIndex: 2, playerName: 'Satyaki Sarkar', position: 'Defence' },
-      { teamIndex: 2, playerName: 'Ayan Das', position: 'Defence' },
-      { teamIndex: 2, playerName: 'Dipanjan Mazumder', position: 'Defence' },
       { teamIndex: 3, playerName: 'Shubhanjan Basu', position: 'Midfield', captain: true },
-      { teamIndex: 3, playerName: 'Rupayan Chakraborty', position: 'Goalkeeper' },
-      { teamIndex: 3, playerName: 'Soumik Mukherjee', position: 'Defence' },
-      { teamIndex: 3, playerName: 'Shardendu Lahiri', position: 'Midfield' },
-      { teamIndex: 3, playerName: 'Subhayan Banerjee', position: 'Defence' },
-      { teamIndex: 3, playerName: 'Pulak Dowari', position: 'Defence' },
-      { teamIndex: 3, playerName: 'Sagnik Chakraborty', position: 'Midfield' },
       { teamIndex: 4, playerName: 'Srinjoy Kundu', position: 'Midfield', captain: true },
-      { teamIndex: 4, playerName: 'Arko Dutta', position: 'Goalkeeper' },
-      { teamIndex: 4, playerName: 'Suvam Chakraborty', position: 'Defence' },
-      { teamIndex: 4, playerName: 'Dibwayan Trivedi', position: 'Defence' },
-      { teamIndex: 4, playerName: 'Supratim Sengupta', position: 'Striker' },
-      { teamIndex: 4, playerName: 'Aman Pandey', position: 'Defence' },
-      { teamIndex: 4, playerName: 'Ankit Aich', position: 'Defence' },
       { teamIndex: 5, playerName: 'Subhamoy Das', position: 'Midfield', captain: true },
-      { teamIndex: 5, playerName: 'Aditya Chakraborty', position: 'Goalkeeper' },
-      { teamIndex: 5, playerName: 'Vasu Gupta', position: 'Striker' },
-      { teamIndex: 5, playerName: 'Krishnendu Mondal', position: 'Midfield' },
-      { teamIndex: 5, playerName: 'Sanchay Bose', position: 'Defence' },
-      { teamIndex: 5, playerName: 'Rahul Sarkar', position: 'Defence' },
-      { teamIndex: 5, playerName: 'Kaustav Guha Mazumdar', position: 'Striker' }
     ];
 
-    const positionIcons = {
-      Striker: '⚽',
-      Defence: '🛡',
-      Goalkeeper: '🧤',
-      Midfield: '🎯'
-    };
+    const positionIcons = { Striker: '⚽', Defence: '🛡', Goalkeeper: '🧤', Midfield: '🎯' };
 
     const tabsContainer = document.getElementById("tabs");
     const teamContent = document.getElementById("teamContent");
@@ -285,20 +133,11 @@
       tabsContainer.innerHTML = "";
       TEAMS.forEach((team, index) => {
         const btn = document.createElement("button");
-        btn.innerHTML = `
-          <img src="${team.image}" alt="${team.name} Logo" class="h-6 w-6 inline-block mr-2 rounded-full object-cover" />
-          ${team.name}
-        `;
-        btn.className = "tab-button flex items-center gap-2";
-        btn.setAttribute("role", "tab");
-        btn.setAttribute("aria-selected", index === 0 ? "true" : "false");
+        btn.innerHTML = `<img src="${team.image}" alt="${team.name} Logo" class="h-6 w-6 rounded-full object-cover mr-2" /> ${team.name}`;
+        btn.className = "tab-button flex items-center";
         btn.addEventListener("click", () => {
-          document.querySelectorAll(".tab-button").forEach(b => {
-            b.classList.remove("active");
-            b.setAttribute("aria-selected", "false");
-          });
+          document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
           btn.classList.add("active");
-          btn.setAttribute("aria-selected", "true");
           activeTeamIndex = index;
           renderTeamTable();
         });
@@ -311,14 +150,13 @@
     function renderTeamTable() {
       const team = TEAMS[activeTeamIndex];
       const players = SALES.filter(p => p.teamIndex === activeTeamIndex);
-    
       teamContent.innerHTML = `
         <div class="flex items-center gap-3 mb-4">
           <img src="${team.image}" alt="${team.name} Logo" class="h-10 w-10 rounded-full object-cover" />
           <h3 class="text-lg font-bold">${team.name}</h3>
         </div>
         <table class="w-full border border-gray-200 rounded-lg overflow-hidden">
-          <thead class="bg-gray-100">
+          <thead>
             <tr>
               <th class="px-4 py-2 text-left">Player</th>
               <th class="px-4 py-2 text-left">Position</th>
@@ -328,7 +166,7 @@
             ${players.map(p => `
               <tr class="border-t">
                 <td class="px-4 py-2 flex items-center gap-2">
-                  <span class="icon" aria-hidden="true">${positionIcons[p.position] || ''}</span>
+                  <span>${positionIcons[p.position] || ''}</span>
                   ${p.playerName}
                   ${p.captain ? '<span class="ml-2 text-xs font-bold text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full">C</span>' : ''}
                 </td>
