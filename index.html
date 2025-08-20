@@ -8,6 +8,7 @@
   <style>
     body {
       font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: white;
     }
 
     /* ✅ Floating Animation */
@@ -17,31 +18,33 @@
     }
 
     /* ✅ Watermark Style */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
+    .watermark {
+      position: relative;
       width: 100%;
-      height: 100%;
-      background: url("We_are_eleven_logo copy.jpg") no-repeat center center;
-      background-size: 800px;   /* adjust size */
-      opacity: 0.50;           /* make it faint */
-      z-index: -1;             /* keep it behind everything */
-      pointer-events: none;    /* don’t block clicks */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .watermark img {
+      opacity: 0.06;
+      width: 500px;   /* 🔥 bigger watermark */
+      max-width: 90%;
     }
   </style>
 </head>
-<body class="bg-white text-black">
+<body class="text-black">
 
   <!-- ✅ Header -->
   <header class="bg-white shadow-lg sticky top-0 z-50">
     <div class="container mx-auto flex justify-between items-center p-4">
+      
       <!-- Logo + Text -->
       <div class="flex items-center gap-3">
         <img src="We_are_eleven_logo copy.jpg" 
              alt="We Are Eleven Logo" 
-             class="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-contain" />
+             class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain" /> <!-- 🔥 Increased size -->
         <h1 class="text-2xl font-bold">
           <span class="text-gray-900">We Are</span> 
           <span class="text-red-600">Eleven</span>
@@ -58,12 +61,17 @@
     </div>
   </header>
 
-  <!-- ✅ Hero Section -->
-  <section class="relative bg-cover bg-center h-[90vh]" 
-           style="background-image: url('https://images.unsplash.com/photo-1600359756538-527414116d9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');">
-    <div class="relative h-full flex flex-col items-center justify-center gap-6">
+  <!-- ✅ Hero Section with Watermark + Description -->
+  <section class="relative h-[80vh] flex flex-col items-center justify-center text-center px-4">
+    
+    <!-- Watermark + Description + Button -->
+    <div class="watermark">
+      <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Watermark" />
+      <h2 class="text-3xl font-bold mt-6">
+        Welcome to <span class="text-red-600">We Are Eleven</span>
+      </h2>
       <a href="join.html" 
-         class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition animate-[float_3s_ease-in-out_infinite]">
+         class="mt-6 bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition animate-[float_3s_ease-in-out_infinite]">
         Join Us
       </a>
     </div>
