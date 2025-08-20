@@ -17,24 +17,31 @@
     }
   </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-white text-black">
 
-  <!-- ✅ Existing Header -->
-  <header class="bg-gray-950 shadow-lg sticky top-0 z-50">
+  <!-- ✅ Fixed Header -->
+  <header class="bg-white shadow-lg sticky top-0 z-50">
     <div class="container mx-auto flex justify-between items-center p-4">
-      <h1 class="text-2xl font-bold text-green-400">We Are Eleven</h1>
-      <img src="We_are_eleven_logo copy.jpg" 
-               alt="We Are Eleven Logo" 
-               class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2 rounded-full object-contain" />
-          We Are Eleven
-        </a>
+      
+      <!-- ✅ Logo + Text -->
+      <div class="flex items-center gap-3">
+        <img src="We_are_eleven_logo copy.jpg" 
+             alt="We Are Eleven Logo" 
+             class="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-contain" />
+        <h1 class="text-2xl font-bold">
+          <span class="text-gray-900">We Are</span> 
+          <span class="text-red-600">Eleven</span>
+        </h1>
+      </div>
+
+      <!-- ✅ Nav -->
       <nav class="space-x-6">
-        <a href="index.html" class="nav-link active" aria-current="page">Home</a>
-        <a href="tournament.html" class="nav-link active" aria-current="page">Tournaments</a>
+        <a href="index.html" class="nav-link active text-gray-700 font-medium" aria-current="page">Home</a>
+        <a href="tournament.html" class="nav-link text-gray-700 font-medium">Tournaments</a>
         <!-- <a href="team_list.html" class="nav-link">Teams</a>
         <a href="team_fixtures.html" class="nav-link">Fixtures</a> -->
-        <a href="admin.html" class="nav-link">Admin</a>
-        <a href="about_us.html" class="nav-link">About Us</a>
+        <a href="admin.html" class="nav-link text-gray-700 font-medium">Admin</a>
+        <a href="about_us.html" class="nav-link text-gray-700 font-medium">About Us</a>
       </nav>
     </div>
   </header>
@@ -47,28 +54,8 @@
          class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition animate-[float_3s_ease-in-out_infinite]">
         Join Us
       </a>
-      <!-- <a href="tournament.html" 
-         class="border-2 border-green-500 text-green-400 hover:bg-green-500 hover:text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition animate-[float_3.5s_ease-in-out_infinite]">
-        Tournaments
-      </a> -->
     </div>
   </section>
-
-  <!-- 🚧 Upcoming Fixtures Section (Under Development) -->
-  <!-- 
-  <section class="py-16 bg-gray-900 text-center">
-    <h3 class="text-3xl font-bold text-green-400 mb-8">Upcoming Fixtures</h3>
-    <p class="text-gray-400">This section is under development...</p>
-  </section>
-  -->
-
-  <!-- 🚧 Highlights / Media Section (Under Development) -->
-  <!-- 
-  <section class="py-16 bg-gray-800 text-center">
-    <h3 class="text-3xl font-bold text-green-400 mb-8">Highlights</h3>
-    <p class="text-gray-400">This section is under development...</p>
-  </section>
-  -->
 
   <!-- ✅ Footer -->
   <footer class="bg-gray-950 py-6 text-center text-gray-400 mt-12">
