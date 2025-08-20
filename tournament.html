@@ -7,128 +7,45 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: #f8fafc; /* Unified background */
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: white;
       color: #1e293b;
-      margin: 0;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    /* Header */
-    nav {
-      background-color: white;
-      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .nav-link {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #475569;
-      text-decoration: none;
-    }
-    .nav-link:hover,
-    .mobile-link:hover {
-      color: #2563EB;
-    }
-    .nav-link.active,
-    .mobile-link.active {
-      color: #2563EB;
-      font-weight: 700;
-    }
-    .mobile-link {
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #475569;
-      text-decoration: none;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    /* Scroll area for main content */
-    .content-scroll {
-      max-height: 85vh;
-      overflow-y: auto;
-      padding-right: 1rem;
-    }
-    @media (max-width: 640px) {
-      .content-scroll {
-        max-height: 60vh;
-        padding-right: 0.5rem;
-      }
-    }
-    /* Nav buttons */
-    .nav-buttons {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .nav-buttons button {
-      padding: 0.75rem 1.5rem;
-      font-weight: 600;
-      border-radius: 0.5rem;
-      background-color: #2563EB;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      min-width: 120px;
-      text-align: center;
-      user-select: none;
-    }
-    .nav-buttons button:hover,
-    .nav-buttons button:focus-visible {
-      background-color: #1D4ED8;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
     }
   </style>
 </head>
-<body>
-  <!-- Header -->
-  <header>
-    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<body class="text-black">
+
+  <!-- ✅ Header -->
+  <header class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center p-4">
       
-      <div class="header-inner flex justify-between items-center h-16">
-        <a href="index.html" class="brand flex items-center font-extrabold text-xl text-gray-900">
-          <img src="We_are_eleven_logo copy.jpg" 
-               alt="We Are Eleven Logo" 
-               class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2 rounded-full object-contain" />
-          We Are Eleven
-        </a>
-        <!-- Desktop Nav -->
-        <div class="desktop-nav hidden md:flex gap-6">
-          <a href="index.html" class="nav-link active" aria-current="page">Home</a>
-          <a href="team_list.html" class="nav-link">Teams</a>
-          <a href="team_fixtures.html" class="nav-link">Fixtures</a>
-          <a href="admin.html" class="nav-link">Admin</a>
-          <a href="about_us.html" class="nav-link">About Us</a>
-        </div>
-        <!-- Mobile button -->
-        <button id="mobile-menu-button" class="mobile-menu-button md:hidden" aria-label="Toggle menu" aria-expanded="false">
-          <svg class="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
+      <!-- Logo + Text -->
+      <div class="flex items-center gap-3">
+        <img src="We_are_eleven_logo copy.jpg" 
+             alt="We Are Eleven Logo" 
+             class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain" />
+        <h1 class="text-2xl font-bold">
+          <span class="text-gray-900">We Are</span> 
+          <span class="text-red-600">Eleven</span>
+        </h1>
       </div>
-      <!-- Mobile dropdown -->
-      <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
-        <a href="index.html" class="mobile-link active" aria-current="page">Home</a>
-        <a href="team_list.html" class="mobile-link">Teams</a>
-        <a href="team_fixtures.html" class="mobile-link">Fixtures</a>
-        <a href="admin.html" class="mobile-link">Admin</a>
-        <a href="about_us.html" class="mobile-link">About Us</a>
-      </div>
-    </nav>
+
+      <!-- Nav -->
+      <nav class="space-x-6">
+        <a href="index.html" class="text-gray-700 font-medium active" aria-current="page">Home</a>
+        <a href="team_list.html" class="text-gray-700 font-medium">Teams</a>
+        <a href="team_fixtures.html" class="text-gray-700 font-medium">Fixtures</a>
+        <a href="admin.html" class="text-gray-700 font-medium">Admin</a>
+        <a href="about_us.html" class="text-gray-700 font-medium">About Us</a>
+      </nav>
+    </div>
   </header>
-  <!-- Main layout -->
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0 py-8">
+
+  <!-- ✅ Main layout -->
+  <main class="container mx-auto px-4 md:px-0 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+
     <!-- Main content -->
-    <main class="md:col-span-2 bg-white rounded-2xl shadow p-6 content-scroll">
+    <section class="md:col-span-2 bg-white rounded-2xl shadow p-6">
       <h1 class="text-3xl font-bold mb-6">Independence Cup 2025</h1>
       <div class="mb-6 space-y-4">
         <p><strong>📅 Event Date</strong><br>24 August 2025</p>
@@ -139,8 +56,9 @@
         <p><strong>👥 Captains</strong><br>Subhojit, Ritam, Monty, Subhamoy, Shubanjan, Akash Jr</p>
         <p><strong>⚽ Number of Teams</strong><br>6</p>
       </div>
+
       <h2 class="text-xl font-semibold mb-4">🏆 Independence Cup 2025 – Tournament Guidelines 🏆</h2>
-      <article class="space-y-6 text-sm text-slate-700 leading-relaxed">
+      <article class="space-y-6 text-slate-700 leading-relaxed text-sm">
         <section>
           <h3 class="font-semibold mb-1">Event Overview</h3>
           <ul class="list-disc list-inside space-y-1">
@@ -157,9 +75,10 @@
           </ul>
         </section>
       </article>
-    </main>
-    <!-- Sidebar -->
-    <section class="bg-gradient-to-r from-blue-100 via-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-xl p-5 shadow-md">
+    </section>
+
+    <!-- Sidebar / Notice Board -->
+    <aside class="bg-gradient-to-r from-blue-100 via-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-xl p-5 shadow-md">
       <div class="flex items-center gap-3">
         <span class="text-blue-600 text-2xl animate-bounce">📢</span>
         <h2 class="text-2xl font-bold text-blue-800">Notice Board</h2>
@@ -169,20 +88,13 @@
         All players and teams are requested to check the 
         <span class="font-semibold text-blue-900">Fixtures Tab</span> for details.
       </p>
-    </section>
-  </div>
-  <!-- Mobile menu script -->
-  <script>
-    const mobileMenuBtn = document.getElementById("mobile-menu-button");
-    const mobileMenu = document.getElementById("mobile-menu");
-    mobileMenuBtn.addEventListener("click", () => {
-      const expanded = mobileMenuBtn.getAttribute("aria-expanded") === "true";
-      mobileMenuBtn.setAttribute("aria-expanded", !expanded);
-      mobileMenu.classList.toggle("hidden");
-    });
-  </script>
+    </aside>
+  </main>
+
+  <!-- ✅ Footer -->
+  <footer class="bg-gray-950 py-6 text-center text-gray-400 mt-12">
+    <p>© 2025 Football Community. All Rights Reserved.</p>
+  </footer>
+
 </body>
 </html>
-
-
-
