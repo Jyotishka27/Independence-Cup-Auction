@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>We Are Eleven - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: #f8fafc;
+      color: #1e293b;
+      margin: 0;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: white;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-link {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #475569;
+      text-decoration: none;
+    }
+
+    .nav-link:hover,
+    .mobile-link:hover {
+      color: #2563EB;
+    }
+
+    .nav-link.active,
+    .mobile-link.active {
+      color: #2563EB;
+      font-weight: 700;
+    }
+
+    .mobile-link {
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #475569;
+      text-decoration: none;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* Buttons */
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons button {
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      background-color: #2563EB;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      min-width: 140px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .nav-buttons button:hover,
+    .nav-buttons button:focus-visible {
+      background-color: #1D4ED8;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+    }
+
+    /* Hero */
+    .hero-bg {
+      background-image: url('hero-action-shot.jpg');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: white;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 2rem;
+      text-shadow: 0 0 12px rgba(0,0,0,0.75);
+      border-radius: 0.75rem;
+    }
+
+    /* Carousel */
+    .carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      gap: 1rem;
+      padding: 0.5rem 0;
+    }
+
+    .carousel-item {
+      scroll-snap-align: start;
+      background-color: white;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+      min-width: 280px;
+      flex-shrink: 0;
+    }
+
+    /* Teams Grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .team-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+      text-align: center;
+    }
+
+    .team-item img {
+      max-width: 80px;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+    }
+
+    /* Notice Board */
+    .notice-card {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 1px 6px rgb(37 99 235 / 0.3);
+      color: #1e40af;
+    }
+
+    /* Media Gallery */
+    .media-gallery {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 0.5rem 0;
+    }
+
+    .media-item {
+      min-width: 150px;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
+      flex-shrink: 0;
+      background: white;
+    }
+
+    .media-item img,
+    .media-item video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Footer */
+    .social-links a {
+      margin-right: 1rem;
+      color: #475569;
+      transition: color 0.2s;
+      font-size: 1.25rem;
+    }
+
+    .social-links a:hover {
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="header-inner flex justify-between items-center h-16">
+        <a href="index.html" class="brand flex items-center font-extrabold text-xl text-gray-900">
+          <img src="Logo.png" alt="We Are Eleven Logo" class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2 rounded-full object-contain" />
+          We Are Eleven
+        </a>
+        <div class="desktop-nav hidden md:flex gap-6">
+          <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+          <a href="team_list.html" class="nav-link">Teams</a>
+          <a href="team_fixtures.html" class="nav-link">Fixtures</a>
+          <a href="admin.html" class="nav-link">Admin</a>
+          <a href="about_us.html" class="nav-link">About Us</a>
+        </div>
+        <button id="mobile-menu-button" class="mobile-menu-button md:hidden" aria-label="Toggle menu" aria-expanded="false">
+          <svg class="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
+        <a href="index.html" class="mobile-link active" aria-current="page">Home</a>
+        <a href="team_list.html" class="mobile-link">Teams</a>
+        <a href="team_fixtures.html" class="mobile-link">Fixtures</a>
+        <a href="admin.html" class="mobile-link">Admin</a>
+        <a href="about_us.html" class="mobile-link">About Us</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-14">
+
+    <!-- Hero Banner -->
+    <section class="hero-bg rounded-xl">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 max-w-4xl">
+        Welcome to We Are Eleven – Where Football Lives On & Off the Pitch
+      </h1>
+      <div class="nav-buttons">
+        <button onclick="location.href='join.html'">🔹 Join the Community</button>
+        <button onclick="location.href='team_fixtures.html'">🔹 Upcoming Fixtures</button>
+		<button onclick="location.href='team_fixtures.html'">🔹 Upcoming Tournament</button>
+      </div>
+    </section>
+
+    <!-- Live / Upcoming Highlights -->
+    <!-- (your existing content goes here - unchanged) -->
+
+    <!-- About, Notices, Teams, Media, Engagement, Leaderboard, Sponsors -->
+    <!-- (keep your existing code blocks here – already correct) -->
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <nav class="flex gap-6 flex-wrap text-slate-600 text-sm font-semibold">
+        <a href="team_fixtures.html" class="hover:text-blue-600">Fixtures</a>
+        <a href="team_list.html" class="hover:text-blue-600">Teams</a>
+        <a href="rules.html" class="hover:text-blue-600">Rules</a>
+        <a href="gallery.html" class="hover:text-blue-600">Gallery</a>
+        <a href="contact.html" class="hover:text-blue-600">Contact</a>
+      </nav>
+      <div class="social-links flex items-center">
+        <a href="#" aria-label="Facebook" title="Facebook">[FB SVG]</a>
+        <a href="#" aria-label="Twitter" title="Twitter" class="ml-4">[Twitter SVG]</a>
+        <a href="#" aria-label="Instagram" title="Instagram" class="ml-4">[Insta SVG]</a>
+      </div>
+      <p class="text-slate-500 text-sm mt-4 md:mt-0">
+        Contact us: support@weareeleven.com | +1 (234) 567-890
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileMenuBtn.addEventListener("click", () => {
+      const expanded = mobileMenuBtn.getAttribute("aria-expanded") === "true";
+      mobileMenuBtn.setAttribute("aria-expanded", !expanded);
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Countdown Timer
+    const countdownEl = document.getElementById("countdown");
+    const tournamentDate = new Date("2025-08-24T09:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = tournamentDate - now;
+
+      if (diff <= 0) {
+        countdownEl.textContent = "Tournament is live!";
+        clearInterval(interval);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+  </script>
+
+</body>
+</html>
