@@ -2,15 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - We Are Eleven</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <head>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Login - We Are Eleven</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-  body {
-    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-    background: white;
-    color: #1e293b;
-  }
+	body {
+	
+	  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+	  background: white;
+	  color: #1e293b;
+	}
+
+	.nav-link {
+	  color: #4b5563; /* Tailwind gray-700 */
+	  font-weight: 500; /* font-medium */
+	  text-decoration: none;
+	  transition: color 0.2s ease;
+	}
+
+	.nav-link:hover {
+	  color: #374151; /* Tailwind gray-800 */
+	}
+
+	.nav-link.active {
+	  color: #dc2626; /* Tailwind red-600 */
+	}
 
     /* Login card styling */
     .login-card {
@@ -179,47 +200,48 @@
       font-size: 0.75rem;
       color: #3b82f6;
     }
-  </style>
-</head>
+	  </style>
+	</head>
+
 <body class="text-black flex flex-col min-h-screen">
 
   <!-- Header -->
-  <header class="bg-white shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto flex items-center justify-between p-4">
-      <div class="flex items-center gap-3">
-        <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Logo" class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain" />
-        <h1 class="text-2xl font-bold">
-          <span class="text-gray-900">We Are</span>
-          <span class="text-red-600">Eleven</span>
-        </h1>
-      </div>
-      <nav class="space-x-6 hidden md:flex">
-        <a href="index.html" class="nav-link text-gray-700 font-medium">Home</a>
-        <a href="team_list.html" class="nav-link text-gray-700 font-medium">Teams</a>
-        <a href="team_fixtures.html" class="nav-link text-gray-700 font-medium">Fixtures</a>
-        <a href="admin.html" class="nav-link text-gray-700 font-medium">Admin</a>
-        <a href="about_us.html" class="nav-link active text-gray-700 font-medium" aria-current="page">About Us</a>
-      </nav>
-      <!-- Mobile menu button -->
-      <button id="mobile-menu-button" class="md:hidden" aria-label="Toggle menu">
-        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </div>
-    <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
-      <a href="index.html" class="mobile-link p-4 font-medium border-b border-slate-200">Home</a>
-      <a href="team_list.html" class="mobile-link p-4 font-medium border-b border-slate-200">Teams</a>
-      <a href="team_fixtures.html" class="mobile-link p-4 font-medium border-b border-slate-200">Fixtures</a>
-      <a href="admin.html" class="mobile-link p-4 font-medium border-b border-slate-200">Admin</a>
-      <a href="about_us.html" class="mobile-link p-4 font-medium active" aria-current="page">About Us</a>
-    </div>
-  </header>
+	<header class="bg-white shadow-lg sticky top-0 z-50">
+	  <div class="container mx-auto flex justify-between items-center p-4">
+		<div class="flex items-center gap-3">
+		  <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Logo" class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain" />
+		  <h1 class="text-2xl font-bold">
+			<span class="text-gray-900">We Are</span>
+			<span class="text-red-600">Eleven</span>
+		  </h1>
+		</div>
+		<nav class="space-x-6">
+		  <a href="index.html" class="nav-link active text-gray-700 font-medium" aria-current="page">Home</a>
+		  <a href="tournament.html" class="nav-link text-gray-700 font-medium">Tournaments</a>
+		  <a href="admin.html" class="nav-link text-gray-700 font-medium">Admin</a>
+		  <a href="about_us.html" class="nav-link text-gray-700 font-medium">About Us</a>
+		</nav>
 
+		<!-- Mobile menu button -->
+		<button id="mobile-menu-button" class="md:hidden" aria-label="Toggle menu">
+		  <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M4 6h16M4 12h16M4 18h16"></path>
+		  </svg>
+		</button>
+	  </div>
+	  <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
+		<a href="index.html" class="mobile-link p-4 font-medium border-b border-slate-200">Home</a>
+		<a href="team_list.html" class="mobile-link p-4 font-medium border-b border-slate-200">Teams</a>
+		<a href="team_fixtures.html" class="mobile-link p-4 font-medium border-b border-slate-200">Fixtures</a>
+		<a href="admin.html" class="mobile-link p-4 font-medium border-b border-slate-200">Admin</a>
+		<a href="about_us.html" class="mobile-link p-4 font-medium active" aria-current="page">About Us</a>
+	  </div>
+	</header>
 
 
   <!-- Main Content -->
-  <main class="flex-grow flex justify-center items-center p-6">
+  <main class="flex-grow max-w-6xl mx-auto p-4">
+
     <div class="login-card rounded-3xl p-8 max-w-md w-full">
       <!-- Header Section -->
       <div class="text-center mb-8">
@@ -271,16 +293,6 @@
         </button>
       </form>
 
-      <!-- Footer Info -->
-      <div class="text-center mt-8 pt-6 border-t border-gray-100">
-        <p class="text-sm text-gray-500">
-          <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-          </svg>
-          Authorized personnel only
-        </p>
-      </div>
-    </div>
   </main>
 
   <!-- Footer -->
@@ -425,3 +437,4 @@
   </script>
 </body>
 </html>
+
