@@ -18,6 +18,11 @@
       50% { transform: translateY(-6px); }
     }
 
+    .mobile-link.active {
+      color: #dc2626; /* Tailwind red-600 or similar */
+      font-weight: 600;
+    }
+    
     /* Watermark style */
     .watermark img {
       opacity: 0.06;
@@ -68,7 +73,7 @@
         <a href="team_list.html" class="nav-link text-gray-700 font-medium">Teams</a>
         <a href="team_fixtures.html" class="nav-link text-gray-700 font-medium">Fixtures</a>
         <a href="admin.html" class="nav-link text-gray-700 font-medium">Admin</a>
-        <a href="about_us.html" class="nav-link active text-gray-700 font-medium" aria-current="page">About Us</a>
+        <a href="about_us.html" class="nav-link active font-medium" aria-current="page">About Us</a>
       </nav>
       <!-- Mobile menu button -->
       <button id="mobile-menu-button" class="md:hidden" aria-label="Toggle menu">
