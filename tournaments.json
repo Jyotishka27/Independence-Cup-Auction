@@ -1,0 +1,44 @@
+{
+  "tournaments": [
+    {
+      "id": "independence-2025",
+      "name": "Independence Cup 2025",
+      "start": "2025-08-24",
+      "end": "2025-08-24",
+      "venue": "Turf XL",
+      "href": "independence_cup_2025.html",
+      "cover": "independence_cup_2025.jpg",
+      "tags": ["6 teams", "One-day"]
+    },
+    {
+      "id": "winter-2024",
+      "name": "Winter League 2024",
+      "start": "2024-12-05",
+      "end": "2024-12-28",
+      "venue": "Arena Pro",
+      "href": "/winter_league_2024.html",
+      "cover": "/assets/img/gallery-4.jpg",
+      "tags": ["League", "Refereed"]
+    },
+    {
+      "id": "summer-2025",
+      "name": "Summer Showdown 2025",
+      "start": "2025-05-10",
+      "end": "2025-05-10",
+      "venue": "Green Park",
+      "href": "/summer_showdown_2025.html",
+      "cover": "/assets/img/gallery-3.jpg",
+      "tags": ["Knockout"]
+    },
+    {
+      "id": "new-year-2026",
+      "name": "New Year Cup 2026",
+      "start": "2026-01-02",
+      "end": "2026-01-02",
+      "venue": "City Sports Hub",
+      "href": "/new_year_cup_2026.html",
+      "cover": "/assets/img/gallery-6.jpg",
+      "tags": ["Festival"]
+    }
+  ]
+}
