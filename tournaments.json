@@ -11,8 +11,8 @@
       "tags": ["6 teams", "One-day"]
     },
     {
-      "id": "winter-2024",
-      "name": "Winter League 2024",
+      "id": "winter-carnival-cup-2025",
+      "name": "Winter Carnival Cup 2025",
       "start": "2024-12-05",
       "end": "2024-12-28",
       "venue": "Arena Pro",
@@ -21,24 +21,24 @@
       "tags": ["League", "Refereed"]
     },
     {
-      "id": "summer-2025",
-      "name": "Summer Showdown 2025",
-      "start": "2025-05-10",
-      "end": "2025-05-10",
-      "venue": "Green Park",
+      "id": "independence-2024",
+      "name": "independence-2024",
+      "start": "2025-08-17",
+      "end": "2025-08-17",
+      "venue": "Turf XL",
       "href": "/summer_showdown_2025.html",
-      "cover": "/assets/img/gallery-3.jpg",
-      "tags": ["Knockout"]
+      "cover": "independence_cup_logo_2024.jpg",
+      "tags": ["6 teams", "One-day"]
     },
     {
-      "id": "new-year-2026",
-      "name": "New Year Cup 2026",
-      "start": "2026-01-02",
-      "end": "2026-01-02",
+      "id": "independence-2026",
+      "name": "independence-2026",
+      "start": "2026-08-17",
+      "end": "2026-08-17",
       "venue": "City Sports Hub",
       "href": "/new_year_cup_2026.html",
-      "cover": "/assets/img/gallery-6.jpg",
-      "tags": ["Festival"]
+      "cover": "independence_cup_logo_2026.jpg",
+      "tags": ["6 teams", "One-day"]
     }
   ]
 }
