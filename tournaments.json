@@ -13,18 +13,18 @@
     {
       "id": "winter-carnival-cup-2025",
       "name": "Winter Carnival Cup 2025",
-      "start": "2024-12-05",
-      "end": "2024-12-28",
+      "start": "2025-12-05",
+      "end": "2025-12-28",
       "venue": "Arena Pro",
-      "href": "/winter_league_2024.html",
+      "href": "/winter_league_2025.html",
       "cover": "/assets/img/gallery-4.jpg",
       "tags": ["League", "Refereed"]
     },
     {
       "id": "independence-2024",
       "name": "independence-2024",
-      "start": "2025-08-17",
-      "end": "2025-08-17",
+      "start": "2024-08-17",
+      "end": "2024-08-17",
       "venue": "Turf XL",
       "href": "/summer_showdown_2025.html",
       "cover": "independence_cup_logo_2024.jpg",
