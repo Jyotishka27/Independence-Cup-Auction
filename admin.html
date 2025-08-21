@@ -6,11 +6,11 @@
   <title>Admin Login - We Are Eleven</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      color: #1e293b;
-    }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    background: white;
+    color: #1e293b;
+  }
 
     /* Header styling matching the fixtures page */
     .nav-link {
@@ -206,36 +206,39 @@
 <body class="flex flex-col min-h-screen">
 
   <!-- Header -->
-  <header class="bg-white shadow-lg sticky top-0 z-50 border-b border-gray-100">
+  <header class="bg-white shadow-lg sticky top-0 z-50">
     <div class="container mx-auto flex justify-between items-center p-4">
       <div class="flex items-center gap-3">
-        <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Logo" class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain shadow-md" />
+        <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Logo" class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain" />
         <h1 class="text-2xl font-bold">
           <span class="text-gray-900">We Are</span>
           <span class="text-red-600">Eleven</span>
         </h1>
       </div>
       <nav class="space-x-6 hidden md:flex">
-        <a href="index.html" class="nav-link text-gray-700 font-medium hover:text-gray-900 transition-colors">Home</a>
-        <a href="team_list.html" class="nav-link text-gray-700 font-medium hover:text-gray-900 transition-colors">Teams</a>
-        <a href="team_fixtures.html" class="nav-link text-gray-700 font-medium hover:text-gray-900 transition-colors">Fixtures</a>
-        <a href="admin.html" class="nav-link active text-red-600 font-medium" aria-current="page">Admin</a>
-        <a href="about_us.html" class="nav-link text-gray-700 font-medium hover:text-gray-900 transition-colors">About Us</a>
+        <a href="index.html" class="nav-link text-gray-700 font-medium">Home</a>
+        <a href="team_list.html" class="nav-link text-gray-700 font-medium">Teams</a>
+        <a href="team_fixtures.html" class="nav-link text-gray-700 font-medium">Fixtures</a>
+        <a href="admin.html" class="nav-link text-gray-700 font-medium">Admin</a>
+        <a href="about_us.html" class="nav-link active text-gray-700 font-medium" aria-current="page">About Us</a>
       </nav>
-      <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Toggle menu">
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-button" class="md:hidden" aria-label="Toggle menu">
         <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
-    <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-gray-100">
-      <a href="index.html" class="mobile-link p-4 font-medium border-b border-gray-100 hover:bg-gray-50 transition-colors">Home</a>
-      <a href="team_list.html" class="mobile-link p-4 font-medium border-b border-gray-100 hover:bg-gray-50 transition-colors">Teams</a>
-      <a href="team_fixtures.html" class="mobile-link p-4 font-medium border-b border-gray-100 hover:bg-gray-50 transition-colors">Fixtures</a>
-      <a href="admin.html" class="mobile-link p-4 font-medium text-red-600" aria-current="page">Admin</a>
-      <a href="about_us.html" class="mobile-link p-4 font-medium hover:bg-gray-50 transition-colors">About Us</a>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
+      <a href="index.html" class="mobile-link p-4 font-medium border-b border-slate-200">Home</a>
+      <a href="team_list.html" class="mobile-link p-4 font-medium border-b border-slate-200">Teams</a>
+      <a href="team_fixtures.html" class="mobile-link p-4 font-medium border-b border-slate-200">Fixtures</a>
+      <a href="admin.html" class="mobile-link p-4 font-medium border-b border-slate-200">Admin</a>
+      <a href="about_us.html" class="mobile-link p-4 font-medium active" aria-current="page">About Us</a>
     </div>
   </header>
+
 
   <!-- Main Content -->
   <main class="flex-grow flex justify-center items-center p-6">
