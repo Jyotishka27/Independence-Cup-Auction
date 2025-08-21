@@ -2,199 +2,443 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Login - We Are Eleven</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: #f8fafc; /* Unified background */
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
       color: #1e293b;
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
-    /* Header */
-    nav {
-      background-color: white;
-      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
+    /* Header styling matching the fixtures page */
     .nav-link {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #475569;
-      text-decoration: none;
-    }
-    .nav-link:hover,
-    .mobile-link:hover {
-      color: #2563EB;
-    }
-    .nav-link.active,
-    .mobile-link.active {
-      color: #2563EB;
-      font-weight: 700;
-    }
-    .mobile-link {
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #475569;
-      text-decoration: none;
-      border-bottom: 1px solid #e2e8f0;
+      transition: color 0.2s ease;
     }
 
-    main {
-      flex-grow: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
+    .nav-link:hover {
+      color: #374151;
     }
-    .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
-      max-width: 400px;
-      width: 100%;
-    }
-    input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      margin-bottom: 1rem;
-      border: 1px solid #cbd5e1;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-    }
-    input:focus {
-      outline: none;
-      border-color: #2563EB;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
-    }
-    button {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      border-radius: 0.5rem;
-      background-color: #2563EB;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      font-size: 1rem;
-    }
-    button:hover {
-      background-color: #1d4ed8;
-    }
-    .error {
+
+    .nav-link.active {
       color: #dc2626;
-      margin-top: 0.5rem;
+    }
+
+    .mobile-link:hover {
+      background: #f9fafb;
+    }
+
+    .mobile-link.active {
+      color: #dc2626;
+      background: #fef2f2;
+    }
+
+    /* Login card styling */
+    .login-card {
+      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .login-card:hover {
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* Form input styling */
+    .form-input {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: #fefefe;
+    }
+
+    .form-input:hover {
+      border-color: #cbd5e1;
+    }
+
+    /* Button styling */
+    .admin-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .admin-btn:hover {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4);
+    }
+
+    .admin-btn:active {
+      transform: translateY(0);
+    }
+
+    .admin-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .admin-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Error message styling */
+    .error-message {
+      color: #dc2626;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
       font-size: 0.875rem;
-      min-height: 1.25rem;
       text-align: center;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .error-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Loading state */
+    .loading {
+      position: relative;
+      pointer-events: none;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      margin: auto;
+      border: 2px solid transparent;
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Icon styling */
+    .admin-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    /* Floating animation for the card */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .login-card {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Security badge */
+    .security-badge {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Input focus effects */
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      padding: 0 0.5rem;
+      color: #6b7280;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+
+    .form-input:focus + .input-label,
+    .form-input:not(:placeholder-shown) + .input-label {
+      top: 0;
+      font-size: 0.75rem;
+      color: #3b82f6;
     }
   </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
+
   <!-- Header -->
-  <header>
-    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="header-inner flex justify-between items-center h-16">
-        <a href="index.html" class="brand flex items-center font-extrabold text-xl text-gray-900">
-          <img src="We_are_eleven_logo copy.jpg" 
-               alt="We Are Eleven Logo" 
-               class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2 rounded-full object-contain" />
-          We Are Eleven
-        </a>
-        <!-- Desktop Nav -->
-        <div class="desktop-nav hidden md:flex gap-6">
-          <a href="index.html" class="nav-link">Home</a>
-          <a href="team_list.html" class="nav-link">Teams</a>
-          <a href="team_fixtures.html" class="nav-link">Fixtures</a>
-          <a href="admin.html" class="nav-link active" aria-current="page">Admin</a>
-          <a href="about_us.html" class="nav-link">About Us</a>
-        </div>
-        <!-- Mobile button -->
-        <button id="mobile-menu-button" class="mobile-menu-button md:hidden" aria-label="Toggle menu" aria-expanded="false">
-          <svg class="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
+  <header class="bg-white shadow-lg sticky top-0 z-50 border-b border-gray-100">
+    <div class="container mx-auto flex justify-between items-center p-4">
+      <div class="flex items-center gap-3">
+        <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Logo" class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain shadow-md" />
+        <h1 class="text-2xl font-bold">
+          <span class="text-gray-900">We Are</span>
+          <span class="text-red-600">Eleven</span>
+        </h1>
       </div>
-      <!-- Mobile dropdown -->
-      <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
-        <a href="index.html" class="mobile-link">Home</a>
-        <a href="team_list.html" class="mobile-link">Teams</a>
-        <a href="team_fixtures.html" class="mobile-link">Fixtures</a>
-        <a href="admin.html" class="mobile-link active" aria-current="page">Admin</a>
-        <a href="about_us.html" class="mobile-link">About Us</a>
-      </div>
-    </nav>
+      <nav class="space-x-6 hidden md:flex">
+        <a href="index.html" class="nav-link text-gray-700 font-medium hover:text-gray-900 transition-colors">Home</a>
+        <a href="team_list.html" class="nav-link text-gray-700 font-medium hover:text-gray-900 transition-colors">Teams</a>
+        <a href="team_fixtures.html" class="nav-link text-gray-700 font-medium hover:text-gray-900 transition-colors">Fixtures</a>
+        <a href="admin.html" class="nav-link active text-red-600 font-medium" aria-current="page">Admin</a>
+        <a href="about_us.html" class="nav-link text-gray-700 font-medium hover:text-gray-900 transition-colors">About Us</a>
+      </nav>
+      <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Toggle menu">
+        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-gray-100">
+      <a href="index.html" class="mobile-link p-4 font-medium border-b border-gray-100 hover:bg-gray-50 transition-colors">Home</a>
+      <a href="team_list.html" class="mobile-link p-4 font-medium border-b border-gray-100 hover:bg-gray-50 transition-colors">Teams</a>
+      <a href="team_fixtures.html" class="mobile-link p-4 font-medium border-b border-gray-100 hover:bg-gray-50 transition-colors">Fixtures</a>
+      <a href="admin.html" class="mobile-link p-4 font-medium text-red-600" aria-current="page">Admin</a>
+      <a href="about_us.html" class="mobile-link p-4 font-medium hover:bg-gray-50 transition-colors">About Us</a>
+    </div>
   </header>
 
-  <!-- Main -->
-  <main>
-    <div class="card">
-      <h1 class="text-2xl font-bold mb-6 text-center">Admin Login</h1>
-      <form id="loginForm" novalidate autocomplete="off">
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="jyotishka27@org.com"
-          required
-        />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Enter password"
-          required
-        />
-        <div id="errorMsg" class="error" role="alert" aria-live="assertive"></div>
-        <button type="submit">Login as Admin</button>
+  <!-- Main Content -->
+  <main class="flex-grow flex justify-center items-center p-6">
+    <div class="login-card rounded-3xl p-8 max-w-md w-full">
+      <!-- Header Section -->
+      <div class="text-center mb-8">
+        <div class="admin-icon">🔐</div>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Admin Access</h1>
+        <p class="text-gray-600 mb-4">Secure administrator login portal</p>
+        <div class="security-badge">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          Secured Login
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" novalidate autocomplete="off" class="space-y-6">
+        <div id="errorMsg" class="error-message" role="alert" aria-live="assertive"></div>
+        
+        <div class="input-group">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder=" "
+            class="form-input w-full px-4 py-3 rounded-xl text-gray-900"
+            required
+          />
+          <label for="email" class="input-label">Admin Email</label>
+        </div>
+
+        <div class="input-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder=" "
+            class="form-input w-full px-4 py-3 rounded-xl text-gray-900"
+            required
+          />
+          <label for="password" class="input-label">Password</label>
+        </div>
+
+        <button 
+          type="submit" 
+          id="loginBtn"
+          class="admin-btn w-full py-3 px-6 rounded-xl font-semibold text-white text-lg"
+        >
+          <span id="btnText">Access Admin Panel</span>
+        </button>
       </form>
+
+      <!-- Footer Info -->
+      <div class="text-center mt-8 pt-6 border-t border-gray-100">
+        <p class="text-sm text-gray-500">
+          <svg class="w-4 h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+          </svg>
+          Authorized personnel only
+        </p>
+      </div>
     </div>
   </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 py-8 text-center text-gray-400">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="text-lg">© 2025 Football Community. All Rights Reserved.</p>
+      <p class="text-sm mt-2 opacity-75">Bringing together the best in football competition</p>
+    </div>
+  </footer>
 
   <!-- Scripts -->
   <script>
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
+    
     mobileMenuBtn.addEventListener("click", () => {
       const expanded = mobileMenuBtn.getAttribute("aria-expanded") === "true";
       mobileMenuBtn.setAttribute("aria-expanded", !expanded);
       mobileMenu.classList.toggle("hidden");
     });
 
-    // Admin login logic
+    // Close mobile menu when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.add("hidden");
+        mobileMenuBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    // Admin login logic with enhanced UX
     (() => {
       const loginForm = document.getElementById("loginForm");
       const errorMsg = document.getElementById("errorMsg");
+      const loginBtn = document.getElementById("loginBtn");
+      const btnText = document.getElementById("btnText");
       const ADMIN_EMAIL = "jyotishka27@org.com";
       const ADMIN_PASSWORD = "Leavemealoner8@";
 
-      loginForm.addEventListener("submit", (e) => {
+      // Show error message with animation
+      function showError(message) {
+        errorMsg.textContent = message;
+        errorMsg.classList.add("show");
+        setTimeout(() => {
+          errorMsg.classList.remove("show");
+        }, 5000);
+      }
+
+      // Clear error message
+      function clearError() {
+        errorMsg.classList.remove("show");
+      }
+
+      // Loading state
+      function setLoading(loading) {
+        if (loading) {
+          loginBtn.classList.add("loading");
+          btnText.style.opacity = "0";
+          loginBtn.disabled = true;
+        } else {
+          loginBtn.classList.remove("loading");
+          btnText.style.opacity = "1";
+          loginBtn.disabled = false;
+        }
+      }
+
+      // Form submission
+      loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        errorMsg.textContent = "";
+        clearError();
+        
         const email = loginForm.email.value.trim();
         const password = loginForm.password.value;
+
+        // Validation
         if (!email || !password) {
-          errorMsg.textContent = "Please enter both email and password.";
+          showError("Please enter both email and password.");
           return;
         }
-        if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-          window.location.href = "football_auctioneer.html";
-        } else {
-          errorMsg.textContent = "Invalid email or password.";
+
+        if (!email.includes("@")) {
+          showError("Please enter a valid email address.");
+          return;
         }
+
+        // Loading state
+        setLoading(true);
+
+        // Simulate network delay for better UX
+        setTimeout(() => {
+          if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+            btnText.textContent = "Access Granted!";
+            setTimeout(() => {
+              window.location.href = "football_auctioneer.html";
+            }, 1000);
+          } else {
+            setLoading(false);
+            btnText.textContent = "Access Admin Panel";
+            showError("Invalid credentials. Access denied.");
+            
+            // Add shake animation to form
+            loginForm.style.animation = "shake 0.5s ease-in-out";
+            setTimeout(() => {
+              loginForm.style.animation = "";
+            }, 500);
+          }
+        }, 1000);
+      });
+
+      // Input focus effects
+      const inputs = document.querySelectorAll('.form-input');
+      inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+          clearError();
+        });
+      });
+
+      // Add shake animation
+      const shakeKeyframes = `
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
+        }
+      `;
+      const style = document.createElement('style');
+      style.textContent = shakeKeyframes;
+      document.head.appendChild(style);
+
+      // Entry animation
+      document.addEventListener("DOMContentLoaded", () => {
+        const card = document.querySelector('.login-card');
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px) scale(0.95)';
+        setTimeout(() => {
+          card.style.transition = 'all 0.6s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0) scale(1)';
+        }, 100);
       });
     })();
   </script>
