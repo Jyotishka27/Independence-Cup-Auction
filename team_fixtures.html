@@ -2,143 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Football Auctioneer - fixture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>We Are Eleven - Fixtures</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: #f8fafc;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: white;
       color: #1e293b;
-      margin: 0;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
-    nav {
-      background-color: white;
-      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 50;
+
+    /* Card hover */
+    .card:hover, .fixture-card:hover, .winner-card:hover {
+      transform: translateY(-4px);
+      transition: transform 0.2s ease;
     }
-    .nav-link {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #475569;
-      text-decoration: none;
+
+    .team-logo {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      object-fit: cover;
     }
-    .nav-link:hover,
-    .mobile-link:hover {
-      color: #2563EB;
+
+    .match-card img {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.5rem;
     }
-    .nav-link.active,
-    .mobile-link.active {
-      color: #2563EB;
-      font-weight: 700;
-    }
-    .mobile-link {
-      padding: 0.75rem 1rem;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #475569;
-      text-decoration: none;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .content-scroll {
-      max-height: 85vh;
-      overflow-y: auto;
-      padding-right: 1rem;
-    }
-    @media (max-width: 640px) {
-      .content-scroll {
-        max-height: 60vh;
-        padding-right: 0.5rem;
-      }
+
+    .winner-card img {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.04);
+      margin: 0 auto;
     }
   </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
+
   <!-- Header -->
-  <header>
-    <nav aria-label="Primary Navigation" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="header-inner flex justify-between items-center h-16">
-        <a href="index.html" class="brand flex items-center font-extrabold text-xl text-gray-900">
-          <img src="We_are_eleven_logo copy.jpg" 
-               alt="We Are Eleven Logo" 
-               class="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 mr-2 rounded-full object-contain" />
-          We Are Eleven
-        </a>
-        <div class="desktop-nav hidden md:flex gap-6">
-          <a href="index.html" class="nav-link">Home</a>
-          <a href="team_list.html" class="nav-link">Teams</a>
-          <a href="team_fixtures.html" class="nav-link active" aria-current="page">Fixtures</a>
-          <a href="admin.html" class="nav-link">Admin</a>
-          <a href="about_us.html" class="nav-link">About Us</a>
-        </div>
-        <button id="mobile-menu-button" class="mobile-menu-button md:hidden" aria-label="Toggle menu" aria-expanded="false">
-          <svg class="h-6 w-6 text-slate-700" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
+  <header class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center p-4">
+      <div class="flex items-center gap-3">
+        <img src="We_are_eleven_logo copy.jpg" alt="We Are Eleven Logo" class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain" />
+        <h1 class="text-2xl font-bold">
+          <span class="text-gray-900">We Are</span>
+          <span class="text-red-600">Eleven</span>
+        </h1>
       </div>
-      <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
-        <a href="index.html" class="mobile-link">Home</a>
-        <a href="team_list.html" class="mobile-link">Teams</a>
-        <a href="team_fixtures.html" class="mobile-link active" aria-current="page">Fixtures</a>
-        <a href="admin.html" class="mobile-link">Admin</a>
-        <a href="about_us.html" class="mobile-link">About Us</a>
-      </div>
-    </nav>
+      <nav class="space-x-6 hidden md:flex">
+        <a href="index.html" class="nav-link text-gray-700 font-medium">Home</a>
+        <a href="team_list.html" class="nav-link text-gray-700 font-medium">Teams</a>
+        <a href="team_fixtures.html" class="nav-link active text-gray-700 font-medium" aria-current="page">Fixtures</a>
+        <a href="admin.html" class="nav-link text-gray-700 font-medium">Admin</a>
+        <a href="about_us.html" class="nav-link text-gray-700 font-medium">About Us</a>
+      </nav>
+      <button id="mobile-menu-button" class="md:hidden" aria-label="Toggle menu">
+        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md border-t border-slate-200">
+      <a href="index.html" class="mobile-link p-4 font-medium border-b border-slate-200">Home</a>
+      <a href="team_list.html" class="mobile-link p-4 font-medium border-b border-slate-200">Teams</a>
+      <a href="team_fixtures.html" class="mobile-link p-4 font-medium active" aria-current="page">Fixtures</a>
+      <a href="admin.html" class="mobile-link p-4 font-medium border-b border-slate-200">Admin</a>
+      <a href="about_us.html" class="mobile-link p-4 font-medium border-b border-slate-200">About Us</a>
+    </div>
   </header>
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-1 gap-10 px-4 md:px-0 py-8">
-    <main class="bg-white rounded-2xl shadow p-6 content-scroll">
-		<section class="groups bg-white rounded-lg p-8 shadow-lg mb-12 max-w-4xl mx-auto">
-		  <h2 class="text-3xl font-extrabold mb-8 text-center text-blue-800 tracking-wide uppercase">🗂️ Group Teams</h2>
-		  <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 text-gray-800">
-			
 
-			<!-- Group A -->
-			<div class="bg-slate-50 rounded-lg p-6 shadow-inner border border-gray-200">
-			  <h3 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-3">Group A</h3>
-			  <ul class="space-y-4 list-none">
-				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
-				  <img src="Thunderbolt.jpg" alt="Thunderbolt Logo" class="h-8 w-8 rounded-full object-cover flex-shrink-0" />
-				  <span class="text-lg font-medium">Thunderbolt</span>
-				</li>
-				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
-				  <img src="Messiah FC.jpg" alt="Messiah FC Logo" class="h-8 w-8 rounded-full object-cover flex-shrink-0" />
-				  <span class="text-lg font-medium">Messiah FC</span>
-				</li>
-				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
-				  <img src="White Panthers.jpg" alt="White Panthers Logo" class="h-8 w-8 rounded-full object-cover flex-shrink-0" />
-				  <span class="text-lg font-medium">White Panthers</span>
-				</li>
-			  </ul>
-			</div>
+  <!-- Main Content -->
+  <main class="flex-grow max-w-6xl mx-auto p-4">
 
-			<!-- Group B -->
-			<div class="bg-slate-50 rounded-lg p-6 shadow-inner border border-gray-200">
-			  <h3 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-3">Group B</h3>
-			  <ul class="space-y-4 list-none">
-				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
-				  <img src="Amingos FC.jpg" alt="Amingos FC Logo" class="h-8 w-8 rounded-full object-cover flex-shrink-0" />
-				  <span class="text-lg font-medium">Amingos FC</span>
-				</li>
-				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
-				  <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates Logo" class="h-8 w-8 rounded-full object-cover flex-shrink-0" />
-				  <span class="text-lg font-medium">Strawhat Pirates</span>
-				</li>
-				<li class="flex items-center gap-3 cursor-pointer hover:text-blue-600 transition">
-				  <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven Logo" class="h-8 w-8 rounded-full object-cover flex-shrink-0" />
-				  <span class="text-lg font-medium">Red Bulls Eleven</span>
-				</li>
-			  </ul>
-			</div>
+    <!-- Group Teams Section -->
+    <section class="card bg-white rounded-2xl shadow-lg p-6 mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-center">🗂️ Group Teams</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-		  </div>
-		</section>
+        <!-- Group A -->
+        <div class="bg-slate-50 rounded-xl p-6 shadow-inner border border-gray-200">
+          <h3 class="text-2xl font-semibold mb-4 border-b border-gray-300 pb-2">Group A</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3">
+              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="team-logo" />
+              <span class="font-medium">Thunderbolt</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <img src="Messiah FC.jpg" alt="Messiah FC" class="team-logo" />
+              <span class="font-medium">Messiah FC</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <img src="White Panthers.jpg" alt="White Panthers" class="team-logo" />
+              <span class="font-medium">White Panthers</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group B -->
+        <div class="bg-slate-50 rounded-xl p-6 shadow-inner border border-gray-200">
+          <h3 class="text-2xl font-semibold mb-4 border-b border-gray-300 pb-2">Group B</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3">
+              <img src="Amingos FC.jpg" alt="Amingos FC" class="team-logo" />
+              <span class="font-medium">Amingos FC</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="team-logo" />
+              <span class="font-medium">Strawhat Pirates</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="team-logo" />
+              <span class="font-medium">Red Bulls Eleven</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
 
       <!-- Fixtures Cards -->
       <section class="fixtures bg-white rounded-lg p-6 shadow">
@@ -392,10 +379,15 @@
 			</div>
 		  </div>
 		</section>
-      </section>
-    </main>
-  </div>
 
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-950 py-6 text-center text-gray-400">
+    <p>© 2025 Football Community. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Mobile menu script -->
   <script>
     const mobileMenuBtn = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
@@ -407,5 +399,3 @@
   </script>
 </body>
 </html>
-
-
