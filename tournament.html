@@ -3,108 +3,250 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Football Auctioneer - Home</title>
+  <title>Tournaments</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: white;
-      color: #1e293b;
+      background: #ffffff;
+      color: #0f172a;
     }
-
-    	.nav-link {
-  	  color: #4b5563; /* Tailwind gray-700 */
-  	  font-weight: 500; /* font-medium */
-  	  text-decoration: none;
-  	  transition: color 0.2s ease;
-  	}
-  
-  	.nav-link:hover {
-  	  color: #374151; /* Tailwind gray-800 */
-  	}
-  
-  	.nav-link.active {
-  	  color: #dc2626; /* Tailwind red-600 */
-  	}
   </style>
 </head>
-<body class="text-black">
-
-  <!-- ✅ Header -->
+<body>
+  <!-- Header -->
   <div id="site-header"></div>
 
-  <!-- ✅ Main layout -->
-  <main class="container mx-auto px-4 md:px-0 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
-
-    <!-- Main content -->
-    <section class="md:col-span-2 bg-white rounded-2xl shadow p-6">
-      <h1 class="text-3xl font-bold mb-6">Independence Cup 2025</h1>
-      <div class="mb-6 space-y-4">
-        <p><strong>📅 Event Date</strong><br>24 August 2025</p>
-        <p><strong>📍 Venue</strong><br><a href="https://maps.app.goo.gl/1aMXNvbHJBS5QxwT7" target="_blank" rel="noopener noreferrer" class="text-red-600 hover:underline">Turf XL</a></p>
-        <p><strong>⏰ Time</strong><br>9:00 AM – 6:00 PM</p>
-        <p><strong>👥 Organizers</strong><br>Debayan, Gourav &amp; Jyotishka</p>
-        <p><strong>👥 Teams</strong><br>Thunderbolt, Red Bulls Eleven, Messiah FC, White Panthers, Strawhat Pirates, Amingos FC</p>
-        <p><strong>👥 Captains</strong><br>Subhojit, Ritam, Monty, Subhamoy, Shubanjan, Akash Jr</p>
-        <p><strong>⚽ Number of Teams</strong><br>6</p>
+  <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+    <header class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight">Tournaments</h1>
+        <p class="text-slate-600 mt-1">Browse upcoming, ongoing, and past events.</p>
       </div>
 
-      <h2 class="text-xl font-semibold mb-4">🏆 Independence Cup 2025 – Tournament Guidelines 🏆</h2>
-      <article class="space-y-6 text-slate-700 leading-relaxed text-sm">
-        <section>
-          <h3 class="font-semibold mb-1">Event Overview</h3>
-          <ul class="list-disc list-inside space-y-1">
-            <li>Celebrating Independence Day with a spirited football tournament at Turf XL.</li>
-            <li>An opportunity to enjoy competitive play, sportsmanship, and camaraderie.</li>
-          </ul>
-        </section>
-        <section>
-          <h3 class="font-semibold mb-1">Rules & Regulations</h3>
-          <ul class="list-disc list-inside space-y-1">
-            <li>Matches will be played in league-cum-knockout format.</li>
-            <li>Each half will be 8 minutes with a 3 min halftime break.</li>
-            <li>Fair play, discipline, and respect for referees are mandatory.</li>
-          </ul>
-        </section>
-      </article>
-    </section>
+      <!-- Controls -->
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="inline-flex rounded-xl border bg-white shadow-sm overflow-hidden">
+          <button data-tab="upcoming" class="tab-btn px-4 py-2 text-sm font-medium">Upcoming</button>
+          <button data-tab="ongoing"  class="tab-btn px-4 py-2 text-sm font-medium border-l">Ongoing</button>
+          <button data-tab="past"     class="tab-btn px-4 py-2 text-sm font-medium border-l">Past</button>
+        </div>
 
-    <!-- Sidebar / Notice Board -->
-    <aside class="bg-gradient-to-r from-blue-100 via-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-xl p-5 shadow-md">
-      <div class="flex items-center gap-3">
-        <span class="text-blue-600 text-2xl animate-bounce">📢</span>
-        <h2 class="text-2xl font-bold text-blue-800">Notice Board</h2>
+        <label class="relative">
+          <input id="search" type="text" placeholder="Search tournaments..."
+            class="w-64 rounded-xl border bg-white px-4 py-2 text-sm shadow-sm focus:outline-none focus:ring focus:ring-blue-200"/>
+          <span class="absolute right-3 top-2.5 text-slate-400">⌘K</span>
+        </label>
+
+        <select id="yearFilter" class="rounded-xl border bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring focus:ring-blue-200">
+          <option value="">All years</option>
+        </select>
+
+        <select id="sortBy" class="rounded-xl border bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring focus:ring-blue-200">
+          <option value="start-asc">Start date ↑</option>
+          <option value="start-desc">Start date ↓</option>
+          <option value="name-asc">Name A–Z</option>
+          <option value="name-desc">Name Z–A</option>
+        </select>
       </div>
-      <p class="mt-3 text-base text-blue-700 leading-relaxed">
-        ✅ <strong>The team fixtures have been released!</strong><br>
-        All players and teams are requested to check the 
-        <span class="font-semibold text-blue-900">Fixtures Tab</span> for details.
-      </p>
-    </aside>
+    </header>
+
+    <!-- Grid -->
+    <section id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></section>
+
+    <!-- Empty state -->
+    <div id="empty" class="hidden rounded-2xl border border-dashed bg-slate-50 p-10 text-center text-slate-600">
+      <p class="text-lg font-semibold mb-1">No tournaments found</p>
+      <p class="text-sm">Try a different tab, year, or search term.</p>
+    </div>
+
+    <!-- Error state -->
+    <div id="error" class="hidden rounded-2xl border bg-rose-50 p-6 text-rose-700 mt-6">
+      Couldn’t load tournaments. Make sure <code>/data/tournaments.json</code> exists and you’re serving the site over HTTP (not opening the HTML file directly).
+    </div>
   </main>
 
-  <!-- ✅ Footer -->
+  <!-- Footer -->
   <footer class="bg-gray-950 py-6 text-center text-gray-400 mt-12">
     <p>© 2025 Football Community. All Rights Reserved.</p>
   </footer>
 
-<script type="module">
+  <script type="module">
+    // Import your header (adjust the path if your file lives elsewhere)
     import { injectHeader } from "./tournament_header.js";
-    import { loadTeams, hydrateTeamLogos } from "./teams-util.js";
-    // Header
     injectHeader("#site-header", { active: "tournaments" });
-    // Team/logo hydration (keeps names/logos consistent from data/teams.json)
-    try {
-      const maps = await loadTeams();
-      hydrateTeamLogos(document, maps);
-    } catch (e) {
-      console.warn("Teams JSON load failed:", e);
+
+    // ---- Fetch tournaments JSON ----
+    async function getTournaments() {
+      const url = "/data/tournaments.json?v=1"; // cache-bust with ?v=
+      const res = await fetch(url, { headers: { "Accept": "application/json" } });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return await res.json();
     }
+
+    // ---- Utilities ----
+    const today = new Date(); today.setHours(0,0,0,0);
+    const parseISO = (d) => { const dt = new Date(d); dt.setHours(0,0,0,0); return dt; };
+    const fmt = (d) => (d instanceof Date ? d : parseISO(d))
+      .toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
+
+    function statusFor(t) {
+      const s = parseISO(t.start), e = parseISO(t.end || t.start);
+      if (today < s) return "upcoming";
+      if (today > e) return "past";
+      return "ongoing";
+    }
+    function uniqueYears(list){
+      const y = new Set();
+      list.forEach(t => y.add(parseISO(t.start).getFullYear()));
+      return [...y].sort((a,b)=>a-b);
+    }
+
+    // ---- DOM refs ----
+    const grid = document.getElementById("grid");
+    const empty = document.getElementById("empty");
+    const error = document.getElementById("error");
+    const tabButtons = [...document.querySelectorAll(".tab-btn")];
+    const searchInput = document.getElementById("search");
+    const yearFilter = document.getElementById("yearFilter");
+    const sortBy = document.getElementById("sortBy");
+
+    // ---- State ----
+    const state = {
+      tab: (new URL(location.href)).hash.replace("#","") || "upcoming",
+      query: "",
+      year: "",
+      sort: "start-asc",
+      raw: [] // loaded tournaments
+    };
+
+    function paintTabs(){
+      tabButtons.forEach(btn=>{
+        const active = btn.dataset.tab === state.tab;
+        btn.className = "tab-btn px-4 py-2 text-sm font-medium " +
+          (active ? "bg-gray-900 text-white" : "bg-white text-slate-700 hover:bg-slate-50");
+      });
+    }
+
+    function compute(){
+      let list = state.raw
+        .map(t => ({ ...t, _status: t.statusOverride || statusFor(t) }))
+        .filter(t => t._status === state.tab);
+
+      if (state.query) {
+        const q = state.query.toLowerCase();
+        list = list.filter(t =>
+          (t.name||"").toLowerCase().includes(q) ||
+          (t.venue||"").toLowerCase().includes(q) ||
+          (t.tags||[]).some(tag => (tag||"").toLowerCase().includes(q))
+        );
+      }
+
+      if (state.year) {
+        list = list.filter(t => parseISO(t.start).getFullYear() === Number(state.year));
+      }
+
+      switch (state.sort) {
+        case "start-asc":  list.sort((a,b)=> parseISO(a.start) - parseISO(b.start)); break;
+        case "start-desc": list.sort((a,b)=> parseISO(b.start) - parseISO(a.start)); break;
+        case "name-asc":   list.sort((a,b)=> (a.name||"").localeCompare(b.name||"")); break;
+        case "name-desc":  list.sort((a,b)=> (b.name||"").localeCompare(a.name||"")); break;
+      }
+
+      return list;
+    }
+
+    function render(){
+      const list = compute();
+      grid.innerHTML = "";
+      if (!list.length){
+        grid.classList.add("hidden");
+        empty.classList.remove("hidden");
+        return;
+      }
+      grid.classList.remove("hidden");
+      empty.classList.add("hidden");
+
+      for (const t of list){
+        const badge =
+          t._status === "upcoming" ? "bg-emerald-100 text-emerald-700" :
+          t._status === "ongoing"  ? "bg-amber-100 text-amber-700" :
+                                     "bg-slate-200 text-slate-700";
+
+        const dateStr = (t.end && t.end !== t.start)
+          ? `${fmt(t.start)} – ${fmt(t.end)}`
+          : fmt(t.start);
+
+        const tags = (t.tags || []).map(tag =>
+          `<span class="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-700">${tag}</span>`
+        ).join("");
+
+        const cover = t.cover
+          ? `<img src="${t.cover}" alt="${t.name}" class="h-40 w-full object-cover rounded-xl">`
+          : `<div class="h-40 w-full rounded-xl bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>`;
+
+        const a = document.createElement("a");
+        a.href = t.href || "#";
+        a.className = "group block rounded-2xl border bg-white p-3 shadow-sm hover:shadow-md transition";
+        a.innerHTML = `
+          <div class="relative">
+            ${cover}
+            <span class="absolute left-3 top-3 inline-flex items-center rounded-full ${badge} px-2 py-0.5 text-xs font-medium">
+              ${t._status.charAt(0).toUpperCase() + t._status.slice(1)}
+            </span>
+          </div>
+          <div class="p-3">
+            <h3 class="text-lg font-semibold group-hover:underline">${t.name || "Untitled Tournament"}</h3>
+            <p class="mt-1 text-sm text-slate-600"><strong>${dateStr}</strong></p>
+            <p class="mt-0.5 text-sm text-slate-600">${t.venue || ""}</p>
+            <div class="mt-3 flex flex-wrap gap-2">${tags}</div>
+          </div>
+        `;
+        grid.appendChild(a);
+      }
+    }
+
+    // Events
+    tabButtons.forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        state.tab = btn.dataset.tab;
+        history.replaceState(null, "", `#${state.tab}`);
+        paintTabs(); render();
+      });
+    });
+
+    document.addEventListener("keydown", (e)=>{
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        searchInput.focus(); searchInput.select();
+      }
+    });
+
+    searchInput.addEventListener("input", (e)=>{ state.query = e.target.value.trim(); render(); });
+    yearFilter.addEventListener("change", (e)=>{ state.year = e.target.value; render(); });
+    sortBy.addEventListener("change", (e)=>{ state.sort = e.target.value; render(); });
+
+    // Init
+    (async function init(){
+      paintTabs();
+      try {
+        const data = await getTournaments();
+        // Expect either { tournaments: [...] } or a raw array [...]
+        state.raw = Array.isArray(data) ? data : (data.tournaments || []);
+        // Seed year filter
+        uniqueYears(state.raw).forEach(y=>{
+          const opt = document.createElement("option");
+          opt.value = String(y); opt.textContent = y; yearFilter.appendChild(opt);
+        });
+        if (!["upcoming","ongoing","past"].includes(state.tab)) state.tab = "upcoming";
+        render();
+      } catch (e) {
+        console.warn("Failed to load tournaments.json:", e);
+        error.classList.remove("hidden");
+        grid.classList.add("hidden");
+        empty.classList.add("hidden");
+      }
+    })();
   </script>
 </body>
 </html>
-
-
-
-
-
