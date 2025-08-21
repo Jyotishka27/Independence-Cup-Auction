@@ -12,6 +12,21 @@
       color: #1e293b;
     }
 
+  	.nav-link {
+  	  color: #4b5563; /* Tailwind gray-700 */
+  	  font-weight: 500; /* font-medium */
+  	  text-decoration: none;
+  	  transition: color 0.2s ease;
+  	}
+  
+  	.nav-link:hover {
+  	  color: #374151; /* Tailwind gray-800 */
+  	}
+  
+  	.nav-link.active {
+  	  color: #dc2626; /* Tailwind red-600 */
+  	}
+    
     /* Enhanced hover effects */
     .card:hover {
       transform: translateY(-2px);
@@ -168,8 +183,8 @@
         <a href="index.html" class="nav-link text-gray-700 font-medium">Home</a>
         <a href="team_list.html" class="nav-link text-gray-700 font-medium">Teams</a>
         <a href="team_fixtures.html" class="nav-link text-gray-700 font-medium">Fixtures</a>
-        <a href="admin.html" class="nav-link text-gray-700 font-medium">Admin</a>
-        <a href="about_us.html" class="nav-link active text-gray-700 font-medium" aria-current="page">About Us</a>
+        <a href="admin.html" class="nav-link active text-gray-700 font-medium">Admin</a>
+        <a href="about_us.html" class="nav-link text-gray-700 font-medium" aria-current="page">About Us</a>
       </nav>
       <!-- Mobile menu button -->
       <button id="mobile-menu-button" class="md:hidden" aria-label="Toggle menu">
@@ -602,4 +617,5 @@
   </script>
 </body>
 </html>
+
 
