@@ -9,7 +9,7 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
     { key: "home", label: "Home", href: "index.html" },
     { key: "teams", label: "Teams", href: "team_list.html" },
     { key: "fixtures", label: "Fixtures", href: "team_fixtures.html" },
-    { key: "tournaments", label: "Tournaments", href: "tournament.html" },
+    { key: "tournaments", label: "Independence Cup", href: "independence_cup_2025.html" },
   ];
 
   const link = (item, mobile = false) => {
@@ -35,7 +35,7 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
         <div class="flex items-center gap-3">
           <a href="index.html" class="flex items-center gap-2">
             <img src="independence_cup_logo.jpg" alt="tournaments" class="h-8 w-8 rounded-full object-cover" />
-            <span class="text-white font-semibold tracking-wide">Tournaments</span>
+            <span class="text-white font-semibold tracking-wide">Independence Cup 2025</span>
           </a>
         </div>
 
