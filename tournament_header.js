@@ -35,7 +35,7 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
         <div class="flex items-center gap-3">
           <a href="index.html" class="flex items-center gap-2">
             <img src="independence_cup_logo.jpg" alt="tournaments" class="h-8 w-8 rounded-full object-cover" />
-            <span class="text-white font-semibold tracking-wide">Tournament</span>
+            <span class="text-white font-semibold tracking-wide">Tournaments</span>
           </a>
         </div>
 
