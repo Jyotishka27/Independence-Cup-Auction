@@ -73,12 +73,12 @@
 
   <script type="module">
     // Import your header (adjust the path if your file lives elsewhere)
-    import { injectHeader } from "./tournament_header.js";
+    import { injectHeader } from "./header.js";
     injectHeader("#site-header", { active: "tournaments" });
 
     // ---- Fetch tournaments JSON ----
     async function getTournaments() {
-      const url = "tournaments.json"; // cache-bust with ?v=
+      const url = "./tournaments.json"; // cache-bust with ?v=
       const res = await fetch(url, { headers: { "Accept": "application/json" } });
       if (!res.ok) throw new Error("HTTP " + res.status);
       return await res.json();
@@ -250,4 +250,5 @@
   </script>
 </body>
 </html>
+
 
