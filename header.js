@@ -7,9 +7,8 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
 
   const nav = [
     { key: "home", label: "Home", href: "index.html" },
-    { key: "teams", label: "Teams", href: "team_list.html" },
-    { key: "fixtures", label: "Fixtures", href: "team_fixtures.html" },
     { key: "tournaments", label: "Tournaments", href: "tournament.html" },
+    <!-- { key: "tournaments", label: "Tournaments", href: "tournament.html" }, -->
     { key: "about", label: "About Us", href: "about_us.html" },
     { key: "admin", label: "Admin", href: "admin.html" },
   ];
