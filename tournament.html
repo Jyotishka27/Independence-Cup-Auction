@@ -78,7 +78,7 @@
 
     // ---- Fetch tournaments JSON ----
     async function getTournaments() {
-      const url = "/data/tournaments.json?v=1"; // cache-bust with ?v=
+      const url = "tournaments.json"; // cache-bust with ?v=
       const res = await fetch(url, { headers: { "Accept": "application/json" } });
       if (!res.ok) throw new Error("HTTP " + res.status);
       return await res.json();
@@ -250,3 +250,4 @@
   </script>
 </body>
 </html>
+
