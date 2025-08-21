@@ -586,8 +586,8 @@
     });
   </script>
 <script type="module">
-    import { injectHeader } from "header.js";
-    import { loadTeams, hydrateTeamLogos } from "teams-util.js";
+    import { injectHeader } from "./header.js";
+    import { loadTeams, hydrateTeamLogos } from "./teams-util.js";
     // Header
     injectHeader("#site-header", { active: "fixtures" });
     // Team/logo hydration (keeps names/logos consistent from data/teams.json)
@@ -600,3 +600,4 @@
   </script>
 </body>
 </html>
+
