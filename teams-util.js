@@ -8,7 +8,7 @@ export async function loadTeams(url = "teams.json") {
   const byName = new Map(teams.map((t) => [t.name.toLowerCase().trim(), t]));
 
   const aliases = {
-    "amingos fc": "amigos fc",
+    "amigos fc": "amigos fc",
   };
   Object.entries(aliases).forEach(([alias, canonical]) => {
     const t = byName.get(canonical);
