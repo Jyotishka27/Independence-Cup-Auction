@@ -16,44 +16,15 @@
     .nav-link:hover { color: #374151; }
     .nav-link.active { color: #dc2626; }
 
-    /* Enhanced hover effects */
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .fixture-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15);
-      transition: all 0.2s ease-out;
-    }
+    /* Hover effects */
+    .card:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .fixture-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15); transition: all 0.2s ease-out; }
 
-    .team-logo {
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-      transition: transform 0.2s ease;
-    }
+    .team-logo { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgb(0 0 0 / 0.1); transition: transform 0.2s ease; }
     .team-logo:hover { transform: scale(1.05); }
 
-    .section-header {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid #e2e8f0;
-      position: relative;
-      overflow: hidden;
-    }
-    .section-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #64748b, transparent);
-      animation: shimmer 3s infinite;
-    }
+    .section-header { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; position: relative; overflow: hidden; }
+    .section-header::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #64748b, transparent); animation: shimmer 3s infinite; }
     @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
 
     .group-card { background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
@@ -66,18 +37,27 @@
     .knockout-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1); }
 
     .final-card { background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #fbbf24; position: relative; }
-    .final-card::before {
-      content: '👑'; position: absolute; top: -10px; right: -10px; font-size: 1.5rem; background: #fbbf24; border-radius: 50%;
-      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    }
+    .final-card::before { content: '👑'; position: absolute; top: -10px; right: -10px; font-size: 1.5rem; background: #fbbf24; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
 
     .section-icon { display: inline-block; margin-right: 0.5rem; font-size: 1.2em; }
-    .matchday-badge {
-      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 0.25rem 0.75rem;
-      border-radius: 9999px; font-weight: 600; font-size: 0.875rem; box-shadow: 0 2px 4px rgb(59 130 246 / 0.3);
-    }
+    .matchday-badge { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: 600; font-size: 0.875rem; box-shadow: 0 2px 4px rgb(59 130 246 / 0.3); }
     .vs-text { font-weight: 800; color: #64748b; text-shadow: 0 1px 2px rgb(0 0 0 / 0.1); }
     .team-name { font-weight: 500; color: #374151; text-align: center; font-size: 0.875rem; margin-top: 0.5rem; }
+
+    /* New: scoreline + scorers */
+    .scoreline-badge { display:inline-block; padding:0.25rem 0.75rem; border-radius:9999px; background:linear-gradient(135deg,#111827,#1f2937); color:#fff; font-weight:700; box-shadow:0 2px 6px rgb(0 0 0 / 0.2); letter-spacing:0.5px }
+    .status-badge { display:inline-block; padding:0.15rem 0.5rem; border-radius:9999px; font-weight:700; font-size:0.75rem; margin-left:0.5rem }
+    .status-live { background:#dc2626; color:#fff; animation:pulse 1.8s infinite; }
+    .status-ht { background:#f59e0b; color:#111827; }
+    .status-ft { background:#6b7280; color:#fff; }
+    @keyframes pulse { 0%{ box-shadow:0 0 0 0 rgba(220,38,38,.6) } 70%{ box-shadow:0 0 0 8px rgba(220,38,38,0) } 100%{ box-shadow:0 0 0 0 rgba(220,38,38,0) } }
+
+    .scorer-list { font-size:0.9rem; line-height:1.2; }
+    .scorer-item { display:flex; align-items:flex-start; gap:0.5rem; }
+    .scorer-bullet { font-size:0.9rem; opacity:0.6 }
+    .team-column { width: 48%; }
+    .fixture-rows { display:flex; justify-content:space-between; gap:1rem; }
+    .muted { color:#6b7280 }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -95,10 +75,15 @@
           <span class="section-icon">📅</span>Tournament Fixtures
         </h2>
         <p class="text-gray-600 text-lg">Complete match schedule</p>
+        <div class="mt-4">
+          <button id="downloadExcelBtn" class="px-4 py-2 rounded-xl font-semibold bg-green-600 hover:bg-green-500 text-white">
+            Download Excel
+          </button>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        <!-- Matchday Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 xl-grid-cols-3 xl:grid-cols-3 gap-6">
+        <!-- Matchday Cards (unchanged logos/names) -->
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
           <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 1</span></div>
           <div class="flex items-center justify-center gap-6">
@@ -112,6 +97,7 @@
               <span class="team-name">Messiah FC</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -127,6 +113,7 @@
               <span class="team-name">Strawhat Pirates</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -142,6 +129,7 @@
               <span class="team-name">Thunderbolt</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -157,6 +145,7 @@
               <span class="team-name">Amingos FC</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -172,6 +161,7 @@
               <span class="team-name">White Panthers</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -187,6 +177,7 @@
               <span class="team-name">Red Bulls Eleven</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -202,6 +193,7 @@
               <span class="team-name">Thunderbolt</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -217,6 +209,7 @@
               <span class="team-name">Amingos FC</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -232,6 +225,7 @@
               <span class="team-name">White Panthers</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -247,6 +241,7 @@
               <span class="team-name">Red Bulls Eleven</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -262,6 +257,7 @@
               <span class="team-name">Messiah FC</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
@@ -277,112 +273,69 @@
               <span class="team-name">Strawhat Pirates</span>
             </div>
           </div>
+          <div class="mt-4 text-center space-y-3 fixture-data"></div>
         </div>
       </div>
     </section>
 
-    <!-- ✅ Admin Tools: Fetch Team Results from Firestore -->
+    <!-- Leaderboards Section (replaces old Goals table) -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-1">
-            <span class="section-icon">📊</span>Team Results (Standings)
-          </h2>
-          <p class="text-gray-600 text-sm">Aggregate wins, draws, losses, goals, and points from all matches.</p>
+          <h2 class="text-2xl font-bold text-gray-900 mb-1"><span class="section-icon">🥇</span>Leaderboards</h2>
+          <p class="text-gray-600 text-sm">Aggregated across all matches.</p>
         </div>
         <div class="flex items-center gap-2">
-          <button id="fetchResultsBtn" class="px-4 py-2 rounded-xl font-semibold text-white bg-indigo-600 hover:bg-indigo-500">
-            Fetch Team Results
-          </button>
-          <button id="downloadCsvBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900 disabled:opacity-50" disabled>
-            Download CSV
-          </button>
-          <!-- ✅ New Excel button -->
-          <button id="downloadExcelBtn" class="px-4 py-2 rounded-xl font-semibold bg-green-600 hover:bg-green-500 text-white">
-            Download Excel
-          </button>
+          <button id="fetchLeadersBtn" class="px-4 py-2 rounded-xl font-semibold text-white bg-emerald-600 hover:bg-emerald-500">Refresh Leaderboards</button>
+          <button id="dlScorersCsvBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900" disabled>Download Scorers CSV</button>
+          <button id="dlAssistsCsvBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900" disabled>Download Assists CSV</button>
         </div>
       </div>
 
-      <div class="mt-3 text-sm text-slate-600" id="resultsStatus"></div>
+      <div class="mt-3 text-sm text-slate-600" id="leadersStatus"></div>
 
-      <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200">
-        <table class="min-w-full text-sm" id="resultsTable" style="display:none;">
-          <thead class="bg-slate-100 text-slate-700">
-            <tr>
-              <th class="px-3 py-2 text-left">#</th>
-              <th class="px-3 py-2 text-left">Team</th>
-              <th class="px-3 py-2 text-right">MP</th>
-              <th class="px-3 py-2 text-right">W</th>
-              <th class="px-3 py-2 text-right">D</th>
-              <th class="px-3 py-2 text-right">L</th>
-              <th class="px-3 py-2 text-right">GF</th>
-              <th class="px-3 py-2 text-right">GA</th>
-              <th class="px-3 py-2 text-right">GD</th>
-              <th class="px-3 py-2 text-right">Pts</th>
-            </tr>
-          </thead>
-          <tbody id="resultsTbody" class="divide-y divide-slate-200 bg-white"></tbody>
-        </table>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="rounded-xl border border-slate-200 overflow-hidden">
+          <div class="bg-slate-100 px-4 py-2 font-semibold text-slate-700">Top Scorers</div>
+          <table class="min-w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr>
+                <th class="px-3 py-2 text-left">#</th>
+                <th class="px-3 py-2 text-left">Player</th>
+                <th class="px-3 py-2 text-left">Team</th>
+                <th class="px-3 py-2 text-right">Goals</th>
+              </tr>
+            </thead>
+            <tbody id="scorersBody" class="divide-y divide-slate-200 bg-white"></tbody>
+          </table>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 overflow-hidden">
+          <div class="bg-slate-100 px-4 py-2 font-semibold text-slate-700">Top Assists</div>
+          <table class="min-w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr>
+                <th class="px-3 py-2 text-left">#</th>
+                <th class="px-3 py-2 text-left">Player</th>
+                <th class="px-3 py-2 text-left">Team</th>
+                <th class="px-3 py-2 text-right">Assists</th>
+              </tr>
+            </thead>
+            <tbody id="assistsBody" class="divide-y divide-slate-200 bg-white"></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
-    <!-- ✅ Admin Tools: Goals (Scorers & Assists) -->
-    <section class="section-header rounded-2xl shadow-lg p-8">
-      <div class="flex items-center justify-between flex-wrap gap-3">
-        <div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-1">
-            <span class="section-icon">🥅</span>Goals (Scorers & Assists)
-          </h2>
-          <p class="text-gray-600 text-sm">Export every goal with scorer, assist, team, opponent, and timestamps.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <button id="fetchGoalsBtn" class="px-4 py-2 rounded-xl font-semibold text-white bg-emerald-600 hover:bg-emerald-500">
-            Fetch Goals
-          </button>
-          <button id="downloadGoalsCsvBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900 disabled:opacity-50" disabled>
-            Download CSV
-          </button>
-          <button id="downloadGoalsJsonBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900 disabled:opacity-50" disabled>
-            Download JSON
-          </button>
-        </div>
-      </div>
-
-      <div class="mt-3 text-sm text-slate-600" id="goalsStatus"></div>
-
-      <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200">
-        <table class="min-w-full text-sm" id="goalsTable" style="display:none;">
-          <thead class="bg-slate-100 text-slate-700">
-            <tr>
-              <th class="px-3 py-2 text-left">Matchday</th>
-              <th class="px-3 py-2 text-left">Team</th>
-              <th class="px-3 py-2 text-left">Opponent</th>
-              <th class="px-3 py-2 text-left">Scorer</th>
-              <th class="px-3 py-2 text-left">Assist</th>
-              <th class="px-3 py-2 text-left">Time (Local)</th>
-            </tr>
-          </thead>
-          <tbody id="goalsTbody" class="divide-y divide-slate-200 bg-white"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Knockout Stage Section -->
+    <!-- Knockout Stage Section (unchanged, click-through still works) -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="text-center mb-10">
-        <h2 class="text-4xl font-bold text-gray-900 mb-2">
-          <span class="section-icon">🏆</span>Knockout Stage
-        </h2>
+        <h2 class="text-4xl font-bold text-gray-900 mb-2"><span class="section-icon">🏆</span>Knockout Stage</h2>
         <p class="text-gray-600 text-lg">Championship elimination rounds</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
-        <!-- Semi Final 1 -->
-        <div class="knockout-card rounded-2xl shadow-md p-6"
-             data-team1="Winner Group A"
-             data-team2="Runner-up Group B"
-             data-stage="Semi Final 1">
+        <div class="knockout-card rounded-2xl shadow-md p-6" data-team1="Winner Group A" data-team2="Runner-up Group B" data-stage="Semi Final 1">
           <div class="text-center mb-6">
             <h4 class="text-xl font-bold text-gray-800 mb-2">Semi Final 1</h4>
             <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mx-auto"></div>
@@ -399,12 +352,8 @@
             </div>
           </div>
         </div>
-        
-        <!-- Semi Final 2 -->
-        <div class="knockout-card rounded-2xl shadow-md p-6"
-             data-team1="Winner Group B"
-             data-team2="Runner-up Group A"
-             data-stage="Semi Final 2">
+
+        <div class="knockout-card rounded-2xl shadow-md p-6" data-team1="Winner Group B" data-team2="Runner-up Group A" data-stage="Semi Final 2">
           <div class="text-center mb-6">
             <h4 class="text-xl font-bold text-gray-800 mb-2">Semi Final 2</h4>
             <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mx-auto"></div>
@@ -421,12 +370,8 @@
             </div>
           </div>
         </div>
-        
-        <!-- Third Place -->
-        <div class="knockout-card rounded-2xl shadow-md p-6"
-             data-team1="Loser SF1"
-             data-team2="Loser SF2"
-             data-stage="Third Place">
+
+        <div class="knockout-card rounded-2xl shadow-md p-6" data-team1="Loser SF1" data-team2="Loser SF2" data-stage="Third Place">
           <div class="text-center mb-6">
             <h4 class="text-xl font-bold text-gray-800 mb-2">Third Place</h4>
             <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-orange-400 to-transparent mx-auto"></div>
@@ -443,12 +388,8 @@
             </div>
           </div>
         </div>
-        
-        <!-- Final -->
-        <div class="final-card rounded-2xl shadow-lg p-6"
-             data-team1="Winner SF1"
-             data-team2="Winner SF2"
-             data-stage="Final">
+
+        <div class="final-card rounded-2xl shadow-lg p-6" data-team1="Winner SF1" data-team2="Winner SF2" data-stage="Final">
           <div class="text-center mb-6">
             <h4 class="text-xl font-bold text-amber-800 mb-2">Championship Final</h4>
             <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto"></div>
@@ -482,14 +423,12 @@
   <script>
     const mobileMenuBtn = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
-    
     if (mobileMenuBtn && mobileMenu) {
       mobileMenuBtn.addEventListener("click", () => {
         const expanded = mobileMenuBtn.getAttribute("aria-expanded") === "true";
         mobileMenuBtn.setAttribute("aria-expanded", !expanded);
         mobileMenu.classList.toggle("hidden");
       });
-
       document.addEventListener("click", (e) => {
         if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
           mobileMenu.classList.add("hidden");
@@ -497,8 +436,6 @@
         }
       });
     }
-
-    // Entry animation for cards
     document.addEventListener("DOMContentLoaded", () => {
       const cards = document.querySelectorAll('.fixture-card, .group-card, .knockout-card');
       cards.forEach((card, index) => {
@@ -512,24 +449,18 @@
       });
     });
   </script>
-  
+
   <!-- Header + teams -->
   <script type="module">
     import { injectHeader } from "./tournament_header.js";
     import { loadTeams, hydrateTeamLogos } from "./teams-util.js";
     injectHeader("#site-header", { active: "fixtures" });
-    try {
-      const maps = await loadTeams();
-      hydrateTeamLogos(document, maps);
-    } catch (e) {
-      console.warn("Teams JSON load failed:", e);
-    }
+    try { const maps = await loadTeams(); hydrateTeamLogos(document, maps); } catch (e) { console.warn("Teams JSON load failed:", e); }
   </script>
 
-  <!-- ✅ Unified Scoreboard click handler (fixtures + knockout) -->
+  <!-- Unified Scoreboard click handler (fixtures + knockout) -->
   <script>
     const SCOREBOARD_PATH = "./scoreboard.html";
-
     function buildScoreboardURL({ t1, t2, matchday, stage }) {
       const url = new URL(SCOREBOARD_PATH, window.location.href);
       if (t1) url.searchParams.set("team1", t1.trim());
@@ -539,28 +470,19 @@
       url.searchParams.set("auto", "1");
       return url.toString();
     }
-
     function getFixtureNames(card) {
       const names = card.querySelectorAll(".team-name");
       const badgeText = card.querySelector(".matchday-badge")?.textContent || "";
       const m = badgeText.match(/(\d+)/);
-      return {
-        t1: names[0]?.textContent?.trim() || "",
-        t2: names[1]?.textContent?.trim() || "",
-        matchday: m ? Number(m[1]) : null
-      };
+      return { t1: names[0]?.textContent?.trim() || "", t2: names[1]?.textContent?.trim() || "", matchday: m ? Number(m[1]) : null };
     }
-
     function getKnockoutNames(card) {
-      // Use data attributes for reliability
       const t1 = card.dataset.team1 || "";
       const t2 = card.dataset.team2 || "";
       const stage = card.dataset.stage || card.querySelector("h4")?.textContent?.trim() || "";
       return { t1, t2, stage };
     }
-
     document.addEventListener("click", (e) => {
-      // 1) Group fixture cards
       const fixture = e.target.closest(".fixture-card.match-card");
       if (fixture) {
         const { t1, t2, matchday } = getFixtureNames(fixture);
@@ -568,7 +490,6 @@
         window.location.href = buildScoreboardURL({ t1, t2, matchday });
         return;
       }
-      // 2) Knockout + Final
       const ko = e.target.closest(".knockout-card, .final-card");
       if (ko) {
         const { t1, t2, stage } = getKnockoutNames(ko);
@@ -579,15 +500,14 @@
     });
   </script>
 
-  <!-- ✅ SheetJS (Excel) -->
+  <!-- SheetJS (Excel) -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-  <!-- ✅ Firestore: Standings + Goals exports + Excel (single module) -->
+  <!-- Firebase + Page Logic (fixtures hydration + leaderboards + excel) -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    // === Your Firebase config (same as scoreboard) ===
     const firebaseConfig = {
       apiKey: "AIzaSyB0DaaYB1hZLY8h23QOpT7Ok4sX5ACkHTM",
       authDomain: "we-are-eleven.firebaseapp.com",
@@ -597,374 +517,193 @@
       appId: "1:446706356039:web:db1bd26c20a2571b824662",
       measurementId: "G-M3DSVHMNEV"
     };
+    const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    // Utilities
+    const esc = s => String(s ?? "").replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const norm = s => (s || "").toString().trim().toLowerCase();
+    const pairKey = (a,b)=>{ const A=norm(a),B=norm(b); return (A<B)?`${A}|||${B}`:`${B}|||${A}`; };
 
-    // ---------- Standings ----------
-    const els = {
-      fetchBtn: document.getElementById("fetchResultsBtn"),
-      csvBtn: document.getElementById("downloadCsvBtn"),
-      excelBtn: document.getElementById("downloadExcelBtn"),
-      status: document.getElementById("resultsStatus"),
-      table: document.getElementById("resultsTable"),
-      tbody: document.getElementById("resultsTbody"),
-    };
-
-    let standingsRows = [];
-
-    function ensureTeam(map, name) {
-      if (!map[name]) {
-        map[name] = { team: name, mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0 };
+    // Minute formatter from timestamps
+    function toDate(ts){
+      if(!ts) return null;
+      if(typeof ts === 'number') return new Date(ts);
+      if(typeof ts === 'object' && typeof ts.seconds === 'number') return new Date(ts.seconds*1000);
+      return null;
+    }
+    function minuteStr(goalTime, kickOff){
+      const t = toDate(goalTime), k = toDate(kickOff);
+      if(t && k){
+        const mins = Math.max(0, Math.floor((t - k) / 60000));
+        return `${mins}’`;
       }
-      return map[name];
+      // fallback to local time (HH:MM)
+      return t ? t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : "";
     }
 
-    function escapeHtml(str="") {
-      return str.replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
-    }
-
-    function renderTable(rows) {
-      els.tbody.innerHTML = "";
-      rows.forEach((r, idx) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td class="px-3 py-2 text-slate-500">${idx + 1}</td>
-          <td class="px-3 py-2 font-medium">${escapeHtml(r.team)}</td>
-          <td class="px-3 py-2 text-right">${r.mp}</td>
-          <td class="px-3 py-2 text-right">${r.w}</td>
-          <td class="px-3 py-2 text-right">${r.d}</td>
-          <td class="px-3 py-2 text-right">${r.l}</td>
-          <td class="px-3 py-2 text-right">${r.gf}</td>
-          <td class="px-3 py-2 text-right">${r.ga}</td>
-          <td class="px-3 py-2 text-right">${r.gd}</td>
-          <td class="px-3 py-2 text-right font-semibold">${r.pts}</td>
-        `;
-        els.tbody.appendChild(tr);
-      });
-      els.table.style.display = rows.length ? "table" : "none";
-    }
-
-    function toCSV(rows) {
-      const headers = ["Team","MP","W","D","L","GF","GA","GD","Pts"];
-      const lines = [headers.join(",")];
-      rows.forEach(r => lines.push([r.team, r.mp, r.w, r.d, r.l, r.gf, r.ga, r.gd, r.pts].join(",")));
-      return lines.join("\n");
-    }
-
-    function download(filename, content, mime) {
-      const blob = new Blob([content], { type: mime || "text/plain;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url; a.download = filename;
-      document.body.appendChild(a); a.click(); a.remove();
-      URL.revokeObjectURL(url);
-    }
-
-    async function fetchStandings() {
-      els.status.textContent = "Loading matches…";
-      els.fetchBtn.disabled = true;
-      els.csvBtn.disabled = true;
-
-      try {
-        const qMatches = query(collection(db, "matches"), orderBy("created", "desc"));
-        const snap = await getDocs(qMatches);
-
-        const table = {}; // team name -> stats
-
-        snap.forEach(docSnap => {
-          const data = docSnap.data() || {};
-          const names = data.teamNames || {};
-          const scores = data.scores || {};
-          const teamA = (names.team1 || "").trim();
-          const teamB = (names.team2 || "").trim();
-
-          if (!teamA || !teamB) return;
-          const aScoreOK = typeof scores.team1 === "number";
-          const bScoreOK = typeof scores.team2 === "number";
-          if (!aScoreOK || !bScoreOK) return;
-
-          const a = ensureTeam(table, teamA);
-          const b = ensureTeam(table, teamB);
-
-          const aGoals = scores.team1;
-          const bGoals = scores.team2;
-
-          // Played + goals
-          a.mp += 1; b.mp += 1;
-          a.gf += aGoals; a.ga += bGoals;
-          b.gf += bGoals; b.ga += aGoals;
-
-          if (aGoals > bGoals) { a.w += 1; b.l += 1; a.pts += 3; }
-          else if (aGoals < bGoals) { b.w += 1; a.l += 1; b.pts += 3; }
-          else { a.d += 1; b.d += 1; a.pts += 1; b.pts += 1; }
-        });
-
-        const rows = Object.values(table).map(r => ({ ...r, gd: r.gf - r.ga }));
-        rows.sort((x, y) =>
-          y.pts - x.pts ||
-          (y.gd - x.gd) ||
-          (y.gf - x.gf) ||
-          x.team.localeCompare(y.team)
-        );
-
-        standingsRows = rows;
-        renderTable(rows);
-
-        els.csvBtn.disabled = rows.length === 0;
-        els.status.textContent = rows.length ? `Loaded ${rows.length} teams.` : "No completed matches found.";
-      } catch (err) {
-        console.error(err);
-        els.status.textContent = "Failed to load results.";
-        alert("Error loading results. Check console for details.");
-      } finally {
-        els.fetchBtn.disabled = false;
+    // Status badge calc (prefers explicit status if present)
+    function computeStatus(doc){
+      const s = (doc.status || "").toLowerCase();
+      if(s === 'live') return { text:'LIVE', cls:'status-badge status-live' };
+      if(s === 'ht')   return { text:'HT',   cls:'status-badge status-ht' };
+      if(s === 'ft' || doc.fulltime === true) return { text:'FT', cls:'status-badge status-ft' };
+      const now = Date.now();
+      const ko = toDate(doc.kickoff) || toDate(doc.created);
+      if(ko){
+        const diffMin = (now - ko.getTime())/60000;
+        if(diffMin >= 0 && diffMin <= 130) return { text:'LIVE', cls:'status-badge status-live' };
+        if(diffMin > 130) return { text:'FT', cls:'status-badge status-ft' };
       }
-    }
-
-    els.fetchBtn.addEventListener("click", fetchStandings);
-    els.csvBtn.addEventListener("click", () => {
-      if (!standingsRows.length) return;
-      const csv = toCSV(standingsRows);
-      download("team_results.csv", csv, "text/csv;charset=utf-8");
-    });
-
-    // ---------- Goals (Scorers & Assists) ----------
-    const gEls = {
-      fetchBtn: document.getElementById("fetchGoalsBtn"),
-      csvBtn: document.getElementById("downloadGoalsCsvBtn"),
-      jsonBtn: document.getElementById("downloadGoalsJsonBtn"),
-      status: document.getElementById("goalsStatus"),
-      table: document.getElementById("goalsTable"),
-      tbody: document.getElementById("goalsTbody"),
-    };
-
-    let goalsRows = [];
-
-    // Optional fallback: if some docs don't have "matchday" yet.
-    // Fill only if needed; otherwise leave it empty.
-    const matchdayMap = {
-      // "FirestoreDocId": 1,
-      // "AnotherDocId": 2,
-    };
-
-    function toISO(ts) {
-      if (!ts) return "";
-      if (typeof ts === "number") return new Date(ts).toISOString();
-      if (typeof ts === "object" && typeof ts.seconds === "number") {
-        return new Date(ts.seconds * 1000).toISOString();
-      }
-      return "";
-    }
-
-    function toLocalTime(ts) {
-      if (!ts) return "";
-      if (typeof ts === "number") return new Date(ts).toLocaleTimeString();
-      if (typeof ts === "object" && typeof ts.seconds === "number") {
-        return new Date(ts.seconds * 1000).toLocaleTimeString();
-      }
-      return "";
-    }
-
-    function renderGoalsTable(rows) {
-      gEls.tbody.innerHTML = "";
-      rows.forEach(r => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td class="px-3 py-2 text-slate-500">${escapeHtml(r.matchDay)}</td>
-          <td class="px-3 py-2">${escapeHtml(r.team)}</td>
-          <td class="px-3 py-2">${escapeHtml(r.opponent)}</td>
-          <td class="px-3 py-2">${escapeHtml(r.scorer)}</td>
-          <td class="px-3 py-2">${escapeHtml(r.assist || "")}</td>
-          <td class="px-3 py-2">${escapeHtml(r.goalTimeLocal || "")}</td>
-        `;
-        gEls.tbody.appendChild(tr);
-      });
-      gEls.table.style.display = rows.length ? "table" : "none";
-    }
-
-    function goalsToCSV(rows) {
-      const headers = ["matchday","match_created_iso","team_side","team_name","opponent","scorer","assist","goal_time_iso","goal_time_local"];
-      const lines = [headers.join(",")];
-      rows.forEach(r => {
-        const q = s => `"${String(s ?? "").replace(/"/g,'""')}"`;
-        lines.push([
-          r.matchDay,
-          r.matchCreatedISO || "",
-          r.teamSide,
-          q(r.team),
-          q(r.opponent),
-          q(r.scorer),
-          q(r.assist),
-          r.goalTimeISO || "",
-          r.goalTimeLocal || ""
-        ].join(","));
-      });
-      return lines.join("\n");
-    }
-
-    async function fetchGoals() {
-      gEls.status.textContent = "Loading goals…";
-      gEls.fetchBtn.disabled = true;
-      gEls.csvBtn.disabled = true;
-      gEls.jsonBtn.disabled = true;
-
-      try {
-        const qMatches = query(collection(db, "matches"), orderBy("created", "desc"));
-        const snap = await getDocs(qMatches);
-
-        const all = [];
-
-        snap.forEach(docSnap => {
-          const matchId = docSnap.id;
-          const data = docSnap.data() || {};
-          const created = data.created;
-          const matchCreatedISO = toISO(created);
-          const names = data.teamNames || {};
-          const goals = Array.isArray(data.goals) ? data.goals : [];
-
-          const team1Name = (names.team1 || "").trim();
-          const team2Name = (names.team2 || "").trim();
-
-          goals.forEach(g => {
-            const teamSide = g.team === "team2" ? "team2" : "team1"; // default to team1
-            const team = teamSide === "team2" ? team2Name : team1Name;
-            const opponent = teamSide === "team2" ? team1Name : team2Name;
-
-            // Prefer Firestore matchday; fallback to mapping; else doc id
-            const matchDayValue =
-              (typeof data.matchday === "number" || typeof data.matchday === "string")
-                ? data.matchday
-                : (matchdayMap[matchId] ?? matchId);
-
-            all.push({
-              matchId,
-              matchDay: matchDayValue,
-              matchCreatedISO,
-              teamSide,
-              team,
-              opponent,
-              scorer: g.scorer || "",
-              assist: g.assist || "",
-              goalTimeISO: toISO(g.time),
-              goalTimeLocal: toLocalTime(g.time),
-            });
-          });
-        });
-
-        // Sort newest goals first by goal time (fallback to match created)
-        all.sort((a, b) => {
-          const tA = a.goalTimeISO || a.matchCreatedISO || "";
-          const tB = b.goalTimeISO || b.matchCreatedISO || "";
-          return (tA < tB) ? 1 : (tA > tB ? -1 : 0);
-        });
-
-        goalsRows = all;
-        renderGoalsTable(all);
-
-        gEls.csvBtn.disabled = all.length === 0;
-        gEls.jsonBtn.disabled = all.length === 0;
-        gEls.status.textContent = all.length ? `Loaded ${all.length} goals from ${snap.size} matches.` : "No goals found.";
-      } catch (err) {
-        console.error(err);
-        gEls.status.textContent = "Failed to load goals.";
-        alert("Error loading goals. Check console for details.");
-      } finally {
-        gEls.fetchBtn.disabled = false;
-      }
-    }
-
-    gEls.fetchBtn.addEventListener("click", fetchGoals);
-    gEls.csvBtn.addEventListener("click", () => {
-      if (!goalsRows.length) return;
-      download("goals.csv", goalsToCSV(goalsRows), "text/csv;charset=utf-8");
-    });
-    gEls.jsonBtn.addEventListener("click", () => {
-      if (!goalsRows.length) return;
-      download("goals.json", JSON.stringify(goalsRows, null, 2), "application/json;charset=utf-8");
-    });
-
-    // ---------- Excel (Summary + per-match sheets) ----------
-    function toDateObj(ts) {
-      if (!ts) return null;
-      if (typeof ts === "number") return new Date(ts);
-      if (typeof ts === "object" && typeof ts.seconds === "number") return new Date(ts.seconds * 1000);
       return null;
     }
 
-    function safeSheetName(str, fallback) {
-      const name = (str || "").replace(/[\\/?*\[\]:]/g, " ").slice(0, 31).trim();
-      return name || (fallback || "Sheet");
+    // Build latest match index per pair
+    async function buildLatestIndex(){
+      const qMatches = query(collection(db, 'matches'), orderBy('created','desc'));
+      const snap = await getDocs(qMatches);
+      const idx = new Map();
+      snap.forEach(docSnap => {
+        const d = docSnap.data() || {};
+        const t1 = d.teamNames?.team1?.trim() || "";
+        const t2 = d.teamNames?.team2?.trim() || "";
+        if(!t1 || !t2) return;
+        const k = pairKey(t1,t2);
+        if(!idx.has(k)) idx.set(k, { id: docSnap.id, data: d });
+      });
+      return idx;
     }
 
-    async function downloadExcel() {
-      els.status.textContent = "Building Excel file…";
+    function groupGoals(goals=[], t1Name="", t2Name="", kickoff){
+      const out = { team1: [], team2: [] };
+      goals.forEach(g => {
+        const side = (g.team === 'team2') ? 'team2' : 'team1';
+        const who = g.scorer || '';
+        const ast = g.assist ? ` (${g.assist})` : '';
+        const m = minuteStr(g.time, kickoff);
+        const label = [who + ast, m].filter(Boolean).join(' ');
+        if(who) out[side].push(label);
+      });
+      return out;
+    }
 
-      try {
-        const qMatches = query(collection(db, "matches"), orderBy("created", "asc"));
+    function renderFixtureCard(card, doc){
+      const host = card.querySelector('.fixture-data') || (()=>{ const d=document.createElement('div'); d.className='mt-4 text-center space-y-3 fixture-data'; card.appendChild(d); return d; })();
+      host.innerHTML = '';
+      const t1 = card.querySelectorAll('.team-name')[0]?.textContent?.trim() || '';
+      const t2 = card.querySelectorAll('.team-name')[1]?.textContent?.trim() || '';
+      const s1 = (typeof doc?.scores?.team1 === 'number') ? doc.scores.team1 : null;
+      const s2 = (typeof doc?.scores?.team2 === 'number') ? doc.scores.team2 : null;
+
+      const status = computeStatus(doc);
+      const score = document.createElement('div');
+      score.innerHTML = (s1==null || s2==null)
+        ? `<span class="scoreline-badge">VS</span>${status?` <span class="${status.cls}">${status.text}</span>`:''}`
+        : `<span class="scoreline-badge">${s1} – ${s2}</span>${status?` <span class="${status.cls}">${status.text}</span>`:''}`;
+      host.appendChild(score);
+
+      const gs = groupGoals(Array.isArray(doc?.goals)?doc.goals:[], t1, t2, doc.kickoff || doc.created);
+      const rows = document.createElement('div');
+      rows.className = 'fixture-rows';
+      rows.innerHTML = `
+        <div class="team-column"><div class="scorer-list">${gs.team1.length ? gs.team1.map(n=>`<div class='scorer-item'><span class='scorer-bullet'>•</span><span>${esc(n)}</span></div>`).join('') : `<div class='muted'>—</div>`}</div></div>
+        <div class="team-column"><div class="scorer-list">${gs.team2.length ? gs.team2.map(n=>`<div class='scorer-item'><span class='scorer-bullet'>•</span><span>${esc(n)}</span></div>`).join('') : `<div class='muted'>—</div>`}</div></div>
+      `;
+      host.appendChild(rows);
+    }
+
+    async function hydrateFixtures(){
+      const index = await buildLatestIndex();
+      document.querySelectorAll('.fixture-card.match-card').forEach(card => {
+        const names = card.querySelectorAll('.team-name');
+        const a = names[0]?.textContent?.trim() || '';
+        const b = names[1]?.textContent?.trim() || '';
+        if(!a || !b) return;
+        const m = index.get(pairKey(a,b));
+        if(m) renderFixtureCard(card, m.data);
+      });
+    }
+
+    // Leaderboards
+    const els = {
+      leadersStatus: document.getElementById('leadersStatus'),
+      scorersBody: document.getElementById('scorersBody'),
+      assistsBody: document.getElementById('assistsBody'),
+      dlScorers: document.getElementById('dlScorersCsvBtn'),
+      dlAssists: document.getElementById('dlAssistsCsvBtn'),
+      fetchLeadersBtn: document.getElementById('fetchLeadersBtn'),
+    };
+
+    function mapAdd(map, player, team){ if(!player) return; const k = `${player}|||${team}`; map.set(k,(map.get(k)||0)+1); }
+    function rowsFrom(map){ const arr=[]; map.forEach((c,k)=>{ const [p,t]=k.split('|||'); arr.push({player:p, team:t, count:c}); }); arr.sort((a,b)=> b.count - a.count || a.player.localeCompare(b.player)); return arr; }
+    function renderRows(tbody, rows){ tbody.innerHTML=''; rows.forEach((r,i)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td class='px-3 py-2 text-slate-500'>${i+1}</td><td class='px-3 py-2'>${esc(r.player)}</td><td class='px-3 py-2'>${esc(r.team)}</td><td class='px-3 py-2 text-right font-semibold'>${r.count}</td>`; tbody.appendChild(tr); }); }
+    function downloadCSV(rows, header){ const lines=[["Player","Team",header].join(',')]; rows.forEach(r=>{ const q=s=>`"${String(s??"").replace(/"/g,'""')}"`; lines.push([q(r.player), q(r.team), r.count].join(',')); }); const blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=Object.assign(document.createElement('a'),{href:url,download: header==='Goals'? 'top_scorers.csv':'top_assists.csv'}); document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }
+
+    async function loadLeaderboards(){
+      els.leadersStatus.textContent = 'Loading leaderboards…';
+      els.fetchLeadersBtn.disabled = true; els.dlScorers.disabled=true; els.dlAssists.disabled=true;
+      try{
+        const qMatches = query(collection(db,'matches'), orderBy('created','desc'));
         const snap = await getDocs(qMatches);
-
-        const wb = XLSX.utils.book_new();
-
-        // Summary sheet
-        const summary = [["Match ID","Team 1","Team 2","Score","Date"]];
-        snap.forEach(docSnap => {
-          const data = docSnap.data() || {};
-          const id = docSnap.id;
-          const team1 = data.teamNames?.team1 || "";
-          const team2 = data.teamNames?.team2 || "";
-          const s1 = (typeof data.scores?.team1 === "number") ? data.scores.team1 : "-";
-          const s2 = (typeof data.scores?.team2 === "number") ? data.scores.team2 : "-";
-          const created = toDateObj(data.created);
-          const createdStr = created ? created.toLocaleString() : "";
-          summary.push([id, team1, team2, `${s1} - ${s2}`, createdStr]);
-        });
-        const wsSummary = XLSX.utils.aoa_to_sheet(summary);
-        XLSX.utils.book_append_sheet(wb, wsSummary, "All Matches");
-
-        // Per match sheets
-        snap.forEach(docSnap => {
-          const data = docSnap.data() || {};
-          const id = docSnap.id;
-          const team1 = data.teamNames?.team1 || "";
-          const team2 = data.teamNames?.team2 || "";
-          const s1 = (typeof data.scores?.team1 === "number") ? data.scores.team1 : "-";
-          const s2 = (typeof data.scores?.team2 === "number") ? data.scores.team2 : "-";
-
-          const rows = [
-            ["Match ID", id],
-            ["Teams", `${team1} vs ${team2}`],
-            ["Score", `${s1} - ${s2}`],
-            [""],
-            ["Team","Scorer","Assister","Time (Local)"]
-          ];
-
-          const goals = Array.isArray(data.goals) ? data.goals : [];
-          goals.forEach(g => {
-            const side = g.team === "team2" ? "team2" : "team1";
-            const teamName = side === "team2" ? team2 : team1;
-            const timeLocal = (typeof g.time === "number")
-              ? new Date(g.time).toLocaleTimeString()
-              : (g.time?.seconds ? new Date(g.time.seconds * 1000).toLocaleTimeString() : "");
-            rows.push([teamName, g.scorer || "", g.assist || "", timeLocal || ""]);
+        const scorersMap = new Map();
+        const assistsMap = new Map();
+        snap.forEach(docSnap=>{
+          const d = docSnap.data() || {};
+          const names = d.teamNames || {};
+          const t1 = (names.team1||'').trim();
+          const t2 = (names.team2||'').trim();
+          (Array.isArray(d.goals)?d.goals:[]).forEach(g=>{
+            const side = (g.team==='team2')?'team2':'team1';
+            const team = side==='team2' ? t2 : t1;
+            mapAdd(scorersMap, g.scorer||'', team);
+            mapAdd(assistsMap, g.assist||'', team);
           });
-
-          const ws = XLSX.utils.aoa_to_sheet(rows);
-          const tabName = safeSheetName(`${team1} vs ${team2}`, id.slice(0, 31));
-          XLSX.utils.book_append_sheet(wb, ws, tabName);
         });
-
-        XLSX.writeFile(wb, "tournament_results.xlsx");
-        els.status.textContent = "Excel downloaded!";
-      } catch (err) {
+        const scorers = rowsFrom(scorersMap);
+        const assists = rowsFrom(assistsMap);
+        renderRows(els.scorersBody, scorers);
+        renderRows(els.assistsBody, assists);
+        els.dlScorers.disabled = scorers.length===0; els.dlAssists.disabled = assists.length===0;
+        els.dlScorers.onclick = ()=>downloadCSV(scorers,'Goals');
+        els.dlAssists.onclick = ()=>downloadCSV(assists,'Assists');
+        els.leadersStatus.textContent = `Loaded ${snap.size} matches • ${scorers.length} scorers • ${assists.length} assisters.`;
+      } catch(err){
         console.error(err);
-        alert("Failed to generate Excel. Check console for details.");
-        els.status.textContent = "Failed to build Excel.";
-      }
+        els.leadersStatus.textContent = 'Failed to load leaderboards.';
+        alert('Error loading leaderboards. Check console for details.');
+      } finally { els.fetchLeadersBtn.disabled = false; }
     }
 
-    els.excelBtn.addEventListener("click", downloadExcel);
+    // Excel export (unchanged logic from your page)
+    function safeSheetName(str, fallback){ const name=(str||'').replace(/[\\\/?*\[\]:]/g,' ').slice(0,31).trim(); return name || (fallback || 'Sheet'); }
+    function toDateObj(ts){ if(!ts) return null; if(typeof ts==='number') return new Date(ts); if(typeof ts==='object' && typeof ts.seconds==='number') return new Date(ts.seconds*1000); return null; }
+    async function downloadExcel(){
+      const qMatches = query(collection(db, 'matches'), orderBy('created','asc'));
+      const snap = await getDocs(qMatches);
+      const wb = XLSX.utils.book_new();
+      const summary = [["Match ID","Team 1","Team 2","Score","Date"]];
+      snap.forEach(docSnap=>{
+        const d = docSnap.data()||{}; const id=docSnap.id; const t1=d.teamNames?.team1||''; const t2=d.teamNames?.team2||''; const s1=(typeof d.scores?.team1==='number')?d.scores.team1:'-'; const s2=(typeof d.scores?.team2==='number')?d.scores.team2:'-'; const created=toDateObj(d.created); const createdStr = created? created.toLocaleString():''; summary.push([id,t1,t2,`${s1} - ${s2}`, createdStr]);
+      });
+      const wsSummary = XLSX.utils.aoa_to_sheet(summary); XLSX.utils.book_append_sheet(wb, wsSummary, 'All Matches');
+      snap.forEach(docSnap=>{
+        const d=docSnap.data()||{}; const id=docSnap.id; const t1=d.teamNames?.team1||''; const t2=d.teamNames?.team2||''; const s1=(typeof d.scores?.team1==='number')?d.scores.team1:'-'; const s2=(typeof d.scores?.team2==='number')?d.scores.team2:'-';
+        const rows=[["Match ID", id],["Teams", `${t1} vs ${t2}`],["Score", `${s1} - ${s2}`],[""],["Team","Scorer","Assister","Minute/Time"]];
+        (Array.isArray(d.goals)?d.goals:[]).forEach(g=>{
+          const side = (g.team==='team2')?'team2':'team1';
+          const teamName = side==='team2'? t2 : t1;
+          rows.push([teamName, g.scorer||'', g.assist||'', minuteStr(g.time, d.kickoff || d.created)]);
+        });
+        const ws = XLSX.utils.aoa_to_sheet(rows); const tabName = safeSheetName(`${t1} vs ${t2}`, id.slice(0,31)); XLSX.utils.book_append_sheet(wb, ws, tabName);
+      });
+      XLSX.writeFile(wb, 'tournament_results.xlsx');
+    }
+
+    // Wire up
+    document.addEventListener('DOMContentLoaded', () => { hydrateFixtures(); loadLeaderboards(); });
+    document.getElementById('fetchLeadersBtn')?.addEventListener('click', loadLeaderboards);
+    document.getElementById('downloadExcelBtn')?.addEventListener('click', downloadExcel);
   </script>
-  
+
 </body>
 </html>
