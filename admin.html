@@ -15,7 +15,6 @@
     .nav-link:hover { color: #374151; }
     .nav-link.active { color: #dc2626; }
 
-    /* Login card styling */
     .login-card {
       background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
       border: 1px solid #e2e8f0;
@@ -25,52 +24,54 @@
     }
     .login-card:hover { box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); transform: translateY(-2px); }
 
-    /* Form input styling */
     .form-input { background: #ffffff; border: 2px solid #e2e8f0; transition: all 0.2s ease; position: relative; }
     .form-input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.1); background: #fefefe; }
     .form-input:hover { border-color: #cbd5e1; }
 
-    /* Button styling */
     .admin-btn { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); transition: all 0.3s ease; position: relative; overflow: hidden; }
     .admin-btn:hover { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); transform: translateY(-1px); box-shadow: 0 10px 20px -5px rgba(59,130,246,.4); }
     .admin-btn:active { transform: translateY(0); }
-    .admin-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent); transition: left .5s ease; }
+    .admin-btn::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+      transition: left .5s ease;
+    }
     .admin-btn:hover::before { left: 100%; }
 
-    /* Error message */
-    .error-message { color: #dc2626; background: #fef2f2; border: 1px solid #fecaca; border-radius: .5rem; padding: .75rem;
-      margin-bottom: 1rem; font-size: .875rem; text-align: center; opacity: 0; transform: translateY(-10px); transition: all .3s ease; }
+    .error-message {
+      color: #dc2626; background: #fef2f2; border: 1px solid #fecaca;
+      border-radius: .5rem; padding: .75rem; margin-bottom: 1rem; font-size: .875rem;
+      text-align: center; opacity: 0; transform: translateY(-10px); transition: all .3s ease;
+    }
     .error-message.show { opacity: 1; transform: translateY(0); }
 
-    /* Loading spinner on button */
     .loading { position: relative; pointer-events: none; }
-    .loading::after { content: ''; position: absolute; width: 20px; height: 20px; margin: auto; border: 2px solid transparent;
-      border-top-color: #ffffff; border-radius: 50%; animation: spin 1s linear infinite; top: 50%; left: 50%;
-      transform: translate(-50%, -50%); }
-    @keyframes spin { from { transform: translate(-50%,-50%) rotate(0); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+    .loading::after {
+      content: ''; position: absolute; width: 20px; height: 20px; margin: auto;
+      border: 2px solid transparent; border-top-color: #ffffff; border-radius: 50%;
+      animation: spin 1s linear infinite; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    }
+    @keyframes spin { from { transform: translate(-50%,-50%) rotate(0) } to { transform: translate(-50%,-50%) rotate(360deg) } }
 
     .admin-icon { font-size: 3rem; margin-bottom: 1rem; opacity: .8; }
+    @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
 
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-    /* Floating labels */
     .input-group { position: relative; margin-bottom: 1.5rem; }
-    .input-label { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background: white; padding: 0 .5rem;
-      color: #6b7280; font-size: .875rem; transition: all .2s ease; pointer-events: none; }
+    .input-label {
+      position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+      background: white; padding: 0 .5rem; color: #6b7280; font-size: .875rem;
+      transition: all .2s ease; pointer-events: none;
+    }
     .form-input:focus + .input-label,
     .form-input:not(:placeholder-shown) + .input-label { top: 0; font-size: .75rem; color: #3b82f6; }
   </style>
 </head>
 
 <body class="text-black flex flex-col min-h-screen">
-  <!-- Header -->
   <div id="site-header"></div>
 
-  <!-- Main Content -->
   <main class="flex-grow max-w-6xl mx-auto p-4">
     <div class="login-card rounded-3xl p-8 max-w-md w-full mx-auto">
-      <!-- Header Section -->
       <div class="text-center mb-8">
         <div class="admin-icon">🔐</div>
         <h1 class="text-3xl font-bold text-gray-900 mb-2">Admin Access</h1>
@@ -83,8 +84,8 @@
         </div>
       </div>
 
-      <!-- Login Form -->
-      <form id="loginForm" novalidate autocomplete="off" class="space-y-6">
+      <!-- Note: onsubmit guard prevents navigation even if JS fails -->
+      <form id="loginForm" novalidate autocomplete="off" class="space-y-6" onsubmit="return false;">
         <div id="errorMsg" class="error-message" role="alert" aria-live="assertive"></div>
 
         <div class="input-group">
@@ -101,10 +102,9 @@
           <span id="btnText">Access Admin Panel</span>
         </button>
       </form>
-    </div> <!-- ✅ close login-card -->
+    </div>
   </main>
 
-  <!-- Footer -->
   <footer class="bg-gray-950 py-8 text-center text-gray-400">
     <div class="max-w-4xl mx-auto px-4">
       <p class="text-lg">© 2025 Football Community. All Rights Reserved.</p>
@@ -112,9 +112,8 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script>
-    // Mobile menu toggle (guard against missing elements)
+    // Mobile menu (guard elements)
     const mobileMenuBtn = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
     if (mobileMenuBtn && mobileMenu) {
@@ -131,9 +130,9 @@
       });
     }
 
-    // Admin login logic
+    // Login logic
     (() => {
-      const loginForm = document.getElementById("loginForm");
+      const form = document.getElementById("loginForm");
       const errorMsg = document.getElementById("errorMsg");
       const loginBtn = document.getElementById("loginBtn");
       const btnText = document.getElementById("btnText");
@@ -141,85 +140,71 @@
       const ADMIN_EMAIL = "jyotishka27@org.com";
       const ADMIN_PASSWORD = "Leavemealoner8@";
 
-      function showError(message) {
-        errorMsg.textContent = message;
-        errorMsg.classList.add("show");
-        setTimeout(() => errorMsg.classList.remove("show"), 5000);
-      }
-      function clearError() { errorMsg.classList.remove("show"); }
-      function setLoading(loading) {
-        if (loading) { loginBtn.classList.add("loading"); btnText.style.opacity = "0"; loginBtn.disabled = true; }
-        else { loginBtn.classList.remove("loading"); btnText.style.opacity = "1"; loginBtn.disabled = false; }
-      }
+      function showError(msg){ errorMsg.textContent = msg; errorMsg.classList.add("show"); setTimeout(() => errorMsg.classList.remove("show"), 5000); }
+      function clearError(){ errorMsg.classList.remove("show"); }
+      function setLoading(v){ if(v){ loginBtn.classList.add("loading"); btnText.style.opacity="0"; loginBtn.disabled=true; } else { loginBtn.classList.remove("loading"); btnText.style.opacity="1"; loginBtn.disabled=false; } }
 
-      loginForm.addEventListener("submit", (e) => {
+      form.addEventListener("submit", (e) => {
         e.preventDefault();
         clearError();
+        const email = (form.email.value || "").trim();
+        const password = form.password.value || "";
 
-        const email = loginForm.email.value.trim();
-        const password = loginForm.password.value;
-
-        if (!email || !password) return showError("Please enter both email and password.");
-        if (!email.includes("@")) return showError("Please enter a valid email address.");
+        if(!email || !password) return showError("Please enter both email and password.");
+        if(!email.includes("@")) return showError("Please enter a valid email address.");
 
         setLoading(true);
-
-        // Simulated delay
         setTimeout(() => {
           const ok = (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) && (password === ADMIN_PASSWORD);
-          if (ok) {
+          if(ok){
             btnText.textContent = "Access Granted!";
-            setTimeout(() => { window.location.href = "admin_fixture.html"; }, 1000); // ✅ redirect target
+            setTimeout(() => { window.location.href = "admin_fixture.html"; }, 800);
           } else {
             setLoading(false);
             btnText.textContent = "Access Admin Panel";
             showError("Invalid credentials. Access denied.");
-            loginForm.style.animation = "shake 0.5s ease-in-out";
-            setTimeout(() => { loginForm.style.animation = ""; }, 500);
+            form.style.animation = "shake 0.5s ease-in-out";
+            setTimeout(() => { form.style.animation = ""; }, 500);
           }
-        }, 1000);
+        }, 500);
       });
 
-      // Dismiss error on focus
-      document.querySelectorAll('.form-input').forEach(input => {
-        input.addEventListener('focus', clearError);
-      });
+      document.querySelectorAll(".form-input").forEach(i => i.addEventListener("focus", clearError));
 
-      // Add shake keyframes once
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-      `;
+      // Shake keyframes
+      const style = document.createElement("style");
+      style.textContent = "@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}";
       document.head.appendChild(style);
 
       // Entry animation
       window.addEventListener("DOMContentLoaded", () => {
-        const card = document.querySelector('.login-card');
-        if (!card) return;
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px) scale(0.95)';
-        setTimeout(() => {
-          card.style.transition = 'all 0.6s ease';
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0) scale(1)';
-        }, 100);
+        const card = document.querySelector(".login-card");
+        if(card){
+          card.style.opacity = "0";
+          card.style.transform = "translateY(20px) scale(0.95)";
+          setTimeout(() => {
+            card.style.transition = "all 0.6s ease";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0) scale(1)";
+          }, 100);
+        }
       });
     })();
   </script>
 
-  <!-- Module: header + teams (wrapped for top-level await safety) -->
+  <!-- Optional header injection (disabled teams load to avoid 404 noise) -->
   <script type="module">
     import { injectHeader } from "./header.js";
-    import { loadTeams, hydrateTeamLogos } from "./teams-util.js";
+    // import { loadTeams, hydrateTeamLogos } from "./teams-util.js"; // disabled (404)
 
     (async () => {
       injectHeader("#site-header", { active: "admin" });
-      try {
-        const maps = await loadTeams();
-        hydrateTeamLogos(document, maps);
-      } catch (e) {
-        console.warn("Teams JSON load failed:", e);
-      }
+      // try {
+      //   const maps = await loadTeams();
+      //   hydrateTeamLogos(document, maps);
+      // } catch (e) {
+      //   console.warn("Teams JSON load failed:", e);
+      // }
     })();
   </script>
 </body>
