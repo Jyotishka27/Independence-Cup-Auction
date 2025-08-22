@@ -1,4 +1,3 @@
-
 // /assets/js/tournament_header.js
 // Reusable site header with mobile toggle + active link
 export function injectHeader(targetSelector, { active = "" } = {}) {
