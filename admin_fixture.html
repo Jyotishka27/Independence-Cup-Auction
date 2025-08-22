@@ -355,7 +355,7 @@
         <table class="min-w-full text-sm" id="goalsTable" style="display:none;">
           <thead class="bg-slate-100 text-slate-700">
             <tr>
-              <th class="px-3 py-2 text-left">Match</th>
+              <th class="px-3 py-2 text-left">Matchday</th>
               <th class="px-3 py-2 text-left">Team</th>
               <th class="px-3 py-2 text-left">Opponent</th>
               <th class="px-3 py-2 text-left">Scorer</th>
@@ -379,7 +379,10 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
         <!-- Semi Final 1 -->
-        <div class="knockout-card rounded-2xl shadow-md p-6">
+        <div class="knockout-card rounded-2xl shadow-md p-6"
+             data-team1="Winner Group A"
+             data-team2="Runner-up Group B"
+             data-stage="Semi Final 1">
           <div class="text-center mb-6">
             <h4 class="text-xl font-bold text-gray-800 mb-2">Semi Final 1</h4>
             <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mx-auto"></div>
@@ -396,9 +399,12 @@
             </div>
           </div>
         </div>
-
+        
         <!-- Semi Final 2 -->
-        <div class="knockout-card rounded-2xl shadow-md p-6">
+        <div class="knockout-card rounded-2xl shadow-md p-6"
+             data-team1="Winner Group B"
+             data-team2="Runner-up Group A"
+             data-stage="Semi Final 2">
           <div class="text-center mb-6">
             <h4 class="text-xl font-bold text-gray-800 mb-2">Semi Final 2</h4>
             <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mx-auto"></div>
@@ -415,9 +421,12 @@
             </div>
           </div>
         </div>
-
-        <!-- Third Place Match -->
-        <div class="knockout-card rounded-2xl shadow-md p-6">
+        
+        <!-- Third Place -->
+        <div class="knockout-card rounded-2xl shadow-md p-6"
+             data-team1="Loser SF1"
+             data-team2="Loser SF2"
+             data-stage="Third Place">
           <div class="text-center mb-6">
             <h4 class="text-xl font-bold text-gray-800 mb-2">Third Place</h4>
             <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-orange-400 to-transparent mx-auto"></div>
@@ -434,9 +443,12 @@
             </div>
           </div>
         </div>
-
+        
         <!-- Final -->
-        <div class="final-card rounded-2xl shadow-lg p-6">
+        <div class="final-card rounded-2xl shadow-lg p-6"
+             data-team1="Winner SF1"
+             data-team2="Winner SF2"
+             data-stage="Final">
           <div class="text-center mb-6">
             <h4 class="text-xl font-bold text-amber-800 mb-2">Championship Final</h4>
             <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto"></div>
@@ -514,26 +526,56 @@
     }
   </script>
 
-  <!-- ✅ Scoreboard click handler -->
+  <!-- ✅ Unified Scoreboard click handler (fixtures + knockout) -->
   <script>
-    const SCOREBOARD_PATH = "./scoreboard.html"; // adjust if needed
-    function buildScoreboardURL(t1, t2) {
+    const SCOREBOARD_PATH = "./scoreboard.html";
+
+    function buildScoreboardURL({ t1, t2, matchday, stage }) {
       const url = new URL(SCOREBOARD_PATH, window.location.href);
-      url.searchParams.set("team1", (t1 || "").trim());
-      url.searchParams.set("team2", (t2 || "").trim());
-      url.searchParams.set("auto", "1"); // auto-create match
+      if (t1) url.searchParams.set("team1", t1.trim());
+      if (t2) url.searchParams.set("team2", t2.trim());
+      if (matchday) url.searchParams.set("matchday", matchday);
+      if (stage) url.searchParams.set("stage", stage);
+      url.searchParams.set("auto", "1");
       return url.toString();
     }
-    function getNamesFromCard(card) {
+
+    function getFixtureNames(card) {
       const names = card.querySelectorAll(".team-name");
-      return { t1: names[0]?.textContent?.trim() || "", t2: names[1]?.textContent?.trim() || "" };
+      const badgeText = card.querySelector(".matchday-badge")?.textContent || "";
+      const m = badgeText.match(/(\d+)/);
+      return {
+        t1: names[0]?.textContent?.trim() || "",
+        t2: names[1]?.textContent?.trim() || "",
+        matchday: m ? Number(m[1]) : null
+      };
     }
+
+    function getKnockoutNames(card) {
+      // Use data attributes for reliability
+      const t1 = card.dataset.team1 || "";
+      const t2 = card.dataset.team2 || "";
+      const stage = card.dataset.stage || card.querySelector("h4")?.textContent?.trim() || "";
+      return { t1, t2, stage };
+    }
+
     document.addEventListener("click", (e) => {
-      const card = e.target.closest(".fixture-card.match-card");
-      if (!card) return;
-      const { t1, t2 } = getNamesFromCard(card);
-      if (!t1 || !t2) return;
-      window.location.href = buildScoreboardURL(t1, t2);
+      // 1) Group fixture cards
+      const fixture = e.target.closest(".fixture-card.match-card");
+      if (fixture) {
+        const { t1, t2, matchday } = getFixtureNames(fixture);
+        if (!t1 || !t2) return;
+        window.location.href = buildScoreboardURL({ t1, t2, matchday });
+        return;
+      }
+      // 2) Knockout + Final
+      const ko = e.target.closest(".knockout-card, .final-card");
+      if (ko) {
+        const { t1, t2, stage } = getKnockoutNames(ko);
+        if (!t1 || !t2) return;
+        window.location.href = buildScoreboardURL({ t1, t2, stage });
+        return;
+      }
     });
   </script>
 
@@ -699,6 +741,13 @@
 
     let goalsRows = [];
 
+    // Optional fallback: if some docs don't have "matchday" yet.
+    // Fill only if needed; otherwise leave it empty.
+    const matchdayMap = {
+      // "FirestoreDocId": 1,
+      // "AnotherDocId": 2,
+    };
+
     function toISO(ts) {
       if (!ts) return "";
       if (typeof ts === "number") return new Date(ts).toISOString();
@@ -722,7 +771,7 @@
       rows.forEach(r => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td class="px-3 py-2 text-slate-500">${escapeHtml(r.matchId)}</td>
+          <td class="px-3 py-2 text-slate-500">${escapeHtml(r.matchDay)}</td>
           <td class="px-3 py-2">${escapeHtml(r.team)}</td>
           <td class="px-3 py-2">${escapeHtml(r.opponent)}</td>
           <td class="px-3 py-2">${escapeHtml(r.scorer)}</td>
@@ -735,12 +784,12 @@
     }
 
     function goalsToCSV(rows) {
-      const headers = ["match_id","match_created_iso","team_side","team_name","opponent","scorer","assist","goal_time_iso","goal_time_local"];
+      const headers = ["matchday","match_created_iso","team_side","team_name","opponent","scorer","assist","goal_time_iso","goal_time_local"];
       const lines = [headers.join(",")];
       rows.forEach(r => {
         const q = s => `"${String(s ?? "").replace(/"/g,'""')}"`;
         lines.push([
-          r.matchId,
+          r.matchDay,
           r.matchCreatedISO || "",
           r.teamSide,
           q(r.team),
@@ -782,8 +831,15 @@
             const team = teamSide === "team2" ? team2Name : team1Name;
             const opponent = teamSide === "team2" ? team1Name : team2Name;
 
+            // Prefer Firestore matchday; fallback to mapping; else doc id
+            const matchDayValue =
+              (typeof data.matchday === "number" || typeof data.matchday === "string")
+                ? data.matchday
+                : (matchdayMap[matchId] ?? matchId);
+
             all.push({
               matchId,
+              matchDay: matchDayValue,
               matchCreatedISO,
               teamSide,
               team,
@@ -887,7 +943,9 @@
           goals.forEach(g => {
             const side = g.team === "team2" ? "team2" : "team1";
             const teamName = side === "team2" ? team2 : team1;
-            const timeLocal = toLocalTime(g.time);
+            const timeLocal = (typeof g.time === "number")
+              ? new Date(g.time).toLocaleTimeString()
+              : (g.time?.seconds ? new Date(g.time.seconds * 1000).toLocaleTimeString() : "");
             rows.push([teamName, g.scorer || "", g.assist || "", timeLocal || ""]);
           });
 
