@@ -1,6 +1,6 @@
 
 // /assets/js/teams-util.js
-export async function loadTeams(url = "data/teams.json") {
+export async function loadTeams(url = "teams.json") {
   const res = await fetch(url, { cache: "no-cache" });
   if (!res.ok) throw new Error(`Failed to load teams: ${res.status}`);
   const teams = await res.json();
