@@ -55,7 +55,6 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
           </button>
         </div>
       </div>
-      <a href="live_score.html" class="nav-link" data-key="live">Live Score</a>
 </nav>
 
     <!-- Mobile nav -->
