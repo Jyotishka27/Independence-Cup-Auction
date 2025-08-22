@@ -3,378 +3,618 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Live Score Admin — We Are Eleven</title>
+  <title>Live Score - We Are Eleven</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    html, body { background: #0b1220; color: #e5e7eb; }
-    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); }
-    .chip { border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.08); }
-    .btn { @apply px-3 py-2 rounded-xl font-semibold; }
-    .btn-ghost { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); }
-    .btn-prim { background: #22c55e; color: #0b1220; }
-    .btn-warn { background: #ef4444; color: white; }
-    .muted { color: #a7b0bf; }
-    select, input, button { outline: none; }
-    select, input { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      color: #1e293b;
+    }
+
+    .section-header { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; position: relative; overflow: hidden; }
+    .section-header::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #64748b, transparent); animation: shimmer 3s infinite; }
+    @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+
+    .match-card { background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%); border: 1px solid #e5e7eb; transition: all 0.2s ease; }
+    .match-card:hover { border-color: #d1d5db; transform: translateY(-2px); }
+
+    .vs-text { font-weight: 800; color: #64748b; text-shadow: 0 1px 2px rgb(0 0 0 / 0.1); }
+    .team-name { font-weight: 600; color: #111827; text-align: center; font-size: 1rem; margin-top: 0.25rem; }
+
+    .scoreline-badge { display:inline-block; padding:0.25rem 0.75rem; border-radius:9999px; background:linear-gradient(135deg,#111827,#1f2937); color:#fff; font-weight:700; box-shadow:0 2px 6px rgb(0 0 0 / 0.2); letter-spacing:0.5px }
+    .status-badge { display:inline-block; padding:0.15rem 0.5rem; border-radius:9999px; font-weight:700; font-size:0.75rem; margin-left:0.5rem }
+    .status-live { background:#dc2626; color:#fff; animation:pulse 1.8s infinite; }
+    .status-ht { background:#f59e0b; color:#111827; }
+    .status-ft { background:#6b7280; color:#fff; }
+    @keyframes pulse { 0%{ box-shadow:0 0 0 0 rgba(220,38,38,.6) } 70%{ box-shadow:0 0 0 8px rgba(220,38,38,0) } 100%{ box-shadow:0 0 0 0 rgba(220,38,38,0) } }
+
+    .scorer-list { font-size:0.9rem; line-height:1.2; }
+    .scorer-item { display:flex; align-items:flex-start; gap:0.5rem; }
+    .scorer-bullet { font-size:0.9rem; opacity:0.6 }
+    .muted { color:#6b7280 }
+
+    .badge { display:inline-flex; align-items:center; gap:.35rem; font-weight:600; font-size:.75rem; padding:.25rem .6rem; border-radius:9999px; border:1px solid #e2e8f0; background:#f1f5f9; color:#0f172a; }
+
+    .knockout-card { background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+    .knockout-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1); }
+
+    .final-card { background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #fbbf24; position: relative; }
+    .final-card::before { content: '👑'; position: absolute; top: -10px; right: -10px; font-size: 1.5rem; background: #fbbf24; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
   </style>
 </head>
-<body class="min-h-screen">
-  <div class="max-w-5xl mx-auto p-4 sm:p-6 space-y-6">
-    <header class="flex items-center justify-between">
-      <h1 class="text-2xl sm:text-3xl font-bold">Live Score Admin</h1>
-      <span id="envBadge" class="chip px-3 py-1 rounded-full text-sm">Firestore Connected</span>
-    </header>
+<body class="flex flex-col min-h-screen">
 
-    <!-- Match picker / meta -->
-    <section class="glass rounded-2xl p-4 sm:p-5 space-y-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+  <!-- Header -->
+  <div id="site-header"></div>
+
+  <!-- Main Content -->
+  <main class="flex-grow max-w-7xl mx-auto p-6 space-y-12">
+
+    <!-- Live Scores -->
+    <section class="section-header rounded-2xl shadow-lg p-8">
+      <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
         <div>
-          <label class="block text-sm muted mb-1">Select Match</label>
-          <select id="matchSelect" class="w-full p-2 rounded-xl" ></select>
+          <h2 class="text-3xl font-bold text-gray-900">📡 Live Scores</h2>
+          <p class="text-gray-600 text-sm">Realtime match updates with scorers & assisters.</p>
         </div>
-        <div class="flex gap-2 flex-wrap items-end sm:justify-end">
-          <span id="metaHomeAway" class="chip px-3 py-1 rounded-full text-sm">—</span>
-          <span id="metaStageDay" class="chip px-3 py-1 rounded-full text-sm">—</span>
-          <span id="metaDoc" class="chip px-3 py-1 rounded-full text-sm">—</span>
+        <div id="liveMeta" class="flex items-center gap-2 text-xs"></div>
+      </div>
+
+      <div id="matchesHost" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Group Standings -->
+    <section class="section-header rounded-2xl shadow-lg p-8">
+      <div class="flex items-center justify-between flex-wrap gap-3 mb-6">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900">📊 Group Standings</h2>
+          <p class="text-gray-600 text-sm">Auto-calculated from finished group matches.</p>
+        </div>
+        <div id="standingsMeta" class="flex items-center gap-2 text-xs"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Group A -->
+        <div class="rounded-2xl border border-slate-200 overflow-hidden">
+          <div class="bg-slate-100 px-4 py-2 font-semibold text-slate-700 flex items-center justify-between">
+            <span>Group A</span>
+            <span id="gaStatus" class="badge">Awaiting matches…</span>
+          </div>
+          <table class="min-w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr>
+                <th class="px-3 py-2 text-left">#</th>
+                <th class="px-3 py-2 text-left">Team</th>
+                <th class="px-3 py-2 text-right">P</th>
+                <th class="px-3 py-2 text-right">W</th>
+                <th class="px-3 py-2 text-right">D</th>
+                <th class="px-3 py-2 text-right">L</th>
+                <th class="px-3 py-2 text-right">GF</th>
+                <th class="px-3 py-2 text-right">GA</th>
+                <th class="px-3 py-2 text-right">GD</th>
+                <th class="px-3 py-2 text-right">Pts</th>
+              </tr>
+            </thead>
+            <tbody id="groupATbody" class="divide-y divide-slate-200 bg-white"></tbody>
+          </table>
+        </div>
+
+        <!-- Group B -->
+        <div class="rounded-2xl border border-slate-200 overflow-hidden">
+          <div class="bg-slate-100 px-4 py-2 font-semibold text-slate-700 flex items-center justify-between">
+            <span>Group B</span>
+            <span id="gbStatus" class="badge">Awaiting matches…</span>
+          </div>
+          <table class="min-w-full text-sm">
+            <thead class="bg-slate-50 text-slate-700">
+              <tr>
+                <th class="px-3 py-2 text-left">#</th>
+                <th class="px-3 py-2 text-left">Team</th>
+                <th class="px-3 py-2 text-right">P</th>
+                <th class="px-3 py-2 text-right">W</th>
+                <th class="px-3 py-2 text-right">D</th>
+                <th class="px-3 py-2 text-right">L</th>
+                <th class="px-3 py-2 text-right">GF</th>
+                <th class="px-3 py-2 text-right">GA</th>
+                <th class="px-3 py-2 text-right">GD</th>
+                <th class="px-3 py-2 text-right">Pts</th>
+              </tr>
+            </thead>
+            <tbody id="groupBTbody" class="divide-y divide-slate-200 bg-white"></tbody>
+          </table>
         </div>
       </div>
     </section>
 
-    <!-- Scoreboard -->
-    <section class="glass rounded-2xl p-5 sm:p-7">
-      <div id="scoreboard" class="grid grid-cols-1 gap-6">
-        <div class="grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
-          <div class="text-center sm:text-right">
-            <div class="text-xs uppercase tracking-wider muted">Home</div>
-            <div id="homeName" class="text-xl sm:text-2xl font-bold">—</div>
+    <!-- Knockout Stage (auto from standings & SF results) -->
+    <section class="section-header rounded-2xl shadow-lg p-8">
+      <div class="text-center mb-10">
+        <h2 class="text-4xl font-bold text-gray-900 mb-2"><span class="section-icon">🏆</span>Knockout Stage</h2>
+        <p class="text-gray-600 text-lg">Auto-updates after all group matches finish.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="knockout-card rounded-2xl shadow-md p-6">
+          <div class="text-center mb-6">
+            <h4 class="text-xl font-bold text-gray-800 mb-2">Semi Final 1</h4>
+            <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mx-auto"></div>
           </div>
-          <div class="text-center">
-            <div class="text-xs uppercase tracking-wider muted">Score</div>
-            <div class="text-4xl sm:text-6xl font-extrabold" id="scoreText">0 — 0</div>
-          </div>
-          <div class="text-center sm:text-left">
-            <div class="text-xs uppercase tracking-wider muted">Away</div>
-            <div id="awayName" class="text-xl sm:text-2xl font-bold">—</div>
+          <div class="flex flex-col items-center gap-4" id="sf1Slot">
+            <div class="text-sm text-gray-600">Winner Group A</div>
+            <span class="vs-text text-lg">VS</span>
+            <div class="text-sm text-gray-600">Runner-up Group B</div>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <button id="incHome" class="btn btn-prim rounded-2xl">+1 Home</button>
-          <button id="decHome" class="btn btn-ghost rounded-2xl">-1 Home</button>
-          <button id="incAway" class="btn btn-prim rounded-2xl">+1 Away</button>
-          <button id="decAway" class="btn btn-ghost rounded-2xl">-1 Away</button>
+        <div class="knockout-card rounded-2xl shadow-md p-6">
+          <div class="text-center mb-6">
+            <h4 class="text-xl font-bold text-gray-800 mb-2">Semi Final 2</h4>
+            <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent mx-auto"></div>
+          </div>
+          <div class="flex flex-col items-center gap-4" id="sf2Slot">
+            <div class="text-sm text-gray-600">Winner Group B</div>
+            <span class="vs-text text-lg">VS</span>
+            <div class="text-sm text-gray-600">Runner-up Group A</div>
+          </div>
         </div>
 
-        <div class="flex gap-3 flex-wrap">
-          <button id="resetScore" class="btn btn-warn rounded-2xl">Reset to 0–0</button>
-          <button id="swapSides" class="btn btn-ghost rounded-2xl">Swap Home/Away (reverse leg)</button>
+        <div class="knockout-card rounded-2xl shadow-md p-6">
+          <div class="text-center mb-6">
+            <h4 class="text-xl font-bold text-gray-800 mb-2">Third Place</h4>
+            <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-orange-400 to-transparent mx-auto"></div>
+          </div>
+          <div class="flex flex-col items-center gap-4" id="thirdSlot">
+            <div class="text-sm text-gray-600">Loser Semi Final 1</div>
+            <span class="vs-text text-lg">VS</span>
+            <div class="text-sm text-gray-600">Loser Semi Final 2</div>
+          </div>
+        </div>
+
+        <div class="final-card rounded-2xl shadow-lg p-6">
+          <div class="text-center mb-6">
+            <h4 class="text-xl font-bold text-amber-800 mb-2">Championship Final</h4>
+            <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto"></div>
+          </div>
+          <div class="flex flex-col items-center gap-4" id="finalSlot">
+            <div class="text-sm font-semibold text-amber-700">Winner SF1</div>
+            <span class="vs-text text-xl text-amber-600">VS</span>
+            <div class="text-sm font-semibold text-amber-700">Winner SF2</div>
+          </div>
         </div>
       </div>
+      <div class="text-center mt-4 text-sm text-slate-500" id="knockoutNote"></div>
     </section>
 
-    <!-- Create / manage match -->
-    <section class="glass rounded-2xl p-5 sm:p-7 space-y-4">
-      <h2 class="text-lg font-semibold">Create New Match</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm muted mb-1">Home Team</label>
-          <input id="homeInput" class="w-full p-2 rounded-xl" placeholder="Thunderbolt" />
-        </div>
-        <div>
-          <label class="block text-sm muted mb-1">Away Team</label>
-          <input id="awayInput" class="w-full p-2 rounded-xl" placeholder="Messiah FC" />
-        </div>
-        <div>
-          <label class="block text-sm muted mb-1">Matchday (optional)</label>
-          <input id="mdInput" type="number" min="1" class="w-full p-2 rounded-xl" placeholder="1" />
-        </div>
-        <div>
-          <label class="block text-sm muted mb-1">Stage (optional)</label>
-          <input id="stageInput" class="w-full p-2 rounded-xl" placeholder="Group A / QF / SF / Final" />
-        </div>
-      </div>
-      <div class="flex gap-3">
-        <button id="btnCreate" class="btn btn-prim rounded-2xl">Create Match</button>
-        <button id="btnDelete" class="btn btn-ghost rounded-2xl">Delete Selected</button>
-      </div>
-      <p class="muted text-sm">Tip: Use <span class="font-mono">Swap Home/Away</span> on an existing doc to prepare the reverse leg, then change Matchday or Stage and hit Create to make a new document.</p>
-    </section>
-  </div>
+  </main>
 
-  <!-- Firebase (Modular SDK) -->
+  <!-- Footer -->
+  <footer class="bg-gray-950 py-8 text-center text-gray-400 mt-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="text-lg">© 2025 Football Community. All Rights Reserved.</p>
+      <p class="text-sm mt-2 opacity-75">Bringing together the best in football competition</p>
+    </div>
+  </footer>
+
+  <!-- Header + teams -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, doc, setDoc, updateDoc, getDoc, addDoc, deleteDoc,
-             onSnapshot, query, orderBy, serverTimestamp, increment, getDocs, where, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { injectHeader } from "./tournament_header.js";
+    import { loadTeams, hydrateTeamLogos } from "./teams-util.js";
+    injectHeader("#site-header", { active: "live" }); // reuse style
+    try { const maps = await loadTeams(); hydrateTeamLogos(document, maps); } catch (e) { console.warn("Teams JSON load failed:", e); }
+  </script>
 
-    // --- Firebase config wiring ---
-// We try, in order:
-// 1) ./firebase-config.js exporting `firebaseConfig`
-// 2) window.FIREBASE_CONFIG (if you set it in a <script>)
-// 3) Fallback placeholders (edit inline if you prefer)
-let firebaseConfig = null;
-try {
-  const mod = await import('./firebase-config.js');
-  if (mod && mod.firebaseConfig) {
-    firebaseConfig = mod.firebaseConfig;
-    console.log('[Firebase] Using config from ./firebase-config.js');
-  }
-} catch (e) {
-  // ignore; file likely doesn't exist
-}
-if (!firebaseConfig && window.FIREBASE_CONFIG) {
-  firebaseConfig = window.FIREBASE_CONFIG;
-  console.log('[Firebase] Using config from window.FIREBASE_CONFIG');
-}
-if (!firebaseConfig) {
-  console.warn('[Firebase] Using inline fallback config. Replace with your real keys.');
-  firebaseConfig = {
-    apiKey: "AIzaSyB0DaaYB1hZLY8h23QOpT7Ok4sX5ACkHTM",
-    authDomain: "we-are-eleven.firebaseapp.com",
-    projectId: "we-are-eleven",
-    storageBucket: "we-are-eleven.firebasestorage.app",
-    messagingSenderId: "446706356039",
-    appId: "1:446706356039:web:54cc424f2a8178ae824662",
-    measurementId: "G-CX1LHHXBDQ"
-  };
-}
+  <!-- Live Score logic -->
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getFirestore, collection, doc, onSnapshot, query, orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { loadTeams } from "./teams-util.js";
 
-const app = initializeApp(firebaseConfig);
-    const db  = getFirestore(app);
-
-    // Elements
-    const els = {
-      matchSelect: document.getElementById('matchSelect'),
-      metaHomeAway: document.getElementById('metaHomeAway'),
-      metaStageDay: document.getElementById('metaStageDay'),
-      metaDoc: document.getElementById('metaDoc'),
-      homeName: document.getElementById('homeName'),
-      awayName: document.getElementById('awayName'),
-      scoreText: document.getElementById('scoreText'),
-      incHome: document.getElementById('incHome'),
-      decHome: document.getElementById('decHome'),
-      incAway: document.getElementById('incAway'),
-      decAway: document.getElementById('decAway'),
-      resetScore: document.getElementById('resetScore'),
-      swapSides: document.getElementById('swapSides'),
-      homeInput: document.getElementById('homeInput'),
-      awayInput: document.getElementById('awayInput'),
-      mdInput: document.getElementById('mdInput'),
-      stageInput: document.getElementById('stageInput'),
-      btnCreate: document.getElementById('btnCreate'),
-      btnDelete: document.getElementById('btnDelete'),
+    const firebaseConfig = {
+      apiKey: "AIzaSyB0DaaYB1hZLY8h23QOpT7Ok4sX5ACkHTM",
+      authDomain: "we-are-eleven.firebaseapp.com",
+      projectId: "we-are-eleven",
+      storageBucket: "we-are-eleven.firebasestorage.app",
+      messagingSenderId: "446706356039",
+      appId: "1:446706356039:web:db1bd26c20a2571b824662",
+      measurementId: "G-M3DSVHMNEV"
     };
 
-    // URL prefill (e.g., ?matchday=1&stage=Group%20A)
-    const url = new URL(location.href);
-    let prefillMatchday = url.searchParams.get('matchday');
-    let prefillStage    = url.searchParams.get('stage');
+    const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
 
-    // State
-    let currentMatchId = null;
-    let unsubMatch = null;
+    const els = {
+      matchesHost: document.getElementById('matchesHost'),
+      liveMeta: document.getElementById('liveMeta'),
+      gaBody: document.getElementById('groupATbody'),
+      gbBody: document.getElementById('groupBTbody'),
+      gaStatus: document.getElementById('gaStatus'),
+      gbStatus: document.getElementById('gbStatus'),
+      standingsMeta: document.getElementById('standingsMeta'),
+      sf1: document.getElementById('sf1Slot'),
+      sf2: document.getElementById('sf2Slot'),
+      third: document.getElementById('thirdSlot'),
+      final: document.getElementById('finalSlot'),
+      knockoutNote: document.getElementById('knockoutNote'),
+    };
 
-    // Helpers
-    const fmtId = (id) => id ? '…' + id.slice(-6) : '—';
-    const slugify = (s) => (s || '').toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9\-:]/g,'');
+    // ===== Helpers
+    const esc = s => String(s ?? "").replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+    const norm = s => (s || "").toString().trim().toLowerCase();
 
-    function renderMeta(data, id) {
-      const home = data?.homeTeam || data?.teamNames?.team1 || '—';
-      const away = data?.awayTeam || data?.teamNames?.team2 || '—';
-      els.metaHomeAway.textContent = `Home: ${home} • Away: ${away}`;
+    function toDate(ts){
+      if(!ts) return null;
+      if(typeof ts === 'number') return new Date(ts);
+      if(typeof ts === 'object' && typeof ts.seconds === 'number') return new Date(ts.seconds*1000);
+      return null;
+    }
+    function tsToMs(ts){ const d = toDate(ts); return d ? d.getTime() : null; }
 
-      const md = (data?.matchday !== undefined && data?.matchday !== null) ? `MD ${data.matchday}` : null;
-      const st = data?.stage ? data.stage : null;
-      els.metaStageDay.textContent = [st, md].filter(Boolean).join(' • ') || '—';
-      els.metaDoc.textContent = `Doc ${fmtId(id)}`;
-
-      els.homeName.textContent = home;
-      els.awayName.textContent = away;
-
-      const s1 = data?.scores?.team1 ?? 0;
-      const s2 = data?.scores?.team2 ?? 0;
-      els.scoreText.textContent = `${s1} — ${s2}`;
+    // 8 + 8 mins: goal minute display (adds 8' base for second half)
+    function minuteStr(goalTime, doc){
+      const t = tsToMs(goalTime);
+      const ko = tsToMs(doc?.kickoff);
+      const h2 = tsToMs(doc?.secondHalfStart);
+      if (t && ko){
+        if (h2 && t >= h2){
+          const mins = 8 + Math.max(0, Math.floor((t - h2) / 60000));
+          return `${mins}’`;
+        }
+        const mins = Math.max(0, Math.floor((t - ko) / 60000));
+        return `${mins}’`;
+      }
+      return toDate(goalTime) ? toDate(goalTime).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : "";
     }
 
-    function setButtonsEnabled(enabled) {
-      [els.incHome, els.decHome, els.incAway, els.decAway, els.resetScore, els.swapSides, els.btnDelete]
-        .forEach(b => { b.disabled = !enabled; b.style.opacity = enabled ? 1 : 0.5; });
+    // tolerant LIVE/HT/FT logic (works with status OR timestamps you set from the scoreboard page)
+    function computeStatus(doc){
+      const s = (doc.status || "").toLowerCase();
+      const ko  = toDate(doc.kickoff);
+      const h1e = toDate(doc.firstHalfEnd);
+      const h2s = toDate(doc.secondHalfStart);
+      const ft  = toDate(doc.fulltime);
+
+      if (s === 'ft' || doc.fulltime === true || ft) return { text:'FT', cls:'status-badge status-ft' };
+      if (s === 'ht' || (h1e && !h2s))               return { text:'HT', cls:'status-badge status-ht' };
+      if (s === 'live')                               return { text:'LIVE', cls:'status-badge status-live' };
+
+      if (h2s && !ft) return { text:'LIVE', cls:'status-badge status-live' };
+      if (h1e && !h2s) return { text:'HT',   cls:'status-badge status-ht' };
+      if (ko && !h1e)  return { text:'LIVE', cls:'status-badge status-live' };
+
+      return null;
     }
 
-    // Listen to match collection (for select)
-    function listenToMatchList() {
-      const qy = query(collection(db, 'matches'), orderBy('created', 'desc'));
-      onSnapshot(qy, (snap) => {
-        // Preserve current selection if possible
-        const keep = els.matchSelect.value;
-        els.matchSelect.innerHTML = '';
-        snap.forEach((d) => {
-          const data = d.data();
-          const t1 = data?.homeTeam || data?.teamNames?.team1 || 'Home';
-          const t2 = data?.awayTeam || data?.teamNames?.team2 || 'Away';
-          const tag = data?.stage ? ` • ${data.stage}` : (data?.matchday ? ` • MD ${data.matchday}` : '');
-          const opt = document.createElement('option');
-          opt.value = d.id;
-          opt.textContent = `${t1} vs ${t2}${tag} • ${fmtId(d.id)}`;
-          els.matchSelect.appendChild(opt);
+    function matchScore(doc){
+      const s1 = (typeof doc?.scores?.team1 === 'number') ? doc.scores.team1 : null;
+      const s2 = (typeof doc?.scores?.team2 === 'number') ? doc.scores.team2 : null;
+      return (s1==null || s2==null) ? null : { s1, s2 };
+    }
+
+    // ===== Load teams + group mapping (use teams-util if available; otherwise fallback)
+    let TEAM_TO_GROUP = new Map();    // normalized name -> 'A' | 'B'
+    let NAME_BY_NORM  = new Map();    // normalized name -> original display name
+
+    try {
+      const maps = await loadTeams(); // optional: if your teams JSON includes { group }
+      if (maps?.byName && typeof maps.byName.get === 'function') {
+        maps.byName.forEach((meta, name) => {
+          if (meta?.group) {
+            const g = String(meta.group).toUpperCase();
+            const n = norm(name);
+            TEAM_TO_GROUP.set(n, g);
+            NAME_BY_NORM.set(n, name);
+          }
         });
-        if (snap.size === 0) {
-          const opt = document.createElement('option');
-          opt.value = '';
-          opt.textContent = 'No matches yet';
-          els.matchSelect.appendChild(opt);
-          setButtonsEnabled(false);
-          currentMatchId = null;
-          return;
-        }
-        // Restore selection or pick first
-        const target = keep && [...els.matchSelect.options].some(o => o.value === keep) ? keep : els.matchSelect.options[0].value;
-        els.matchSelect.value = target;
-        selectMatch(target);
-      });
-    }
-
-    // Listen to a single match doc
-    function listenToMatchDoc(matchId) {
-      if (unsubMatch) unsubMatch();
-      const ref = doc(db, 'matches', matchId);
-      unsubMatch = onSnapshot(ref, (d) => {
-        if (!d.exists()) return;
-        renderMeta(d.data(), d.id);
-        setButtonsEnabled(true);
-      });
-    }
-
-    async function selectMatch(matchId) {
-      if (!matchId) return;
-      currentMatchId = matchId;
-      listenToMatchDoc(matchId);
-
-      const ref = doc(db, 'matches', matchId);
-      const s = await getDoc(ref);
-      if (s.exists()) {
-        const data = s.data();
-        // One-time fill from URL ONLY if the field is missing
-        const update = {};
-        let needsUpdate = false;
-        if ((data.matchday === undefined || data.matchday === null) && (prefillMatchday !== null && prefillMatchday !== '')) {
-          update.matchday = Number(prefillMatchday);
-          needsUpdate = true;
-        }
-        if ((!data.stage || data.stage === '') && (prefillStage && prefillStage !== '')) {
-          update.stage = prefillStage;
-          needsUpdate = true;
-        }
-        if (needsUpdate) {
-          await updateDoc(ref, { ...update, updated: serverTimestamp() });
-        }
-        // IMPORTANT: clear prefill so it can't bleed into other matches
-        prefillMatchday = null;
-        prefillStage = null;
       }
-    }
-
-    // Score ops (always mutate scores.team1/team2 only)
-    async function addScore(side, delta) {
-      if (!currentMatchId) return;
-      const ref = doc(db, 'matches', currentMatchId);
-      await updateDoc(ref, {
-        [`scores.${side}`]: increment(delta),
-        updated: serverTimestamp()
-      });
-    }
-
-    async function resetScores() {
-      if (!currentMatchId) return;
-      const ref = doc(db, 'matches', currentMatchId);
-      await updateDoc(ref, {
-        'scores.team1': 0,
-        'scores.team2': 0,
-        updated: serverTimestamp()
-      });
-    }
-
-    async function swapHomeAway() {
-      if (!currentMatchId) return;
-      const ref = doc(db, 'matches', currentMatchId);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) return;
-      const d = snap.data();
-      const newHome = d?.awayTeam || d?.teamNames?.team2;
-      const newAway = d?.homeTeam || d?.teamNames?.team1;
-
-      await updateDoc(ref, {
-        homeTeam: newHome,
-        awayTeam: newAway,
-        teamNames: { team1: newHome, team2: newAway }, // keep UI consistent
-        updated: serverTimestamp()
-      });
-    }
-
-    // Create / Delete
-    async function createMatch() {
-      const home = els.homeInput.value.trim();
-      const away = els.awayInput.value.trim();
-      const md   = els.mdInput.value ? Number(els.mdInput.value) : null;
-      const st   = els.stageInput.value.trim() || null;
-      if (!home || !away) { alert('Please enter both Home and Away team names.'); return; }
-
-      // Unique slug: matchday::home::away (or stage::home::away)
-      const slug = `${md !== null ? 'md' + md : (st || 'na')}::${home}::${away}`.toLowerCase();
-      const exists = await getDocs(query(collection(db, 'matches'), where('slug','==', slug), limit(1)));
-      if (!exists.empty) {
-        // Focus existing document
-        const id = exists.docs[0].id;
-        els.matchSelect.value = id;
-        await selectMatch(id);
-        return;
+      if (maps?.teams && typeof maps.teams === 'object') {
+        Object.entries(maps.teams).forEach(([name, meta]) => {
+          if (meta?.group) {
+            const g = String(meta.group).toUpperCase();
+            const n = norm(name);
+            TEAM_TO_GROUP.set(n, g);
+            NAME_BY_NORM.set(n, name);
+          }
+        });
       }
+    } catch(e) {
+      console.warn('Could not load team groups from teams-util.js', e);
+    }
 
-      const payload = {
-        homeTeam: home,
-        awayTeam: away,
-        teamNames: { team1: home, team2: away },
-        scores: { team1: 0, team2: 0 },
-        matchday: md,
-        stage: st,
-        slug: slugify(slug),
-        created: serverTimestamp(),
-        updated: serverTimestamp()
+    
+    // Fold aliases (from teams-util.js) into the same groups/canonical names
+    try {
+      const _maps = await loadTeams();
+      if (_maps?.aliases && typeof _maps.aliases.forEach === 'function') {
+        _maps.aliases.forEach((canonicalNorm, aliasNorm) => {
+          const g = TEAM_TO_GROUP.get(canonicalNorm);
+          if (g) TEAM_TO_GROUP.set(aliasNorm, g);
+          if (!NAME_BY_NORM.has(aliasNorm)) {
+            NAME_BY_NORM.set(aliasNorm, NAME_BY_NORM.get(canonicalNorm) || canonicalNorm);
+          }
+        });
+      }
+    } catch(e) { /* ignore */ }
+    // --- REQUIRED FALLBACK: your confirmed groups ---
+    const DEFAULT_GROUPS = {
+      "Thunderbolt": "A",
+      "Messiah FC": "A",
+      "White Panthers": "A",
+      "Amigos FC": "B",
+      "Strawhat Pirates": "B",
+      "Red Bulls Eleven": "B"
+    };
+    for (const [team, grp] of Object.entries(DEFAULT_GROUPS)) {
+      const n = norm(team);
+      if (!TEAM_TO_GROUP.has(n)) TEAM_TO_GROUP.set(n, grp);
+      if (!NAME_BY_NORM.has(n))  NAME_BY_NORM.set(n, team);
+    }
+
+    const getGroup    = (teamName) => TEAM_TO_GROUP.get(norm(teamName)) || null;
+    const displayName = (teamName) => NAME_BY_NORM.get(norm(teamName)) || teamName;
+
+    // ===== Render match cards
+    function renderMatchCard(d){
+      const t1 = d.teamNames?.team1 || 'Team A';
+      const t2 = d.teamNames?.team2 || 'Team B';
+      const score = matchScore(d);
+      const status = computeStatus(d);
+      const goals = Array.isArray(d.goals) ? d.goals : [];
+
+      const gs1 = [], gs2 = [];
+      goals.forEach(g=>{
+        const side = (g.team === 'team2') ? 'team2' : 'team1';
+        const who = g.scorer || '';
+        const ast = g.assist ? ` (${g.assist})` : '';
+        const m = minuteStr(g.time, d);
+        const label = [esc(who + ast), m].filter(Boolean).join(' ');
+        if (!who) return;
+        if (side==='team1') gs1.push(label); else gs2.push(label);
+      });
+
+      const div = document.createElement('div');
+      div.className = 'match-card rounded-xl shadow-md p-6';
+      div.innerHTML = `
+        <div class="flex items-center justify-center gap-6">
+          <div class="flex flex-col items-center">
+            <span class="team-name">${esc(t1)}</span>
+          </div>
+          <div class="text-center">
+            ${
+              score
+                ? `<span class="scoreline-badge">${score.s1} – ${score.s2}</span>`
+                : `<span class="scoreline-badge">VS</span>`
+            }
+            ${status ? ` <span class="${status.cls}">${status.text}</span>` : ''}
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="team-name">${esc(t2)}</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-4">
+          <div>
+            <div class="text-xs font-semibold text-slate-500 mb-1">Scorers</div>
+            <div class="scorer-list">
+              ${gs1.length ? gs1.map(n=>`<div class="scorer-item"><span class="scorer-bullet">•</span><span>${n}</span></div>`).join('') : `<div class='muted'>—</div>`}
+            </div>
+          </div>
+          <div>
+            <div class="text-xs font-semibold text-slate-500 mb-1">Scorers</div>
+            <div class="scorer-list">
+              ${gs2.length ? gs2.map(n=>`<div class="scorer-item"><span class="scorer-bullet">•</span><span>${n}</span></div>`).join('') : `<div class='muted'>—</div>`}
+            </div>
+          </div>
+        </div>
+      `;
+      return div;
+    }
+
+    function renderMatchList(matches){
+      els.matchesHost.innerHTML = '';
+      matches.forEach(docSnap=>{
+        const d = docSnap.data() || {};
+        els.matchesHost.appendChild(renderMatchCard(d));
+      });
+      els.liveMeta.innerHTML = `<span class="badge">Showing ${matches.length} matches</span>`;
+    }
+
+    // ===== Standings
+    function emptyStats() { return { P:0,W:0,D:0,L:0,GF:0,GA:0,GD:0,Pts:0 }; }
+    function addResult(stats, gf, ga){
+      stats.P += 1; stats.GF += gf; stats.GA += ga; stats.GD = stats.GF - stats.GA;
+      if (gf>ga){ stats.W+=1; stats.Pts+=3; } else if (gf===ga){ stats.D+=1; stats.Pts+=1; } else { stats.L+=1; }
+    }
+
+    function groupSetsFromMapping(){
+      const A = new Set(), B = new Set();
+      TEAM_TO_GROUP.forEach((g, nName) => { if (g==='A') A.add(nName); if (g==='B') B.add(nName); });
+      return { A, B };
+    }
+
+    function buildStandings(matches){
+      // seed all teams
+      const { A:setA, B:setB } = groupSetsFromMapping();
+      const table = { A:new Map(), B:new Map() };
+
+      setA.forEach(nm => table.A.set(displayName(nm), emptyStats()));
+      setB.forEach(nm => table.B.set(displayName(nm), emptyStats()));
+
+      // aggregate only FT matches where both teams are in the same group
+      matches.forEach(docSnap=>{
+        const d = docSnap.data() || {};
+        const t1 = (d.teamNames?.team1 || '').trim();
+        const t2 = (d.teamNames?.team2 || '').trim();
+        if (!t1 || !t2) return;
+
+        const g1 = getGroup(t1);
+        const g2 = getGroup(t2);
+        if (!g1 || !g2 || g1 !== g2) return;
+
+        const status = computeStatus(d);
+        const s1 = (typeof d?.scores?.team1 === 'number') ? d.scores.team1 : null;
+        const s2 = (typeof d?.scores?.team2 === 'number') ? d.scores.team2 : null;
+        if (!status || status.text !== 'FT' || s1==null || s2==null) return;
+
+        const g = g1; // "A" or "B"
+        const map = table[g];
+
+        const dn1 = displayName(t1);
+        const dn2 = displayName(t2);
+        if (!map.has(dn1)) map.set(dn1, emptyStats());
+        if (!map.has(dn2)) map.set(dn2, emptyStats());
+
+        addResult(map.get(dn1), s1, s2);
+        addResult(map.get(dn2), s2, s1);
+      });
+
+      return { table, groupRoster: groupSetsFromMapping() };
+    }
+
+    function sortRows(map){
+      const rows = [];
+      map.forEach((v,k)=> rows.push({ team:k, ...v }));
+      rows.sort((a,b)=> b.Pts - a.Pts || b.GD - a.GD || b.GF - a.GF || a.team.localeCompare(b.team));
+      return rows;
+    }
+
+    function requiredMatchesFor(groupSet){
+  const n = groupSet.size;
+  return n * (n - 1); // double round-robin
+}
+
+    function renderStandingsCell(tbody, rows){
+      tbody.innerHTML = '';
+      rows.forEach((r,i)=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-3 py-2 text-slate-500">${i+1}</td>
+          <td class="px-3 py-2">${esc(r.team)}</td>
+          <td class="px-3 py-2 text-right">${r.P}</td>
+          <td class="px-3 py-2 text-right">${r.W}</td>
+          <td class="px-3 py-2 text-right">${r.D}</td>
+          <td class="px-3 py-2 text-right">${r.L}</td>
+          <td class="px-3 py-2 text-right">${r.GF}</td>
+          <td class="px-3 py-2 text-right">${r.GA}</td>
+          <td class="px-3 py-2 text-right">${r.GD}</td>
+          <td class="px-3 py-2 text-right font-semibold">${r.Pts}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function countGroupFT(docs, groupLetter){
+      let c = 0;
+      docs.forEach(d=>{
+        const data = d.data() || {};
+        const t1 = (data.teamNames?.team1 || '').trim();
+        const t2 = (data.teamNames?.team2 || '').trim();
+        const g1 = getGroup(t1), g2 = getGroup(t2);
+        const status = computeStatus(data);
+        const s1 = (typeof data?.scores?.team1 === 'number') ? data.scores.team1 : null;
+        const s2 = (typeof data?.scores?.team2 === 'number') ? data.scores.team2 : null;
+        if (g1===groupLetter && g2===groupLetter && status && status.text==='FT' && s1!=null && s2!=null) c++;
+      });
+      return c;
+    }
+
+    // ===== Knockout logic
+    function updateKnockouts(rowsA, rowsB, matches){
+      const winnerA = rowsA[0]?.team || 'Winner Group A';
+      const runnerA = rowsA[1]?.team || 'Runner-up Group A';
+      const winnerB = rowsB[0]?.team || 'Winner Group B';
+      const runnerB = rowsB[1]?.team || 'Runner-up Group B';
+
+      els.sf1.innerHTML = `
+        <div class="text-sm font-medium text-gray-800">${esc(winnerA)}</div>
+        <span class="vs-text text-lg">VS</span>
+        <div class="text-sm font-medium text-gray-800">${esc(runnerB)}</div>
+      `;
+      els.sf2.innerHTML = `
+        <div class="text-sm font-medium text-gray-800">${esc(winnerB)}</div>
+        <span class="vs-text text-lg">VS</span>
+        <div class="text-sm font-medium text-gray-800">${esc(runnerA)}</div>
+      `;
+
+      const findByStage = (stage) => matches.find(m => (m.data()?.stage || '').toLowerCase() === stage.toLowerCase());
+
+      const sf1Doc = findByStage('Semi Final 1');
+      const sf2Doc = findByStage('Semi Final 2');
+
+      const pickWinner = (d)=>{
+        if (!d) return null;
+        const data = d.data();
+        const s = matchScore(data);
+        const status = computeStatus(data);
+        if (!s || !status || status.text!=='FT') return null;
+        if (s.s1===s.s2) return null;
+        const t1 = data.teamNames?.team1 || '';
+        const t2 = data.teamNames?.team2 || '';
+        return s.s1>s.s2 ? t1 : t2;
       };
-      const col = collection(db, 'matches');
-      const newRef = await addDoc(col, payload);
-      els.matchSelect.value = newRef.id;
-      await selectMatch(newRef.id);
+      const pickLoser = (d)=>{
+        if (!d) return null;
+        const data = d.data();
+        const s = matchScore(data);
+        const status = computeStatus(data);
+        if (!s || !status || status.text!=='FT') return null;
+        if (s.s1===s.s2) return null;
+        const t1 = data.teamNames?.team1 || '';
+        const t2 = data.teamNames?.team2 || '';
+        return s.s1<s.s2 ? t1 : t2;
+      };
 
-      // Clear inputs for next create
-      els.homeInput.value = '';
-      els.awayInput.value = '';
-      els.mdInput.value = '';
-      els.stageInput.value = '';
+      const w1 = pickWinner(sf1Doc), w2 = pickWinner(sf2Doc);
+      const l1 = pickLoser(sf1Doc),  l2 = pickLoser(sf2Doc);
+
+      els.third.innerHTML = `
+        <div class="text-sm font-medium text-gray-800">${esc(l1 || 'Loser Semi Final 1')}</div>
+        <span class="vs-text text-lg">VS</span>
+        <div class="text-sm font-medium text-gray-800">${esc(l2 || 'Loser Semi Final 2')}</div>
+      `;
+      els.final.innerHTML = `
+        <div class="text-sm font-semibold text-amber-700">${esc(w1 || 'Winner SF1')}</div>
+        <span class="vs-text text-xl text-amber-600">VS</span>
+        <div class="text-sm font-semibold text-amber-700">${esc(w2 || 'Winner SF2')}</div>
+      `;
     }
 
-    async function deleteSelected() {
-      if (!currentMatchId) return;
-      if (!confirm('Delete this match document permanently?')) return;
-      await deleteDoc(doc(db, 'matches', currentMatchId));
-      currentMatchId = null;
-      setButtonsEnabled(false);
-    }
+    // ===== Live wiring
+    const qMatches = query(collection(db, 'matches'), orderBy('created','desc'));
+    onSnapshot(qMatches, snap => {
+      const docs = snap.docs;
+      renderMatchList(docs);
 
-    // Wire UI
-    els.matchSelect.addEventListener('change', (e) => selectMatch(e.target.value));
-    els.incHome.addEventListener('click', () => addScore('team1', +1));
-    els.decHome.addEventListener('click', () => addScore('team1', -1));
-    els.incAway.addEventListener('click', () => addScore('team2', +1));
-    els.decAway.addEventListener('click', () => addScore('team2', -1));
-    els.resetScore.addEventListener('click', resetScores);
-    els.swapSides.addEventListener('click', swapHomeAway);
-    els.btnCreate.addEventListener('click', createMatch);
-    els.btnDelete.addEventListener('click', deleteSelected);
+      const { table, groupRoster } = buildStandings(docs);
+      const rowsA = sortRows(table.A);
+      const rowsB = sortRows(table.B);
 
-    // Boot
-    setButtonsEnabled(false);
-    listenToMatchList();
+      renderStandingsCell(els.gaBody, rowsA);
+      renderStandingsCell(els.gbBody, rowsB);
+
+      const reqA = requiredMatchesFor(groupRoster.A);
+      const reqB = requiredMatchesFor(groupRoster.B);
+
+      const playedA = reqA ? countGroupFT(docs, 'A') : 0;
+      const playedB = reqB ? countGroupFT(docs, 'B') : 0;
+
+      const doneA = reqA > 0 && playedA >= reqA;
+      const doneB = reqB > 0 && playedB >= reqB;
+
+      els.gaStatus.textContent = reqA ? (doneA ? 'Complete' : `Waiting (${Math.min(playedA, reqA)}/${reqA})`) : 'No teams';
+      els.gbStatus.textContent = reqB ? (doneB ? 'Complete' : `Waiting (${Math.min(playedB, reqB)}/${reqB})`) : 'No teams';
+      els.standingsMeta.innerHTML = `<span class="badge">Groups detected: A=${groupRoster.A.size || 0}, B=${groupRoster.B.size || 0}</span>`;
+
+      if (doneA && doneB && rowsA.length>=2 && rowsB.length>=2) {
+        updateKnockouts(rowsA, rowsB, docs);
+        els.knockoutNote.textContent = '';
+      } else {
+        updateKnockouts([], [], docs);
+        els.knockoutNote.textContent = 'Bracket will finalize after all group matches are completed.';
+      }
+    });
   </script>
 </body>
 </html>
