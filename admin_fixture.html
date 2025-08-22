@@ -323,6 +323,47 @@
       </div>
     </section>
 
+    <!-- ✅ Admin Tools: Goals (Scorers & Assists) -->
+    <section class="section-header rounded-2xl shadow-lg p-8">
+      <div class="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-1">
+            <span class="section-icon">🥅</span>Goals (Scorers & Assists)
+          </h2>
+          <p class="text-gray-600 text-sm">Export every goal with scorer, assist, team, opponent, and timestamps.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="fetchGoalsBtn" class="px-4 py-2 rounded-xl font-semibold text-white bg-emerald-600 hover:bg-emerald-500">
+            Fetch Goals
+          </button>
+          <button id="downloadGoalsCsvBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900 disabled:opacity-50" disabled>
+            Download CSV
+          </button>
+          <button id="downloadGoalsJsonBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900 disabled:opacity-50" disabled>
+            Download JSON
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-3 text-sm text-slate-600" id="goalsStatus"></div>
+
+      <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200">
+        <table class="min-w-full text-sm" id="goalsTable" style="display:none;">
+          <thead class="bg-slate-100 text-slate-700">
+            <tr>
+              <th class="px-3 py-2 text-left">Match</th>
+              <th class="px-3 py-2 text-left">Team</th>
+              <th class="px-3 py-2 text-left">Opponent</th>
+              <th class="px-3 py-2 text-left">Scorer</th>
+              <th class="px-3 py-2 text-left">Assist</th>
+              <th class="px-3 py-2 text-left">Time (Local)</th>
+            </tr>
+          </thead>
+          <tbody id="goalsTbody" class="divide-y divide-slate-200 bg-white"></tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- Knockout Stage Section -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="text-center mb-10">
@@ -492,7 +533,7 @@
     });
   </script>
 
-  <!-- ✅ Firestore: Fetch team results, render table, download CSV -->
+  <!-- ✅ Firestore: Standings + Goals exports (single module, single init) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -511,6 +552,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // ---------- Standings ----------
     const els = {
       fetchBtn: document.getElementById("fetchResultsBtn"),
       csvBtn: document.getElementById("downloadCsvBtn"),
@@ -560,8 +602,8 @@
       return lines.join("\n");
     }
 
-    function downloadCSV(filename, content) {
-      const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
+    function download(filename, content, mime) {
+      const blob = new Blob([content], { type: mime || "text/plain;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url; a.download = filename;
@@ -634,7 +676,148 @@
     els.csvBtn.addEventListener("click", () => {
       if (!standingsRows.length) return;
       const csv = toCSV(standingsRows);
-      downloadCSV("team_results.csv", csv);
+      download("team_results.csv", csv, "text/csv;charset=utf-8");
+    });
+
+    // ---------- Goals (Scorers & Assists) ----------
+    const gEls = {
+      fetchBtn: document.getElementById("fetchGoalsBtn"),
+      csvBtn: document.getElementById("downloadGoalsCsvBtn"),
+      jsonBtn: document.getElementById("downloadGoalsJsonBtn"),
+      status: document.getElementById("goalsStatus"),
+      table: document.getElementById("goalsTable"),
+      tbody: document.getElementById("goalsTbody"),
+    };
+
+    let goalsRows = [];
+
+    function toISO(ts) {
+      if (!ts) return "";
+      if (typeof ts === "number") return new Date(ts).toISOString();
+      if (typeof ts === "object" && typeof ts.seconds === "number") {
+        return new Date(ts.seconds * 1000).toISOString();
+      }
+      return "";
+    }
+
+    function toLocalTime(ts) {
+      if (!ts) return "";
+      if (typeof ts === "number") return new Date(ts).toLocaleTimeString();
+      if (typeof ts === "object" && typeof ts.seconds === "number") {
+        return new Date(ts.seconds * 1000).toLocaleTimeString();
+      }
+      return "";
+    }
+
+    function renderGoalsTable(rows) {
+      gEls.tbody.innerHTML = "";
+      rows.forEach(r => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="px-3 py-2 text-slate-500">${escapeHtml(r.matchId)}</td>
+          <td class="px-3 py-2">${escapeHtml(r.team)}</td>
+          <td class="px-3 py-2">${escapeHtml(r.opponent)}</td>
+          <td class="px-3 py-2">${escapeHtml(r.scorer)}</td>
+          <td class="px-3 py-2">${escapeHtml(r.assist || "")}</td>
+          <td class="px-3 py-2">${escapeHtml(r.goalTimeLocal || "")}</td>
+        `;
+        gEls.tbody.appendChild(tr);
+      });
+      gEls.table.style.display = rows.length ? "table" : "none";
+    }
+
+    function goalsToCSV(rows) {
+      const headers = ["match_id","match_created_iso","team_side","team_name","opponent","scorer","assist","goal_time_iso","goal_time_local"];
+      const lines = [headers.join(",")];
+      rows.forEach(r => {
+        const q = s => `"${String(s ?? "").replace(/"/g,'""')}"`;
+        lines.push([
+          r.matchId,
+          r.matchCreatedISO || "",
+          r.teamSide,
+          q(r.team),
+          q(r.opponent),
+          q(r.scorer),
+          q(r.assist),
+          r.goalTimeISO || "",
+          r.goalTimeLocal || ""
+        ].join(","));
+      });
+      return lines.join("\n");
+    }
+
+    async function fetchGoals() {
+      gEls.status.textContent = "Loading goals…";
+      gEls.fetchBtn.disabled = true;
+      gEls.csvBtn.disabled = true;
+      gEls.jsonBtn.disabled = true;
+
+      try {
+        const qMatches = query(collection(db, "matches"), orderBy("created", "desc"));
+        const snap = await getDocs(qMatches);
+
+        const all = [];
+
+        snap.forEach(docSnap => {
+          const matchId = docSnap.id;
+          const data = docSnap.data() || {};
+          const created = data.created;
+          const matchCreatedISO = toISO(created);
+          const names = data.teamNames || {};
+          const goals = Array.isArray(data.goals) ? data.goals : [];
+
+          const team1Name = (names.team1 || "").trim();
+          const team2Name = (names.team2 || "").trim();
+
+          goals.forEach(g => {
+            const teamSide = g.team === "team2" ? "team2" : "team1"; // default to team1
+            const team = teamSide === "team2" ? team2Name : team1Name;
+            const opponent = teamSide === "team2" ? team1Name : team2Name;
+
+            all.push({
+              matchId,
+              matchCreatedISO,
+              teamSide,
+              team,
+              opponent,
+              scorer: g.scorer || "",
+              assist: g.assist || "",
+              goalTimeISO: toISO(g.time),
+              goalTimeLocal: toLocalTime(g.time),
+            });
+          });
+        });
+
+        // Sort newest goals first by goal time (fallback to match created)
+        all.sort((a, b) => {
+          const tA = a.goalTimeISO || a.matchCreatedISO || "";
+          const tB = b.goalTimeISO || b.matchCreatedISO || "";
+          return (tA < tB) ? 1 : (tA > tB ? -1 : 0);
+        });
+
+        goalsRows = all;
+        renderGoalsTable(all);
+
+        gEls.csvBtn.disabled = all.length === 0;
+        gEls.jsonBtn.disabled = all.length === 0;
+        gEls.status.textContent = all.length ? `Loaded ${all.length} goals from ${snap.size} matches.` : "No goals found.";
+      } catch (err) {
+        console.error(err);
+        gEls.status.textContent = "Failed to load goals.";
+        alert("Error loading goals. Check console for details.");
+      } finally {
+        gEls.fetchBtn.disabled = false;
+      }
+    }
+
+    gEls.fetchBtn.addEventListener("click", fetchGoals);
+    gEls.csvBtn.addEventListener("click", () => {
+      if (!goalsRows.length) return;
+      download("goals.csv", goalsToCSV(goalsRows), "text/csv;charset=utf-8");
+    });
+    gEls.jsonBtn.addEventListener("click", () => {
+      if (!goalsRows.length) return;
+      download("goals.json", JSON.stringify(goalsRows, null, 2), "application/json;charset=utf-8");
     });
   </script>
   
