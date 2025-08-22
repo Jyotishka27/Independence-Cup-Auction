@@ -352,25 +352,24 @@
         setLoading(true);
 
         // Simulate network delay for better UX
-        setTimeout(() => {
-          if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-            btnText.textContent = "Access Granted!";
-            setTimeout(() => {
-              window.location.href = "admin_fixture.html";
-            }, 1000);
-          } else {
-            setLoading(false);
-            btnText.textContent = "Access Admin Panel";
-            showError("Invalid credentials. Access denied.");
-            
-            // Add shake animation to form
-            loginForm.style.animation = "shake 0.5s ease-in-out";
-            setTimeout(() => {
-              loginForm.style.animation = "";
-            }, 500);
-          }
-        }, 1000);
-      });
+		setTimeout(() => {
+		  if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+		    btnText.textContent = "Access Granted!";
+		    setTimeout(() => {
+		      window.location.href = "admin_fixture.html";   // ✅ updated redirect
+		    }, 1000);
+		  } else {
+		    setLoading(false);
+		    btnText.textContent = "Access Admin Panel";
+		    showError("Invalid credentials. Access denied.");
+		    
+		    // Add shake animation to form
+		    loginForm.style.animation = "shake 0.5s ease-in-out";
+		    setTimeout(() => {
+		      loginForm.style.animation = "";
+		    }, 500);
+		  }
+		}, 1000);
 
       // Input focus effects
       const inputs = document.querySelectorAll('.form-input');
@@ -405,7 +404,7 @@
       });
     })();
   </script>
-<script type="module">
+  <script type="module">
     import { injectHeader } from "./header.js";
     import { loadTeams, hydrateTeamLogos } from "./teams-util.js";
     // Header
