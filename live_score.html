@@ -208,8 +208,7 @@
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import {
-      getFirestore, collection, doc, onSnapshot, query, orderBy,
-      getDoc
+      getFirestore, collection, doc, onSnapshot, query, orderBy
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { loadTeams } from "./teams-util.js";
 
@@ -241,8 +240,6 @@
       knockoutNote: document.getElementById('knockoutNote'),
     };
 
-    const HALF_LEN_MS = 8 * 60 * 1000;
-
     // ===== Helpers
     const esc = s => String(s ?? "").replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
     const norm = s => (s || "").toString().trim().toLowerCase();
@@ -255,6 +252,7 @@
     }
     function tsToMs(ts){ const d = toDate(ts); return d ? d.getTime() : null; }
 
+    // 8 + 8 mins: goal minute display (adds 8' base for second half)
     function minuteStr(goalTime, doc){
       const t = tsToMs(goalTime);
       const ko = tsToMs(doc?.kickoff);
@@ -270,6 +268,7 @@
       return toDate(goalTime) ? toDate(goalTime).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : "";
     }
 
+    // tolerant LIVE/HT/FT logic (works with status OR timestamps you set from the scoreboard page)
     function computeStatus(doc){
       const s = (doc.status || "").toLowerCase();
       const ko  = toDate(doc.kickoff);
@@ -277,14 +276,13 @@
       const h2s = toDate(doc.secondHalfStart);
       const ft  = toDate(doc.fulltime);
 
-      if (s === 'ft' || ft) return { text:'FT', cls:'status-badge status-ft' };
-      if (s === 'ht' || (h1e && !h2s)) return { text:'HT', cls:'status-badge status-ht' };
-      if (s === 'live') return { text:'LIVE', cls:'status-badge status-live' };
+      if (s === 'ft' || doc.fulltime === true || ft) return { text:'FT', cls:'status-badge status-ft' };
+      if (s === 'ht' || (h1e && !h2s))               return { text:'HT', cls:'status-badge status-ht' };
+      if (s === 'live')                               return { text:'LIVE', cls:'status-badge status-live' };
 
-      if (ft) return { text:'FT', cls:'status-badge status-ft' };
       if (h2s && !ft) return { text:'LIVE', cls:'status-badge status-live' };
-      if (h1e && !h2s) return { text:'HT', cls:'status-badge status-ht' };
-      if (ko && !h1e) return { text:'LIVE', cls:'status-badge status-live' };
+      if (h1e && !h2s) return { text:'HT',   cls:'status-badge status-ht' };
+      if (ko && !h1e)  return { text:'LIVE', cls:'status-badge status-live' };
 
       return null;
     }
@@ -295,35 +293,53 @@
       return (s1==null || s2==null) ? null : { s1, s2 };
     }
 
-    // ===== Load teams + group mapping
-    let TEAM_TO_GROUP = new Map();
+    // ===== Load teams + group mapping (use teams-util if available; otherwise fallback)
+    let TEAM_TO_GROUP = new Map();    // normalized name -> 'A' | 'B'
+    let NAME_BY_NORM  = new Map();    // normalized name -> original display name
+
     try {
-      const maps = await loadTeams(); // your util, expected to include group/meta
-      // Try common shapes
-      // 1) maps.byName (Map) -> { group }
+      const maps = await loadTeams(); // optional: if your teams JSON includes { group }
       if (maps?.byName && typeof maps.byName.get === 'function') {
-        maps.byName.forEach((meta, name) => { if (meta?.group) TEAM_TO_GROUP.set(name, String(meta.group).toUpperCase()); });
+        maps.byName.forEach((meta, name) => {
+          if (meta?.group) {
+            const g = String(meta.group).toUpperCase();
+            const n = norm(name);
+            TEAM_TO_GROUP.set(n, g);
+            NAME_BY_NORM.set(n, name);
+          }
+        });
       }
-      // 2) maps.teams (object) -> { [name]: { group } }
       if (maps?.teams && typeof maps.teams === 'object') {
-        Object.entries(maps.teams).forEach(([name, meta]) => { if (meta?.group) TEAM_TO_GROUP.set(name, String(meta.group).toUpperCase()); });
+        Object.entries(maps.teams).forEach(([name, meta]) => {
+          if (meta?.group) {
+            const g = String(meta.group).toUpperCase();
+            const n = norm(name);
+            TEAM_TO_GROUP.set(n, g);
+            NAME_BY_NORM.set(n, name);
+          }
+        });
       }
-      // 3) name variants: also set normalized keys
-      const ntg = new Map();
-      TEAM_TO_GROUP.forEach((g, name) => { ntg.set(norm(name), g); });
-      TEAM_TO_GROUP = ntg;
     } catch(e) {
       console.warn('Could not load team groups from teams-util.js', e);
     }
 
-    // OPTIONAL FALLBACK: fill this if your teams file lacks group info
-    // const DEFAULT_GROUPS = {
-    //   "Thunderbolt":"A","Messiah FC":"A","White Panthers":"A",
-    //   "Amingos FC":"B","Strawhat Pirates":"B","Red Bulls Eleven":"B"
-    // };
-    // for (const [k,v] of Object.entries(DEFAULT_GROUPS)) TEAM_TO_GROUP.set(norm(k), v);
+    // --- REQUIRED FALLBACK: your confirmed groups ---
+    const DEFAULT_GROUPS = {
+      "Thunderbolt": "A",
+      "Messiah FC": "A",
+      "White Panthers": "A",
+      "Amigos FC": "B",
+      "Strawhat Pirates": "B",
+      "Red Bulls Eleven": "B"
+    };
+    for (const [team, grp] of Object.entries(DEFAULT_GROUPS)) {
+      const n = norm(team);
+      if (!TEAM_TO_GROUP.has(n)) TEAM_TO_GROUP.set(n, grp);
+      if (!NAME_BY_NORM.has(n))  NAME_BY_NORM.set(n, team);
+    }
 
-    const getGroup = (teamName) => TEAM_TO_GROUP.get(norm(teamName)) || null;
+    const getGroup    = (teamName) => TEAM_TO_GROUP.get(norm(teamName)) || null;
+    const displayName = (teamName) => NAME_BY_NORM.get(norm(teamName)) || teamName;
 
     // ===== Render match cards
     function renderMatchCard(d){
@@ -391,26 +407,28 @@
       els.liveMeta.innerHTML = `<span class="badge">Showing ${matches.length} matches</span>`;
     }
 
-    // ===== Standings (per finished group matches)
+    // ===== Standings
     function emptyStats() { return { P:0,W:0,D:0,L:0,GF:0,GA:0,GD:0,Pts:0 }; }
     function addResult(stats, gf, ga){
       stats.P += 1; stats.GF += gf; stats.GA += ga; stats.GD = stats.GF - stats.GA;
       if (gf>ga){ stats.W+=1; stats.Pts+=3; } else if (gf===ga){ stats.D+=1; stats.Pts+=1; } else { stats.L+=1; }
     }
 
+    function groupSetsFromMapping(){
+      const A = new Set(), B = new Set();
+      TEAM_TO_GROUP.forEach((g, nName) => { if (g==='A') A.add(nName); if (g==='B') B.add(nName); });
+      return { A, B };
+    }
+
     function buildStandings(matches){
-      // group -> teamName -> stats
+      // seed all teams
+      const { A:setA, B:setB } = groupSetsFromMapping();
       const table = { A:new Map(), B:new Map() };
-      const groupTeams = { A:new Set(), B:new Set() };
 
-      // collect all teams (from mapping) to know N per group
-      TEAM_TO_GROUP.forEach((g, nameNorm)=>{
-        if (g==='A' || g==='B') {
-          const properName = nameNorm; // normalized key; we’ll display the original when we see it in matches
-        }
-      });
+      setA.forEach(nm => table.A.set(displayName(nm), emptyStats()));
+      setB.forEach(nm => table.B.set(displayName(nm), emptyStats()));
 
-      // aggregate only FT matches where both teams share the same group (group stage)
+      // aggregate only FT matches where both teams are in the same group
       matches.forEach(docSnap=>{
         const d = docSnap.data() || {};
         const t1 = (d.teamNames?.team1 || '').trim();
@@ -419,26 +437,26 @@
 
         const g1 = getGroup(t1);
         const g2 = getGroup(t2);
+        if (!g1 || !g2 || g1 !== g2) return;
+
         const status = computeStatus(d);
-        const score = matchScore(d);
+        const s1 = (typeof d?.scores?.team1 === 'number') ? d.scores.team1 : null;
+        const s2 = (typeof d?.scores?.team2 === 'number') ? d.scores.team2 : null;
+        if (!status || status.text !== 'FT' || s1==null || s2==null) return;
 
-        if (!g1 || !g2) return;
-        if (g1 !== g2) return; // ignore cross-group games for standings
-        if (!score) return;
-        if (!status || status.text !== 'FT') return; // only finished
-
-        const g = g1; // A or B
+        const g = g1; // "A" or "B"
         const map = table[g];
 
-        if (!map.has(t1)) map.set(t1, emptyStats());
-        if (!map.has(t2)) map.set(t2, emptyStats());
-        groupTeams[g].add(t1); groupTeams[g].add(t2);
+        const dn1 = displayName(t1);
+        const dn2 = displayName(t2);
+        if (!map.has(dn1)) map.set(dn1, emptyStats());
+        if (!map.has(dn2)) map.set(dn2, emptyStats());
 
-        addResult(map.get(t1), score.s1, score.s2);
-        addResult(map.get(t2), score.s2, score.s1);
+        addResult(map.get(dn1), s1, s2);
+        addResult(map.get(dn2), s2, s1);
       });
 
-      return { table, groupTeams };
+      return { table, groupRoster: groupSetsFromMapping() };
     }
 
     function sortRows(map){
@@ -446,6 +464,11 @@
       map.forEach((v,k)=> rows.push({ team:k, ...v }));
       rows.sort((a,b)=> b.Pts - a.Pts || b.GD - a.GD || b.GF - a.GF || a.team.localeCompare(b.team));
       return rows;
+    }
+
+    function requiredMatchesFor(groupSet){
+      const n = groupSet.size;
+      return n * (n - 1) / 2; // each pair once
     }
 
     function renderStandingsCell(tbody, rows){
@@ -468,14 +491,23 @@
       });
     }
 
-    function requiredMatchesFor(groupSet){
-      const n = groupSet.size;
-      return n * (n - 1) / 2; // each pair once
+    function countGroupFT(docs, groupLetter){
+      let c = 0;
+      docs.forEach(d=>{
+        const data = d.data() || {};
+        const t1 = (data.teamNames?.team1 || '').trim();
+        const t2 = (data.teamNames?.team2 || '').trim();
+        const g1 = getGroup(t1), g2 = getGroup(t2);
+        const status = computeStatus(data);
+        const s1 = (typeof data?.scores?.team1 === 'number') ? data.scores.team1 : null;
+        const s2 = (typeof data?.scores?.team2 === 'number') ? data.scores.team2 : null;
+        if (g1===groupLetter && g2===groupLetter && status && status.text==='FT' && s1!=null && s2!=null) c++;
+      });
+      return c;
     }
 
     // ===== Knockout logic
     function updateKnockouts(rowsA, rowsB, matches){
-      // Winners/runner-ups from standings
       const winnerA = rowsA[0]?.team || 'Winner Group A';
       const runnerA = rowsA[1]?.team || 'Runner-up Group A';
       const winnerB = rowsB[0]?.team || 'Winner Group B';
@@ -492,29 +524,31 @@
         <div class="text-sm font-medium text-gray-800">${esc(runnerA)}</div>
       `;
 
-      // Try to find SF results to fill 3rd/Final
       const findByStage = (stage) => matches.find(m => (m.data()?.stage || '').toLowerCase() === stage.toLowerCase());
+
       const sf1Doc = findByStage('Semi Final 1');
       const sf2Doc = findByStage('Semi Final 2');
 
       const pickWinner = (d)=>{
         if (!d) return null;
-        const s = matchScore(d.data());
-        const status = computeStatus(d.data());
+        const data = d.data();
+        const s = matchScore(data);
+        const status = computeStatus(data);
         if (!s || !status || status.text!=='FT') return null;
-        if (s.s1===s.s2) return null; // draw not expected; handle separately if you add pens
-        const t1 = d.data().teamNames?.team1 || '';
-        const t2 = d.data().teamNames?.team2 || '';
+        if (s.s1===s.s2) return null;
+        const t1 = data.teamNames?.team1 || '';
+        const t2 = data.teamNames?.team2 || '';
         return s.s1>s.s2 ? t1 : t2;
       };
       const pickLoser = (d)=>{
         if (!d) return null;
-        const s = matchScore(d.data());
-        const status = computeStatus(d.data());
+        const data = d.data();
+        const s = matchScore(data);
+        const status = computeStatus(data);
         if (!s || !status || status.text!=='FT') return null;
         if (s.s1===s.s2) return null;
-        const t1 = d.data().teamNames?.team1 || '';
-        const t2 = d.data().teamNames?.team2 || '';
+        const t1 = data.teamNames?.team1 || '';
+        const t2 = data.teamNames?.team2 || '';
         return s.s1<s.s2 ? t1 : t2;
       };
 
@@ -533,49 +567,36 @@
       `;
     }
 
-    // ===== Wire Firestore (live)
+    // ===== Live wiring
     const qMatches = query(collection(db, 'matches'), orderBy('created','desc'));
     onSnapshot(qMatches, snap => {
       const docs = snap.docs;
       renderMatchList(docs);
 
-      // Build standings & completion
-      const { table, groupTeams } = buildStandings(docs);
+      const { table, groupRoster } = buildStandings(docs);
       const rowsA = sortRows(table.A);
       const rowsB = sortRows(table.B);
+
       renderStandingsCell(els.gaBody, rowsA);
       renderStandingsCell(els.gbBody, rowsB);
 
-      // completion state: use N(N-1)/2 FT matches
-      const reqA = requiredMatchesFor(groupTeams.A);
-      const reqB = requiredMatchesFor(groupTeams.B);
+      const reqA = requiredMatchesFor(groupRoster.A);
+      const reqB = requiredMatchesFor(groupRoster.B);
 
-      // Count FT matches per group
-      const countGroupFT = (g)=>{
-        let c=0;
-        docs.forEach(d=>{
-          const data = d.data() || {};
-          const t1 = (data.teamNames?.team1 || '').trim();
-          const t2 = (data.teamNames?.team2 || '').trim();
-          const g1 = getGroup(t1), g2 = getGroup(t2);
-          const status = computeStatus(data);
-          if (g1===g && g2===g && status && status.text==='FT' && matchScore(data)) c++;
-        });
-        return c;
-      };
+      const playedA = reqA ? countGroupFT(docs, 'A') : 0;
+      const playedB = reqB ? countGroupFT(docs, 'B') : 0;
 
-      const doneA = reqA>0 && countGroupFT('A') >= reqA;
-      const doneB = reqB>0 && countGroupFT('B') >= reqB;
+      const doneA = reqA > 0 && playedA >= reqA;
+      const doneB = reqB > 0 && playedB >= reqB;
 
-      els.gaStatus.textContent = doneA ? 'Complete' : `Waiting (${Math.min(countGroupFT('A'), reqA)}/${reqA || '—'})`;
-      els.gbStatus.textContent = doneB ? 'Complete' : `Waiting (${Math.min(countGroupFT('B'), reqB)}/${reqB || '—'})`;
-      els.standingsMeta.innerHTML = `<span class="badge">Groups detected: A=${groupTeams.A.size || 0}, B=${groupTeams.B.size || 0}</span>`;
+      els.gaStatus.textContent = reqA ? (doneA ? 'Complete' : `Waiting (${Math.min(playedA, reqA)}/${reqA})`) : 'No teams';
+      els.gbStatus.textContent = reqB ? (doneB ? 'Complete' : `Waiting (${Math.min(playedB, reqB)}/${reqB})`) : 'No teams';
+      els.standingsMeta.innerHTML = `<span class="badge">Groups detected: A=${groupRoster.A.size || 0}, B=${groupRoster.B.size || 0}</span>`;
 
       if (doneA && doneB && rowsA.length>=2 && rowsB.length>=2) {
         updateKnockouts(rowsA, rowsB, docs);
         els.knockoutNote.textContent = '';
       } else {
-        // placeholders
         updateKnockouts([], [], docs);
         els.knockoutNote.textContent = 'Bracket will finalize after all group matches are completed.';
       }
