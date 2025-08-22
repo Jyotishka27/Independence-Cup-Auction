@@ -12,28 +12,16 @@
       color: #1e293b;
     }
 
-  	.nav-link {
-  	  color: #4b5563; /* Tailwind gray-700 */
-  	  font-weight: 500; /* font-medium */
-  	  text-decoration: none;
-  	  transition: color 0.2s ease;
-  	}
-  
-  	.nav-link:hover {
-  	  color: #374151; /* Tailwind gray-800 */
-  	}
-  
-  	.nav-link.active {
-  	  color: #dc2626; /* Tailwind red-600 */
-  	}
-    
+    .nav-link { color: #4b5563; font-weight: 500; text-decoration: none; transition: color 0.2s ease; }
+    .nav-link:hover { color: #374151; }
+    .nav-link.active { color: #dc2626; }
+
     /* Enhanced hover effects */
     .card:hover {
       transform: translateY(-2px);
       box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
     .fixture-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15);
@@ -48,19 +36,14 @@
       box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
       transition: transform 0.2s ease;
     }
+    .team-logo:hover { transform: scale(1.05); }
 
-    .team-logo:hover {
-      transform: scale(1.05);
-    }
-
-    /* Section header animations */
     .section-header {
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
       border: 1px solid #e2e8f0;
       position: relative;
       overflow: hidden;
     }
-
     .section-header::before {
       content: '';
       position: absolute;
@@ -71,100 +54,30 @@
       background: linear-gradient(90deg, transparent, #64748b, transparent);
       animation: shimmer 3s infinite;
     }
+    @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
 
-    @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
+    .group-card { background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+    .group-card:hover { border-color: #cbd5e1; box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1); }
 
-    .group-card {
-      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-    }
+    .match-card { background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%); border: 1px solid #e5e7eb; transition: all 0.2s ease; }
+    .match-card:hover { border-color: #d1d5db; transform: translateY(-2px); }
 
-    .group-card:hover {
-      border-color: #cbd5e1;
-      box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1);
-    }
+    .knockout-card { background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+    .knockout-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1); }
 
-    .match-card {
-      background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
-      border: 1px solid #e5e7eb;
-      transition: all 0.2s ease;
-    }
-
-    .match-card:hover {
-      border-color: #d1d5db;
-      transform: translateY(-2px);
-    }
-
-    .knockout-card {
-      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-    }
-
-    .knockout-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1);
-    }
-
-    .final-card {
-      background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%);
-      border: 2px solid #fbbf24;
-      position: relative;
-    }
-
+    .final-card { background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #fbbf24; position: relative; }
     .final-card::before {
-      content: '👑';
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      font-size: 1.5rem;
-      background: #fbbf24;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      content: '👑'; position: absolute; top: -10px; right: -10px; font-size: 1.5rem; background: #fbbf24; border-radius: 50%;
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     }
 
-    /* Icon styles */
-    .section-icon {
-      display: inline-block;
-      margin-right: 0.5rem;
-      font-size: 1.2em;
-    }
-
-    /* Matchday badges */
+    .section-icon { display: inline-block; margin-right: 0.5rem; font-size: 1.2em; }
     .matchday-badge {
-      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      box-shadow: 0 2px 4px rgb(59 130 246 / 0.3);
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 0.25rem 0.75rem;
+      border-radius: 9999px; font-weight: 600; font-size: 0.875rem; box-shadow: 0 2px 4px rgb(59 130 246 / 0.3);
     }
-
-    /* VS styling */
-    .vs-text {
-      font-weight: 800;
-      color: #64748b;
-      text-shadow: 0 1px 2px rgb(0 0 0 / 0.1);
-    }
-
-    /* Team name styling */
-    .team-name {
-      font-weight: 500;
-      color: #374151;
-      text-align: center;
-      font-size: 0.875rem;
-      margin-top: 0.5rem;
-    }
+    .vs-text { font-weight: 800; color: #64748b; text-shadow: 0 1px 2px rgb(0 0 0 / 0.1); }
+    .team-name { font-weight: 500; color: #374151; text-align: center; font-size: 0.875rem; margin-top: 0.5rem; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -187,9 +100,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         <!-- Matchday Cards -->
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 1</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 1</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -204,9 +115,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 2</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 2</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Amingos FC.jpg" alt="Amingos FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -221,9 +130,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 3</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 3</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="White Panthers.jpg" alt="White Panthers" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -238,9 +145,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 4</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 4</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -255,9 +160,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 5</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 5</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Messiah FC.jpg" alt="Messiah FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -272,9 +175,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 6</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 6</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -289,9 +190,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 7</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 7</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Messiah FC.jpg" alt="Messiah FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -306,9 +205,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 8</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 8</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -323,9 +220,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 9</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 9</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -340,9 +235,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 10</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 10</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Amingos FC.jpg" alt="Amingos FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -357,9 +250,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 11</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 11</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="White Panthers.jpg" alt="White Panthers" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -374,9 +265,7 @@
         </div>
 
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-center mb-4">
-            <span class="matchday-badge">Matchday 12</span>
-          </div>
+          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 12</span></div>
           <div class="flex items-center justify-center gap-6">
             <div class="flex flex-col items-center">
               <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-14 w-14 rounded-full shadow-md mb-3" />
@@ -389,6 +278,48 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ✅ Admin Tools: Fetch Team Results from Firestore -->
+    <section class="section-header rounded-2xl shadow-lg p-8">
+      <div class="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 mb-1">
+            <span class="section-icon">📊</span>Team Results (Standings)
+          </h2>
+          <p class="text-gray-600 text-sm">Aggregate wins, draws, losses, goals, and points from all matches.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="fetchResultsBtn" class="px-4 py-2 rounded-xl font-semibold text-white bg-indigo-600 hover:bg-indigo-500">
+            Fetch Team Results
+          </button>
+          <button id="downloadCsvBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900 disabled:opacity-50" disabled>
+            Download CSV
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-3 text-sm text-slate-600" id="resultsStatus"></div>
+
+      <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200">
+        <table class="min-w-full text-sm" id="resultsTable" style="display:none;">
+          <thead class="bg-slate-100 text-slate-700">
+            <tr>
+              <th class="px-3 py-2 text-left">#</th>
+              <th class="px-3 py-2 text-left">Team</th>
+              <th class="px-3 py-2 text-right">MP</th>
+              <th class="px-3 py-2 text-right">W</th>
+              <th class="px-3 py-2 text-right">D</th>
+              <th class="px-3 py-2 text-right">L</th>
+              <th class="px-3 py-2 text-right">GF</th>
+              <th class="px-3 py-2 text-right">GA</th>
+              <th class="px-3 py-2 text-right">GD</th>
+              <th class="px-3 py-2 text-right">Pts</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTbody" class="divide-y divide-slate-200 bg-white"></tbody>
+        </table>
       </div>
     </section>
 
@@ -502,7 +433,6 @@
         mobileMenu.classList.toggle("hidden");
       });
 
-      // Close mobile menu when clicking outside
       document.addEventListener("click", (e) => {
         if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
           mobileMenu.classList.add("hidden");
@@ -511,7 +441,7 @@
       });
     }
 
-    // Add subtle loading animation
+    // Entry animation for cards
     document.addEventListener("DOMContentLoaded", () => {
       const cards = document.querySelectorAll('.fixture-card, .group-card, .knockout-card');
       cards.forEach((card, index) => {
@@ -526,12 +456,11 @@
     });
   </script>
   
+  <!-- Header + teams -->
   <script type="module">
     import { injectHeader } from "./tournament_header.js";
     import { loadTeams, hydrateTeamLogos } from "./teams-util.js";
-    // Header
     injectHeader("#site-header", { active: "fixtures" });
-    // Team/logo hydration (keeps names/logos consistent from data/teams.json)
     try {
       const maps = await loadTeams();
       hydrateTeamLogos(document, maps);
@@ -540,10 +469,9 @@
     }
   </script>
 
-    <!-- ✅ Scoreboard click handler -->
+  <!-- ✅ Scoreboard click handler -->
   <script>
     const SCOREBOARD_PATH = "./scoreboard.html"; // adjust if needed
-
     function buildScoreboardURL(t1, t2) {
       const url = new URL(SCOREBOARD_PATH, window.location.href);
       url.searchParams.set("team1", (t1 || "").trim());
@@ -551,21 +479,162 @@
       url.searchParams.set("auto", "1"); // auto-create match
       return url.toString();
     }
-
     function getNamesFromCard(card) {
       const names = card.querySelectorAll(".team-name");
-      return {
-        t1: names[0]?.textContent?.trim() || "",
-        t2: names[1]?.textContent?.trim() || "",
-      };
+      return { t1: names[0]?.textContent?.trim() || "", t2: names[1]?.textContent?.trim() || "" };
     }
-
     document.addEventListener("click", (e) => {
       const card = e.target.closest(".fixture-card.match-card");
       if (!card) return;
       const { t1, t2 } = getNamesFromCard(card);
       if (!t1 || !t2) return;
       window.location.href = buildScoreboardURL(t1, t2);
+    });
+  </script>
+
+  <!-- ✅ Firestore: Fetch team results, render table, download CSV -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // === Your Firebase config (same as scoreboard) ===
+    const firebaseConfig = {
+      apiKey: "AIzaSyB0DaaYB1hZLY8h23QOpT7Ok4sX5ACkHTM",
+      authDomain: "we-are-eleven.firebaseapp.com",
+      projectId: "we-are-eleven",
+      storageBucket: "we-are-eleven.firebasestorage.app",
+      messagingSenderId: "446706356039",
+      appId: "1:446706356039:web:db1bd26c20a2571b824662",
+      measurementId: "G-M3DSVHMNEV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const els = {
+      fetchBtn: document.getElementById("fetchResultsBtn"),
+      csvBtn: document.getElementById("downloadCsvBtn"),
+      status: document.getElementById("resultsStatus"),
+      table: document.getElementById("resultsTable"),
+      tbody: document.getElementById("resultsTbody"),
+    };
+
+    let standingsRows = [];
+
+    function ensureTeam(map, name) {
+      if (!map[name]) {
+        map[name] = { team: name, mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0 };
+      }
+      return map[name];
+    }
+
+    function escapeHtml(str="") {
+      return str.replace(/[&<>"]/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
+    }
+
+    function renderTable(rows) {
+      els.tbody.innerHTML = "";
+      rows.forEach((r, idx) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="px-3 py-2 text-slate-500">${idx + 1}</td>
+          <td class="px-3 py-2 font-medium">${escapeHtml(r.team)}</td>
+          <td class="px-3 py-2 text-right">${r.mp}</td>
+          <td class="px-3 py-2 text-right">${r.w}</td>
+          <td class="px-3 py-2 text-right">${r.d}</td>
+          <td class="px-3 py-2 text-right">${r.l}</td>
+          <td class="px-3 py-2 text-right">${r.gf}</td>
+          <td class="px-3 py-2 text-right">${r.ga}</td>
+          <td class="px-3 py-2 text-right">${r.gd}</td>
+          <td class="px-3 py-2 text-right font-semibold">${r.pts}</td>
+        `;
+        els.tbody.appendChild(tr);
+      });
+      els.table.style.display = rows.length ? "table" : "none";
+    }
+
+    function toCSV(rows) {
+      const headers = ["Team","MP","W","D","L","GF","GA","GD","Pts"];
+      const lines = [headers.join(",")];
+      rows.forEach(r => lines.push([r.team, r.mp, r.w, r.d, r.l, r.gf, r.ga, r.gd, r.pts].join(",")));
+      return lines.join("\n");
+    }
+
+    function downloadCSV(filename, content) {
+      const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    async function fetchStandings() {
+      els.status.textContent = "Loading matches…";
+      els.fetchBtn.disabled = true;
+      els.csvBtn.disabled = true;
+
+      try {
+        const qMatches = query(collection(db, "matches"), orderBy("created", "desc"));
+        const snap = await getDocs(qMatches);
+
+        const table = {}; // team name -> stats
+
+        snap.forEach(docSnap => {
+          const data = docSnap.data() || {};
+          const names = data.teamNames || {};
+          const scores = data.scores || {};
+          const teamA = (names.team1 || "").trim();
+          const teamB = (names.team2 || "").trim();
+
+          if (!teamA || !teamB) return;
+          const aScoreOK = typeof scores.team1 === "number";
+          const bScoreOK = typeof scores.team2 === "number";
+          if (!aScoreOK || !bScoreOK) return;
+
+          const a = ensureTeam(table, teamA);
+          const b = ensureTeam(table, teamB);
+
+          const aGoals = scores.team1;
+          const bGoals = scores.team2;
+
+          // Played + goals
+          a.mp += 1; b.mp += 1;
+          a.gf += aGoals; a.ga += bGoals;
+          b.gf += bGoals; b.ga += aGoals;
+
+          if (aGoals > bGoals) { a.w += 1; b.l += 1; a.pts += 3; }
+          else if (aGoals < bGoals) { b.w += 1; a.l += 1; b.pts += 3; }
+          else { a.d += 1; b.d += 1; a.pts += 1; b.pts += 1; }
+        });
+
+        const rows = Object.values(table).map(r => ({ ...r, gd: r.gf - r.ga }));
+        rows.sort((x, y) =>
+          y.pts - x.pts ||
+          (y.gd - x.gd) ||
+          (y.gf - x.gf) ||
+          x.team.localeCompare(y.team)
+        );
+
+        standingsRows = rows;
+        renderTable(rows);
+
+        els.csvBtn.disabled = rows.length === 0;
+        els.status.textContent = rows.length ? `Loaded ${rows.length} teams.` : "No completed matches found.";
+      } catch (err) {
+        console.error(err);
+        els.status.textContent = "Failed to load results.";
+        alert("Error loading results. Check console for details.");
+      } finally {
+        els.fetchBtn.disabled = false;
+      }
+    }
+
+    els.fetchBtn.addEventListener("click", fetchStandings);
+    els.csvBtn.addEventListener("click", () => {
+      if (!standingsRows.length) return;
+      const csv = toCSV(standingsRows);
+      downloadCSV("team_results.csv", csv);
     });
   </script>
   
