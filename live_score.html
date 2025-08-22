@@ -107,17 +107,39 @@
     import { getFirestore, collection, doc, setDoc, updateDoc, getDoc, addDoc, deleteDoc,
              onSnapshot, query, orderBy, serverTimestamp, increment, getDocs, where, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    // TODO: replace with your actual config
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "",
-      appId: ""
-    };
+    // --- Firebase config wiring ---
+// We try, in order:
+// 1) ./firebase-config.js exporting `firebaseConfig`
+// 2) window.FIREBASE_CONFIG (if you set it in a <script>)
+// 3) Fallback placeholders (edit inline if you prefer)
+let firebaseConfig = null;
+try {
+  const mod = await import('./firebase-config.js');
+  if (mod && mod.firebaseConfig) {
+    firebaseConfig = mod.firebaseConfig;
+    console.log('[Firebase] Using config from ./firebase-config.js');
+  }
+} catch (e) {
+  // ignore; file likely doesn't exist
+}
+if (!firebaseConfig && window.FIREBASE_CONFIG) {
+  firebaseConfig = window.FIREBASE_CONFIG;
+  console.log('[Firebase] Using config from window.FIREBASE_CONFIG');
+}
+if (!firebaseConfig) {
+  console.warn('[Firebase] Using inline fallback config. Replace with your real keys.');
+  firebaseConfig = {
+    apiKey: "AIzaSyB0DaaYB1hZLY8h23QOpT7Ok4sX5ACkHTM",
+    authDomain: "we-are-eleven.firebaseapp.com",
+    projectId: "we-are-eleven",
+    storageBucket: "we-are-eleven.firebasestorage.app",
+    messagingSenderId: "446706356039",
+    appId: "1:446706356039:web:54cc424f2a8178ae824662",
+    measurementId: "G-CX1LHHXBDQ"
+  };
+}
 
-    const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
     const db  = getFirestore(app);
 
     // Elements
