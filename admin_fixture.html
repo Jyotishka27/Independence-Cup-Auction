@@ -44,7 +44,7 @@
     .vs-text { font-weight: 800; color: #64748b; text-shadow: 0 1px 2px rgb(0 0 0 / 0.1); }
     .team-name { font-weight: 500; color: #374151; text-align: center; font-size: 0.875rem; margin-top: 0.5rem; }
 
-    /* New: scoreline + scorers */
+    /* scoreline + scorers */
     .scoreline-badge { display:inline-block; padding:0.25rem 0.75rem; border-radius:9999px; background:linear-gradient(135deg,#111827,#1f2937); color:#fff; font-weight:700; box-shadow:0 2px 6px rgb(0 0 0 / 0.2); letter-spacing:0.5px }
     .status-badge { display:inline-block; padding:0.15rem 0.5rem; border-radius:9999px; font-weight:700; font-size:0.75rem; margin-left:0.5rem }
     .status-live { background:#dc2626; color:#fff; animation:pulse 1.8s infinite; }
@@ -83,7 +83,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl-grid-cols-3 xl:grid-cols-3 gap-6">
-        <!-- Matchday Cards (unchanged logos/names) -->
+        <!-- Matchday Cards (sample set) -->
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
           <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 1</span></div>
           <div class="flex items-center justify-center gap-6">
@@ -278,7 +278,7 @@
       </div>
     </section>
 
-    <!-- Leaderboards Section (replaces old Goals table) -->
+    <!-- Leaderboards Section -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="flex items-center justify-between flex-wrap gap-3">
         <div>
@@ -327,7 +327,7 @@
       </div>
     </section>
 
-    <!-- Knockout Stage Section (unchanged, click-through still works) -->
+    <!-- Knockout Stage Section -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="text-center mb-10">
         <h2 class="text-4xl font-bold text-gray-900 mb-2"><span class="section-icon">🏆</span>Knockout Stage</h2>
@@ -532,29 +532,38 @@
       if(typeof ts === 'object' && typeof ts.seconds === 'number') return new Date(ts.seconds*1000);
       return null;
     }
-    function minuteStr(goalTime, kickOff){
-      const t = toDate(goalTime), k = toDate(kickOff);
-      if(t && k){
-        const mins = Math.max(0, Math.floor((t - k) / 60000));
+    function minuteStr(goalTime, doc){
+      const t = toDate(goalTime)?.getTime();
+      const ko = toDate(doc?.kickoff)?.getTime();
+      const h2 = toDate(doc?.secondHalfStart)?.getTime();
+      if (t && ko){
+        if (h2 && t >= h2){
+          const mins = 8 + Math.max(0, Math.floor((t - h2) / 60000));
+          return `${mins}’`;
+        }
+        const mins = Math.max(0, Math.floor((t - ko) / 60000));
         return `${mins}’`;
       }
-      // fallback to local time (HH:MM)
-      return t ? t.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : "";
+      return toDate(goalTime) ? toDate(goalTime).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : "";
     }
 
-    // Status badge calc (prefers explicit status if present)
+    // Status badge calc (prefers explicit status if present, else infer from timestamps)
     function computeStatus(doc){
       const s = (doc.status || "").toLowerCase();
-      if(s === 'live') return { text:'LIVE', cls:'status-badge status-live' };
-      if(s === 'ht')   return { text:'HT',   cls:'status-badge status-ht' };
-      if(s === 'ft' || doc.fulltime === true) return { text:'FT', cls:'status-badge status-ft' };
-      const now = Date.now();
-      const ko = toDate(doc.kickoff) || toDate(doc.created);
-      if(ko){
-        const diffMin = (now - ko.getTime())/60000;
-        if(diffMin >= 0 && diffMin <= 130) return { text:'LIVE', cls:'status-badge status-live' };
-        if(diffMin > 130) return { text:'FT', cls:'status-badge status-ft' };
-      }
+      const ko  = toDate(doc.kickoff);
+      const h1e = toDate(doc.firstHalfEnd);
+      const h2s = toDate(doc.secondHalfStart);
+      const ft  = toDate(doc.fulltime);
+
+      if (s === 'ft' || ft) return { text:'FT', cls:'status-badge status-ft' };
+      if (s === 'ht' || (h1e && !h2s)) return { text:'HT', cls:'status-badge status-ht' };
+      if (s === 'live') return { text:'LIVE', cls:'status-badge status-live' };
+
+      if (ft) return { text:'FT', cls:'status-badge status-ft' };
+      if (h2s && !ft) return { text:'LIVE', cls:'status-badge status-live' };
+      if (h1e && !h2s) return { text:'HT', cls:'status-badge status-ht' };
+      if (ko && !h1e) return { text:'LIVE', cls:'status-badge status-live' };
+
       return null;
     }
 
@@ -574,13 +583,13 @@
       return idx;
     }
 
-    function groupGoals(goals=[], t1Name="", t2Name="", kickoff){
+    function groupGoals(goals=[], t1Name="", t2Name="", doc){
       const out = { team1: [], team2: [] };
       goals.forEach(g => {
         const side = (g.team === 'team2') ? 'team2' : 'team1';
         const who = g.scorer || '';
         const ast = g.assist ? ` (${g.assist})` : '';
-        const m = minuteStr(g.time, kickoff);
+        const m = minuteStr(g.time, doc);
         const label = [who + ast, m].filter(Boolean).join(' ');
         if(who) out[side].push(label);
       });
@@ -602,7 +611,7 @@
         : `<span class="scoreline-badge">${s1} – ${s2}</span>${status?` <span class="${status.cls}">${status.text}</span>`:''}`;
       host.appendChild(score);
 
-      const gs = groupGoals(Array.isArray(doc?.goals)?doc.goals:[], t1, t2, doc.kickoff || doc.created);
+      const gs = groupGoals(Array.isArray(doc?.goals)?doc.goals:[], t1, t2, doc);
       const rows = document.createElement('div');
       rows.className = 'fixture-rows';
       rows.innerHTML = `
@@ -674,7 +683,7 @@
       } finally { els.fetchLeadersBtn.disabled = false; }
     }
 
-    // Excel export (unchanged logic from your page)
+    // Excel export
     function safeSheetName(str, fallback){ const name=(str||'').replace(/[\\\/?*\[\]:]/g,' ').slice(0,31).trim(); return name || (fallback || 'Sheet'); }
     function toDateObj(ts){ if(!ts) return null; if(typeof ts==='number') return new Date(ts); if(typeof ts==='object' && typeof ts.seconds==='number') return new Date(ts.seconds*1000); return null; }
     async function downloadExcel(){
@@ -692,7 +701,7 @@
         (Array.isArray(d.goals)?d.goals:[]).forEach(g=>{
           const side = (g.team==='team2')?'team2':'team1';
           const teamName = side==='team2'? t2 : t1;
-          rows.push([teamName, g.scorer||'', g.assist||'', minuteStr(g.time, d.kickoff || d.created)]);
+          rows.push([teamName, g.scorer||'', g.assist||'', minuteStr(g.time, d)]);
         });
         const ws = XLSX.utils.aoa_to_sheet(rows); const tabName = safeSheetName(`${t1} vs ${t2}`, id.slice(0,31)); XLSX.utils.book_append_sheet(wb, ws, tabName);
       });
