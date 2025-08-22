@@ -144,6 +144,7 @@
     let currentMatchId = null;
     let unsubMatch = null;
     let unsubList = null;
+    let lastMatchData = null;
 
     // Prefill from URL (also used when creating a match)
     let prefillMatchday = null;  // number or string
@@ -169,6 +170,18 @@
       metaBadges: document.getElementById('metaBadges'),
     };
 
+    // Timer constants & helpers
+    const HALF_LEN_MS = 8 * 60 * 1000; // 8 minutes
+    const elsTimer = {
+      kick: document.getElementById('kickOffBtn'),
+      endH1: document.getElementById('endFirstHalfBtn'),
+      startH2: document.getElementById('startSecondHalfBtn'),
+      endFT: document.getElementById('endMatchBtn'),
+      clockText: document.getElementById('clockText'),
+      statusPill: document.getElementById('statusPill'),
+    };
+    let clockInterval = null;
+
     function escapeHtml(str = '') {
       return String(str).replace(/[&<>"]+/g, s => ({'&': '&amp;','<': '&lt;','>': '&gt;','"': '&quot;'}[s]));
     }
@@ -186,7 +199,94 @@
       els.metaBadges.innerHTML = bits.join(" ");
     }
 
+    function tsToMs(ts) {
+      if (!ts) return null;
+      if (typeof ts === 'number') return ts;
+      if (ts.seconds) return ts.seconds * 1000;
+      return null;
+    }
+
+    // Determine phase from document fields
+    // returns one of: 'PRE', 'H1', 'HT', 'H2', 'FT'
+    function phaseFromDoc(d) {
+      const ko = tsToMs(d?.kickoff);
+      const h1End = tsToMs(d?.firstHalfEnd);
+      const h2Start = tsToMs(d?.secondHalfStart);
+      const ft = tsToMs(d?.fulltime);
+      const s = (d?.status || '').toLowerCase();
+
+      if (s === 'ft' || ft) return 'FT';
+      if (s === 'ht' || (h1End && !h2Start)) return 'HT';
+      if (s === 'live') {
+        if (h2Start && !ft) return 'H2';
+        if (ko && !h1End) return 'H1';
+      }
+
+      if (ft) return 'FT';
+      if (h2Start) return 'H2';
+      if (h1End) return 'HT';
+      if (ko) return 'H1';
+      return 'PRE';
+    }
+
+    function mmss(ms) {
+      const t = Math.max(0, Math.floor(ms / 1000));
+      const m = Math.floor(t / 60);
+      const s = t % 60;
+      return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    function renderClock(d) {
+      if (!d) return;
+      const now = Date.now();
+      const ko = tsToMs(d?.kickoff);
+      const h1End = tsToMs(d?.firstHalfEnd);
+      const h2Start = tsToMs(d?.secondHalfStart);
+      const ft = tsToMs(d?.fulltime);
+      const ph = phaseFromDoc(d);
+
+      let text = '—';
+      let pill = '';
+
+      if (ph === 'PRE') { text = '00:00'; pill = 'PRE'; }
+      else if (ph === 'H1') {
+        const elapsed = now - (ko || now);
+        if (elapsed <= HALF_LEN_MS) text = `1H ${mmss(elapsed)}`;
+        else text = `1H 08:00 +${Math.floor((elapsed - HALF_LEN_MS) / 1000)}s`;
+        pill = 'LIVE';
+      }
+      else if (ph === 'HT') { text = '—'; pill = 'HT'; }
+      else if (ph === 'H2') {
+        const baseline = HALF_LEN_MS;
+        const liveStart = h2Start || now;
+        const elapsed = baseline + (now - liveStart);
+        if (elapsed <= 2 * HALF_LEN_MS) text = `2H ${mmss(elapsed - baseline)}`;
+        else text = `2H 08:00 +${Math.floor((elapsed - 2 * HALF_LEN_MS) / 1000)}s`;
+        pill = 'LIVE';
+      }
+      else if (ph === 'FT') {
+        let total = 2 * HALF_LEN_MS;
+        if (ko && h1End) total += Math.max(0, h1End - ko - HALF_LEN_MS);
+        if (h2Start && ft) total += Math.max(0, ft - h2Start - HALF_LEN_MS);
+        text = `FT ${mmss(total)}`;
+        pill = 'FT';
+      }
+
+      elsTimer.clockText.textContent = text;
+      elsTimer.statusPill.textContent = pill;
+    }
+
+    function startClockLoop() {
+      stopClockLoop();
+      clockInterval = setInterval(() => {
+        if (lastMatchData) renderClock(lastMatchData);
+      }, 1000);
+    }
+    function stopClockLoop() { if (clockInterval) { clearInterval(clockInterval); clockInterval = null; } }
+
     function renderMatchData(data) {
+      lastMatchData = data; // keep fresh for clock loop
+
       const scores = data?.scores || { team1: 0, team2: 0 };
       const teamNames = data?.teamNames || { team1: 'Team A', team2: 'Team B' };
       const goals = data?.goals || [];
@@ -206,7 +306,7 @@
         }
       });
 
-      // Goals list (uses 8+8 minute model)
+      // Goals list (show 8+8 minute format)
       els.teamAStats.innerHTML = '';
       els.teamBStats.innerHTML = '';
       goals.forEach((g, i) => {
@@ -263,10 +363,10 @@
         if (snap.exists()) {
           const data = snap.data();
           renderMatchData(data);
-          renderClock(data);           // keep clock in sync immediately
+          renderClock(data);           // update clock immediately
         }
       });
-      startClockLoop();                // tick every second so the mm:ss updates
+      startClockLoop();                // tick every second using lastMatchData
     }
 
     async function selectMatch(matchId) {
@@ -333,6 +433,8 @@
       if (unsubMatch) unsubMatch();
       stopClockLoop();
       els.metaBadges.innerHTML = "";
+      lastMatchData = null;
+      renderClock(null);
     }
 
     async function saveNamesDebounced() {
@@ -341,7 +443,7 @@
       await updateDoc(ref, {
         teamNames: {
           team1: els.team1Input.value.trim() || 'Team A',
-        team2: els.team2Input.value.trim() || 'Team B'
+          team2: els.team2Input.value.trim() || 'Team B'
         },
         updated: serverTimestamp()
       });
@@ -362,6 +464,21 @@
       if (!currentMatchId) return;
       const ref = doc(db, 'matches', currentMatchId);
       await updateDoc(ref, { scores: { team1: 0, team2: 0 }, goals: [], updated: serverTimestamp() });
+    }
+
+    function minuteStr(goalTime, doc) {
+      const t = tsToMs(goalTime);
+      const ko = tsToMs(doc?.kickoff);
+      const h2 = tsToMs(doc?.secondHalfStart);
+      if (t && ko) {
+        if (h2 && t >= h2) {
+          const mins = 8 + Math.max(0, Math.floor((t - h2) / 60000));
+          return `${mins}’`;
+        }
+        const mins = Math.max(0, Math.floor((t - ko) / 60000));
+        return `${mins}’`;
+      }
+      return t ? new Date(t).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : "";
     }
 
     async function addGoal(e) {
@@ -409,104 +526,7 @@
       await updateDoc(ref, { scores: newScores, goals, updated: serverTimestamp() });
     }
 
-    // ---- 8+8 timer & status helpers ----
-    const HALF_LEN_MS = 8 * 60 * 1000;
-    const elsTimer = {
-      kick: document.getElementById('kickOffBtn'),
-      endH1: document.getElementById('endFirstHalfBtn'),
-      startH2: document.getElementById('startSecondHalfBtn'),
-      endFT: document.getElementById('endMatchBtn'),
-      clockText: document.getElementById('clockText'),
-      statusPill: document.getElementById('statusPill'),
-    };
-    let clockInterval = null;
-
-    function tsToMs(ts) {
-      if (!ts) return null;
-      if (typeof ts === 'number') return ts;
-      if (ts.seconds) return ts.seconds * 1000;
-      return null;
-    }
-
-    function phaseFromDoc(d) {
-      const ko = tsToMs(d?.kickoff);
-      const h1End = tsToMs(d?.firstHalfEnd);
-      const h2Start = tsToMs(d?.secondHalfStart);
-      const ft = tsToMs(d?.fulltime);
-      const s = (d?.status || '').toLowerCase();
-
-      if (s === 'ft' || ft) return 'FT';
-      if (s === 'ht' || (h1End && !h2Start)) return 'HT';
-      if (s === 'live') {
-        if (h2Start && !ft) return 'H2';
-        if (ko && !h1End) return 'H1';
-      }
-      if (ft) return 'FT';
-      if (h2Start) return 'H2';
-      if (h1End) return 'HT';
-      if (ko) return 'H1';
-      return 'PRE';
-    }
-
-    function mmss(ms) {
-      const t = Math.max(0, Math.floor(ms / 1000));
-      const m = Math.floor(t / 60);
-      const s = t % 60;
-      return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    }
-
-    function renderClock(d) {
-      const now = Date.now();
-      const ko = tsToMs(d?.kickoff);
-      const h1End = tsToMs(d?.firstHalfEnd);
-      const h2Start = tsToMs(d?.secondHalfStart);
-      const ft = tsToMs(d?.fulltime);
-      const ph = phaseFromDoc(d);
-
-      let text = '—';
-      let pill = '';
-
-      if (ph === 'PRE') { text = '00:00'; pill = 'PRE'; }
-      else if (ph === 'H1') {
-        const elapsed = now - (ko || now);
-        if (elapsed <= HALF_LEN_MS) text = `1H ${mmss(elapsed)}`;
-        else text = `1H 08:00 +${Math.floor((elapsed - HALF_LEN_MS) / 1000)}s`;
-        pill = 'LIVE';
-      }
-      else if (ph === 'HT') { text = '—'; pill = 'HT'; }
-      else if (ph === 'H2') {
-        const baseline = HALF_LEN_MS;
-        const liveStart = h2Start || now;
-        const elapsed = baseline + (now - liveStart);
-        if (elapsed <= 2 * HALF_LEN_MS) text = `2H ${mmss(elapsed - baseline)}`;
-        else text = `2H 08:00 +${Math.floor((elapsed - 2 * HALF_LEN_MS) / 1000)}s`;
-        pill = 'LIVE';
-      }
-      else if (ph === 'FT') {
-        let total = 2 * HALF_LEN_MS;
-        if (ko && h1End) total += Math.max(0, h1End - ko - HALF_LEN_MS);
-        if (h2Start && ft) total += Math.max(0, ft - h2Start - HALF_LEN_MS);
-        text = `FT ${mmss(total)}`;
-        pill = 'FT';
-      }
-
-      elsTimer.clockText.textContent = text;
-      elsTimer.statusPill.textContent = pill;
-    }
-
-    function startClockLoop() {
-      stopClockLoop();
-      clockInterval = setInterval(async () => {
-        if (!currentMatchId) return;
-        const ref = doc(db, 'matches', currentMatchId);
-        const snap = await getDoc(ref);
-        if (!snap.exists()) return;
-        const d = snap.data();
-        renderClock(d);
-      }, 1000);
-    }
-    function stopClockLoop() { if (clockInterval) { clearInterval(clockInterval); clockInterval = null; } }
-
+    // Timer actions -> Firestore timestamps
     async function setKickOff() {
       if (!currentMatchId) return alert('Select or create a match first.');
       const ref = doc(db, 'matches', currentMatchId);
@@ -571,24 +591,6 @@
       }
     }
 
-    // Minute formatter for 8+8 halves
-    function minuteStr(goalTime, doc) {
-      const t = (typeof goalTime === 'number') ? goalTime
-              : (goalTime?.seconds ? goalTime.seconds * 1000 : null);
-      const ko = doc?.kickoff?.seconds ? doc.kickoff.seconds * 1000 : null;
-      const h2 = doc?.secondHalfStart?.seconds ? doc.secondHalfStart.seconds * 1000 : null;
-
-      if (t && ko) {
-        if (h2 && t >= h2) {
-          const mins = 8 + Math.max(0, Math.floor((t - h2) / 60000));
-          return `${mins}’`;
-        }
-        const mins = Math.max(0, Math.floor((t - ko) / 60000));
-        return `${mins}’`;
-      }
-      return t ? new Date(t).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : "";
-    }
-
     // ===================== Event listeners =====================
     els.newMatchBtn.addEventListener('click', () => createMatch({ silent: false }));
     els.deleteMatchBtn.addEventListener('click', deleteMatch);
@@ -613,11 +615,11 @@
     els.resetBtn.addEventListener('click', resetScores);
     els.goalForm.addEventListener('submit', addGoal);
 
-    // Timer buttons
-    document.getElementById('kickOffBtn').addEventListener('click', setKickOff);
-    document.getElementById('endFirstHalfBtn').addEventListener('click', endFirstHalf);
-    document.getElementById('startSecondHalfBtn').addEventListener('click', startSecondHalf);
-    document.getElementById('endMatchBtn').addEventListener('click', endMatch);
+    // Timer controls
+    elsTimer.kick?.addEventListener('click', setKickOff);
+    elsTimer.endH1?.addEventListener('click', endFirstHalf);
+    elsTimer.startH2?.addEventListener('click', startSecondHalf);
+    elsTimer.endFT?.addEventListener('click', endMatch);
 
     // bootstrap
     await readPrefillFromURL();
