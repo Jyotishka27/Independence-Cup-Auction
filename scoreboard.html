@@ -8,6 +8,7 @@
   <style>
     html, body { background: #0b1220; }
     .glass { backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06)); }
+    .badge { display:inline-flex; align-items:center; gap:.35rem; font-weight:600; font-size:.75rem; padding:.25rem .6rem; border-radius:9999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); }
   </style>
 </head>
 <body class="min-h-screen text-slate-100">
@@ -21,15 +22,20 @@
   <main class="max-w-6xl mx-auto px-4 pb-24">
     <!-- Card: Match controls -->
     <section class="glass rounded-2xl shadow-xl border border-white/10 p-4 md:p-6">
-      <div class="flex flex-col md:flex-row gap-3 md:items-center">
-        <div class="flex-1">
-          <label for="matchSelect" class="block text-sm font-semibold mb-1">Current match</label>
-          <select id="matchSelect" class="w-full rounded-xl bg-slate-900/60 border border-white/10 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"></select>
+      <div class="flex flex-col gap-3">
+        <div class="flex flex-col md:flex-row gap-3 md:items-center">
+          <div class="flex-1">
+            <label for="matchSelect" class="block text-sm font-semibold mb-1">Current match</label>
+            <select id="matchSelect" class="w-full rounded-xl bg-slate-900/60 border border-white/10 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"></select>
+          </div>
+          <div class="flex gap-2">
+            <button id="newMatchBtn" class="rounded-xl px-4 py-2 bg-indigo-500 hover:bg-indigo-400 font-semibold">New Match</button>
+            <button id="deleteMatchBtn" class="rounded-xl px-4 py-2 bg-rose-600 hover:bg-rose-500 font-semibold">Delete</button>
+          </div>
         </div>
-        <div class="flex gap-2">
-          <button id="newMatchBtn" class="rounded-xl px-4 py-2 bg-indigo-500 hover:bg-indigo-400 font-semibold">New Match</button>
-          <button id="deleteMatchBtn" class="rounded-xl px-4 py-2 bg-rose-600 hover:bg-rose-500 font-semibold">Delete</button>
-        </div>
+
+        <!-- meta badges -->
+        <div id="metaBadges" class="flex flex-wrap items-center gap-2 text-xs"></div>
       </div>
     </section>
 
@@ -124,6 +130,10 @@
     let unsubMatch = null;
     let unsubList = null;
 
+    // Prefill from URL (also used when creating a match)
+    let prefillMatchday = null;  // number or string
+    let prefillStage = null;     // string
+
     const els = {
       matchSelect: document.getElementById('matchSelect'),
       newMatchBtn: document.getElementById('newMatchBtn'),
@@ -140,8 +150,26 @@
       teamAStats: document.getElementById('teamAStats'),
       teamBStats: document.getElementById('teamBStats'),
       teamAStatsTitle: document.getElementById('teamAStatsTitle'),
-      teamBStatsTitle: document.getElementById('teamBStatsTitle')
+      teamBStatsTitle: document.getElementById('teamBStatsTitle'),
+      metaBadges: document.getElementById('metaBadges'),
     };
+
+    function escapeHtml(str = '') {
+      return String(str).replace(/[&<>"]+/g, s => ({'&': '&amp;','<': '&lt;','>': '&gt;','"': '&quot;'}[s]));
+    }
+
+    function setMetaBadges(data) {
+      const md = data?.matchday ?? prefillMatchday ?? null;
+      const st = data?.stage ?? prefillStage ?? null;
+      const bits = [];
+      if (md !== null && md !== undefined && md !== "") {
+        bits.push(`<span class="badge">📅 Matchday <span class="opacity-80">${escapeHtml(md)}</span></span>`);
+      }
+      if (st) {
+        bits.push(`<span class="badge">🏷️ Stage <span class="opacity-80">${escapeHtml(st)}</span></span>`);
+      }
+      els.metaBadges.innerHTML = bits.join(" ");
+    }
 
     function renderMatchData(data) {
       const scores = data?.scores || { team1: 0, team2: 0 };
@@ -155,22 +183,25 @@
       els.teamAStatsTitle.textContent = `${teamNames.team1} Goals`;
       els.teamBStatsTitle.textContent = `${teamNames.team2} Goals`;
 
+      // Update select option label
       [...els.matchSelect.options].forEach(opt => {
         if (opt.value === currentMatchId) {
-          opt.textContent = `${teamNames.team1} vs ${teamNames.team2}`;
+          const tag = data?.stage ? ` • ${data.stage}` : (data?.matchday ? ` • MD ${data.matchday}` : "");
+          opt.textContent = `${teamNames.team1} vs ${teamNames.team2}${tag}`;
         }
       });
 
+      // Goals list
       els.teamAStats.innerHTML = '';
       els.teamBStats.innerHTML = '';
       goals.forEach((g, i) => {
         const li = document.createElement('li');
         li.className = 'flex items-center justify-between py-2';
-        const time = g.time ? new Date(g.time.seconds ? g.time.seconds * 1000 : g.time).toLocaleTimeString() : '';
+        const t = g.time ? new Date(g.time.seconds ? g.time.seconds * 1000 : g.time).toLocaleTimeString() : '';
         li.innerHTML = `
           <div>
             <div class="font-semibold">${escapeHtml(g.scorer)}</div>
-            <div class="text-xs opacity-70">${g.assist ? `Assist: ${escapeHtml(g.assist)} · ` : ''}${time}</div>
+            <div class="text-xs opacity-70">${g.assist ? `Assist: ${escapeHtml(g.assist)} · ` : ''}${t}</div>
           </div>
           <button class="rounded-lg px-2.5 py-1.5 bg-rose-600/90 hover:bg-rose-500 text-sm" data-del-index="${i}">Delete</button>
         `;
@@ -179,23 +210,25 @@
 
       els.teamAStats.querySelectorAll('button[data-del-index]').forEach(btn => btn.addEventListener('click', onDeleteGoal));
       els.teamBStats.querySelectorAll('button[data-del-index]').forEach(btn => btn.addEventListener('click', onDeleteGoal));
-    }
 
-    function escapeHtml(str = '') {
-      return str.replace(/[&<>"]+/g, s => ({'&': '&amp;','<': '&lt;','>': '&gt;','"': '&quot;'}[s]));
+      // Badges
+      setMetaBadges(data);
     }
 
     function listenToMatchList() {
       if (unsubList) unsubList();
-      const q = query(collection(db, 'matches'), orderBy('created', 'desc'));
-      unsubList = onSnapshot(q, snap => {
+      const qy = query(collection(db, 'matches'), orderBy('created', 'desc'));
+      unsubList = onSnapshot(qy, snap => {
         const currentVal = els.matchSelect.value;
         els.matchSelect.innerHTML = '';
         snap.forEach(d => {
           const data = d.data();
           const opt = document.createElement('option');
           opt.value = d.id;
-          opt.textContent = `${data?.teamNames?.team1 || 'Team A'} vs ${data?.teamNames?.team2 || 'Team B'}`;
+          const t1 = data?.teamNames?.team1 || 'Team A';
+          const t2 = data?.teamNames?.team2 || 'Team B';
+          const tag = data?.stage ? ` • ${data.stage}` : (data?.matchday ? ` • MD ${data.matchday}` : "");
+          opt.textContent = `${t1} vs ${t2}${tag}`;
           els.matchSelect.appendChild(opt);
         });
         const found = [...els.matchSelect.options].some(o => o.value === currentVal);
@@ -219,10 +252,31 @@
     async function selectMatch(matchId) {
       currentMatchId = matchId;
       listenToMatchDoc(matchId);
+      // Set badges early using prefill if needed
+      const ref = doc(db, 'matches', matchId);
+      const s = await getDoc(ref);
+      if (s.exists()) {
+        const data = s.data();
+        setMetaBadges(data);
+
+        // Backfill missing meta if URL provided them
+        const update = {};
+        let needsUpdate = false;
+        if ((data.matchday === undefined || data.matchday === null || data.matchday === "") && (prefillMatchday !== null && prefillMatchday !== undefined && prefillMatchday !== "")) {
+          update.matchday = prefillMatchday;
+          needsUpdate = true;
+        }
+        if ((!data.stage || data.stage === "") && (prefillStage && prefillStage !== "")) {
+          update.stage = prefillStage;
+          needsUpdate = true;
+        }
+        if (needsUpdate) {
+          await updateDoc(ref, { ...update, updated: serverTimestamp() });
+        }
+      }
     }
 
-    // Create a match from the current inputs.
-    // If silent=true, no confirmation prompt.
+    // Create a match from the current inputs (including prefilled matchday/stage).
     async function createMatch({ silent = false } = {}) {
       const nameA = (els.team1Input.value || '').trim();
       const nameB = (els.team2Input.value || '').trim();
@@ -231,17 +285,22 @@
         return;
       }
       if (!silent) {
-        const ok = confirm(`Create new match with:\n${nameA} vs ${nameB}?`);
+        const ok = confirm(`Create new match with:\n${nameA} vs ${nameB}${prefillStage ? `\nStage: ${prefillStage}` : ''}${prefillMatchday !== null && prefillMatchday !== undefined ? `\nMatchday: ${prefillMatchday}` : ''}?`);
         if (!ok) return;
       }
       const col = collection(db, 'matches');
-      const docRef = await addDoc(col, {
+      const payload = {
         teamNames: { team1: nameA, team2: nameB },
         scores: { team1: 0, team2: 0 },
         goals: [],
         created: serverTimestamp(),
         updated: serverTimestamp()
-      });
+      };
+      if (prefillStage) payload.stage = prefillStage;
+      if (prefillMatchday !== null && prefillMatchday !== undefined && prefillMatchday !== "") {
+        payload.matchday = prefillMatchday;
+      }
+      const docRef = await addDoc(col, payload);
       els.matchSelect.value = docRef.id;
       await selectMatch(docRef.id);
     }
@@ -252,6 +311,7 @@
       await deleteDoc(doc(db, 'matches', currentMatchId));
       currentMatchId = null;
       if (unsubMatch) unsubMatch();
+      els.metaBadges.innerHTML = "";
     }
 
     async function saveNamesDebounced() {
@@ -301,7 +361,7 @@
       goals.push(goal);
 
       await updateDoc(ref, {
-        [`scores.${team}`]: increment(1), // exact nested path; Team B safe
+        [`scores.${team}`]: increment(1),
         goals,
         updated: serverTimestamp()
       });
@@ -335,6 +395,15 @@
       const t2 = params.get('team2');
       const auto = params.get('auto');        // "1" => auto-create
       const mid = params.get('matchId');      // optional deep link
+      const md = params.get('matchday');      // may be number or string
+      const st = params.get('stage');         // string, e.g., "Semi Final 1"
+
+      // stash meta
+      if (md !== null) {
+        const asNum = Number(md);
+        prefillMatchday = Number.isFinite(asNum) ? asNum : md; // keep as string if not numeric
+      }
+      if (st) prefillStage = st;
 
       if (t1) els.team1Input.value = t1;
       if (t2) els.team2Input.value = t2;
@@ -342,14 +411,15 @@
       if (t1) els.teamAStatsTitle.textContent = `${t1} Goals`;
       if (t2) els.teamBStatsTitle.textContent = `${t2} Goals`;
 
+      // Show badges immediately (before doc exists)
+      setMetaBadges({ matchday: prefillMatchday, stage: prefillStage });
+
       if (mid) {
-        // Deep-link to existing match takes precedence
         await selectMatch(mid);
         return;
       }
 
       if (t1 && t2 && auto === '1') {
-        // Create silently from provided names
         await createMatch({ silent: true });
       }
     }
