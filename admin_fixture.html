@@ -297,6 +297,10 @@
           <button id="downloadCsvBtn" class="px-4 py-2 rounded-xl font-semibold bg-slate-200 hover:bg-slate-300 text-slate-900 disabled:opacity-50" disabled>
             Download CSV
           </button>
+          <!-- ✅ New Excel button -->
+          <button id="downloadExcelBtn" class="px-4 py-2 rounded-xl font-semibold bg-green-600 hover:bg-green-500 text-white">
+            Download Excel
+          </button>
         </div>
       </div>
 
@@ -533,7 +537,10 @@
     });
   </script>
 
-  <!-- ✅ Firestore: Standings + Goals exports (single module, single init) -->
+  <!-- ✅ SheetJS (Excel) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- ✅ Firestore: Standings + Goals exports + Excel (single module) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -556,6 +563,7 @@
     const els = {
       fetchBtn: document.getElementById("fetchResultsBtn"),
       csvBtn: document.getElementById("downloadCsvBtn"),
+      excelBtn: document.getElementById("downloadExcelBtn"),
       status: document.getElementById("resultsStatus"),
       table: document.getElementById("resultsTable"),
       tbody: document.getElementById("resultsTbody"),
@@ -819,6 +827,85 @@
       if (!goalsRows.length) return;
       download("goals.json", JSON.stringify(goalsRows, null, 2), "application/json;charset=utf-8");
     });
+
+    // ---------- Excel (Summary + per-match sheets) ----------
+    function toDateObj(ts) {
+      if (!ts) return null;
+      if (typeof ts === "number") return new Date(ts);
+      if (typeof ts === "object" && typeof ts.seconds === "number") return new Date(ts.seconds * 1000);
+      return null;
+    }
+
+    function safeSheetName(str, fallback) {
+      const name = (str || "").replace(/[\\/?*\[\]:]/g, " ").slice(0, 31).trim();
+      return name || (fallback || "Sheet");
+    }
+
+    async function downloadExcel() {
+      els.status.textContent = "Building Excel file…";
+
+      try {
+        const qMatches = query(collection(db, "matches"), orderBy("created", "asc"));
+        const snap = await getDocs(qMatches);
+
+        const wb = XLSX.utils.book_new();
+
+        // Summary sheet
+        const summary = [["Match ID","Team 1","Team 2","Score","Date"]];
+        snap.forEach(docSnap => {
+          const data = docSnap.data() || {};
+          const id = docSnap.id;
+          const team1 = data.teamNames?.team1 || "";
+          const team2 = data.teamNames?.team2 || "";
+          const s1 = (typeof data.scores?.team1 === "number") ? data.scores.team1 : "-";
+          const s2 = (typeof data.scores?.team2 === "number") ? data.scores.team2 : "-";
+          const created = toDateObj(data.created);
+          const createdStr = created ? created.toLocaleString() : "";
+          summary.push([id, team1, team2, `${s1} - ${s2}`, createdStr]);
+        });
+        const wsSummary = XLSX.utils.aoa_to_sheet(summary);
+        XLSX.utils.book_append_sheet(wb, wsSummary, "All Matches");
+
+        // Per match sheets
+        snap.forEach(docSnap => {
+          const data = docSnap.data() || {};
+          const id = docSnap.id;
+          const team1 = data.teamNames?.team1 || "";
+          const team2 = data.teamNames?.team2 || "";
+          const s1 = (typeof data.scores?.team1 === "number") ? data.scores.team1 : "-";
+          const s2 = (typeof data.scores?.team2 === "number") ? data.scores.team2 : "-";
+
+          const rows = [
+            ["Match ID", id],
+            ["Teams", `${team1} vs ${team2}`],
+            ["Score", `${s1} - ${s2}`],
+            [""],
+            ["Team","Scorer","Assister","Time (Local)"]
+          ];
+
+          const goals = Array.isArray(data.goals) ? data.goals : [];
+          goals.forEach(g => {
+            const side = g.team === "team2" ? "team2" : "team1";
+            const teamName = side === "team2" ? team2 : team1;
+            const timeLocal = toLocalTime(g.time);
+            rows.push([teamName, g.scorer || "", g.assist || "", timeLocal || ""]);
+          });
+
+          const ws = XLSX.utils.aoa_to_sheet(rows);
+          const tabName = safeSheetName(`${team1} vs ${team2}`, id.slice(0, 31));
+          XLSX.utils.book_append_sheet(wb, ws, tabName);
+        });
+
+        XLSX.writeFile(wb, "tournament_results.xlsx");
+        els.status.textContent = "Excel downloaded!";
+      } catch (err) {
+        console.error(err);
+        alert("Failed to generate Excel. Check console for details.");
+        els.status.textContent = "Failed to build Excel.";
+      }
+    }
+
+    els.excelBtn.addEventListener("click", downloadExcel);
   </script>
   
 </body>
