@@ -612,18 +612,12 @@ async function fetchMatchByTokenField(token){
     }
 
     async function hydrateFixtures(){
-      const index = await buildLatestIndex();
-      const cards = Array.from(document.querySelectorAll('.fixture-card.match-card'));
+      const cards = Array.from(document.querySelectorAll('.fixture-card.match-card, .knockout-card, .final-card'));
       for (const card of cards){
         const token = getCardToken(card);
-        let m = null;
-        if (token) m = await fetchMatchByToken(token) || await fetchMatchByTokenField(token);
-        if (!m){
-          const names = card.querySelectorAll('.team-name');
-          const a = names[0]?.textContent?.trim() || '';
-          const b = names[1]?.textContent?.trim() || '';
-          if (a && b) m = index.get(pairKey(a,b));
-        }
+        if (!token) continue; // require a token; no pair fallback
+        let m = await fetchMatchByToken(token);
+        if (!m) m = await fetchMatchByTokenField(token);
         if (m) renderFixtureCard(card, m.data);
       }
     }
