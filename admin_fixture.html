@@ -615,7 +615,7 @@ async function fetchMatchByTokenField(token){
       const cards = Array.from(document.querySelectorAll('.fixture-card.match-card, .knockout-card, .final-card'));
       for (const card of cards){
         const token = getCardToken(card);
-        if (!token) continue; // require a token; no pair fallback
+        if (!token) continue; // token required
         let m = await fetchMatchByToken(token);
         if (!m) m = await fetchMatchByTokenField(token);
         if (m) renderFixtureCard(card, m.data);
