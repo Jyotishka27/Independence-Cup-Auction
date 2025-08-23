@@ -270,30 +270,13 @@
 
     // tolerant LIVE/HT/FT logic (works with status OR timestamps you set from the scoreboard page)
     function computeStatus(doc){
-      const s = (doc.status ?? "").toString().trim().toLowerCase();
+      const s = (doc.status || "").toLowerCase();
       const ko  = toDate(doc.kickoff);
       const h1e = toDate(doc.firstHalfEnd);
       const h2s = toDate(doc.secondHalfStart);
-      const ftT = toDate(doc.fulltime) || toDate(doc.fullTime) || toDate(doc.ft);
+      const ft  = toDate(doc.fulltime);
 
-      const ftFlag =
-        doc.fulltime === true || doc.fullTime === true ||
-        doc.isFullTime === true || doc.isFT === true;
-
-      const isFT =
-        s === "ft" || s === "full time" || s === "fulltime" ||
-        s === "finished" || s === "end" || s === "ended" ||
-        !!ftT || ftFlag;
-
-      if (isFT) return { text:"FT", cls:"status-badge status-ft" };
-      if (s === "ht" || (h1e && !h2s)) return { text:"HT", cls:"status-badge status-ht" };
-      if (s === "live") return { text:"LIVE", cls:"status-badge status-live" };
-
-      if (h2s && !ftT && !ftFlag) return { text:"LIVE", cls:"status-badge status-live" };
-      if (h1e && !h2s)             return { text:"HT",   cls:"status-badge status-ht" };
-      if (ko && !h1e)              return { text:"LIVE", cls:"status-badge status-live" };
-      return null;
-    };
+      if (s === 'ft' || doc.fulltime === true || ft) return { text:'FT', cls:'status-badge status-ft' };
       if (s === 'ht' || (h1e && !h2s))               return { text:'HT', cls:'status-badge status-ht' };
       if (s === 'live')                               return { text:'LIVE', cls:'status-badge status-live' };
 
@@ -305,10 +288,9 @@
     }
 
     function matchScore(doc){
-      const s1 = Number(doc?.scores?.team1);
-      const s2 = Number(doc?.scores?.team2);
-      return (Number.isFinite(s1) && Number.isFinite(s2)) ? { s1, s2 } : null;
-    };
+      const s1 = (typeof doc?.scores?.team1 === 'number') ? doc.scores.team1 : null;
+      const s2 = (typeof doc?.scores?.team2 === 'number') ? doc.scores.team2 : null;
+      return (s1==null || s2==null) ? null : { s1, s2 };
     }
 
     // ===== Load teams + group mapping (use teams-util if available; otherwise fallback)
@@ -472,9 +454,9 @@
         if (!g1 || !g2 || g1 !== g2) return;
 
         const status = computeStatus(d);
-        const score = matchScore(d);
-        if (!status || status.text !== 'FT' || !score) { console.warn('Skipped match:', { t1, t2, status: status?.text, score: d?.scores, group1: g1, group2: g2 }); return; }
-        const { s1, s2 } = score;
+        const s1 = (typeof d?.scores?.team1 === 'number') ? d.scores.team1 : null;
+        const s2 = (typeof d?.scores?.team2 === 'number') ? d.scores.team2 : null;
+        if (!status || status.text !== 'FT' || s1==null || s2==null) return;
 
         const g = g1; // "A" or "B"
         const map = table[g];
