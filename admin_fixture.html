@@ -478,7 +478,7 @@
 <!-- Firebase + Page Logic (fixtures hydration + leaderboards + excel) -->
 <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, orderBy, doc, getDoc, where, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyB0DaaYB1hZLY8h23QOpT7Ok4sX5ACkHTM",
@@ -496,6 +496,24 @@
     const esc = s => String(s ?? "").replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
     const norm = s => (s || "").toString().trim().toLowerCase();
     const pairKey = (a,b)=>{ const A=norm(a),B=norm(b); return (A<B)?`${A}|||${B}`:`${B}|||${A}`; };
+
+function getCardToken(card){
+  return (card?.dataset?.fixtureId || '').trim();
+}
+async function fetchMatchByToken(token){
+  if(!token) return null;
+  const ds = await getDoc(doc(db, 'matches', token));
+  return ds.exists() ? { id: ds.id, data: ds.data() } : null;
+}
+async function fetchMatchByTokenField(token){
+  try{
+    const qTok = query(collection(db, 'matches'), where('fixtureToken','==', token), limit(1));
+    const snap = await getDocs(qTok);
+    const first = snap.docs[0];
+    return first ? { id: first.id, data: first.data() } : null;
+  }catch(e){ return null; }
+}
+
 
     // Minute formatter from timestamps
     function toDate(ts){
