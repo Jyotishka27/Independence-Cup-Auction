@@ -147,7 +147,9 @@
     let lastMatchData = null;
 
     // Prefill from URL (also used when creating a match)
-    let prefillMatchday = null;  // number or string
+    let prefillMatchday = null;
+    let prefillFixture = null;   // token (doc id) if provided
+  // number or string
     let prefillStage = null;     // string
 
     const els = {
@@ -420,9 +422,17 @@
       if (prefillMatchday !== null && prefillMatchday !== undefined && prefillMatchday !== "") {
         payload.matchday = prefillMatchday;
       }
-      const docRef = await addDoc(col, payload);
-      els.matchSelect.value = docRef.id;
-      await selectMatch(docRef.id);
+      if (prefillFixture) {
+        payload.fixtureToken = prefillFixture;
+        const dref = doc(db, 'matches', prefillFixture);
+        await setDoc(dref, payload, { merge: true });
+        els.matchSelect.value = prefillFixture;
+        await selectMatch(prefillFixture);
+      } else {
+        const docRef = await addDoc(col, payload);
+        els.matchSelect.value = docRef.id;
+        await selectMatch(docRef.id);
+      }
     }
 
     async function deleteMatch() {
@@ -564,6 +574,7 @@
       const mid = params.get('matchId');      // optional deep link
       const md = params.get('matchday');      // may be number or string
       const st = params.get('stage');         // string, e.g., "Semi Final 1"
+      const fx = params.get('fixture');     // fixture token (doc id)
 
       // stash meta
       if (md !== null) {
@@ -571,6 +582,8 @@
         prefillMatchday = Number.isFinite(asNum) ? asNum : md; // keep as string if not numeric
       }
       if (st) prefillStage = st;
+
+      if (fx) prefillFixture = fx;
 
       if (t1) els.team1Input.value = t1;
       if (t2) els.team2Input.value = t2;
@@ -580,6 +593,16 @@
 
       // Show badges immediately (before doc exists)
       setMetaBadges({ matchday: prefillMatchday, stage: prefillStage });
+
+      if (prefillFixture) {
+        const asRef = doc(db, 'matches', prefillFixture);
+        const s = await getDoc(asRef);
+        if (s.exists()) {
+          els.matchSelect.value = prefillFixture;
+          await selectMatch(prefillFixture);
+          return;
+        }
+      }
 
       if (mid) {
         await selectMatch(mid);
