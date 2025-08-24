@@ -45,7 +45,7 @@
     @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
 
     .group-card {
-      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      background: linear-gradient(145deg, #ffffff 0%, #f8fafb 100%);
       border: 1px solid #e2e8f0; transition: all 0.3s ease;
     }
     .group-card:hover { border-color: #cbd5e1; box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1); }
@@ -55,12 +55,6 @@
       border: 1px solid #e5e7eb; transition: all 0.2s ease;
     }
     .match-card:hover { border-color: #d1d5db; transform: translateY(-2px); }
-
-    .knockout-card {
-      background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-      border: 1px solid #e2e8f0; transition: all 0.3s ease;
-    }
-    .knockout-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.1); }
 
     .final-card {
       background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%);
@@ -92,7 +86,7 @@
   <!-- Main Content -->
   <main class="flex-grow max-w-7xl mx-auto p-6 space-y-12">
 
-    <!-- Group Teams Section -->
+    <!-- Group Teams Section (unchanged) -->
     <section class="card section-header rounded-2xl shadow-lg p-8">
       <div class="text-center mb-8">
         <h2 class="text-4xl font-bold text-gray-900 mb-2">
@@ -154,266 +148,11 @@
       </div>
     </section>
 
-    <!-- Tournament Fixtures Section -->
+    <!-- Knockout Stage (RENAMED + filled with the 12 knockouts & scorers/assisters) -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="text-center mb-10">
-        <h2 class="text-4xl font-bold text-gray-900 mb-2">
-          Tournament Fixtures
-        </h2>
-        <p class="text-gray-600 text-lg">Complete match schedule</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-        <!-- MD1 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD1" data-matchday="1" data-home="Thunderbolt" data-away="Messiah FC">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 1</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Thunderbolt</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span>
-              <span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Messiah FC.jpg" alt="Messiah FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Messiah FC</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD2 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD2" data-matchday="2" data-home="Amigos FC" data-away="Strawhat Pirates">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 2</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Amigos FC.jpg" alt="Amigos FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Amigos FC</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Strawhat Pirates</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD3 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD3" data-matchday="3" data-home="White Panthers" data-away="Thunderbolt">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 3</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="White Panthers.jpg" alt="White Panthers" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">White Panthers</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Thunderbolt</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD4 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD4" data-matchday="4" data-home="Red Bulls Eleven" data-away="Amigos FC">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 4</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Red Bulls Eleven</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Amigos FC.jpg" alt="Amigos FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Amigos FC</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD5 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD5" data-matchday="5" data-home="Messiah FC" data-away="White Panthers">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 5</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Messiah FC.jpg" alt="Messiah FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Messiah FC</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="White Panthers.jpg" alt="White Panthers" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">White Panthers</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD6 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD6" data-matchday="6" data-home="Strawhat Pirates" data-away="Red Bulls Eleven">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 6</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Strawhat Pirates</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Red Bulls Eleven</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD7 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD7" data-matchday="7" data-home="Messiah FC" data-away="Thunderbolt">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 7</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Messiah FC.jpg" alt="Messiah FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Messiah FC</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Thunderbolt</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD8 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD8" data-matchday="8" data-home="Strawhat Pirates" data-away="Amigos FC">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 8</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Strawhat Pirates</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Amigos FC.jpg" alt="Amigos FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Amigos FC</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD9 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD9" data-matchday="9" data-home="Thunderbolt" data-away="White Panthers">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 9</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Thunderbolt.jpg" alt="Thunderbolt" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Thunderbolt</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="White Panthers.jpg" alt="White Panthers" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">White Panthers</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD10 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD10" data-matchday="10" data-home="Amigos FC" data-away="Red Bulls Eleven">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 10</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Amigos FC.jpg" alt="Amigos FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Amigos FC</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Red Bulls Eleven</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD11 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD11" data-matchday="11" data-home="White Panthers" data-away="Messiah FC">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 11</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="White Panthers.jpg" alt="White Panthers" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">White Panthers</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Messiah FC.jpg" alt="Messiah FC" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Messiah FC</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- MD12 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6"
-             data-match-id="MD12" data-matchday="12" data-home="Red Bulls Eleven" data-away="Strawhat Pirates">
-          <div class="flex justify-center mb-4"><span class="matchday-badge">Matchday 12</span></div>
-          <div class="flex items-center justify-center gap-6">
-            <div class="flex flex-col items-center">
-              <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Red Bulls Eleven</span>
-            </div>
-            <div class="vs-text text-xl score-box">
-              <span class="score-digit" data-role="home-score">0</span><span>-</span>
-              <span class="score-digit" data-role="away-score">0</span>
-            </div>
-            <div class="flex flex-col items-center">
-              <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="h-14 w-14 rounded-full shadow-md mb-3" />
-              <span class="team-name">Strawhat Pirates</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================== KNOCKOUT — ROUND 1 (12 MATCHES) ================== -->
-    <section class="section-header rounded-2xl shadow-lg p-8">
-      <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-gray-900">Knockout — Round 1</h2>
-        <p class="text-gray-600">12 matches · scorers include assisters in brackets</p>
+        <h2 class="text-4xl font-bold text-gray-900 mb-2">Knockout Stage</h2>
+        <p class="text-gray-600 text-lg">12 matches · scorers include assisters in brackets</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -593,14 +332,14 @@
       </div>
     </section>
 
-    <!-- ================== SEMIS · THIRD · FINAL ================== -->
+    <!-- Semis · Third · Final -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-bold text-gray-900">Semi-finals, Third Place & Final</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
-        <!-- SF1: Messiah 0–0 Strawhat (3–1 pens) -->
+        <!-- SF1: Messiah 0–0 Strawhat (pens 1–3) -->
         <div class="fixture-card match-card rounded-xl shadow-md p-6">
           <div class="flex items-center justify-between">
             <div class="text-sm font-semibold text-gray-700">Messiah FC</div>
@@ -611,14 +350,8 @@
             <div class="text-sm font-semibold text-gray-700 text-right">Strawhat Pirates</div>
           </div>
           <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-            <div>
-              <div class="font-medium text-gray-600 mb-1">Scorers</div>
-              <ul><li>—</li></ul>
-            </div>
-            <div>
-              <div class="font-medium text-gray-600 mb-1">Scorers</div>
-              <ul><li>—</li></ul>
-            </div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
           </div>
         </div>
 
@@ -710,7 +443,7 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const cards = document.querySelectorAll('.fixture-card, .group-card, .knockout-card');
+      const cards = document.querySelectorAll('.fixture-card, .group-card');
       cards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
@@ -723,7 +456,7 @@
     });
   </script>
 
-  <!-- Header + team/logo hydration -->
+  <!-- Header + team/logo hydration (unchanged) -->
   <script type="module">
     import { injectHeader } from "./tournament_header.js";
     import { loadTeams, hydrateTeamLogos } from "./teams-util.js";
@@ -736,9 +469,8 @@
     }
   </script>
 
-  <!-- Match score logic: unique per fixture via data-match-id -->
+  <!-- Optional localStorage score API (left as-is for your other pages) -->
   <script>
-    // ---- Storage helpers (localStorage-based; swap for Firestore if desired) ----
     function saveScore(matchId, homeScore, awayScore) {
       localStorage.setItem(`match:${matchId}`, JSON.stringify({ homeScore, awayScore }));
     }
@@ -746,8 +478,6 @@
       const raw = localStorage.getItem(`match:${matchId}`);
       return raw ? JSON.parse(raw) : null;
     }
-
-    // ---- DOM helpers ----
     function getScoreEls(card) {
       return {
         home: card.querySelector('[data-role="home-score"]'),
@@ -755,24 +485,16 @@
       };
     }
     function setScoreInCard(card, homeScore, awayScore) {
-      const { home, away } = getScoreEls(card);
+      const { home, away } = getScoreEls(card) || {};
       if (home) home.textContent = homeScore;
       if (away) away.textContent = awayScore;
     }
-
-    // ---- Public API: update a specific fixture by its unique matchId ----
-    // Usage: updateScore('MD1', 2, 1)
     window.updateScore = function(matchId, homeScore, awayScore) {
       const card = document.querySelector(`.match-card[data-match-id="${matchId}"]`);
-      if (!card) {
-        console.warn('No card for matchId', matchId);
-        return;
-      }
+      if (!card) return;
       setScoreInCard(card, homeScore, awayScore);
       saveScore(matchId, homeScore, awayScore);
     };
-
-    // ---- Hydrate all fixtures from storage on load ----
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.match-card[data-match-id]').forEach(card => {
         const id = card.getAttribute('data-match-id');
