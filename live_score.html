@@ -3,149 +3,263 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tournament Knockouts</title>
+  <title>Tournament — Knockout Stage</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    .pill { @apply w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold; }
+    .card { @apply bg-white rounded-xl shadow border border-slate-200 p-4; }
+    .team { @apply font-semibold text-slate-700; }
+    .sub { @apply text-xs text-slate-500; }
+    .label { @apply font-medium text-slate-600 mb-1; }
   </style>
 </head>
 <body class="bg-slate-50">
-  <div class="max-w-6xl mx-auto p-4 md:p-6">
-    <h1 class="text-2xl font-semibold text-slate-800 mb-4">Knockout Stage</h1>
+  <div class="max-w-6xl mx-auto p-4 md:p-6 space-y-8">
+    <h1 class="text-2xl font-semibold text-slate-800">Knockout Stage</h1>
 
-    <div class="grid md:grid-cols-2 gap-4">
+    <!-- ================== ROUND 1: 12 Knockout Matches ================== -->
+    <section>
+      <h2 class="text-xl font-semibold text-slate-800 mb-3">Knockout — Round 1 (12 matches)</h2>
+      <div class="grid md:grid-cols-2 gap-4">
 
-      <!-- Semi-final 1 -->
-      <div class="bg-white rounded-xl shadow border border-slate-200 p-4">
-        <div class="flex items-center justify-between">
-          <div class="text-slate-700">
-            <div class="font-semibold">Semi-final 1</div>
-            <div class="text-sm">Messiah FC</div>
+        <!-- KO #1 Red Bulls 2–2 Strawhat -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Red Bulls Eleven</div><div class="sub">KO #1</div></div>
+            <div class="pill">2–2</div>
+            <div class="text-right"><div class="team">Strawhat Pirates</div></div>
           </div>
-          <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold">
-            0–1
-          </div>
-          <div class="text-right text-slate-700">
-            <div class="font-semibold opacity-0 select-none">.</div>
-            <div class="text-sm">Strawhat Pirates</div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div>
+              <ul class="space-y-1 text-slate-700"><li>Jeff</li><li>Subhojit (Akash M)</li></ul></div>
+            <div><div class="label">Scorers</div>
+              <ul class="space-y-1 text-slate-700"><li>Monty (Supratim)</li><li>Dibba</li></ul></div>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-          <div>
-            <div class="font-medium text-slate-600 mb-1">Scorers</div>
-            <ul class="space-y-1 text-slate-700">
-              <li>—</li>
-            </ul>
+
+        <!-- KO #2 White Panthers 0–0 Messiah -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">White Panthers</div><div class="sub">KO #2</div></div>
+            <div class="pill">0–0</div>
+            <div class="text-right"><div class="team">Messiah FC</div></div>
           </div>
-          <div>
-            <div class="font-medium text-slate-600 mb-1">Scorers</div>
-            <ul class="space-y-1 text-slate-700">
-              <li>Penalty</li>
-            </ul>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #3 Amigos 2–0 Red Bulls -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Amigos FC</div><div class="sub">KO #3</div></div>
+            <div class="pill">2–0</div>
+            <div class="text-right"><div class="team">Red Bulls Eleven</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div>
+              <ul class="space-y-1 text-slate-700"><li>Kaustav (Vasu)</li><li>Sany (Kaustav)</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #4 Thunderbolt 0–1 White Panthers -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Thunderbolt</div><div class="sub">KO #4</div></div>
+            <div class="pill">0–1</div>
+            <div class="text-right"><div class="team">White Panthers</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>Pulak (Subhanjan)</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #5 Strawhat 0–0 Amigos -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Strawhat Pirates</div><div class="sub">KO #5</div></div>
+            <div class="pill">0–0</div>
+            <div class="text-right"><div class="team">Amigos FC</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #6 Messiah 0–0 Thunderbolt -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Messiah FC</div><div class="sub">KO #6</div></div>
+            <div class="pill">0–0</div>
+            <div class="text-right"><div class="team">Thunderbolt</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #7 Strawhat 2–2 Red Bulls -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Strawhat Pirates</div><div class="sub">KO #7</div></div>
+            <div class="pill">2–2</div>
+            <div class="text-right"><div class="team">Red Bulls Eleven</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul class="space-y-1"><li>Monty (Supratim)</li><li>Monty</li></ul></div>
+            <div><div class="label">Scorers</div><ul class="space-y-1"><li>Siva</li><li>Jeff</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #8 Messiah 1–1 White Panthers -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Messiah FC</div><div class="sub">KO #8</div></div>
+            <div class="pill">1–1</div>
+            <div class="text-right"><div class="team">White Panthers</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>Biswajit (Ritam)</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>Soumik (Subhanjan)</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #9 Red Bulls 0–1 Amigos -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Red Bulls Eleven</div><div class="sub">KO #9</div></div>
+            <div class="pill">0–1</div>
+            <div class="text-right"><div class="team">Amigos FC</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>Vasu (Krishnendu)</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #10 White Panthers 0–1 Thunderbolt -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">White Panthers</div><div class="sub">KO #10</div></div>
+            <div class="pill">0–1</div>
+            <div class="text-right"><div class="team">Thunderbolt</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>Tintin (Akash)</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #11 Amigos 0–1 Strawhat -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Amigos FC</div><div class="sub">KO #11</div></div>
+            <div class="pill">0–1</div>
+            <div class="text-right"><div class="team">Strawhat Pirates</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>Supratim</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO #12 Thunderbolt 1–3 Messiah -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Thunderbolt</div><div class="sub">KO #12</div></div>
+            <div class="pill">1–3</div>
+            <div class="text-right"><div class="team">Messiah FC</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>Tintin</li></ul></div>
+            <div><div class="label">Scorers</div>
+              <ul class="space-y-1 text-slate-700">
+                <li>Rishov (Ritam)</li>
+                <li>Ritam</li>
+                <li>Ritam (Satyaki)</li>
+              </ul></div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Semi-final 2 -->
-      <div class="bg-white rounded-xl shadow border border-slate-200 p-4">
-        <div class="flex items-center justify-between">
-          <div class="text-slate-700">
-            <div class="font-semibold">Semi-final 2</div>
-            <div class="text-sm">Amigos FC</div>
+    <!-- ================== SEMI-FINALS ================== -->
+    <section>
+      <h2 class="text-xl font-semibold text-slate-800 mb-3">Semi-finals</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+
+        <!-- SF1 -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Messiah FC</div><div class="sub">Semi-final 1</div></div>
+            <div class="pill">0–1</div>
+            <div class="text-right"><div class="team">Strawhat Pirates</div></div>
           </div>
-          <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold">
-            3–0
-          </div>
-          <div class="text-right text-slate-700">
-            <div class="font-semibold opacity-0 select-none">.</div>
-            <div class="text-sm">White Panthers</div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>Penalty</li></ul></div>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-          <div>
-            <div class="font-medium text-slate-600 mb-1">Scorers</div>
-            <ul class="space-y-1 text-slate-700">
-              <li>Vasu (assist: Kaustav)</li>
-              <li>Sany</li>
-              <li>Vasu</li>
-            </ul>
+
+        <!-- SF2 -->
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div><div class="team">Amigos FC</div><div class="sub">Semi-final 2</div></div>
+            <div class="pill">3–0</div>
+            <div class="text-right"><div class="team">White Panthers</div></div>
           </div>
-          <div>
-            <div class="font-medium text-slate-600 mb-1">Scorers</div>
-            <ul class="space-y-1 text-slate-700">
-              <li>—</li>
-            </ul>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="label">Scorers</div>
+              <ul class="space-y-1 text-slate-700"><li>Vasu (Kaustav)</li><li>Sany</li><li>Vasu</li></ul></div>
+            <div><div class="label">Scorers</div><ul><li>—</li></ul></div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Final -->
-      <div class="bg-white rounded-xl shadow border border-slate-200 p-4">
+    <!-- ================== THIRD PLACE ================== -->
+    <section>
+      <h2 class="text-xl font-semibold text-slate-800 mb-3">Third-place</h2>
+      <div class="card">
         <div class="flex items-center justify-between">
-          <div class="text-slate-700">
-            <div class="font-semibold">Final</div>
-            <div class="text-sm">Strawhat Pirates</div>
-          </div>
-          <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold">
-            1–2
-          </div>
-          <div class="text-right text-slate-700">
-            <div class="font-semibold opacity-0 select-none">.</div>
-            <div class="text-sm">Amigos FC</div>
-          </div>
+          <div><div class="team">Messiah FC</div><div class="sub">Third-place Match</div></div>
+          <div class="pill">4–1</div>
+          <div class="text-right"><div class="team">White Panthers</div></div>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-          <div>
-            <div class="font-medium text-slate-600 mb-1">Scorers</div>
+          <div><div class="label">Scorers</div>
             <ul class="space-y-1 text-slate-700">
-              <li>Supratim (assist: Monty)</li>
-            </ul>
-          </div>
-          <div>
-            <div class="font-medium text-slate-600 mb-1">Scorers</div>
-            <ul class="space-y-1 text-slate-700">
-              <li>Rony (assist: Rahul)</li>
-              <li>Sany</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Third-place Playoff -->
-      <div class="bg-white rounded-xl shadow border border-slate-200 p-4">
-        <div class="flex items-center justify-between">
-          <div class="text-slate-700">
-            <div class="font-semibold">Third-place</div>
-            <div class="text-sm">Messiah FC</div>
-          </div>
-          <div class="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center font-semibold">
-            4–1
-          </div>
-          <div class="text-right text-slate-700">
-            <div class="font-semibold opacity-0 select-none">.</div>
-            <div class="text-sm">White Panthers</div>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-          <div>
-            <div class="font-medium text-slate-600 mb-1">Scorers</div>
-            <ul class="space-y-1 text-slate-700">
-              <li>Rishov (assist: Ritam)</li>
+              <li>Rishov (Ritam)</li>
               <li>Ritam</li>
               <li>Ritam</li>
-              <li>Ritam (assist: Satyaki)</li>
-            </ul>
-          </div>
-          <div>
-            <div class="font-medium text-slate-600 mb-1">Scorers</div>
-            <ul class="space-y-1 text-slate-700">
-              <li>Soumik</li>
-            </ul>
-          </div>
+              <li>Ritam (Satyaki)</li>
+            </ul></div>
+          <div><div class="label">Scorers</div><ul><li>Soumik</li></ul></div>
         </div>
       </div>
+    </section>
 
-    </div>
+    <!-- ================== FINAL ================== -->
+    <section>
+      <h2 class="text-xl font-semibold text-slate-800 mb-3">Final</h2>
+      <div class="card">
+        <div class="flex items-center justify-between">
+          <div><div class="team">Strawhat Pirates</div><div class="sub">Final</div></div>
+          <div class="pill">1–2</div>
+          <div class="text-right"><div class="team">Amigos FC</div></div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+          <div><div class="label">Scorers</div><ul><li>Supratim (Monty)</li></ul></div>
+          <div><div class="label">Scorers</div><ul><li>Rony (Rahul)</li><li>Sany</li></ul></div>
+        </div>
+      </div>
+    </section>
 
     <!-- Champions strip -->
     <div class="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4">
