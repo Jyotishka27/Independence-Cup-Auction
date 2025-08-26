@@ -26,6 +26,19 @@
     .third { background: linear-gradient(135deg, #f3f4f6, #e5e7eb); }
     .champion { border: 2px solid #fbbf24; position: relative; background: linear-gradient(135deg, #fffbea, #fef9c3); }
     .champion::before { content: "👑"; position: absolute; top: -12px; right: -12px; background: #fbbf24; border-radius: 9999px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.2); font-size: 1.2rem; }
+      /* Table polish */
+    .tbl { border-collapse: separate; border-spacing: 0; overflow: hidden; border-radius: 1rem; }
+    .tbl thead th { position: sticky; top: 0; background: #f8fafc; z-index: 1; }
+    .tbl th, .tbl td { padding: .6rem .9rem; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
+    .tbl tbody tr:nth-child(odd) { background: #f9fafb; }
+    .tbl tbody tr:hover { background: #eef2ff; }
+    .sep-x > * + * { border-left: 1px solid #e2e8f0; }
+    .pos { width: 2.5rem; text-align: center; font-weight: 700; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .team-cell { display: flex; align-items: center; gap: .6rem; }
+    .chip { font-size: .7rem; padding: .2rem .5rem; border-radius: 9999px; border: 1px solid #cbd5e1; background:#f8fafc; }
+    .rank-1 { box-shadow: inset 4px 0 0 #22c55e; }
+    .rank-2 { box-shadow: inset 4px 0 0 #a3e635; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -49,7 +62,13 @@
           </div>
           <div class="overflow-x-auto">
             <table class="tbl w-full text-sm">
-              <thead class="text-slate-700">
+              <colgroup>
+                <col style="width:3rem" />
+                <col />
+                <col style="width:3.2rem" /><col style="width:3.2rem" /><col style="width:3.2rem" /><col style="width:3.2rem" />
+                <col style="width:3.2rem" /><col style="width:3.2rem" /><col style="width:3.2rem" /><col style="width:3.2rem" />
+              </colgroup>
+              <thead class="text-slate-800 bg-slate-50">
                 <tr class="sep-x">
                   <th class="pos">#</th>
                   <th class="text-left py-2">Team</th>
@@ -57,37 +76,20 @@
                 </tr>
               </thead>
               <tbody class="font-medium">
-                <tr class="qualified">
+                <tr class="rank-1 qualified">
                   <td class="pos">1</td>
-                  <td class="py-2">
-                    <div class="flex items-center gap-3">
-                      <img src="Messiah FC.jpg" alt="Messiah FC" class="team-logo"/>
-                      <span>Messiah FC</span>
-                      <span class="chip">Qualified</span>
-                    </div>
-                  </td>
-                  <td>4</td><td>1</td><td>3</td><td>0</td><td>4</td><td>2</td><td>+2</td><td>6</td>
+                  <td class="py-2"><div class="team-cell"><img src="Messiah FC.jpg" alt="Messiah FC" class="team-logo"/><span>Messiah FC</span><span class="chip">Qualified</span></div></td>
+                  <td class="num">4</td><td class="num">1</td><td class="num">3</td><td class="num">0</td><td class="num">4</td><td class="num">2</td><td class="num">+2</td><td class="num">6</td>
                 </tr>
-                <tr class="qualified">
+                <tr class="rank-2 qualified">
                   <td class="pos">2</td>
-                  <td class="py-2">
-                    <div class="flex items-center gap-3">
-                      <img src="White Panthers.jpg" alt="White Panthers" class="team-logo"/>
-                      <span>White Panthers</span>
-                      <span class="chip">Qualified</span>
-                    </div>
-                  </td>
-                  <td>4</td><td>1</td><td>2</td><td>1</td><td>2</td><td>2</td><td>0</td><td>5</td>
+                  <td class="py-2"><div class="team-cell"><img src="White Panthers.jpg" alt="White Panthers" class="team-logo"/><span>White Panthers</span><span class="chip">Qualified</span></div></td>
+                  <td class="num">4</td><td class="num">1</td><td class="num">2</td><td class="num">1</td><td class="num">2</td><td class="num">2</td><td class="num">0</td><td class="num">5</td>
                 </tr>
                 <tr>
                   <td class="pos">3</td>
-                  <td class="py-2">
-                    <div class="flex items-center gap-3">
-                      <img src="Thunderbolt.jpg" alt="Thunderbolt" class="team-logo"/>
-                      <span>Thunderbolt</span>
-                    </div>
-                  </td>
-                  <td>4</td><td>1</td><td>1</td><td>2</td><td>2</td><td>4</td><td>-2</td><td>4</td>
+                  <td class="py-2"><div class="team-cell"><img src="Thunderbolt.jpg" alt="Thunderbolt" class="team-logo"/><span>Thunderbolt</span></div></td>
+                  <td class="num">4</td><td class="num">1</td><td class="num">1</td><td class="num">2</td><td class="num">2</td><td class="num">4</td><td class="num">-2</td><td class="num">4</td>
                 </tr>
               </tbody>
             </table>
@@ -101,7 +103,13 @@
           </div>
           <div class="overflow-x-auto">
             <table class="tbl w-full text-sm">
-              <thead class="text-slate-700">
+              <colgroup>
+                <col style="width:3rem" />
+                <col />
+                <col style="width:3.2rem" /><col style="width:3.2rem" /><col style="width:3.2rem" /><col style="width:3.2rem" />
+                <col style="width:3.2rem" /><col style="width:3.2rem" /><col style="width:3.2rem" /><col style="width:3.2rem" />
+              </colgroup>
+              <thead class="text-slate-800 bg-slate-50">
                 <tr class="sep-x">
                   <th class="pos">#</th>
                   <th class="text-left py-2">Team</th>
@@ -109,37 +117,20 @@
                 </tr>
               </thead>
               <tbody class="font-medium">
-                <tr class="qualified">
+                <tr class="rank-1 qualified">
                   <td class="pos">1</td>
-                  <td class="py-2">
-                    <div class="flex items-center gap-3">
-                      <img src="Amigos FC.jpg" alt="Amigos FC" class="team-logo"/>
-                      <span>Amigos FC</span>
-                      <span class="chip">Qualified</span>
-                    </div>
-                  </td>
-                  <td>4</td><td>2</td><td>1</td><td>1</td><td>3</td><td>1</td><td>+2</td><td>7</td>
+                  <td class="py-2"><div class="team-cell"><img src="Amigos FC.jpg" alt="Amigos FC" class="team-logo"/><span>Amigos FC</span><span class="chip">Qualified</span></div></td>
+                  <td class="num">4</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num">3</td><td class="num">1</td><td class="num">+2</td><td class="num">7</td>
                 </tr>
-                <tr class="qualified">
+                <tr class="rank-2 qualified">
                   <td class="pos">2</td>
-                  <td class="py-2">
-                    <div class="flex items-center gap-3">
-                      <img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="team-logo"/>
-                      <span>Strawhat Pirates</span>
-                      <span class="chip">Qualified</span>
-                    </div>
-                  </td>
-                  <td>4</td><td>1</td><td>3</td><td>0</td><td>5</td><td>4</td><td>+1</td><td>6</td>
+                  <td class="py-2"><div class="team-cell"><img src="Strawhat Pirates.jpg" alt="Strawhat Pirates" class="team-logo"/><span>Strawhat Pirates</span><span class="chip">Qualified</span></div></td>
+                  <td class="num">4</td><td class="num">1</td><td class="num">3</td><td class="num">0</td><td class="num">5</td><td class="num">4</td><td class="num">+1</td><td class="num">6</td>
                 </tr>
                 <tr>
                   <td class="pos">3</td>
-                  <td class="py-2">
-                    <div class="flex items-center gap-3">
-                      <img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="team-logo"/>
-                      <span>Red Bulls Eleven</span>
-                    </div>
-                  </td>
-                  <td>4</td><td>0</td><td>2</td><td>2</td><td>4</td><td>7</td><td>-3</td><td>2</td>
+                  <td class="py-2"><div class="team-cell"><img src="Red Bulls Eleven.jpg" alt="Red Bulls Eleven" class="team-logo"/><span>Red Bulls Eleven</span></div></td>
+                  <td class="num">4</td><td class="num">0</td><td class="num">2</td><td class="num">2</td><td class="num">4</td><td class="num">7</td><td class="num">-3</td><td class="num">2</td>
                 </tr>
               </tbody>
             </table>
