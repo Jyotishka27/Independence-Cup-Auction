@@ -9,23 +9,19 @@
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
            color: #1e293b; }
-    .card:hover { transform: translateY(-2px);
-                  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
-                              0 8px 10px -6px rgb(0 0 0 / 0.1);
-                  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);}
-    .fixture-card:hover { transform: translateY(-3px);
-                          box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15);
-                          transition: all 0.2s ease-out;}
-    .match-card { background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
-                  border: 1px solid #e5e7eb; transition: all 0.2s ease;}
-    .match-card:hover { border-color: #d1d5db; transform: translateY(-2px); }
-    .final-card { background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%);
-                  border: 2px solid #fbbf24; position: relative;}
+    .section-header { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; }
+    .fixture-card { background: linear-gradient(145deg, #ffffff 0%, #f9fafb 100%);
+                    border: 1px solid #e5e7eb; transition: all 0.2s ease; }
+    .fixture-card:hover { border-color: #d1d5db; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15); }
+    .final-card { background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #fbbf24; position: relative; }
     .final-card::before { content: '👑'; position: absolute; top: -10px; right: -10px; font-size: 1.5rem;
                           background: #fbbf24; border-radius: 50%; width: 40px; height: 40px; display: flex;
-                          align-items: center; justify-content: center; 
-                          box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);}
-    .score-box { display: flex; align-items: center; gap: 0.5rem; }
+                          align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+    .match-score { height: 2.5rem; width: 3.5rem; }
+    .match-score.wide { width: 4rem; }
+    .match-title { display:flex; justify-content:space-between; align-items:center; gap:.75rem; }
+    .leader-card { background: linear-gradient(145deg, #ffffff 0%, #f8fafb 100%); border: 1px solid #e2e8f0; }
+    .match-note { font-size: .75rem; color: #6b7280; margin-top: .5rem; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -33,146 +29,206 @@
   <!-- Header -->
   <div id="site-header"></div>
 
-  <!-- Main -->
   <main class="flex-grow max-w-7xl mx-auto p-6 space-y-12">
 
     <!-- Knockout Results -->
-    <section class="section-header rounded-2xl shadow-lg p-8">
-      <div class="text-center mb-10">
-        <h2 class="text-4xl font-bold text-gray-900 mb-2">Knockout Stage Results</h2>
-        <p class="text-gray-600 text-lg">12 matches with scorers and assisters</p>
-      </div>
+    <section class="section-header rounded-2xl shadow-lg p-8" data-stage="knockout">
+      <h2 class="text-4xl font-bold text-center mb-6">Knockout Stage Results</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        
+
         <!-- KO 1 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>Red Bulls Eleven</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">2–2</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">2–2</div>
             <span>Strawhat Pirates</span>
           </div>
           <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-            <div><b>Scorers</b><ul><li>Jeff</li><li>Subhojit (Akash M)</li></ul></div>
-            <div><b>Scorers</b><ul><li>Monty (Supratim)</li><li>Dibba</li></ul></div>
+            <div>
+              <div class="font-medium text-gray-600 mb-1">Scorers</div>
+              <ul>
+                <li>Jeff</li>
+                <li>Subhojit (Akash M)</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-medium text-gray-600 mb-1">Scorers</div>
+              <ul>
+                <li>Monty (Supratim)</li>
+                <li>Dibba</li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <!-- KO 2 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>White Panthers</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–0</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–0</div>
             <span>Messiah FC</span>
           </div>
-          <p class="text-xs text-gray-500 mt-2">No scorers</p>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+          </div>
         </div>
 
         <!-- KO 3 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>Amigos FC</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">2–0</div>
-            <span>Red Bulls Eleven</span>
-          </div>
-          <div class="mt-4 text-sm"><b>Scorers:</b> Kaustav (Vasu), Sany (Kaustav)</div>
-        </div>
-
-        <!-- KO 4 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
-            <span>Thunderbolt</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–1</div>
-            <span>White Panthers</span>
-          </div>
-          <div class="mt-4 text-sm"><b>Scorer:</b> Pulak (Subhanjan)</div>
-        </div>
-
-        <!-- KO 5 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
-            <span>Strawhat Pirates</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–0</div>
-            <span>Amigos FC</span>
-          </div>
-          <p class="text-xs text-gray-500 mt-2">No scorers</p>
-        </div>
-
-        <!-- KO 6 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
-            <span>Messiah FC</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–0</div>
-            <span>Thunderbolt</span>
-          </div>
-          <p class="text-xs text-gray-500 mt-2">No scorers</p>
-        </div>
-
-        <!-- KO 7 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
-            <span>Strawhat Pirates</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">2–2</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">2–0</div>
             <span>Red Bulls Eleven</span>
           </div>
           <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-            <div><b>Scorers</b><ul><li>Monty (Supratim)</li><li>Monty</li></ul></div>
-            <div><b>Scorers</b><ul><li>Siva</li><li>Jeff</li></ul></div>
+            <div>
+              <div class="font-medium text-gray-600 mb-1">Scorers</div>
+              <ul>
+                <li>Kaustav (Vasu)</li>
+                <li>Sany (Kaustav)</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-medium text-gray-600 mb-1">Scorers</div>
+              <ul><li>—</li></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- KO 4 -->
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
+            <span>Thunderbolt</span>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–1</div>
+            <span>White Panthers</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>Pulak (Subhanjan)</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO 5 -->
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
+            <span>Strawhat Pirates</span>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–0</div>
+            <span>Amigos FC</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO 6 -->
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
+            <span>Messiah FC</span>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–0</div>
+            <span>Thunderbolt</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+          </div>
+        </div>
+
+        <!-- KO 7 -->
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
+            <span>Strawhat Pirates</span>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">2–2</div>
+            <span>Red Bulls Eleven</span>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div>
+              <div class="font-medium text-gray-600 mb-1">Scorers</div>
+              <ul>
+                <li>Monty (Supratim)</li>
+                <li>Monty</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-medium text-gray-600 mb-1">Scorers</div>
+              <ul>
+                <li>Siva</li>
+                <li>Jeff</li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <!-- KO 8 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>Messiah FC</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">1–1</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">1–1</div>
             <span>White Panthers</span>
           </div>
           <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-            <div><b>Scorer</b><ul><li>Biswajit (Ritam)</li></ul></div>
-            <div><b>Scorer</b><ul><li>Soumik (Subhanjan)</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorer</div><ul><li>Biswajit (Ritam)</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorer</div><ul><li>Soumik (Subhanjan)</li></ul></div>
           </div>
         </div>
 
         <!-- KO 9 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>Red Bulls Eleven</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–1</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–1</div>
             <span>Amigos FC</span>
           </div>
-          <div class="mt-4 text-sm"><b>Scorer:</b> Vasu (Krishnendu)</div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorer</div><ul><li>Vasu (Krishnendu)</li></ul></div>
+          </div>
         </div>
 
         <!-- KO 10 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>White Panthers</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–1</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–1</div>
             <span>Thunderbolt</span>
           </div>
-          <div class="mt-4 text-sm"><b>Scorer:</b> Tintin (Akash)</div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorer</div><ul><li>Tintin (Akash)</li></ul></div>
+          </div>
         </div>
 
         <!-- KO 11 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>Amigos FC</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–1</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–1</div>
             <span>Strawhat Pirates</span>
           </div>
-          <div class="mt-4 text-sm"><b>Scorer:</b> Supratim</div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorer</div><ul><li>Supratim</li></ul></div>
+          </div>
         </div>
 
         <!-- KO 12 -->
-        <div class="fixture-card match-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>Thunderbolt</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">1–3</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">1–3</div>
             <span>Messiah FC</span>
           </div>
           <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-            <div><b>Scorer</b><ul><li>Tintin</li></ul></div>
-            <div><b>Scorers</b><ul><li>Rishov (Ritam)</li><li>Ritam</li><li>Ritam (Satyaki)</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorer</div><ul><li>Tintin</li></ul></div>
+            <div>
+              <div class="font-medium text-gray-600 mb-1">Scorers</div>
+              <ul>
+                <li>Rishov (Ritam)</li>
+                <li>Ritam</li>
+                <li>Ritam (Satyaki)</li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -180,65 +236,130 @@
     </section>
 
     <!-- Semi Finals -->
-    <section class="section-header rounded-2xl shadow-lg p-8">
+    <section class="section-header rounded-2xl shadow-lg p-8" data-stage="semi">
       <h2 class="text-3xl font-bold text-center mb-8">Semi-finals</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         <!-- SF1 -->
-        <div class="fixture-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>Messiah FC</span>
-            <div class="flex flex-col items-center">
-              <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–0</div>
-              <span class="text-xs text-gray-600 mt-1">Penalties: 1–3</span>
-            </div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">0–0</div>
             <span>Strawhat Pirates</span>
           </div>
-          <p class="text-xs text-gray-500 mt-2">Match decided on penalties</p>
+          <div class="match-note">Penalties: 1–3 (decided on penalties)</div>
+          <!-- No scorers -->
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+          </div>
         </div>
 
         <!-- SF2 -->
-        <div class="fixture-card rounded-xl shadow-md p-6">
-          <div class="flex justify-between">
+        <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+          <div class="match-title">
             <span>Amigos FC</span>
-            <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">3–0</div>
+            <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">3–0</div>
             <span>White Panthers</span>
           </div>
-          <div class="mt-4 text-sm"><b>Scorers:</b> Vasu (Kaustav), Sany, Vasu</div>
+          <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
+            <div>
+              <div class="font-medium text-gray-600 mb-1">Scorers</div>
+              <ul>
+                <li>Vasu (Kaustav)</li>
+                <li>Sany</li>
+                <li>Vasu</li>
+              </ul>
+            </div>
+            <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
+          </div>
         </div>
+
       </div>
     </section>
 
     <!-- Third Place -->
-    <section class="section-header rounded-2xl shadow-lg p-8">
+    <section class="section-header rounded-2xl shadow-lg p-8" data-stage="third">
       <h2 class="text-3xl font-bold text-center mb-8">Third Place Playoff</h2>
-      <div class="fixture-card rounded-xl shadow-md p-6">
-        <div class="flex justify-between">
+      <div class="fixture-card rounded-xl shadow-md p-6 match-card">
+        <div class="match-title">
           <span>Messiah FC</span>
-          <div class="h-10 w-14 flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">4–1</div>
+          <div class="match-score flex items-center justify-center bg-gray-900 text-white font-bold rounded-full">4–1</div>
           <span>White Panthers</span>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-          <div><b>Scorers</b><ul><li>Rishov (Ritam)</li><li>Ritam</li><li>Ritam (Satyaki)</li><li>Ritam</li></ul></div>
-          <div><b>Scorer</b><ul><li>Soumik</li></ul></div>
+          <div>
+            <div class="font-medium text-gray-600 mb-1">Scorers</div>
+            <ul>
+              <li>Rishov (Ritam)</li>
+              <li>Ritam</li>
+              <li>Ritam (Satyaki)</li>
+              <li>Ritam</li>
+            </ul>
+          </div>
+          <div>
+            <div class="font-medium text-gray-600 mb-1">Scorer</div>
+            <ul><li>Soumik</li></ul>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Final -->
-    <section class="section-header rounded-2xl shadow-lg p-8">
+    <section class="section-header rounded-2xl shadow-lg p-8" data-stage="final">
       <h2 class="text-3xl font-bold text-center mb-8">Final</h2>
-      <div class="fixture-card rounded-xl shadow-md p-6 final-card">
-        <div class="flex justify-between">
+      <div class="fixture-card rounded-xl shadow-md p-6 final-card match-card">
+        <div class="match-title">
           <span>Strawhat Pirates</span>
-          <div class="h-10 w-16 flex items-center justify-center bg-amber-700 text-white font-extrabold rounded-full">1–2</div>
+          <div class="match-score wide flex items-center justify-center bg-amber-700 text-white font-extrabold rounded-full">1–2</div>
           <span>Amigos FC</span>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-          <div><b>Scorer</b><ul><li>Supratim (Monty)</li></ul></div>
-          <div><b>Scorers</b><ul><li>Rony (Rahul)</li><li>Sany</li></ul></div>
+          <div>
+            <div class="font-medium text-gray-700 mb-1">Scorer</div>
+            <ul><li>Supratim (Monty)</li></ul>
+          </div>
+          <div>
+            <div class="font-medium text-gray-700 mb-1">Scorers</div>
+            <ul>
+              <li>Rony (Rahul)</li>
+              <li>Sany</li>
+            </ul>
+          </div>
         </div>
       </div>
+    </section>
+
+    <!-- ================== LEADERBOARDS (auto-computed) ================== -->
+    <section class="section-header rounded-2xl shadow-lg p-8">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-900">Leaderboards</h2>
+        <p class="text-gray-600">Computed from Knockout + Semi-finals + Third Place + Final</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Top Scorers -->
+        <div class="leader-card rounded-2xl p-6 shadow-md">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-gray-800">Top Scorers</h3>
+            <span class="px-3 py-1 rounded-full text-white text-sm font-semibold" style="background:linear-gradient(135deg,#3b82f6 0%,#1d4ed8 100%);">Goals</span>
+          </div>
+          <ol id="scorers-list" class="space-y-2 text-sm"></ol>
+        </div>
+
+        <!-- Top Assists -->
+        <div class="leader-card rounded-2xl p-6 shadow-md">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold text-gray-800">Top Assists</h3>
+            <span class="px-3 py-1 rounded-full text-white text-sm font-semibold" style="background:linear-gradient(135deg,#10b981 0%,#047857 100%);">Assists</span>
+          </div>
+          <ol id="assists-list" class="space-y-2 text-sm"></ol>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-6">
+        Ties are ordered alphabetically by player name. Totals exclude penalty shoot-outs.
+      </p>
     </section>
 
   </main>
@@ -255,5 +376,85 @@
     injectHeader("#site-header", { active: "results" });
   </script>
 
+  <!-- ===== Leaderboards Logic: parse DOM and compute ===== -->
+  <script>
+    // Utility: clean text & split "Scorer (Assistant)" pattern
+    function parseEntry(text) {
+      const t = text.trim();
+      if (!t || t === '—' || /^no scorers$/i.test(t)) return null;
+      // Accept forms: "Player", "Player (Assist)", "Player (Assist1, Assist2)"
+      const m = t.match(/^(.+?)(?:\s*\((.+)\))?$/);
+      if (!m) return null;
+      const player = m[1].trim();
+      const assists = (m[2] || '')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+      return { player, assists };
+    }
+
+    function tallyFromStage(stageSelector) {
+      const goals = new Map();
+      const assists = new Map();
+
+      document.querySelectorAll(`${stageSelector} .match-card`).forEach(card => {
+        // For each match, find all <li> under the card
+        const lis = card.querySelectorAll('ul li');
+        lis.forEach(li => {
+          const parsed = parseEntry(li.textContent || '');
+          if (!parsed) return;
+          // Goal for the player
+          goals.set(parsed.player, (goals.get(parsed.player) || 0) + 1);
+          // Assists for anyone inside parentheses
+          parsed.assists.forEach(a => {
+            assists.set(a, (assists.get(a) || 0) + 1);
+          });
+        });
+      });
+
+      return { goals, assists };
+    }
+
+    function mergeTallies(base, add) {
+      add.goals.forEach((v, k) => base.goals.set(k, (base.goals.get(k) || 0) + v));
+      add.assists.forEach((v, k) => base.assists.set(k, (base.assists.get(k) || 0) + v));
+      return base;
+    }
+
+    function toSortedArray(map, desc = true) {
+      const arr = Array.from(map.entries());
+      arr.sort((a, b) => {
+        if (b[1] !== a[1]) return desc ? b[1] - a[1] : a[1] - b[1];
+        return a[0].localeCompare(b[0]); // tie-break alphabetically
+      });
+      return arr;
+    }
+
+    function renderList(containerId, data) {
+      const ol = document.getElementById(containerId);
+      ol.innerHTML = '';
+      data.forEach(([name, count], idx) => {
+        const li = document.createElement('li');
+        li.className = 'flex justify-between border-b border-gray-100 pb-2 last:border-b-0';
+        const medal = idx === 0 ? '🥇 ' : idx === 1 ? '🥈 ' : idx === 2 ? '🥉 ' : '';
+        li.innerHTML = `<span>${medal}<strong>${name}</strong></span><span class="font-semibold">${count}</span>`;
+        ol.appendChild(li);
+      });
+    }
+
+    // Compute from all stages
+    (function computeLeaderboards() {
+      const total = { goals: new Map(), assists: new Map() };
+      ['[data-stage="knockout"]','[data-stage="semi"]','[data-stage="third"]','[data-stage="final"]']
+        .map(s => tallyFromStage(s))
+        .forEach(t => mergeTallies(total, t));
+
+      const topScorers = toSortedArray(total.goals);
+      const topAssists = toSortedArray(total.assists);
+
+      renderList('scorers-list', topScorers);
+      renderList('assists-list', topAssists);
+    })();
+  </script>
 </body>
 </html>
