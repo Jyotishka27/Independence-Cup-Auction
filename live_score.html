@@ -17,11 +17,60 @@
     .final-card::before { content: '👑'; position: absolute; top: -10px; right: -10px; font-size: 1.5rem;
                           background: #fbbf24; border-radius: 50%; width: 40px; height: 40px; display: flex;
                           align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-    .match-score { height: 2.5rem; width: 3.5rem; }
-    .match-score.wide { width: 4rem; }
-    .match-title { display:flex; justify-content:space-between; align-items:center; gap:.75rem; }
+
+    /* === Alignment fixes === */
+    /* Header row: home | score | away, with centered score */
+    .match-title{
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: .75rem;
+    }
+    /* Left team */
+    .match-title > span:first-child{
+      justify-self: start;
+      text-align: left;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    /* Right team */
+    .match-title > span:last-child{
+      justify-self: end;
+      text-align: right;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    /* Score pill */
+    .match-score{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.5rem;
+      min-width: 3.5rem;
+      padding: 0 .5rem;
+      border-radius: 9999px;
+    }
+    .match-score.wide { min-width: 4.25rem; }
+
+    /* Scorers columns align from top & consistent rhythm */
+    .match-card .grid{ align-items: start; }
+    .match-card .grid .font-medium{ line-height: 1rem; }
+    .match-card ul{ margin-top: .25rem; }
+    .match-card ul li{ line-height: 1.2rem; }
+
+    /* Penalties note centered */
+    .match-note { font-size: .75rem; color: #6b7280; margin-top: .5rem; text-align: center; }
+
+    /* Optional: consistent inner spacing */
+    .fixture-card{ padding-top: 1.25rem; padding-bottom: 1.25rem; }
+
     .leader-card { background: linear-gradient(145deg, #ffffff 0%, #f8fafb 100%); border: 1px solid #e2e8f0; }
-    .match-note { font-size: .75rem; color: #6b7280; margin-top: .5rem; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -95,8 +144,6 @@
           </div>
         </div>
         
-
-
         <!-- KO 5 -->
         <div class="fixture-card rounded-xl shadow-md p-6 match-card">
           <div class="match-title">
@@ -147,8 +194,6 @@
             <div><div class="font-medium text-gray-600 mb-1">Scorers</div><ul><li>—</li></ul></div>
           </div>
         </div>
-
-
 
         <!-- KO 8 -->
         <div class="fixture-card rounded-xl shadow-md p-6 match-card">
@@ -236,7 +281,6 @@
           </div>
         </div>
 
-        
       </div>
     </section>
 
@@ -433,18 +477,6 @@
         return a[0].localeCompare(b[0]); // tie-break alphabetically
       });
       return arr;
-    }
-
-    function renderList(containerId, data) {
-      const ol = document.getElementById(containerId);
-      ol.innerHTML = '';
-      data.forEach(([name, count], idx) => {
-        const li = document.createElement('li');
-        li.className = 'flex justify-between border-b border-gray-100 pb-2 last:border-b-0';
-        const medal = idx === 0 ? '🥇 ' : idx === 1 ? '🥈 ' : idx === 2 ? '🥉 ' : '';
-        li.innerHTML = `<span>${medal}<strong>${name}</strong></span><span class="font-semibold">${count}</span>`;
-        ol.appendChild(li);
-      });
     }
 
     // Compute from all stages
