@@ -150,27 +150,28 @@
 
         <!-- Instagram section wired to your handle -->
         <div>
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-3xl font-bold">Instagram</h2>
-            <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
-               class="text-sm font-semibold text-pink-600 hover:underline">
-              Follow @we.are.eleven.official
-            </a>
-          </div>
-          <div class="grid grid-cols-3 gap-3">
-            <!-- Make the tiles deep-link to the profile (or swap hrefs to specific post URLs later) -->
-            <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
-               class="aspect-square rounded-xl bg-white border shadow-sm flex items-center justify-center text-gray-400 hover:scale-[1.01] transition">Post</a>
-            <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
-               class="aspect-square rounded-xl bg-white border shadow-sm flex items-center justify-center text-gray-400 hover:scale-[1.01] transition">Post</a>
-            <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
-               class="aspect-square rounded-xl bg-white border shadow-sm flex items-center justify-center text-gray-400 hover:scale-[1.01] transition">Post</a>
-            <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
-               class="aspect-square rounded-xl bg-white border shadow-sm flex items-center justify-center text-gray-400 hover:scale-[1.01] transition">Post</a>
-            <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
-               class="aspect-square rounded-xl bg-white border shadow-sm flex items-center justify-center text-gray-400 hover:scale-[1.01] transition">Post</a>
-            <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
-               class="aspect-square rounded-xl bg-white border shadow-sm flex items-center justify-center text-gray-400 hover:scale-[1.01] transition">Post</a>
+          <div id="ig-embed-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Repeat this blockquote per post/reel you want to show -->
+            <blockquote class="instagram-media" 
+                        data-instgrm-permalink="https://www.instagram.com/p/POST_ID_1/" 
+                        data-instgrm-version="14"
+                        data-instgrm-captioned
+                        style="background:#FFF; border:0; margin:0; max-width:540px; min-width:326px; width:100%;">
+            </blockquote>
+          
+            <blockquote class="instagram-media" 
+                        data-instgrm-permalink="https://www.instagram.com/reel/REEL_ID_2/" 
+                        data-instgrm-version="14"
+                        style="background:#FFF; border:0; margin:0; max-width:540px; min-width:326px; width:100%;">
+            </blockquote>
+          
+            <blockquote class="instagram-media" 
+                        data-instgrm-permalink="https://www.instagram.com/p/POST_ID_3/" 
+                        data-instgrm-version="14"
+                        style="background:#FFF; border:0; margin:0; max-width:540px; min-width:326px; width:100%;">
+            </blockquote>
+          
+            <!-- add more as needed -->
           </div>
           <!-- Optional: a clean CTA -->
           <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
