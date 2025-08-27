@@ -9,7 +9,7 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
     { key: "teams", label: "Teams", href: "team_list.html" },
     { key: "results", label: "Results", href: "team_results.html" },
     { key: "tournaments", label: "Independence Cup", href: "independence_cup_2025.html" },
-    { key: "photos", label: "Photos", href: "gallery.html" } // ← NEW
+    { key: "tournament_photos", label: "Tournament Photos", href: "tournament_gallery.html" } // ← NEW
   ];
 
   const link = (item, mobile = false) => {
