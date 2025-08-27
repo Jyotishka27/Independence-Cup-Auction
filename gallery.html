@@ -3,25 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Photos - We Are Eleven</title>
+  <title>We Are Eleven — Community Photos</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Base look & feel to match your standings page */
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); color: #1e293b; }
-
     .section-header { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; position: relative; overflow: hidden; }
     .section-header::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #64748b, transparent); animation: shimmer 3s infinite; }
     @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
-
-    /* Photo cards */
     .photo-card { border-radius: 1rem; border: 1px solid #e5e7eb; overflow: hidden; background: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
     .photo-img { display: block; width: 100%; height: 220px; object-fit: cover; transition: transform .35s ease; }
     .photo-card:hover .photo-img { transform: scale(1.03); }
     .photo-meta { padding: .85rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
-
     .chip { font-size: .72rem; padding: .2rem .55rem; border-radius: 9999px; border: 1px solid #cbd5e1; background:#f8fafc; white-space: nowrap; }
-
-    /* Lightbox */
     .lightbox-open { overflow: hidden; }
   </style>
 </head>
@@ -29,13 +22,22 @@
   <!-- Header mount -->
   <div id="site-header"></div>
 
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.35),rgba(0,0,0,0.8))] z-0"></div>
+    <div class="absolute inset-0 bg-cover bg-center z-[-1]" style="background-image:url('assets/img/hero-community.jpg');"></div>
+    <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center text-white">
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">We Are Eleven — Community Gallery</h1>
+      <p class="mt-3 text-lg text-gray-200">Training days, meetups, volunteers, watch parties, and off‑pitch memories.</p>
+    </div>
+  </section>
+
   <main class="flex-grow max-w-7xl mx-auto p-6 space-y-10">
-    <!-- Page Title / Hero -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
-          <h1 class="text-4xl font-extrabold text-gray-900">Photo Gallery</h1>
-          <p class="mt-2 text-gray-600">Highlights from groups, knockouts, and behind-the-scenes. Click any photo to view full-screen.</p>
+          <h2 class="text-3xl font-bold text-gray-900">Community Photos</h2>
+          <p class="mt-2 text-gray-600">This page is for day-to-day We Are Eleven photos — not tournament action.</p>
         </div>
         <div class="flex items-center gap-3">
           <button id="downloadAllBtn" class="px-3 py-2 rounded-xl border bg-white hover:bg-slate-50 text-sm">Download selected</button>
@@ -49,11 +51,10 @@
       <!-- Filters -->
       <div class="mt-6 flex flex-wrap items-center gap-2">
         <button class="filter-btn chip" data-filter="all" aria-pressed="true">All</button>
-        <button class="filter-btn chip" data-filter="group-a">Group A</button>
-        <button class="filter-btn chip" data-filter="group-b">Group B</button>
-        <button class="filter-btn chip" data-filter="semis">Semi-finals</button>
-        <button class="filter-btn chip" data-filter="third">Third Place</button>
-        <button class="filter-btn chip" data-filter="final">Final</button>
+        <button class="filter-btn chip" data-filter="training">Training</button>
+        <button class="filter-btn chip" data-filter="meetup">Meetups</button>
+        <button class="filter-btn chip" data-filter="volunteer">Volunteering</button>
+        <button class="filter-btn chip" data-filter="watch">Watch Parties</button>
         <button class="filter-btn chip" data-filter="bts">Behind the Scenes</button>
       </div>
     </section>
@@ -61,56 +62,42 @@
     <!-- Gallery Grid -->
     <section class="section-header rounded-2xl shadow-lg p-6">
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="gallery">
-        <!-- SAMPLE CARDS — replace src with your paths -->
-        <figure class="photo-card" data-category="group-a" data-title="Group A kickoff">
-          <img class="photo-img" src="photos/group-a-1.jpg" alt="Group A kickoff" loading="lazy"/>
+        <!-- SAMPLE CARDS — replace src with real paths -->
+        <figure class="photo-card" data-category="training" data-title="Morning drills at the turf">
+          <img class="photo-img" src="photos/community/training-1.jpg" alt="Training drills" loading="lazy"/>
           <figcaption class="photo-meta">
-            <span class="text-sm font-medium truncate">Group A · Kickoff</span>
-            <span class="chip">Group A</span>
+            <span class="text-sm font-medium truncate">Morning Drills</span>
+            <span class="chip">Training</span>
           </figcaption>
         </figure>
-
-        <figure class="photo-card" data-category="group-b" data-title="Group B warm-up">
-          <img class="photo-img" src="photos/group-b-1.jpg" alt="Group B warm-up" loading="lazy"/>
+        <figure class="photo-card" data-category="meetup" data-title="Weekend meetup at the cafe">
+          <img class="photo-img" src="photos/community/meetup-1.jpg" alt="Weekend meetup" loading="lazy"/>
           <figcaption class="photo-meta">
-            <span class="text-sm font-medium truncate">Warm-up Drills</span>
-            <span class="chip">Group B</span>
+            <span class="text-sm font-medium truncate">Weekend Meetup</span>
+            <span class="chip">Meetups</span>
           </figcaption>
         </figure>
-
-        <figure class="photo-card" data-category="semis" data-title="Semi-final action">
-          <img class="photo-img" src="photos/semis-1.jpg" alt="Semi-final action" loading="lazy"/>
+        <figure class="photo-card" data-category="watch" data-title="Champions League watch party">
+          <img class="photo-img" src="photos/community/watch-1.jpg" alt="Watch party" loading="lazy"/>
           <figcaption class="photo-meta">
-            <span class="text-sm font-medium truncate">Semi-final · Tackle</span>
-            <span class="chip">Semi-finals</span>
+            <span class="text-sm font-medium truncate">Watch Party</span>
+            <span class="chip">Watch</span>
           </figcaption>
         </figure>
-
-        <figure class="photo-card" data-category="final" data-title="Final celebrations">
-          <img class="photo-img" src="photos/final-1.jpg" alt="Final celebrations" loading="lazy"/>
+        <figure class="photo-card" data-category="volunteer" data-title="Gear sorting with volunteers">
+          <img class="photo-img" src="photos/community/volunteer-1.jpg" alt="Volunteering" loading="lazy"/>
           <figcaption class="photo-meta">
-            <span class="text-sm font-medium truncate">Champions Lift</span>
-            <span class="chip">Final</span>
+            <span class="text-sm font-medium truncate">Volunteer Crew</span>
+            <span class="chip">Volunteering</span>
           </figcaption>
         </figure>
-
-        <figure class="photo-card" data-category="third" data-title="Third place match">
-          <img class="photo-img" src="photos/third-1.jpg" alt="Third place match" loading="lazy"/>
+        <figure class="photo-card" data-category="bts" data-title="Meet the organizers">
+          <img class="photo-img" src="photos/community/bts-1.jpg" alt="Behind the scenes" loading="lazy"/>
           <figcaption class="photo-meta">
-            <span class="text-sm font-medium truncate">Third Place · Duel</span>
-            <span class="chip">Third Place</span>
-          </figcaption>
-        </figure>
-
-        <figure class="photo-card" data-category="bts" data-title="Behind the scenes">
-          <img class="photo-img" src="photos/bts-1.jpg" alt="Behind the scenes" loading="lazy"/>
-          <figcaption class="photo-meta">
-            <span class="text-sm font-medium truncate">Team Talk</span>
+            <span class="text-sm font-medium truncate">Organizers</span>
             <span class="chip">BTS</span>
           </figcaption>
         </figure>
-
-        <!-- Add more items as needed -->
       </div>
     </section>
   </main>
@@ -133,15 +120,14 @@
     </div>
   </footer>
 
-  <!-- Header injection (reuse your existing header component) -->
+  <!-- Header injection -->
   <script type="module">
-    import { injectHeader } from "./header.js";
+    import { injectHeader } from "/assets/js/header.js";
     injectHeader("#site-header", { active: "photos" });
   </script>
 
-  <!-- Gallery interactions -->
+  <!-- Gallery interactions (same as tournament page) -->
   <script>
-    // --- Filtering ---
     const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
     const gallery = document.getElementById('gallery');
     const cards = Array.from(gallery.querySelectorAll('.photo-card'));
@@ -161,7 +147,7 @@
       });
     });
 
-    // --- Lightbox ---
+    // Lightbox
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbCap = document.getElementById('lbCap');
@@ -183,51 +169,30 @@
       lbCap.textContent = fig.dataset.title || img.alt || '';
       lb.classList.remove('hidden');
       document.body.classList.add('lightbox-open');
-      lb.focus();
     }
 
-    function closeLb() {
-      lb.classList.add('hidden');
-      document.body.classList.remove('lightbox-open');
-      lbImg.src = '';
-    }
-
+    function closeLb() { lb.classList.add('hidden'); document.body.classList.remove('lightbox-open'); lbImg.src=''; }
     function step(dir) {
       const list = visibleCards();
       if (!list.length) return;
       currentIndex = (currentIndex + dir + list.length) % list.length;
       const fig = list[currentIndex];
       const img = fig.querySelector('img');
-      lbImg.src = img.src;
-      lbImg.alt = img.alt || '';
-      lbCap.textContent = fig.dataset.title || img.alt || '';
+      lbImg.src = img.src; lbImg.alt = img.alt || ''; lbCap.textContent = fig.dataset.title || img.alt || '';
     }
 
     cards.forEach((fig, i) => {
       fig.addEventListener('click', () => {
-        // derive index among currently visible items
-        const vis = visibleCards();
-        const idx = vis.indexOf(fig);
-        openAt(idx === -1 ? 0 : idx);
+        const vis = visibleCards(); const idx = vis.indexOf(fig); openAt(idx === -1 ? 0 : idx);
       });
     });
 
     lbClose.addEventListener('click', closeLb);
     lbPrev.addEventListener('click', () => step(-1));
     lbNext.addEventListener('click', () => step(1));
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
 
-    lb.addEventListener('click', (e) => {
-      if (e.target === lb) closeLb();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (lb.classList.contains('hidden')) return;
-      if (e.key === 'Escape') closeLb();
-      if (e.key === 'ArrowLeft') step(-1);
-      if (e.key === 'ArrowRight') step(1);
-    });
-
-    // --- Simple uploader (adds thumbnails locally) ---
+    // Uploader
     const uploader = document.getElementById('uploader');
     uploader.addEventListener('change', (e) => {
       const files = Array.from(e.target.files || []);
@@ -235,31 +200,19 @@
         if (!file.type.startsWith('image/')) return;
         const url = URL.createObjectURL(file);
         const fig = document.createElement('figure');
-        fig.className = 'photo-card';
-        fig.dataset.category = 'bts';
-        fig.dataset.title = file.name;
+        fig.className = 'photo-card'; fig.dataset.category = 'bts'; fig.dataset.title = file.name;
         fig.innerHTML = `
           <img class="photo-img" src="${url}" alt="${file.name}" loading="lazy"/>
-          <figcaption class="photo-meta">
-            <span class="text-sm font-medium truncate">${file.name}</span>
-            <span class="chip">Uploaded</span>
-          </figcaption>
-        `;
-        fig.addEventListener('click', () => {
-          const vis = visibleCards();
-          const idx = vis.indexOf(fig);
-          openAt(idx === -1 ? 0 : idx);
-        });
+          <figcaption class="photo-meta"><span class="text-sm font-medium truncate">${file.name}</span><span class="chip">Uploaded</span></figcaption>`;
+        fig.addEventListener('click', () => { const vis = visibleCards(); const idx = vis.indexOf(fig); openAt(idx === -1 ? 0 : idx); });
         gallery.prepend(fig);
       });
       uploader.value = '';
     });
 
-    // --- Stub for download selected (extend as needed) ---
     document.getElementById('downloadAllBtn').addEventListener('click', () => {
       alert('Select & download flow can be wired to a ZIP generator or backend.');
     });
   </script>
 </body>
 </html>
-
