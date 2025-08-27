@@ -6,51 +6,30 @@
   <title>Photos & Videos - We Are Eleven</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Base look & feel to match your standings page */
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); color: #1e293b; }
-
     .section-header { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0; position: relative; overflow: hidden; }
     .section-header::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #64748b, transparent); animation: shimmer 3s infinite; }
     @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
-
-    /* Photo cards */
-    .photo-card { border-radius: 1rem; border: 1px solid #e5e7eb; overflow: hidden; background: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+    .photo-card, .video-card { border-radius: 1rem; border: 1px solid #e5e7eb; overflow: hidden; background: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
     .photo-img { display: block; width: 100%; height: 220px; object-fit: cover; transition: transform .35s ease; }
     .photo-card:hover .photo-img { transform: scale(1.03); }
-    .photo-meta { padding: .85rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
-
-    /* Video cards */
-    .video-card { border-radius: 1rem; border: 1px solid #e5e7eb; overflow: hidden; background: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+    .photo-meta, .video-card .p-4 { padding: .85rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
     .video-thumb { aspect-ratio: 16 / 9; width: 100%; }
-
     .chip { font-size: .72rem; padding: .2rem .55rem; border-radius: 9999px; border: 1px solid #cbd5e1; background:#f8fafc; white-space: nowrap; }
-
-    /* Lightbox */
     .lightbox-open { overflow: hidden; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
-  <!-- Header mount -->
   <div id="site-header"></div>
 
   <main class="flex-grow max-w-7xl mx-auto p-6 space-y-10">
-    <!-- Page Title / Hero -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
           <h1 class="text-4xl font-extrabold text-gray-900">Media Gallery</h1>
           <p class="mt-2 text-gray-600">Browse photos and videos from groups, knockouts, and behind-the-scenes. Click any photo to view full-screen.</p>
         </div>
-        <div class="flex items-center gap-3">
-          <button id="downloadAllBtn" class="px-3 py-2 rounded-xl border bg-white hover:bg-slate-50 text-sm">Download selected</button>
-          <label class="px-3 py-2 rounded-xl border bg-white hover:bg-slate-50 text-sm cursor-pointer">
-            <input type="file" id="uploader" accept="image/*" class="hidden" multiple>
-            Upload
-          </label>
-        </div>
       </div>
-
-      <!-- Filters -->
       <div class="mt-6 flex flex-wrap items-center gap-2">
         <button class="filter-btn chip" data-filter="all" aria-pressed="true">All</button>
         <button class="filter-btn chip" data-filter="group-a">Group A</button>
@@ -62,11 +41,10 @@
       </div>
     </section>
 
-    <!-- Gallery Grid (PHOTOS) -->
+    <!-- Photos Section -->
     <section class="section-header rounded-2xl shadow-lg p-6">
       <h2 class="text-xl font-bold mb-4">Photos</h2>
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="gallery">
-        <!-- SAMPLE CARDS — replace src with your paths -->
         <figure class="photo-card" data-category="group-a" data-title="Group A kickoff">
           <img class="photo-img" src="photos/group-a-1.jpg" alt="Group A kickoff" loading="lazy"/>
           <figcaption class="photo-meta">
@@ -114,106 +92,41 @@
             <span class="chip">BTS</span>
           </figcaption>
         </figure>
-
-        <!-- Add more items as needed -->
       </div>
     </section>
 
-    <!-- Video Section (with same filters) -->
+    <!-- Video Section -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <h2 class="text-2xl font-bold mb-4">Tournament Videos</h2>
       <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Group Stage examples -->
-        <article class="video-card" data-category="group-a">
-          <div class="video-thumb">
-            <iframe class="w-full h-full" src="https://youtu.be/-uOE6Pf3Yr4" title="Group A: Matchday Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <div class="p-4 flex items-center justify-between gap-2">
-            <h3 class="text-sm font-semibold truncate">Independence Cup 2025 | Group A | Match 3 | White Panthers 🆚 Thunderbolt</h3>
-            <span class="chip">Group A</span>
-          </div>
-        </article>
-
         <article class="video-card" data-category="group-b">
-          <div class="video-thumb">
-            <iframe class="w-full h-full" src="https://youtu.be/JrzIIz7uas4" title="Group B: Matchday Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
+          <div class="video-thumb" data-yturl="https://youtu.be/JrzIIz7uas4" data-title="Independence Cup 2025 | Group B | Match 3 | Amigo FC 🆚 Strawhat Pirates"></div>
           <div class="p-4 flex items-center justify-between gap-2">
             <h3 class="text-sm font-semibold truncate">Independence Cup 2025 | Group B | Match 3 | Amigo FC 🆚 Strawhat Pirates</h3>
             <span class="chip">Group B</span>
           </div>
         </article>
-
-        <!-- Knockouts -->
-        <article class="video-card" data-category="semis">
-          <div class="video-thumb">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Semi-finals Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <div class="p-4 flex items-center justify-between gap-2">
-            <h3 class="text-sm font-semibold truncate">Semi-finals · Highlights</h3>
-            <span class="chip">Semi-finals</span>
-          </div>
-        </article>
-
-        <article class="video-card" data-category="third">
-          <div class="video-thumb">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Third Place Match" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <div class="p-4 flex items-center justify-between gap-2">
-            <h3 class="text-sm font-semibold truncate">Third Place · Full Match</h3>
-            <span class="chip">Third Place</span>
-          </div>
-        </article>
-
-        <article class="video-card" data-category="final">
-          <div class="video-thumb">
-            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Final Match" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <div class="p-4 flex items-center justify-between gap-2">
-            <h3 class="text-sm font-semibold truncate">Final · Full Match</h3>
-            <span class="chip">Final</span>
-          </div>
-        </article>
       </div>
     </section>
-
   </main>
 
-  <!-- Lightbox Modal -->
-  <div id="lightbox" class="fixed inset-0 bg-black/80 backdrop-blur-sm items-center justify-center hidden z-50">
-    <button id="lbClose" class="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white" aria-label="Close (Esc)">✕</button>
-    <button id="lbPrev" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white" aria-label="Previous (←)">‹</button>
-    <figure class="max-w-5xl w-[92vw] md:w-[80vw]">
-      <img id="lbImg" src="" alt="" class="w-full max-h-[80vh] object-contain rounded-xl" />
-      <figcaption id="lbCap" class="mt-3 text-center text-gray-200"></figcaption>
-    </figure>
-    <button id="lbNext" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white" aria-label="Next (→)">›</button>
-  </div>
-
-  <!-- Footer -->
   <footer class="bg-gray-950 py-8 text-center text-gray-400 mt-12">
     <div class="max-w-4xl mx-auto px-4">
       <p class="text-lg">© 2025 Football Community. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- Header injection (reuse your existing header component) -->
   <script type="module">
     import { injectHeader } from "./tournament_header.js";
     injectHeader("#site-header", { active: "tournament_photos" });
   </script>
 
-  <!-- Gallery + Video interactions -->
   <script>
-    // --- Filtering ---
     const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
     const photoGrid = document.getElementById('gallery');
     const videoGrid = document.getElementById('videoGrid');
-
     const photoCards = Array.from(photoGrid.querySelectorAll('.photo-card'));
     const videoCards = Array.from(videoGrid.querySelectorAll('.video-card'));
-
-    // Anything with a data-category is filterable (photos + videos)
     const filterables = [...photoCards, ...videoCards];
 
     function applyFilter(cat) {
@@ -222,7 +135,6 @@
         el.classList.toggle('hidden', !show);
       });
     }
-
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         filterBtns.forEach(b => b.setAttribute('aria-pressed', 'false'));
@@ -231,108 +143,44 @@
       });
     });
 
-    // --- Lightbox (PHOTOS ONLY) ---
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lbImg');
-    const lbCap = document.getElementById('lbCap');
-    const lbClose = document.getElementById('lbClose');
-    const lbPrev = document.getElementById('lbPrev');
-    const lbNext = document.getElementById('lbNext');
-
-    let currentIndex = -1;
-    const visiblePhotoCards = () => photoCards.filter(c => !c.classList.contains('hidden'));
-
-    function openAt(index) {
-      const list = visiblePhotoCards();
-      if (!list.length) return;
-      currentIndex = Math.max(0, Math.min(index, list.length - 1));
-      const fig = list[currentIndex];
-      const img = fig.querySelector('img');
-      lbImg.src = img.src;
-      lbImg.alt = img.alt || '';
-      lbCap.textContent = fig.dataset.title || img.alt || '';
-      lb.classList.remove('hidden');
-      document.body.classList.add('lightbox-open');
-      lb.focus();
+    function extractYouTubeId(url) {
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes('youtu.be')) return u.pathname.slice(1);
+        if (u.hostname.includes('youtube.com')) {
+          if (u.pathname.startsWith('/shorts/')) return u.pathname.split('/')[2];
+          return u.searchParams.get('v');
+        }
+      } catch {}
+      return url;
     }
 
-    function closeLb() {
-      lb.classList.add('hidden');
-      document.body.classList.remove('lightbox-open');
-      lbImg.src = '';
-    }
-
-    function step(dir) {
-      const list = visiblePhotoCards();
-      if (!list.length) return;
-      currentIndex = (currentIndex + dir + list.length) % list.length;
-      const fig = list[currentIndex];
-      const img = fig.querySelector('img');
-      lbImg.src = img.src;
-      lbImg.alt = img.alt || '';
-      lbCap.textContent = fig.dataset.title || img.alt || '';
-    }
-
-    photoCards.forEach((fig) => {
-      fig.addEventListener('click', () => {
-        // derive index among currently visible photo items
-        const vis = visiblePhotoCards();
-        const idx = vis.indexOf(fig);
-        openAt(idx === -1 ? 0 : idx);
-      });
-    });
-
-    lbClose.addEventListener('click', closeLb);
-    lbPrev.addEventListener('click', () => step(-1));
-    lbNext.addEventListener('click', () => step(1));
-
-    lb.addEventListener('click', (e) => {
-      if (e.target === lb) closeLb();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (lb.classList.contains('hidden')) return;
-      if (e.key === 'Escape') closeLb();
-      if (e.key === 'ArrowLeft') step(-1);
-      if (e.key === 'ArrowRight') step(1);
-    });
-
-    // --- Simple uploader (adds thumbnails locally) ---
-    const uploader = document.getElementById('uploader');
-    uploader.addEventListener('change', (e) => {
-      const files = Array.from(e.target.files || []);
-      files.forEach(file => {
-        if (!file.type.startsWith('image/')) return;
-        const url = URL.createObjectURL(file);
-        const fig = document.createElement('figure');
-        fig.className = 'photo-card';
-        fig.dataset.category = 'bts';
-        fig.dataset.title = file.name;
-        fig.innerHTML = `
-          <img class="photo-img" src="${url}" alt="${file.name}" loading="lazy"/>
-          <figcaption class="photo-meta">
-            <span class="text-sm font-medium truncate">${file.name}</span>
-            <span class="chip">Uploaded</span>
-          </figcaption>
-        `;
-        // add to photoCards + filterables runtime lists
-        photoGrid.prepend(fig);
-        photoCards.unshift(fig);
-        filterables.unshift(fig);
-
-        fig.addEventListener('click', () => {
-          const vis = visiblePhotoCards();
-          const idx = vis.indexOf(fig);
-          openAt(idx === -1 ? 0 : idx);
+    function hydrateLiteYouTube() {
+      const nodes = document.querySelectorAll('.video-thumb[data-yturl], .video-thumb[data-ytid]');
+      nodes.forEach((wrap) => {
+        let id = wrap.getAttribute('data-ytid');
+        if (!id) {
+          const url = wrap.getAttribute('data-yturl');
+          id = extractYouTubeId(url);
+        }
+        const title = wrap.getAttribute('data-title') || 'Video';
+        wrap.innerHTML = `
+          <button class="relative w-full h-full" data-play="${id}" aria-label="Play: ${title}">
+            <img class="w-full h-full object-cover" src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="${title}">
+            <span class="absolute inset-0 grid place-items-center">
+              <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="42" cy="42" r="42" fill="rgba(0,0,0,0.5)"/>
+                <polygon points="34,26 62,42 34,58" fill="white"/>
+              </svg>
+            </span>
+          </button>`;
+        wrap.querySelector('button').addEventListener('click', () => {
+          const src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+          wrap.innerHTML = `<iframe class="w-full h-full" src="${src}" title="${title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
         });
       });
-      uploader.value = '';
-    });
-
-    // --- Stub for download selected (extend as needed) ---
-    document.getElementById('downloadAllBtn').addEventListener('click', () => {
-      alert('Select & download flow can be wired to a ZIP generator or backend.');
-    });
+    }
+    hydrateLiteYouTube();
   </script>
 </body>
 </html>
