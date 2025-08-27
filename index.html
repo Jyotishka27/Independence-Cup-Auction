@@ -24,25 +24,17 @@
     .nav-link{color:#4b5563;font-weight:500;text-decoration:none;transition:color .2s ease;}
     .nav-link:hover{color:#374151}
     .nav-link.active{color:#dc2626}
-    .instagram-media {
-      max-width: 100% !important;
-      min-width: 100% !important;
-      height: 100% !important;   /* fills parent box */
-    }
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
     .watermark{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-top:2rem}
     .watermark img{opacity:.06;width:500px;max-width:90%}
   </style>
-  
-  <script async src="https://www.instagram.com/embed.js"></script>
-  
 </head>
 <body class="text-black">
 
   <!-- ✅ Header -->
   <div id="site-header"></div>
 
-  <!-- 🏟️ Hero with football-themed background -->
+  <!-- 🏟️ Hero -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.35),rgba(0,0,0,0.8))] z-0"></div>
     <div class="absolute inset-0 bg-cover bg-center z-[-1]" style="background-image:url('assets/img/hero-stadium.jpg');"></div>
@@ -55,7 +47,6 @@
         <a href="join.html" class="inline-flex items-center justify-center px-10 py-4 rounded-full bg-green-500 hover:bg-green-600 shadow-lg text-white text-lg font-semibold transition">
           Join Us
         </a>
-        <!-- quick IG follow -->
         <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener" aria-label="Follow us on Instagram"
            class="inline-flex items-center justify-center px-5 py-4 rounded-full bg-white/15 hover:bg-white/25 border border-white/30 text-white text-base font-semibold transition">
           <span class="mr-2">📸</span> @we.are.eleven.official
@@ -100,48 +91,14 @@
     </div>
   </section>
 
-  <!-- 💬 Testimonials Slider -->
-  <section class="bg-slate-50 py-16">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold mb-8">What Captains Say</h2>
-      <div id="testimonial" class="rounded-2xl border bg-white p-8 shadow-sm min-h-[140px] flex flex-col items-center justify-center">
-        <p class="text-lg leading-relaxed" id="testimonial-text">
-          “Best organized amateur tournament in the city!” – Subhojit, Captain of Amigos FC
-        </p>
-      </div>
-      <div class="mt-6 flex items-center justify-center gap-3">
-        <button id="prevTest" class="px-3 py-1 rounded-full border bg-white hover:bg-slate-100">Prev</button>
-        <button id="nextTest" class="px-3 py-1 rounded-full border bg-white hover:bg-slate-100">Next</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 🖼️ Matchday Gallery -->
-  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-    <div class="flex items-center justify-between mb-6">
-      <h2 class="text-3xl font-bold">Action Shots</h2>
-      <a href="gallery.html" class="text-sm font-semibold text-blue-600 hover:underline">View all photos</a>
-    </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-      <img src="assets/img/gallery-1.jpg" alt="Match action 1" class="rounded-xl object-cover aspect-[4/3]" loading="lazy" />
-      <img src="assets/img/gallery-2.jpg" alt="Match action 2" class="rounded-xl object-cover aspect-[4/3]" loading="lazy" />
-      <img src="assets/img/gallery-3.jpg" alt="Match action 3" class="rounded-xl object-cover aspect-[4/3]" loading="lazy" />
-      <img src="assets/img/gallery-4.jpg" alt="Match action 4" class="rounded-xl object-cover aspect-[4/3]" loading="lazy" />
-      <img src="assets/img/gallery-5.jpg" alt="Match action 5" class="rounded-xl object-cover aspect-[4/3]" loading="lazy" />
-      <img src="assets/img/gallery-6.jpg" alt="Match action 6" class="rounded-xl object-cover aspect-[4/3]" loading="lazy" />
-      <img src="assets/img/gallery-7.jpg" alt="Match action 7" class="rounded-xl object-cover aspect-[4/3]" loading="lazy" />
-      <img src="assets/img/gallery-8.jpg" alt="Match action 8" class="rounded-xl object-cover aspect-[4/3]" loading="lazy" />
-    </div>
-  </section>
-
-  <!-- ▶️ Highlights / Social -->
+  <!-- ▶️ Combined Highlights + Action Shots -->
   <section class="bg-slate-50 py-16">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <!-- Left: Video -->
         <div>
           <h2 class="text-3xl font-bold mb-4">Highlights</h2>
           <div class="aspect-video rounded-2xl overflow-hidden shadow">
-            <!-- swapped to your link -->
             <iframe class="w-full h-full"
               src="https://www.youtube.com/embed/JrzIIz7uas4"
               title="Independence Cup 2025 Highlights"
@@ -156,38 +113,55 @@
           </a>
         </div>
 
-        <!-- Instagram section wired to your handle -->
+        <!-- Right: 2x2 photos -->
         <div>
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div class="w-full aspect-square overflow-hidden rounded-xl border shadow">
-              <blockquote class="instagram-media"
-                          data-instgrm-permalink="https://www.instagram.com/p/DN2ITeCZIV5/"
-                          data-instgrm-version="14"
-                          style="width:100%; height:100%; margin:0; border:0;">
-              </blockquote>
-            </div>
-          
-            <div class="w-full aspect-square overflow-hidden rounded-xl border shadow">
-              <blockquote class="instagram-media"
-                          data-instgrm-permalink="https://www.instagram.com/p/DN2JLYx3KS5/"
-                          data-instgrm-version="14"
-                          style="width:100%; height:100%; margin:0; border:0;">
-              </blockquote>
-            </div>
+          <h2 class="text-3xl font-bold mb-4">Action Shots</h2>
+          <div class="grid grid-cols-2 gap-3">
+            <a href="gallery.html" class="group rounded-2xl overflow-hidden border bg-white shadow-sm">
+              <img src="assets/img/gallery-1.jpg" alt="Match action" class="w-full h-full object-cover aspect-square transition-transform duration-200 group-hover:scale-[1.03]" loading="lazy" />
+            </a>
+            <a href="gallery.html" class="group rounded-2xl overflow-hidden border bg-white shadow-sm">
+              <img src="assets/img/gallery-2.jpg" alt="Match action" class="w-full h-full object-cover aspect-square transition-transform duration-200 group-hover:scale-[1.03]" loading="lazy" />
+            </a>
+            <a href="gallery.html" class="group rounded-2xl overflow-hidden border bg-white shadow-sm">
+              <img src="assets/img/gallery-3.jpg" alt="Match action" class="w-full h-full object-cover aspect-square transition-transform duration-200 group-hover:scale-[1.03]" loading="lazy" />
+            </a>
+            <a href="gallery.html" class="group rounded-2xl overflow-hidden border bg-white shadow-sm">
+              <img src="assets/img/gallery-4.jpg" alt="Match action" class="w-full h-full object-cover aspect-square transition-transform duration-200 group-hover:scale-[1.03]" loading="lazy" />
+            </a>
           </div>
-
-          <!-- Optional: a clean CTA -->
-          <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
-             class="mt-4 inline-flex items-center rounded-full bg-black text-white px-4 py-2 text-sm font-semibold hover:bg-gray-800">
-            📸 Follow us on Instagram
-          </a>
         </div>
+      </div>
+
+      <!-- Instagram handle CTA below -->
+      <div class="mt-8 flex items-center justify-between flex-wrap gap-3">
+        <div class="text-lg font-semibold">Follow us on Instagram</div>
+        <a href="https://www.instagram.com/we.are.eleven.official/" target="_blank" rel="noopener"
+           class="inline-flex items-center rounded-full bg-black text-white px-4 py-2 text-sm font-semibold hover:bg-gray-800">
+          📸 @we.are.eleven.official
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💬 Testimonials -->
+  <section class="bg-white py-16">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold mb-8">What Captains Say</h2>
+      <div id="testimonial" class="rounded-2xl border bg-white p-8 shadow-sm min-h-[140px] flex flex-col items-center justify-center">
+        <p class="text-lg leading-relaxed" id="testimonial-text">
+          “Best organized amateur tournament in the city!” – Subhojit, Captain of Amigos FC
+        </p>
+      </div>
+      <div class="mt-6 flex items-center justify-center gap-3">
+        <button id="prevTest" class="px-3 py-1 rounded-full border bg-white hover:bg-slate-100">Prev</button>
+        <button id="nextTest" class="px-3 py-1 rounded-full border bg-white hover:bg-slate-100">Next</button>
       </div>
     </div>
   </section>
 
   <!-- ✅ Footer -->
-  <footer class="bg-gray-950 py-6 text-center text-gray-400 mt-12">
+  <footer class="bg-gray-950 py-6 text-center text-gray-400 mt-0">
     <p>© 2025 Football Community. All Rights Reserved.</p>
   </footer>
 
