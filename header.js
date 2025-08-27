@@ -10,6 +10,7 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
     { key: "tournaments", label: "Tournaments", href: "tournament.html" },
     { key: "about", label: "About Us", href: "about_us.html" },
     { key: "admin", label: "Admin", href: "admin.html" },
+    { key: "photos", label: "Photos", href: "gallery.html" } // ← NEW
   ];
 
   const link = (item, mobile = false) => {
