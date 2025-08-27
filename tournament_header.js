@@ -9,6 +9,7 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
     { key: "teams", label: "Teams", href: "team_list.html" },
     { key: "fixtures", label: "Fixtures", href: "team_fixtures.html" },
     { key: "tournaments", label: "Independence Cup", href: "independence_cup_2025.html" },
+    { key: "photos", label: "Photos", href: "gallery.html" } // ← NEW
   ];
 
   const link = (item, mobile = false) => {
@@ -54,7 +55,7 @@ export function injectHeader(targetSelector, { active = "" } = {}) {
           </button>
         </div>
       </div>
-</nav>
+    </nav>
 
     <!-- Mobile nav -->
     <div class="md:hidden hidden" id="mobile-menu">
