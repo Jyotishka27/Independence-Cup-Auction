@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Photos - We Are Eleven</title>
+  <title>Photos & Videos - We Are Eleven</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Base look & feel to match your standings page */
@@ -18,6 +18,10 @@
     .photo-img { display: block; width: 100%; height: 220px; object-fit: cover; transition: transform .35s ease; }
     .photo-card:hover .photo-img { transform: scale(1.03); }
     .photo-meta { padding: .85rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+
+    /* Video cards */
+    .video-card { border-radius: 1rem; border: 1px solid #e5e7eb; overflow: hidden; background: #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.08); display: flex; flex-direction: column; }
+    .video-thumb { aspect-ratio: 16 / 9; width: 100%; }
 
     .chip { font-size: .72rem; padding: .2rem .55rem; border-radius: 9999px; border: 1px solid #cbd5e1; background:#f8fafc; white-space: nowrap; }
 
@@ -34,8 +38,8 @@
     <section class="section-header rounded-2xl shadow-lg p-8">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
-          <h1 class="text-4xl font-extrabold text-gray-900">Photo Gallery</h1>
-          <p class="mt-2 text-gray-600">Highlights from groups, knockouts, and behind-the-scenes. Click any photo to view full-screen.</p>
+          <h1 class="text-4xl font-extrabold text-gray-900">Media Gallery</h1>
+          <p class="mt-2 text-gray-600">Browse photos and videos from groups, knockouts, and behind-the-scenes. Click any photo to view full-screen.</p>
         </div>
         <div class="flex items-center gap-3">
           <button id="downloadAllBtn" class="px-3 py-2 rounded-xl border bg-white hover:bg-slate-50 text-sm">Download selected</button>
@@ -58,8 +62,9 @@
       </div>
     </section>
 
-    <!-- Gallery Grid -->
+    <!-- Gallery Grid (PHOTOS) -->
     <section class="section-header rounded-2xl shadow-lg p-6">
+      <h2 class="text-xl font-bold mb-4">Photos</h2>
       <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="gallery">
         <!-- SAMPLE CARDS — replace src with your paths -->
         <figure class="photo-card" data-category="group-a" data-title="Group A kickoff">
@@ -114,28 +119,61 @@
       </div>
     </section>
 
-    <!-- Video Section (added) -->
+    <!-- Video Section (with same filters) -->
     <section class="section-header rounded-2xl shadow-lg p-8">
       <h2 class="text-2xl font-bold mb-4">Tournament Videos</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Video card -->
-        <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-white">
-          <div class="aspect-video">
-            <!-- Replace the src with your YouTube ID or self-hosted video embed -->
-            <iframe
-              class="w-full h-full"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              title="Tournament Highlights"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
+      <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Group Stage examples -->
+        <article class="video-card" data-category="group-a">
+          <div class="video-thumb">
+            <iframe class="w-full h-full" src="https://youtu.be/-uOE6Pf3Yr4" title="Group A: Matchday Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </div>
-          <div class="p-4">
-            <h3 class="text-lg font-semibold">Tournament Highlights</h3>
-            <p class="text-sm text-gray-600">Big moments, top goals, and the best saves.</p>
+          <div class="p-4 flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold truncate">Independence Cup 2025 | Group A | Match 3 | White Panthers 🆚 Thunderbolt</h3>
+            <span class="chip">Group A</span>
           </div>
-        </div>
-        <!-- Duplicate this block for more videos -->
+        </article>
+
+        <article class="video-card" data-category="group-b">
+          <div class="video-thumb">
+            <iframe class="w-full h-full" src="https://youtu.be/JrzIIz7uas4" title="Group B: Matchday Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold truncate">Independence Cup 2025 | Group B | Match 3 | Amigo FC 🆚 Strawhat Pirates</h3>
+            <span class="chip">Group B</span>
+          </div>
+        </article>
+
+        <!-- Knockouts -->
+        <article class="video-card" data-category="semis">
+          <div class="video-thumb">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Semi-finals Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold truncate">Semi-finals · Highlights</h3>
+            <span class="chip">Semi-finals</span>
+          </div>
+        </article>
+
+        <article class="video-card" data-category="third">
+          <div class="video-thumb">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Third Place Match" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold truncate">Third Place · Full Match</h3>
+            <span class="chip">Third Place</span>
+          </div>
+        </article>
+
+        <article class="video-card" data-category="final">
+          <div class="video-thumb">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Final Match" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <div class="p-4 flex items-center justify-between gap-2">
+            <h3 class="text-sm font-semibold truncate">Final · Full Match</h3>
+            <span class="chip">Final</span>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -165,17 +203,23 @@
     injectHeader("#site-header", { active: "tournament_photos" });
   </script>
 
-  <!-- Gallery interactions -->
+  <!-- Gallery + Video interactions -->
   <script>
     // --- Filtering ---
     const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
-    const gallery = document.getElementById('gallery');
-    const cards = Array.from(gallery.querySelectorAll('.photo-card'));
+    const photoGrid = document.getElementById('gallery');
+    const videoGrid = document.getElementById('videoGrid');
+
+    const photoCards = Array.from(photoGrid.querySelectorAll('.photo-card'));
+    const videoCards = Array.from(videoGrid.querySelectorAll('.video-card'));
+
+    // Anything with a data-category is filterable (photos + videos)
+    const filterables = [...photoCards, ...videoCards];
 
     function applyFilter(cat) {
-      cards.forEach(card => {
-        const show = cat === 'all' || card.dataset.category === cat;
-        card.classList.toggle('hidden', !show);
+      filterables.forEach(el => {
+        const show = cat === 'all' || el.dataset.category === cat;
+        el.classList.toggle('hidden', !show);
       });
     }
 
@@ -187,7 +231,7 @@
       });
     });
 
-    // --- Lightbox ---
+    // --- Lightbox (PHOTOS ONLY) ---
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbCap = document.getElementById('lbCap');
@@ -196,10 +240,10 @@
     const lbNext = document.getElementById('lbNext');
 
     let currentIndex = -1;
-    const visibleCards = () => cards.filter(c => !c.classList.contains('hidden'));
+    const visiblePhotoCards = () => photoCards.filter(c => !c.classList.contains('hidden'));
 
     function openAt(index) {
-      const list = visibleCards();
+      const list = visiblePhotoCards();
       if (!list.length) return;
       currentIndex = Math.max(0, Math.min(index, list.length - 1));
       const fig = list[currentIndex];
@@ -219,7 +263,7 @@
     }
 
     function step(dir) {
-      const list = visibleCards();
+      const list = visiblePhotoCards();
       if (!list.length) return;
       currentIndex = (currentIndex + dir + list.length) % list.length;
       const fig = list[currentIndex];
@@ -229,10 +273,10 @@
       lbCap.textContent = fig.dataset.title || img.alt || '';
     }
 
-    cards.forEach((fig, i) => {
+    photoCards.forEach((fig) => {
       fig.addEventListener('click', () => {
-        // derive index among currently visible items
-        const vis = visibleCards();
+        // derive index among currently visible photo items
+        const vis = visiblePhotoCards();
         const idx = vis.indexOf(fig);
         openAt(idx === -1 ? 0 : idx);
       });
@@ -271,12 +315,16 @@
             <span class="chip">Uploaded</span>
           </figcaption>
         `;
+        // add to photoCards + filterables runtime lists
+        photoGrid.prepend(fig);
+        photoCards.unshift(fig);
+        filterables.unshift(fig);
+
         fig.addEventListener('click', () => {
-          const vis = visibleCards();
+          const vis = visiblePhotoCards();
           const idx = vis.indexOf(fig);
           openAt(idx === -1 ? 0 : idx);
         });
-        gallery.prepend(fig);
       });
       uploader.value = '';
     });
